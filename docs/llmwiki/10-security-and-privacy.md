@@ -114,3 +114,23 @@ Both public forms — the report and the newsletter — carry a nonce. A nonce
 lives about a day, so whenever full-page caching arrives a page holding one of
 these forms must not be served from a cache older than that.
 
+## Caddy runs directives in its own order, not yours
+
+Everything the site refuses or adds at the edge lives in **one `route`** in
+`docker/Caddyfile`, and the order inside it is the order that runs: the refusal
+of `/wp-config.php` and friends, then the security headers, then `php_server`.
+
+Outside a route, Caddy sorts directives by its own list, and that cost two
+defects in ten minutes:
+
+1. `php_server` sorts before `header` and terminates the chain, so
+   `X-Content-Type-Options`, `Referrer-Policy` and `X-Frame-Options` were
+   configured and never sent.
+2. Moving only `header` and `php_server` into a route left `respond` outside
+   it, running too late: **`/wp-config.php` and `/xmlrpc.php` answered 200**,
+   handed to PHP.
+
+Neither was visible in a browser — the headers are invisible by nature, and
+nobody types `/wp-config.php` by hand. The end-to-end tests reported both on
+the first run after the change. This is what they are for.
+
