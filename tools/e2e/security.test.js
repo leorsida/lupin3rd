@@ -13,10 +13,16 @@ test('the REST API does not hand out the list of people', async () => {
 });
 
 test('?author=1 does not reveal a pseudonym', async () => {
+	/*
+	 * Sending the reader somewhere else is the protection, so a redirect is the
+	 * right answer. What matters is where it points: anywhere but the author
+	 * archive, whose slug is the pseudonym.
+	 */
 	const probe = await get('/?author=1');
+	const destination = String(probe.headers.get('location') || '');
 
-	assert.notEqual(probe.status, 301, 'author enumeration still redirects to the author archive');
-	assert.notEqual(probe.status, 302, 'author enumeration still redirects to the author archive');
+	assert.doesNotMatch(destination, /\/author\/|\/membri\//, `author enumeration leads to ${destination}`);
+	assert.doesNotMatch(probe.body, /\/author\/[^"']+/, 'the body carries an author archive URL');
 });
 
 test('XML-RPC is shut', async () => {

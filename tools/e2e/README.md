@@ -35,6 +35,22 @@ They read the demo content through the sitemaps, so run
 the content does not have — a comment, a numbered code block — skips itself
 rather than failing.
 
+## Why not `fetch()`
+
+WordPress knows what it is called — `WP_HOME` — and redirects anything that
+asks by another name. Inside the compose network the site answers as `app`, so
+every request was a 301 towards `localhost:8080`, a host this container cannot
+reach: eighteen tests out of twenty-eight failed on the same redirect.
+
+The cure is to connect to `app` while asking for `localhost:8080`. `fetch()`
+cannot do that — `Host` is a forbidden header, dropped without a word — so the
+helper uses `node:http`, which sets it without argument.
+
+The name is configured nowhere: `helpers.js` reads it from the sitemap, which
+lists absolute URLs and is served without a canonical redirect. The site says
+what it is called, and the tests call it that. `E2E_SITE_HOST` overrides, if a
+setup ever needs it to.
+
 ## What each file watches
 
 | File | Watches |

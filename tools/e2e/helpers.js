@@ -1,13 +1,29 @@
 /*
- * Enough HTML handling to make assertions about a rendered page, with no
- * dependencies: Node's own test runner and fetch, nothing installed.
+ * Enough HTTP and HTML handling to make assertions about a rendered page, with
+ * no dependencies: Node's own test runner and http module, nothing installed.
  *
- * These tests exist because of what the theme's first fourteen defects had in
- * common — not one of them produced an error anywhere. A card rendered three
- * times, an overlay that never opened, blocks that were never registered: all
- * of them were visible only by loading the page, and all of them would have
- * been caught here.
+ * These tests exist because of what this theme's defects had in common — not
+ * one of them produced an error anywhere. A card rendered three times, an
+ * overlay that never opened, blocks that were never registered: all of them
+ * were visible only by loading the page, and all of them would have been caught
+ * here.
+ *
+ * ## Why not fetch()
+ *
+ * WordPress knows what it is called — `WP_HOME` — and redirects anything that
+ * asks by another name. Inside the compose network the site answers as `app`,
+ * so every request would be a 301 towards a host this container cannot reach.
+ * The cure is to connect to `app` while asking for `localhost:8080`, and
+ * `fetch()` cannot do that: `Host` is a forbidden header, silently dropped.
+ * `node:http` sets it without argument.
+ *
+ * The name is not configured anywhere: the sitemap says it, because it lists
+ * absolute URLs and is served without a canonical redirect. The site tells us
+ * what to call it, and we call it that.
  */
+
+import http from 'node:http';
+import https from 'node:https';
 
 const BASE = (process.env.BASE_URL || 'http://app').replace(/\/$/, '');
 
@@ -17,13 +33,78 @@ const VOID_ELEMENTS = new Set([
 ]);
 
 /**
+ * One request, with the Host header we were given.
+ */
+function request(path, { method = 'GET', headers = {}, body = null, host = null } = {}) {
+	const target = new URL(BASE + path);
+	const client = target.protocol === 'https:' ? https : http;
+	const sent = { ...headers };
+
+	if (host) {
+		sent.Host = host;
+	}
+
+	return new Promise((resolve, reject) => {
+		const call = client.request(
+			target,
+			{ method, headers: sent },
+			(response) => {
+				let text = '';
+
+				response.setEncoding('utf8');
+				response.on('data', (chunk) => {
+					text += chunk;
+				});
+				response.on('end', () => {
+					resolve({
+						status: response.statusCode,
+						headers: {
+							get(name) {
+								const value = response.headers[String(name).toLowerCase()];
+
+								return Array.isArray(value) ? value.join(', ') : (value ?? null);
+							},
+						},
+						body: text,
+						url: BASE + path,
+					});
+				});
+			}
+		);
+
+		call.on('error', reject);
+
+		if (body) {
+			call.write(body);
+		}
+
+		call.end();
+	});
+}
+
+/**
+ * The name the site calls itself, read from the sitemap it publishes.
+ */
+const SITE_HOST = await (async () => {
+	if (process.env.E2E_SITE_HOST) {
+		return process.env.E2E_SITE_HOST;
+	}
+
+	try {
+		const sitemap = await request('/wp-sitemap.xml');
+		const first = /<loc>([^<]+)<\/loc>/.exec(sitemap.body);
+
+		return first ? new URL(first[1]).host : new URL(BASE).host;
+	} catch {
+		return new URL(BASE).host;
+	}
+})();
+
+/**
  * Fetch a path and return { status, headers, body }.
  */
 export async function get(path, options = {}) {
-	const response = await fetch(BASE + path, { redirect: 'manual', ...options });
-	const body = await response.text();
-
-	return { status: response.status, headers: response.headers, body, url: BASE + path };
+	return request(path, { ...options, host: SITE_HOST });
 }
 
 /**
@@ -127,11 +208,11 @@ export function count(html, pattern) {
 /**
  * Every external host the page asks the browser to contact.
  *
- * The colophon promises no third party in the page. This is how that promise
- * is checked rather than believed.
+ * The colophon promises no third party in the page. This is how that promise is
+ * checked rather than believed.
  */
 export function externalHosts(html, ownHosts = []) {
-	const own = new Set([new URL(BASE).host, ...ownHosts]);
+	const own = new Set([new URL(BASE).host, SITE_HOST, ...ownHosts]);
 	const hosts = new Set();
 	const walker = /(?:src|href)="(https?:\/\/[^"]+)"/gi;
 
@@ -149,17 +230,10 @@ export function externalHosts(html, ownHosts = []) {
 }
 
 /**
- * The host the site calls itself, read from its own canonical link.
- *
- * The tests can run against http://app inside the compose network or against
- * http://localhost:8080 from the host; either way the pages link to whatever
- * WP_HOME says, and that is not a third party.
+ * The host the site calls itself.
  */
 export async function siteHost() {
-	const html = await page('/');
-	const canonical = /<link rel="canonical" href="([^"]+)"/.exec(html) || /<meta property="og:url" content="([^"]+)"/.exec(html);
-
-	return canonical ? new URL(canonical[1]).host : new URL(BASE).host;
+	return SITE_HOST;
 }
 
-export { BASE };
+export { BASE, SITE_HOST };
