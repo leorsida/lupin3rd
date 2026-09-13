@@ -105,10 +105,8 @@ final class Template_Tags {
 		 * belongs there before it belongs to the news at large.
 		 */
 		if ( is_singular( 'post' ) ) {
-			foreach ( (array) get_the_category() as $category ) {
-				if ( $category instanceof \WP_Term ) {
-					$urls[] = get_category_link( $category->term_id );
-				}
+			foreach ( get_the_category() as $category ) {
+				$urls[] = get_category_link( $category->term_id );
 			}
 
 			$urls[] = home_url( '/' );
