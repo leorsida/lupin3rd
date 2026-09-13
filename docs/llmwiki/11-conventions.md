@@ -161,6 +161,14 @@ satisfy `Squiz.Commenting.BlockComment.NoNewLine` and produced
 `CloserSameLine`, which it then reported as an error. A banner is not a doc
 comment: `// --- Name ---` ends the argument.
 
+**`setcookie()` encodes the value; `setrawcookie()` is the one that does not.**
+A value url-encoded before being handed to `setcookie()` goes out encoded
+twice. `$_COOKIE` decodes once, so PHP never notices; a script decodes once and
+gets a string that still looks like `%7B%22name`, fails to parse it, and does
+nothing — no error anywhere. It also writes a space as `+`, which
+`decodeURIComponent` does not undo. Hand it the plain value, and put the `+`
+back on the way in.
+
 **A block comment always wants a blank line above it — inside an array too.**
 `Squiz.Commenting.BlockComment.NoEmptyLineBefore` fires wherever a `/* … */`
 follows a line of code directly: after the last `add_filter()` in

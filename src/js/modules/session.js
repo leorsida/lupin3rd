@@ -23,7 +23,14 @@ const readHint = () => {
 	}
 
 	try {
-		const value = JSON.parse(decodeURIComponent(found.slice(HINT.length + 1)));
+		/*
+		 * PHP's setcookie() encodes the value with urlencode(), which writes a
+		 * space as `+`. decodeURIComponent does not know that convention, so
+		 * the plus is put back first. No field carries a space today; this is
+		 * here so that the day one does, it does not fail silently.
+		 */
+		const raw = found.slice(HINT.length + 1).replace(/\+/g, '%20');
+		const value = JSON.parse(decodeURIComponent(raw));
 
 		return value && typeof value.name === 'string' ? value : null;
 	} catch (error) {
@@ -98,7 +105,7 @@ export default function initSession() {
 
 		const open = 'true' === chip.getAttribute('aria-expanded');
 
-		show(panel, open);
+		show(panel, !open);
 		chip.setAttribute('aria-expanded', String(!open));
 	});
 

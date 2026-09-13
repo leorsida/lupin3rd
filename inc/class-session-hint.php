@@ -93,7 +93,11 @@ final class Session_Hint {
 			? sanitize_text_field( wp_unslash( $_COOKIE[ self::COOKIE ] ) )
 			: '';
 
-		if ( $user->exists() && $current !== $this->value( $user ) ) {
+		/*
+		 * Both sides pass through the same filter, so whatever it does to a
+		 * brace or a quote it does to both and the comparison stays honest.
+		 */
+		if ( $user->exists() && $current !== sanitize_text_field( $this->value( $user ) ) ) {
 			$this->write( $user );
 		}
 	}
@@ -134,14 +138,20 @@ final class Session_Hint {
 	private function value( \WP_User $user ): string {
 		$seed = Profile_Fields::avatar_seed( $user );
 
-		return rawurlencode(
-			(string) wp_json_encode(
-				array(
-					'name'    => Profile_Fields::pseudonym( $user ),
-					'mark'    => Profile_Fields::initials( $user ),
-					'pattern' => Marks::avatar_variant( $seed ),
-					'profile' => wp_make_link_relative( Community::profile_url( $user ) ),
-				)
+		/*
+		 * Plain JSON, not url-encoded: setcookie() encodes the value itself —
+		 * that is what setrawcookie() exists to avoid — so encoding it here
+		 * would send it encoded twice. The reader's script would then decode
+		 * once, get a string that still looks like %7B%22name, fail to parse it
+		 * and leave the header saying «Accedi» to somebody who is signed in.
+		 * Which is exactly what it did.
+		 */
+		return (string) wp_json_encode(
+			array(
+				'name'    => Profile_Fields::pseudonym( $user ),
+				'mark'    => Profile_Fields::initials( $user ),
+				'pattern' => Marks::avatar_variant( $seed ),
+				'profile' => wp_make_link_relative( Community::profile_url( $user ) ),
 			)
 		);
 	}
