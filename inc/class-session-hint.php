@@ -97,7 +97,7 @@ final class Session_Hint {
 		 * Both sides pass through the same filter, so whatever it does to a
 		 * brace or a quote it does to both and the comparison stays honest.
 		 */
-		if ( $user->exists() && $current !== sanitize_text_field( $this->value( $user ) ) ) {
+		if ( $user->exists() && sanitize_text_field( $this->value( $user ) ) !== $current ) {
 			$this->write( $user );
 		}
 	}
