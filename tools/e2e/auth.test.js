@@ -124,3 +124,25 @@ test('the account corner is in every page and is the same for everybody', async 
 		assert.doesNotMatch(corner, /_wpnonce/, 'the header carries a per-reader nonce');
 	}
 });
+
+test('the page tells the script what to do without telling it anything worth stealing', { skip }, async () => {
+	/*
+	 * The header cannot ask PHP who is reading, so PHP leaves a cookie. What
+	 * matters is what is *not* in it: no identifier, no token, nothing the
+	 * server would believe. If this ever carries a role, a capability or an id,
+	 * somebody has turned a display hint into a credential.
+	 */
+	const html = await page('/');
+
+	assert.match(html, /data-account-chip/, 'no account chip to correct');
+	assert.match(html, /data-account-name/, 'the script has nowhere to write the pseudonym');
+
+	const src = /<script[^>]+src="([^"]*lupin3rd[^"]*\.js[^"]*)"/.exec(html);
+
+	assert.ok(src, 'the page loads no theme bundle');
+
+	const bundle = await page(new URL(src[1], 'http://placeholder').pathname);
+
+	assert.match(bundle, /l3_hint/, 'the bundle does not read the hint cookie');
+	assert.doesNotMatch(bundle, /innerHTML\s*=\s*\w*hint/i, 'the hint is written as markup');
+});

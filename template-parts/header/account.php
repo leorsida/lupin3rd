@@ -33,7 +33,7 @@ defined( 'ABSPATH' ) || exit;
 
 	<div class="account-menu hidden" id="account-panel" data-account-panel>
 		<span class="account-menu-head meta" data-account-name></span>
-		<a href="<?php echo esc_url( Authentication::account_url() ); ?>"><?php esc_html_e( 'Il tuo profilo', 'lupin3rd' ); ?></a>
+		<a href="<?php echo esc_url( Authentication::account_url() ); ?>" data-account-profile><?php esc_html_e( 'Il tuo profilo', 'lupin3rd' ); ?></a>
 		<a href="<?php echo esc_url( home_url( '/comunita/' ) ); ?>"><?php esc_html_e( 'Comunità', 'lupin3rd' ); ?></a>
 		<a href="<?php echo esc_url( Authentication::sign_in_url() ); ?>"><?php esc_html_e( 'Esci', 'lupin3rd' ); ?></a>
 	</div>

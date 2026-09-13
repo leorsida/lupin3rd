@@ -168,7 +168,7 @@ successiva finché quel comando non è verde.
 | **C4 — Secondo fattore** | `Two_Factor`: iscrizione TOTP nell'area personale, sfida al secondo passo, codici di recupero, obbligo per collaboratori e redazione. | test unitario sul generatore TOTP con i vettori della RFC 6238; e2e: un collaboratore senza TOTP non completa l'accesso. |
 | **C5 — Area personale** | `/account/`: notifiche, segnalibri, sessioni, preferenze email, modale del profilo. | e2e: l'area risponde 200 solo con sessione; nessun dato di un altro account è raggiungibile cambiando un ID nell'URL. |
 | **C6 — Dati** | `Privacy`: esportazione e cancellazione, interventi che restano firmati «account rimosso». | test: cancellato un account di prova, i suoi commenti esistono ancora e non portano più lo pseudonimo. |
-| **C7 — Testata** | `Session_Hint` + `session.js`: l'HTML pubblico è identico per tutti, la testata si corregge dal cookie. | e2e: la home servita a un account connesso e a un anonimo ha lo **stesso** corpo HTML. |
+| **C7 — Testata** ✓ | `Session_Hint` + `session.js`: l'HTML pubblico è identico per tutti, la testata si corregge dal cookie. | e2e: la home servita a un account connesso e a un anonimo ha lo **stesso** corpo HTML. |
 
 Stima: C1 1 g · C2 1 g · C3 1,5 g · C4 1 g · C5 1 g · C6 0,5 g · C7 0,5 g ≈ **6,5 giorni**.
 
