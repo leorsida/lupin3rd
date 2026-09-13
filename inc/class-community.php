@@ -487,11 +487,11 @@ final class Community {
 	private static function median_wait(): int {
 		$comments = get_comments(
 			array(
-				'status'     => 'approve',
-				'number'     => 50,
-				'orderby'    => 'comment_date_gmt',
-				'order'      => 'DESC',
-				'meta_key'   => self::APPROVED_AT_META, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+				'status'   => 'approve',
+				'number'   => 50,
+				'orderby'  => 'comment_date_gmt',
+				'order'    => 'DESC',
+				'meta_key' => self::APPROVED_AT_META, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
 			)
 		);
 
@@ -533,6 +533,7 @@ final class Community {
 			array(
 				'orderby' => 'registered',
 				'order'   => 'DESC',
+
 				/*
 				 * Asked for more than are needed because the role filter runs
 				 * in PHP: «desk» is a capability, not a role slug, so it cannot
