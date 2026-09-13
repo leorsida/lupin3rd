@@ -68,6 +68,10 @@ final class Community {
 		 */
 		add_filter( 'pre_comment_approved', array( $this, 'hold_first_contributions' ), 10, 2 );
 		add_action( 'transition_comment_status', array( $this, 'recount_contributions' ), 10, 3 );
+		add_action( 'transition_comment_status', array( $this, 'record_approval' ), 10, 3 );
+
+		// The member list filters on the server, like every other filter here.
+		add_filter( 'query_vars', array( $this, 'register_query_vars' ) );
 
 		// Members have no business in wp-admin, and no reason to see its bar.
 		add_filter( 'show_admin_bar', array( $this, 'hide_admin_bar' ) );
@@ -368,5 +372,268 @@ final class Community {
 		);
 
 		return array_values( array_filter( $comments, static fn ( $comment ): bool => $comment instanceof \WP_Comment ) );
+	}
+
+	/**
+	 * Comment meta holding when the desk let a contribution through.
+	 *
+	 * About the desk's own speed, not about the reader: it is the difference
+	 * between two timestamps the site already has, and it is what makes the
+	 * «attesa media in moderazione» on /comunita/ a measurement instead of a
+	 * claim.
+	 */
+	public const APPROVED_AT_META = 'l3_approved_at';
+
+	/**
+	 * Query variable the member list filters on.
+	 */
+	public const ROLE_VAR = 'l3_role';
+
+	/**
+	 * Let WordPress read the role filter.
+	 *
+	 * @param array<int, string> $vars Public query variables.
+	 * @return array<int, string>
+	 */
+	public function register_query_vars( array $vars ): array {
+		$vars[] = self::ROLE_VAR;
+
+		return $vars;
+	}
+
+	/**
+	 * Write down when a contribution was let through.
+	 *
+	 * @param string      $new_status New comment status.
+	 * @param string      $old_status Previous comment status.
+	 * @param \WP_Comment $comment    Comment that moved.
+	 */
+	public function record_approval( $new_status, $old_status, $comment ): void {
+		if ( 'approved' !== $new_status || 'approved' === $old_status ) {
+			return;
+		}
+
+		if ( ! $comment instanceof \WP_Comment ) {
+			return;
+		}
+
+		add_comment_meta( (int) $comment->comment_ID, self::APPROVED_AT_META, time(), true );
+	}
+
+	/**
+	 * The four numbers at the top of /comunita/.
+	 *
+	 * «Account attivi» counts accounts with at least one published
+	 * contribution, not accounts that signed in this year: the site keeps no
+	 * record of when anybody signed in, and counting dormant registrations to
+	 * make the number bigger is exactly what the prototype says it does not do.
+	 * See D-025.
+	 *
+	 * @return array<string, int>
+	 */
+	public static function stats(): array {
+		$cached = get_transient( 'l3_community_stats' );
+
+		if ( is_array( $cached ) ) {
+			return $cached;
+		}
+
+		$active = new \WP_User_Query(
+			array(
+				'meta_key'     => Profile_Fields::CONTRIBUTIONS, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+				'meta_value'   => 0,                             // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
+				'meta_compare' => '>',
+				'meta_type'    => 'NUMERIC',
+				'fields'       => 'ID',
+				'number'       => -1,
+			)
+		);
+
+		$recent = get_comments(
+			array(
+				'status'     => 'approve',
+				'date_query' => array( array( 'after' => '30 days ago' ) ),
+				'count'      => true,
+			)
+		);
+
+		$corrections = get_comments(
+			array(
+				'status'     => 'approve',
+				'meta_key'   => self::CORRECTION_META, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+				'date_query' => array( array( 'year' => (int) gmdate( 'Y' ) ) ),
+				'count'      => true,
+			)
+		);
+
+		$stats = array(
+			'members'     => count( $active->get_results() ),
+			'recent'      => (int) $recent,
+			'corrections' => (int) $corrections,
+			'wait'        => self::median_wait(),
+		);
+
+		set_transient( 'l3_community_stats', $stats, HOUR_IN_SECONDS );
+
+		return $stats;
+	}
+
+	/**
+	 * Median hours a contribution waited before appearing, over the last fifty.
+	 *
+	 * The median and not the mean: one comment held over a weekend would drag
+	 * an average into a number that describes nothing that happened.
+	 */
+	private static function median_wait(): int {
+		$comments = get_comments(
+			array(
+				'status'     => 'approve',
+				'number'     => 50,
+				'orderby'    => 'comment_date_gmt',
+				'order'      => 'DESC',
+				'meta_key'   => self::APPROVED_AT_META, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+			)
+		);
+
+		$waits = array();
+
+		foreach ( $comments as $comment ) {
+			if ( ! $comment instanceof \WP_Comment ) {
+				continue;
+			}
+
+			$filed    = (int) strtotime( $comment->comment_date_gmt . ' UTC' );
+			$approved = (int) get_comment_meta( (int) $comment->comment_ID, self::APPROVED_AT_META, true );
+
+			if ( $filed > 0 && $approved > $filed ) {
+				$waits[] = $approved - $filed;
+			}
+		}
+
+		if ( ! $waits ) {
+			return 0;
+		}
+
+		sort( $waits );
+
+		$middle = (int) floor( count( $waits ) / 2 );
+
+		return (int) round( $waits[ $middle ] / HOUR_IN_SECONDS );
+	}
+
+	/**
+	 * Accounts that registered most recently.
+	 *
+	 * @param int    $number How many.
+	 * @param string $role   Role key to filter on: member, contributor, desk.
+	 * @return array<int, \WP_User>
+	 */
+	public static function recent_members( int $number = 8, string $role = '' ): array {
+		$query = new \WP_User_Query(
+			array(
+				'orderby' => 'registered',
+				'order'   => 'DESC',
+				/*
+				 * Asked for more than are needed because the role filter runs
+				 * in PHP: «desk» is a capability, not a role slug, so it cannot
+				 * be a WP_User_Query argument without duplicating core's
+				 * capability map here.
+				 */
+				'number'  => '' === $role ? $number : $number * 6,
+			)
+		);
+
+		$members = array();
+
+		foreach ( $query->get_results() as $user ) {
+			if ( ! $user instanceof \WP_User ) {
+				continue;
+			}
+
+			if ( '' !== $role && self::role_key( $user ) !== $role ) {
+				continue;
+			}
+
+			$members[] = $user;
+
+			if ( count( $members ) >= $number ) {
+				break;
+			}
+		}
+
+		return $members;
+	}
+
+	/**
+	 * The most recent approved contributions, whoever wrote them.
+	 *
+	 * @param int $number How many.
+	 * @return array<int, \WP_Comment>
+	 */
+	public static function recent_contributions( int $number = 6 ): array {
+		$comments = get_comments(
+			array(
+				'status'  => 'approve',
+				'number'  => $number,
+				'orderby' => 'comment_date_gmt',
+				'order'   => 'DESC',
+			)
+		);
+
+		return array_values(
+			array_filter(
+				$comments,
+				static fn ( $comment ): bool => $comment instanceof \WP_Comment && (int) $comment->user_id > 0
+			)
+		);
+	}
+
+	/**
+	 * Accounts with the most published contributions.
+	 *
+	 * @param int $number How many rows.
+	 * @return array<int, \WP_User>
+	 */
+	public static function most_active( int $number = 5 ): array {
+		$query = new \WP_User_Query(
+			array(
+				'meta_key'     => Profile_Fields::CONTRIBUTIONS, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+				'meta_value'   => 0,                             // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
+				'meta_compare' => '>',
+				'meta_type'    => 'NUMERIC',
+				'orderby'      => 'meta_value_num',
+				'order'        => 'DESC',
+				'number'       => $number,
+			)
+		);
+
+		return array_values(
+			array_filter( $query->get_results(), static fn ( $user ): bool => $user instanceof \WP_User )
+		);
+	}
+
+	/**
+	 * The pieces being discussed most.
+	 *
+	 * @param int $number How many.
+	 * @return array<int, \WP_Post>
+	 */
+	public static function liveliest_posts( int $number = 4 ): array {
+		$posts = get_posts(
+			array(
+				'post_type'      => Content_Types::editorial_types(),
+				'posts_per_page' => $number,
+				'orderby'        => 'comment_count',
+				'order'          => 'DESC',
+				'no_found_rows'  => true,
+			)
+		);
+
+		return array_values(
+			array_filter(
+				$posts,
+				static fn ( $post ): bool => $post instanceof \WP_Post && (int) $post->comment_count > 0
+			)
+		);
 	}
 }

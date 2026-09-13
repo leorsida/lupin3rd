@@ -311,6 +311,15 @@ ensure_post page "cassetta-sicura" "Cassetta sicura" "Materiale sensibile: solo 
 ensure_post page "struttura" "Struttura del sito" "Come è costruito lupin3rd.org: colophon tecnico." \
   "<p>Tema proprietario, tre tipi di post, tre tassonomie, nessun page builder.</p><h2>Gerarchia dei template</h2><p>Testo di prova.</p>" >/dev/null
 
+# /comunita/ is a page with a template, not a route the theme invents: the
+# heading, the standfirst and the closing paragraph are editorial copy the desk
+# has to be able to rewrite. Everything counted on that page comes from the
+# database, not from this content.
+comm_id=$(ensure_post page "comunita" "Chi legge, corregge e alza la mano" \
+  "Un account qui serve a una cosa sola: firmare quello che scrivi sotto gli articoli e risponderne." \
+  "<p>Un account qui serve a una cosa sola: firmare quello che scrivi sotto gli articoli e risponderne. Niente bacheca personale, niente punteggi, niente rete di amicizie. Pseudonimo, chiave PGP se la usi, e la traccia pubblica dei tuoi interventi.</p>")
+wp post meta update "$comm_id" _wp_page_template "page-templates/template-community.php" >/dev/null
+
 # The archive is the blog index: it only gets a URL of its own once a page is
 # assigned as the posts page.
 home_id=$(ensure_post page "home" "Home" "" "")

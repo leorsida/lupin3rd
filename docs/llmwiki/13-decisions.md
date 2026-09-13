@@ -402,3 +402,29 @@ order of reading.
 
 *Rejected:* a bookmarks table with `added_at`. The moment a timestamp exists,
 the site holds a reading history, which the colophon says it does not.
+
+## D-025 — «Active account» means «has published», not «has signed in»
+
+**Decided:** 13.09.2026 · **Status:** accepted · **Phase:** community
+· **Deviates from:** `OD/comunita.html`
+
+`/comunita/` counts accounts with at least one approved contribution.
+
+The prototype defines it as «un account che ha fatto almeno un accesso negli
+ultimi dodici mesi». That number cannot be produced without keeping a record of
+when each account signed in, and the same page promises not to keep one. The
+choice is between a log nobody asked for and a different definition; the
+different definition is also the truer one, because the sentence the prototype
+appends — «non contiamo le iscrizioni dormienti per gonfiare il numero» — is
+about participation, not about sessions.
+
+The page states its own definition in the note under the numbers, so the
+measure is legible rather than merely different, and `community.test.js` checks
+that the note is there. `OD/comunita.html` and its English version have to be
+corrected to match.
+
+The median moderation wait on the same page needed a new field,
+`l3_approved_at`: it is about the desk's own speed, not about the reader, and
+it is the difference between two timestamps the site already holds. The median
+and not the mean — one comment held over a weekend drags an average into a
+number that describes nothing that happened.

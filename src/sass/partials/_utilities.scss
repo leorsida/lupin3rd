@@ -10,3 +10,6 @@
 .person { display: grid; grid-template-columns: 58px minmax(0,1fr); gap: 16px; align-items: start; }
 .person .mark { aspect-ratio: 1/1; }
 .mw-46 { max-width: 46ch; }
+/* A list that carries content rather than navigation: bullets kept, chrome not. */
+.plain-list { margin: 0; padding-left: 18px; font-size: 14px; color: var(--muted); }
+.plain-list li { margin-bottom: 4px; }

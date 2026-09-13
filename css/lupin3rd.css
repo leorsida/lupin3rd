@@ -179,6 +179,10 @@ h1, h2, h3, h4 {
   gap: var(--gap-md);
 }
 
+.row-tight {
+  gap: 10px;
+}
+
 .row-between {
   display: flex;
   flex-wrap: wrap;
@@ -1589,6 +1593,18 @@ a.tag:hover {
 
 .mw-46 {
   max-width: 46ch;
+}
+
+/* A list that carries content rather than navigation: bullets kept, chrome not. */
+.plain-list {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.plain-list li {
+  margin-bottom: 4px;
 }
 
 /* Locally generated avatars. */

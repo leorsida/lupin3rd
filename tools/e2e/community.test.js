@@ -118,3 +118,58 @@ test('the byline under a piece leads to its author\'s profile', { skip: skip || 
 	assert.match(article, /class="card authorcard"/, 'no author card');
 	assert.match(article, /<a href="[^"]*\/membri\/[^"]+"/, 'the byline is not a link to the profile');
 });
+
+const index = await (async () => {
+	const response = await get('/comunita/');
+
+	return 200 === response.status ? response.body : null;
+})();
+
+const noIndex = !index && '/comunita/ is not published — run tools/seed-demo-content.sh';
+
+test('the community index counts what it says it counts', { skip: noIndex }, () => {
+	assert.match(index, /class="statgrid"/, 'no numbers');
+	assert.match(index, /account attivi/, 'no active-account count');
+
+	/*
+	 * The page explains its own definition, because it is not the prototype's:
+	 * the site keeps no record of who signed in when, so «active» can only mean
+	 * «has published something». D-025.
+	 */
+	assert.match(index, /non teniamo traccia di chi è entrato/, 'the definition of an active account is not stated');
+});
+
+test('the community index shows no email address either', { skip: noIndex }, () => {
+	const addresses = index.match(/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/g) || [];
+
+	assert.deepEqual(addresses, [], `the community index carries ${addresses.length} email address(es)`);
+});
+
+test('the "all" chip carries no value, so the client filter does not hide everybody', { skip: noIndex }, () => {
+	/*
+	 * The module reads a chip's data-value and treats a falsy one as «no
+	 * filter». A chip labelled «Tutti» carrying data-value="all" would ask for
+	 * accounts whose role is the string "all", and the list would empty itself
+	 * the moment somebody pressed it. Nothing would error.
+	 */
+	const bar = element(index, /<div class="filterbar"[^>]*data-filter-group="role"/);
+
+	assert.ok(bar, 'no role filter');
+	assert.match(bar, /data-value=""/, 'the «Tutti» chip carries a value');
+});
+
+test('the role filter runs on the server, not only in the browser', { skip: noIndex }, async () => {
+	const rows = (html) => (html.match(/<a class="member"/g) || []).length;
+	const filtered = await get('/comunita/?l3_role=contributor');
+
+	assert.equal(filtered.status, 200, `?l3_role=contributor answered ${filtered.status}`);
+
+	const shown = [...filtered.body.matchAll(/<a class="member"[^>]*data-role="([^"]+)"/g)].map((m) => m[1]);
+
+	assert.ok(rows(index) > 0, 'no members listed at all');
+	assert.deepEqual(
+		[...new Set(shown)].filter((role) => 'contributor' !== role),
+		[],
+		'the filtered list still carries other roles: the filter is only client-side'
+	);
+});
