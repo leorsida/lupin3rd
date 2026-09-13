@@ -19,13 +19,25 @@ defined( 'ABSPATH' ) || exit;
 		</a>
 
 		<?php
+		/*
+		 * The drawer's extras go *inside* the <nav>, through items_wrap, and not
+		 * beside it: on a narrow screen that element is the drawer, so anything
+		 * that has to slide in with the menu has to be one of its children.
+		 * This is also why they are not duplicated — one copy, shown in the bar
+		 * or in the drawer depending on the width.
+		 */
+		ob_start();
+		get_template_part( 'template-parts/header/nav-extra' );
+		$l3_extra = (string) ob_get_clean();
+
 		if ( has_nav_menu( 'primary' ) ) {
 			wp_nav_menu(
 				array(
 					'theme_location'       => 'primary',
 					'container'            => 'nav',
+					'container_id'         => 'primary-nav',
 					'container_aria_label' => __( 'Navigazione principale', 'lupin3rd' ),
-					'items_wrap'           => '%3$s',
+					'items_wrap'           => '%3$s' . $l3_extra,
 					'depth'                => 1,
 					'walker'               => new Lupin3rd\Nav_Walker(),
 					'fallback_cb'          => false,
@@ -56,7 +68,16 @@ defined( 'ABSPATH' ) || exit;
 
 			<?php get_template_part( 'template-parts/header/account' ); ?>
 
-			<button class="icon-btn nav-burger" type="button" data-nav-toggle aria-label="<?php esc_attr_e( 'Menu', 'lupin3rd' ); ?>" aria-expanded="false">
+			<?php
+			/*
+			 * Ships hidden: it is a control that does nothing without the
+			 * script. Until that runs, the menu is a plain list under the bar
+			 * and every link in it is reachable — which is the state a reader
+			 * with no JavaScript gets, instead of a button that shrugs.
+			 */
+			?>
+			<button class="icon-btn nav-burger" type="button" data-nav-toggle hidden
+				aria-label="<?php esc_attr_e( 'Menu', 'lupin3rd' ); ?>" aria-expanded="false" aria-controls="primary-nav">
 				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
 					<path d="M4 7h16M4 12h16M4 17h16"></path>
 				</svg>
@@ -64,5 +85,13 @@ defined( 'ABSPATH' ) || exit;
 		</div>
 	</div>
 </header>
+
+<?php
+/*
+ * The backdrop behind the drawer. Rendered here rather than created by the
+ * script so that its look lives in the stylesheet with everything else.
+ */
+?>
+<div class="nav-scrim" data-nav-scrim hidden></div>
 
 <?php get_template_part( 'template-parts/header/search-overlay' ); ?>

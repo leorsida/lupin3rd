@@ -33,10 +33,12 @@ $l3_links = array(
 	),
 );
 ?>
-<nav aria-label="<?php esc_attr_e( 'Navigazione principale', 'lupin3rd' ); ?>">
+<nav id="primary-nav" aria-label="<?php esc_attr_e( 'Navigazione principale', 'lupin3rd' ); ?>">
 	<?php foreach ( $l3_links as $l3_link ) : ?>
 		<?php if ( $l3_link['url'] ) : ?>
 			<a href="<?php echo esc_url( $l3_link['url'] ); ?>"><?php echo esc_html( $l3_link['label'] ); ?></a>
 		<?php endif; ?>
 	<?php endforeach; ?>
+
+	<?php get_template_part( 'template-parts/header/nav-extra' ); ?>
 </nav>

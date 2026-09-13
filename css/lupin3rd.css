@@ -434,13 +434,25 @@ h1 + .kicker, h2 + .kicker, h3 + .kicker {
     animation: none;
   }
 }
+/* The blur lives on a pseudo-element, not on .topnav itself. A `backdrop-filter`
+ * on an element makes it the containing block for every `position: fixed`
+ * descendant — so with it here, the drawer inside this bar would be positioned
+ * against the bar and end up 60px tall. Nothing would error; it would simply be
+ * wrong. The look is identical. */
 .topnav {
   position: sticky;
   top: 0;
   z-index: 30;
+  border-bottom: 1px solid var(--border);
+}
+
+.topnav::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
   background: var(--scrim);
   backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--border);
 }
 
 .topnav-inner {
@@ -573,36 +585,21 @@ h1 + .kicker, h2 + .kicker, h3 + .kicker {
   color: var(--bg);
 }
 
-/* sotto i 640px il selettore esce dalla barra e scende nel menu:
-   cinque controlli da 44px più il logo non ci stanno su un telefono */
-.nav-lang {
-  display: none;
-}
-
-.nav-account {
-  display: none;
-}
-
+/* Below 640px the language switch leaves the bar and goes into the drawer:
+ * the logo plus four 44px controls do not fit on a phone. The account chip
+ * stays — it is where a reader looks for it, and it is the one control here
+ * that says something about them. */
 @media (max-width: 640px) {
   .nav-tools > .langswitch {
     display: none;
   }
-  .nav-tools > .account {
-    display: none;
+}
+@media (max-width: 480px) {
+  .logo {
+    font-size: 20px;
   }
-  .topnav nav.is-open .nav-account {
-    display: block;
-  }
-  .topnav nav.is-open .nav-lang {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--gap-md);
-    padding: 16px 0 4px;
-  }
-  .topnav nav.is-open .nav-lang a {
-    border-bottom: 0;
-    padding: 0 11px;
+  .nav-tools {
+    gap: 4px;
   }
 }
 mark {
@@ -611,28 +608,94 @@ mark {
   padding: 0 3px;
 }
 
+/* On a wide screen the drawer's extras are hidden: the same controls are in
+ * the bar. Declared before the media query that shows them, so that the
+ * narrow-screen rule is the later one and wins on equal specificity. */
+.nav-extra {
+  display: none;
+}
+
+/* The drawer.
+ *
+ * Two states, and which one applies is decided by the script, not by the width.
+ * Until it runs, the menu below the breakpoint is a stacked list in normal flow:
+ * every link reachable, nothing behind a button. `is-drawer` is added by the
+ * module that can open it, and only then does the panel leave the page. */
 @media (max-width: 1080px) {
-  .topnav nav {
-    display: none;
+  .topnav-inner {
+    flex-wrap: wrap;
   }
   .nav-burger {
     display: grid;
   }
-  .topnav nav.is-open {
-    display: flex;
+  .topnav nav {
+    order: 3;
+    flex-basis: 100%;
     flex-direction: column;
     gap: 0;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 100%;
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    padding: var(--gap-sm) var(--gutter) var(--gap-md);
+    padding-bottom: var(--gap-md);
   }
-  .topnav nav.is-open a {
+  .topnav nav a {
     border-bottom: 1px solid var(--border);
     padding: 14px 0;
+  }
+  .topnav nav.is-drawer {
+    position: fixed;
+    inset: 0 0 0 auto;
+    z-index: 60;
+    width: min(86vw, 360px);
+    padding: var(--gap-md) var(--gutter) var(--gap-2xl);
+    background: var(--surface);
+    border-left: 1px solid var(--border);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    transform: translateX(101%);
+    transition: transform 0.24s ease;
+  }
+  .topnav nav.is-drawer.is-open {
+    transform: translateX(0);
+  }
+  .nav-extra {
+    order: -1;
+    display: flex;
+    align-items: center;
+    gap: var(--gap-md);
+    padding-bottom: var(--gap-md);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-extra .nav-close {
+    margin-left: auto;
+  }
+  .nav-extra .langswitch {
+    display: none;
+  }
+}
+@media (max-width: 640px) {
+  .nav-extra .langswitch {
+    display: inline-flex;
+  }
+}
+.nav-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: color-mix(in oklch, var(--bg) 72%, transparent);
+  opacity: 0;
+  transition: opacity 0.24s ease;
+}
+
+.nav-scrim.is-open {
+  opacity: 1;
+}
+
+/* The page behind a drawer does not scroll. */
+html.nav-locked, html.nav-locked body {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .topnav nav.is-drawer, .nav-scrim {
+    transition: none;
   }
 }
 /* Buttons and icon buttons. */

@@ -161,6 +161,15 @@ satisfy `Squiz.Commenting.BlockComment.NoNewLine` and produced
 `CloserSameLine`, which it then reported as an error. A banner is not a doc
 comment: `// --- Name ---` ends the argument.
 
+**A `backdrop-filter` makes an element the containing block for every
+`position: fixed` descendant.** So does `filter`, `transform`, `perspective`,
+`will-change` and `contain: paint`. The sticky bar carried
+`backdrop-filter: blur(14px)`, and the drawer inside it — `position: fixed;
+inset: 0 0 0 auto` — would have been positioned against the bar and come out
+sixty pixels tall. Nothing errors. The cure is to move the filter onto a
+pseudo-element (`::before` with `inset: 0; z-index: -1`), which looks identical
+and leaves the element itself out of the way.
+
 **`setcookie()` encodes the value; `setrawcookie()` is the one that does not.**
 A value url-encoded before being handed to `setcookie()` goes out encoded
 twice. `$_COOKIE` decodes once, so PHP never notices; a script decodes once and

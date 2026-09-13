@@ -174,3 +174,19 @@ test('the cover behind the lead is fetched at once, not lazily', async () => {
 
 	assert.doesNotMatch(img[0], /loading="lazy"/, 'the largest image above the fold is lazy-loaded');
 });
+
+test('the menu is reachable without the script that turns it into a drawer', async () => {
+	/*
+	 * The server renders the menu as a plain list and the button that opens it
+	 * as `hidden`; the module adds `is-drawer` and reveals the button. Shipping
+	 * it the other way round — panel off-screen, revealed by script — hides the
+	 * whole navigation behind a file that may not arrive.
+	 */
+	const html = await page('/');
+	const nav = element(html, /<nav[^>]*id="primary-nav"/);
+
+	assert.ok(nav, 'no primary navigation');
+	assert.doesNotMatch(nav, /class="[^"]*is-drawer/, 'the panel ships off-screen');
+	assert.match(html, /<button[^>]*data-nav-toggle[^>]*\bhidden\b/, 'the burger ships usable but inert');
+	assert.match(html, /<div class="nav-scrim"[^>]*\bhidden\b/, 'the backdrop ships visible');
+});
