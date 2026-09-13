@@ -19,8 +19,14 @@ $l3_title = get_the_archive_title();
 		<?php
 		Template_Tags::breadcrumb(
 			array(
-				array( 'label' => __( 'Home', 'lupin3rd' ), 'url' => home_url( '/' ) ),
-				array( 'label' => wp_strip_all_tags( $l3_title ), 'url' => '' ),
+				array(
+					'label' => __( 'Home', 'lupin3rd' ),
+					'url'   => home_url( '/' ),
+				),
+				array(
+					'label' => wp_strip_all_tags( $l3_title ),
+					'url'   => '',
+				),
 			)
 		);
 		?>

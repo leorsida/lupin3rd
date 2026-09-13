@@ -26,12 +26,18 @@ while ( have_posts() ) :
 			<?php
 			Template_Tags::breadcrumb(
 				array(
-					array( 'label' => __( 'Home', 'lupin3rd' ), 'url' => home_url( '/' ) ),
+					array(
+						'label' => __( 'Home', 'lupin3rd' ),
+						'url'   => home_url( '/' ),
+					),
 					array(
 						'label' => $l3_category ? $l3_category->name : __( 'Notizie', 'lupin3rd' ),
 						'url'   => $l3_category ? (string) get_category_link( $l3_category ) : '',
 					),
-					array( 'label' => get_the_title(), 'url' => '' ),
+					array(
+						'label' => get_the_title(),
+						'url'   => '',
+					),
 				)
 			);
 			?>
@@ -80,7 +86,14 @@ while ( have_posts() ) :
 				<div class="stack stack-lg">
 					<div class="prose">
 						<?php the_content(); ?>
-						<?php wp_link_pages( array( 'before' => '<nav class="pagination">', 'after' => '</nav>' ) ); ?>
+						<?php
+						wp_link_pages(
+							array(
+								'before' => '<nav class="pagination">',
+								'after'  => '</nav>',
+							)
+						);
+						?>
 					</div>
 
 					<?php get_template_part( 'template-parts/single/author-card' ); ?>

@@ -38,7 +38,8 @@ final class Comment_Walker extends \Walker_Comment {
 		<article id="comment-<?php comment_ID(); ?>" <?php comment_class( $classes, $comment ); ?>>
 			<?php
 			// Full size: the avatar column is 44px and the prototype fills it.
-			Marks::render_avatar( $name, mb_strtoupper( mb_substr( $name, 0, 2 ) ) ); ?>
+			Marks::render_avatar( $name, mb_strtoupper( mb_substr( $name, 0, 2 ) ) );
+			?>
 
 			<div>
 				<div class="comment-head">

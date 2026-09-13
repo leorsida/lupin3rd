@@ -30,9 +30,18 @@ while ( have_posts() ) :
 			<?php
 			Template_Tags::breadcrumb(
 				array(
-					array( 'label' => __( 'Home', 'lupin3rd' ), 'url' => home_url( '/' ) ),
-					array( 'label' => __( 'Dossier', 'lupin3rd' ), 'url' => (string) get_post_type_archive_link( 'dossier' ) ),
-					array( 'label' => get_the_title(), 'url' => '' ),
+					array(
+						'label' => __( 'Home', 'lupin3rd' ),
+						'url'   => home_url( '/' ),
+					),
+					array(
+						'label' => __( 'Dossier', 'lupin3rd' ),
+						'url'   => (string) get_post_type_archive_link( 'dossier' ),
+					),
+					array(
+						'label' => get_the_title(),
+						'url'   => '',
+					),
 				)
 			);
 			?>

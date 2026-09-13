@@ -185,9 +185,9 @@ final class Content_Types {
 	 */
 	public static function difficulty_levels(): array {
 		return array(
-			'base'      => __( 'Base', 'lupin3rd' ),
-			'medio'     => __( 'Medio', 'lupin3rd' ),
-			'avanzato'  => __( 'Avanzato', 'lupin3rd' ),
+			'base'     => __( 'Base', 'lupin3rd' ),
+			'medio'    => __( 'Medio', 'lupin3rd' ),
+			'avanzato' => __( 'Avanzato', 'lupin3rd' ),
 		);
 	}
 }

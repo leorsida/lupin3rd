@@ -91,9 +91,7 @@ final class Blocks {
 		wp_set_script_translations( 'lupin3rd-editor', 'lupin3rd', Theme::path( 'languages' ) );
 	}
 
-	/* ---------------------------------------------------------------------
-	 * The legal-scope rule
-	 * ------------------------------------------------------------------ */
+	// --- The legal-scope rule ---
 
 	/**
 	 * Whether a piece of content carries a legal-scope notice.
@@ -239,9 +237,7 @@ final class Blocks {
 		return $data;
 	}
 
-	/* ---------------------------------------------------------------------
-	 * Monochrome highlighting
-	 * ------------------------------------------------------------------ */
+	// --- Monochrome highlighting ---
 
 	/**
 	 * Keywords worth marking, by language.

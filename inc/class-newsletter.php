@@ -205,6 +205,7 @@ final class Newsletter {
 	 * Turn a confirmation link into a confirmed subscription.
 	 */
 	public function handle_confirmation(): void {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- The token in the link is the credential; a nonce would tie a link sent by email to a browser session that does not exist yet.
 		$token = isset( $_GET[ self::CONFIRM_VAR ] ) ? sanitize_text_field( wp_unslash( (string) $_GET[ self::CONFIRM_VAR ] ) ) : '';
 
 		if ( '' === $token ) {

@@ -59,21 +59,21 @@ final class Schema {
 
 		return array(
 			array(
-				'@type'       => 'Organization',
-				'@id'         => $home . '#organization',
-				'name'        => get_bloginfo( 'name' ),
-				'url'         => $home,
-				'description' => get_bloginfo( 'description' ),
+				'@type'        => 'Organization',
+				'@id'          => $home . '#organization',
+				'name'         => get_bloginfo( 'name' ),
+				'url'          => $home,
+				'description'  => get_bloginfo( 'description' ),
 				'foundingDate' => '1999',
 			),
 			array(
-				'@type'         => 'WebSite',
-				'@id'           => $home . '#website',
-				'url'           => $home,
-				'name'          => get_bloginfo( 'name' ),
-				'inLanguage'    => I18n::instance()->language(),
-				'publisher'     => array( '@id' => $home . '#organization' ),
-				'license'       => 'https://creativecommons.org/licenses/by-sa/4.0/',
+				'@type'           => 'WebSite',
+				'@id'             => $home . '#website',
+				'url'             => $home,
+				'name'            => get_bloginfo( 'name' ),
+				'inLanguage'      => I18n::instance()->language(),
+				'publisher'       => array( '@id' => $home . '#organization' ),
+				'license'         => 'https://creativecommons.org/licenses/by-sa/4.0/',
 				'potentialAction' => array(
 					'@type'       => 'SearchAction',
 					'target'      => array(
@@ -106,16 +106,16 @@ final class Schema {
 		$home = home_url( '/' );
 
 		$article = array(
-			'@type'            => $this->article_type( $post->post_type ),
-			'@id'              => $url . '#article',
-			'headline'         => Template_Tags::to_plain_text( get_the_title( $post ) ),
-			'url'              => $url,
-			'datePublished'    => get_the_date( 'c', $post ),
-			'dateModified'     => get_the_modified_date( 'c', $post ),
-			'inLanguage'       => I18n::instance()->language(),
-			'publisher'        => array( '@id' => $home . '#organization' ),
+			'@type'               => $this->article_type( $post->post_type ),
+			'@id'                 => $url . '#article',
+			'headline'            => Template_Tags::to_plain_text( get_the_title( $post ) ),
+			'url'                 => $url,
+			'datePublished'       => get_the_date( 'c', $post ),
+			'dateModified'        => get_the_modified_date( 'c', $post ),
+			'inLanguage'          => I18n::instance()->language(),
+			'publisher'           => array( '@id' => $home . '#organization' ),
 			'isAccessibleForFree' => true,
-			'license'          => 'https://creativecommons.org/licenses/by-sa/4.0/',
+			'license'             => 'https://creativecommons.org/licenses/by-sa/4.0/',
 		);
 
 		if ( has_excerpt( $post ) ) {

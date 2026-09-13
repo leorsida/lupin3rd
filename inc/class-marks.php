@@ -111,7 +111,14 @@ final class Marks {
 		if ( $post && has_post_thumbnail( $post ) ) {
 			$classes = 'mark' . ( $shape ? ' ' . $shape : '' );
 			printf( '<div class="%s">', esc_attr( $classes ) );
-			echo get_the_post_thumbnail( $post, 'l3-card', array( 'loading' => 'lazy', 'alt' => '' ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Core escapes this.
+			echo get_the_post_thumbnail(
+				$post,
+				'l3-card',
+				array(
+					'loading' => 'lazy',
+					'alt'     => '',
+				)
+			); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Core escapes this.
 			if ( $tag ) {
 				printf( '<span class="mark-tag">%s</span>', esc_html( $tag ) );
 			}

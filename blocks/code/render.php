@@ -46,16 +46,20 @@ $l3_attrs = get_block_wrapper_attributes( array( 'class' => $l3_class ) );
 			 * button copies and part of what a reader drags a selection over.
 			 */
 			?>
-			<span class="codeblock-lines" aria-hidden="true"><?php
-				for ( $l3_i = 1; $l3_i <= $l3_lines; $l3_i++ ) {
-					echo esc_html( (string) $l3_i ) . ( $l3_i < $l3_lines ? "\n" : '' );
-				}
-			?></span>
+			<span class="codeblock-lines" aria-hidden="true">
+			<?php
+			for ( $l3_i = 1; $l3_i <= $l3_lines; $l3_i++ ) {
+				echo esc_html( (string) $l3_i ) . ( $l3_i < $l3_lines ? "\n" : '' );
+			}
+			?>
+			</span>
 		<?php endif; ?>
 
-		<pre><code<?php echo $l3_language ? ' class="language-' . esc_attr( sanitize_html_class( $l3_language ) ) . '"' : ''; ?>><?php
+		<pre><code<?php echo $l3_language ? ' class="language-' . esc_attr( sanitize_html_class( $l3_language ) ) . '"' : ''; ?>>
+		<?php
 			// Escaped token by token in highlight().
 			echo Blocks::highlight( $l3_code, $l3_language ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		?></code></pre>
+		?>
+		</code></pre>
 	</div>
 </div>

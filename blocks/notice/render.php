@@ -39,7 +39,19 @@ $l3_class = 'legal' === $l3_variant ? 'callout callout--legal' : 'callout';
 <div <?php echo wp_kses_data( get_block_wrapper_attributes( array( 'class' => $l3_class ) ) ); ?>>
 	<p class="callout-title">
 		<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
-			<?php echo wp_kses( $l3_icon, array( 'circle' => array( 'cx' => true, 'cy' => true, 'r' => true ), 'path' => array( 'd' => true ) ) ); ?>
+			<?php
+			echo wp_kses(
+				$l3_icon,
+				array(
+					'circle' => array(
+						'cx' => true,
+						'cy' => true,
+						'r'  => true,
+					),
+					'path'   => array( 'd' => true ),
+				)
+			);
+			?>
 		</svg>
 		<?php echo esc_html( $l3_title ); ?>
 	</p>

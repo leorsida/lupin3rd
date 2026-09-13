@@ -22,13 +22,13 @@ defined( 'ABSPATH' ) || exit;
 		if ( has_nav_menu( 'primary' ) ) {
 			wp_nav_menu(
 				array(
-					'theme_location'  => 'primary',
-					'container'       => 'nav',
+					'theme_location'       => 'primary',
+					'container'            => 'nav',
 					'container_aria_label' => __( 'Navigazione principale', 'lupin3rd' ),
-					'items_wrap'      => '%3$s',
-					'depth'           => 1,
-					'walker'          => new Lupin3rd\Nav_Walker(),
-					'fallback_cb'     => false,
+					'items_wrap'           => '%3$s',
+					'depth'                => 1,
+					'walker'               => new Lupin3rd\Nav_Walker(),
+					'fallback_cb'          => false,
 				)
 			);
 		} else {

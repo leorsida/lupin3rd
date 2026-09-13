@@ -7,7 +7,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$l3_args  = wp_parse_args(
+$l3_args = wp_parse_args(
 	$args ?? array(),
 	array(
 		'title'   => __( 'Nessun risultato.', 'lupin3rd' ),

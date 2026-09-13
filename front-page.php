@@ -23,9 +23,9 @@ get_header();
  * and the dossier index is the thing worth linking to.
  */
 $l3_common = array(
-	'post_type'    => Content_Types::editorial_types(),
-	'post_parent'  => 0,
-	'post_status'  => 'publish',
+	'post_type'     => Content_Types::editorial_types(),
+	'post_parent'   => 0,
+	'post_status'   => 'publish',
 	'no_found_rows' => true,
 );
 

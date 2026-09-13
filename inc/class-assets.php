@@ -84,10 +84,10 @@ final class Assets {
 	 *
 	 * @param string $tag    The script tag.
 	 * @param string $handle Script handle.
-	 * @param string $src    Script source URL. Part of the filter's signature.
+	 * @param string $src    Script source URL. Unused, and part of the filter's
+	 *                       signature: dropping it would change the contract.
 	 */
-	// phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed -- The filter passes it; dropping it would change the signature.
-	public function defer_theme_script( string $tag, string $handle, string $src ): string {
+	public function defer_theme_script( string $tag, string $handle, string $src ): string { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed -- See above.
 		if ( 'lupin3rd' !== $handle ) {
 			return $tag;
 		}

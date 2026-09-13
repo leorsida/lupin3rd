@@ -18,7 +18,15 @@
 	<exclude-pattern>/css/*</exclude-pattern>
 	<exclude-pattern>/js/*</exclude-pattern>
 	<exclude-pattern>/src/*</exclude-pattern>
+	<exclude-pattern>/docs/*</exclude-pattern>
 	<exclude-pattern>/\.*</exclude-pattern>
+
+	<!--
+		Command-line helpers, not WordPress runtime code: they run under `php`
+		with no WordPress loaded, so the rules about escaping output and using
+		WP_Filesystem do not apply to them.
+	-->
+	<exclude-pattern>/tools/*</exclude-pattern>
 
 	<rule ref="WordPress"/>
 
@@ -32,17 +40,50 @@
 	</rule>
 
 	<!--
-		Everything global the theme owns is prefixed: l3_ for meta keys, query
-		variables and template variables, Lupin3rd for the namespace.
+		Prefixes.
+
+		The sniff rejects anything shorter than four characters, so `l3` cannot
+		be declared here even though it is the theme's prefix everywhere: meta
+		keys (`l3_estimated_time`), query variables (`l3_format`, in published
+		URLs), template variables. Those are contracts with the database and
+		with readers' bookmarks; renaming them to satisfy a linter would be the
+		tail wagging the dog.
+
+		So: what genuinely lives in the global namespace and could collide with
+		another plugin — the hooks this theme invokes — uses `lupin3rd_`, and is
+		checked. Variables in template files are excluded: they are global only
+		because WordPress includes templates in global scope, they all carry
+		`l3_`, and the sniff cannot be told that.
 	-->
 	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
 		<properties>
 			<property name="prefixes" type="array">
-				<element value="l3"/>
 				<element value="lupin3rd"/>
 				<element value="Lupin3rd"/>
 			</property>
 		</properties>
+		<exclude name="WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound"/>
+	</rule>
+
+	<!--
+		`apply_filters( 'the_content', … )` applies a core filter; it does not
+		invent a hook. The sniff cannot tell the two apart.
+	-->
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound">
+		<exclude-pattern>*/single-tutorial\.php</exclude-pattern>
+		<exclude-pattern>*/single-dossier\.php</exclude-pattern>
+		<exclude-pattern>*/inc/class-schema\.php</exclude-pattern>
+	</rule>
+
+	<!--
+		The short ternary is used here on functions that return false or an
+		empty string — preg_split(), get_the_terms(), wp_get_referer() — where
+		the alternative is calling them twice or naming a variable for one
+		line. Where the falsy value could be meaningful, the code spells the
+		comparison out.
+	-->
+	<rule ref="Universal.Operators.DisallowShortTernary">
+		<severity>0</severity>
 	</rule>
 
 	<!-- Template files follow the WordPress hierarchy, not the class-file rule. -->

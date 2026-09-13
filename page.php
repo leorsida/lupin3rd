@@ -22,8 +22,14 @@ while ( have_posts() ) :
 			<?php
 			Template_Tags::breadcrumb(
 				array(
-					array( 'label' => __( 'Home', 'lupin3rd' ), 'url' => home_url( '/' ) ),
-					array( 'label' => get_the_title(), 'url' => '' ),
+					array(
+						'label' => __( 'Home', 'lupin3rd' ),
+						'url'   => home_url( '/' ),
+					),
+					array(
+						'label' => get_the_title(),
+						'url'   => '',
+					),
 				)
 			);
 			?>
@@ -37,7 +43,14 @@ while ( have_posts() ) :
 
 			<div class="prose mw-46">
 				<?php the_content(); ?>
-				<?php wp_link_pages( array( 'before' => '<nav class="pagination">', 'after' => '</nav>' ) ); ?>
+				<?php
+				wp_link_pages(
+					array(
+						'before' => '<nav class="pagination">',
+						'after'  => '</nav>',
+					)
+				);
+				?>
 			</div>
 		</div>
 	</article>

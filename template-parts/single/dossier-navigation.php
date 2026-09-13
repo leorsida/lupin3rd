@@ -27,7 +27,10 @@ $l3_instalments = get_posts(
 		'post_type'      => Content_Types::DOSSIER,
 		'post_parent'    => $l3_parent->ID,
 		'posts_per_page' => -1,
-		'orderby'        => array( 'menu_order' => 'ASC', 'date' => 'ASC' ),
+		'orderby'        => array(
+			'menu_order' => 'ASC',
+			'date'       => 'ASC',
+		),
 		'post_status'    => 'publish',
 	)
 );

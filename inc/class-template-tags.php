@@ -240,7 +240,7 @@ final class Template_Tags {
 	/**
 	 * Flatten markup to readable plain text.
 	 *
-	 * wp_strip_all_tags() removes the tags and nothing else, so a heading that
+	 * WordPress strips the tags and nothing else, so a heading that
 	 * runs straight into the paragraph below it comes out as one glued word:
 	 * "</h2><p>" becomes "scontiIl". Block-level tags become a space first.
 	 *

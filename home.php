@@ -21,8 +21,14 @@ get_header();
 		<?php
 		Template_Tags::breadcrumb(
 			array(
-				array( 'label' => __( 'Home', 'lupin3rd' ), 'url' => home_url( '/' ) ),
-				array( 'label' => __( 'Archivio', 'lupin3rd' ), 'url' => '' ),
+				array(
+					'label' => __( 'Home', 'lupin3rd' ),
+					'url'   => home_url( '/' ),
+				),
+				array(
+					'label' => __( 'Archivio', 'lupin3rd' ),
+					'url'   => '',
+				),
 			)
 		);
 		?>

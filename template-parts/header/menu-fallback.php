@@ -15,10 +15,22 @@ use Lupin3rd\Template_Tags;
 defined( 'ABSPATH' ) || exit;
 
 $l3_links = array(
-	array( 'label' => __( 'Notizie', 'lupin3rd' ), 'url' => home_url( '/' ) ),
-	array( 'label' => __( 'Tutorial', 'lupin3rd' ), 'url' => (string) get_post_type_archive_link( Content_Types::TUTORIAL ) ),
-	array( 'label' => __( 'Dossier', 'lupin3rd' ), 'url' => (string) get_post_type_archive_link( Content_Types::DOSSIER ) ),
-	array( 'label' => __( 'Archivio', 'lupin3rd' ), 'url' => Template_Tags::archive_url() ),
+	array(
+		'label' => __( 'Notizie', 'lupin3rd' ),
+		'url'   => home_url( '/' ),
+	),
+	array(
+		'label' => __( 'Tutorial', 'lupin3rd' ),
+		'url'   => (string) get_post_type_archive_link( Content_Types::TUTORIAL ),
+	),
+	array(
+		'label' => __( 'Dossier', 'lupin3rd' ),
+		'url'   => (string) get_post_type_archive_link( Content_Types::DOSSIER ),
+	),
+	array(
+		'label' => __( 'Archivio', 'lupin3rd' ),
+		'url'   => Template_Tags::archive_url(),
+	),
 );
 ?>
 <nav aria-label="<?php esc_attr_e( 'Navigazione principale', 'lupin3rd' ); ?>">
