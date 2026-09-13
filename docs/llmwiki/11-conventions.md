@@ -36,7 +36,7 @@ markup and behaviour at the same time, so the glossary is settled first.
 | Trait file | `trait-<kebab>.php` | `inc/trait-singleton.php` |
 | Method, function, variable | `snake_case` | `get_generative_mark()` |
 | Constant | `UPPER_SNAKE_CASE` | `Theme::VERSION` |
-| Hook, filter | `l3_` prefix | `l3_before_article_body` |
+| Hook, filter | `lupin3rd_` prefix | `lupin3rd_current_language` |
 | Post meta | `l3_` prefix | `l3_sample_hash` |
 | User meta | `l3_` prefix | `l3_pseudonym` |
 | Custom role | `l3_` prefix | `l3_member` |
@@ -103,16 +103,30 @@ Three, in the order they earn their keep.
    produced an error anywhere. Three of them were invisible to any static
    analysis by construction. When a defect gets through, the fix is not
    finished until a line there would have caught it.
-2. **phpcs** — WordPress standard, text domain `lupin3rd`, prefixes `l3` /
-   `Lupin3rd`, `PHPCompatibilityWP` at 8.2 and up. Theme file names follow the
-   template hierarchy, not the class-file rule (`is_theme` is on).
+2. **phpcs** — WordPress standard, text domain `lupin3rd`, prefixes
+   `lupin3rd` / `Lupin3rd` (see below), `PHPCompatibilityWP` at 8.2 and up.
+   Theme file names follow the template hierarchy, not the class-file rule
+   (`is_theme` is on). `tools/` is excluded: those are command-line helpers
+   that run with no WordPress loaded, so the rules about escaping output and
+   using `WP_Filesystem` do not apply to them.
 3. **phpstan** — level 6 over `inc`, `blocks` and `functions.php`, with the
    WordPress stubs. `template-parts` is excluded: those files are procedural
    and take `$args` from `get_template_part()`, so the analysis says little and
    complains much. They are covered by phpcs and by the tests that load them.
 
 `composer run-script qa` runs the lint, phpcs and phpstan in that order; the
-`qa` service in compose does it without PHP on the host.
+`qa` service in compose does it without PHP on the host. All three are green as
+of 13.09.2026, and `composer.lock` pins the versions that made them green — a
+gate that passes with one set of tools and fails with another is not a gate.
+
+The `qa` service passes its argument to `sh -c`, so a different command goes in
+as a single string: `docker compose --profile qa run --rm qa "composer phpcbf"`.
+
+Three rules are turned off, each with the reason written in `phpcs.xml.dist`
+rather than here, because the place to argue with a rule is where it is
+disabled: the variable-prefix check, the short-ternary ban, and the
+prefixed-hook check in the three files that apply core's `the_content` filter
+rather than inventing a hook.
 
 Strings: `wp i18n make-pot . languages/lupin3rd.pot --domain=lupin3rd` after
 adding or changing any. Every `%s` needs a `translators:` comment above the
@@ -138,3 +152,35 @@ A template file declares no functions. `404.php` used to declare one; the
 Levenshtein search now lives in `Template_Tags::tag_suggestions()`, where
 template logic belongs and where phpcs stops asking about the global namespace.
 
+## Traps in the tools themselves
+
+Found by running them, worth not rediscovering.
+
+**phpcbf plays ping-pong on comment rules.** It rewrote two section banners to
+satisfy `Squiz.Commenting.BlockComment.NoNewLine` and produced
+`CloserSameLine`, which it then reported as an error. A banner is not a doc
+comment: `// --- Name ---` ends the argument.
+
+**A `phpcs:ignore` between a docblock and a signature detaches the docblock.**
+The comment becomes the thing above the function, the documentation stops
+belonging to it, and phpcs reports a missing doc comment that was there all
+along. The ignore goes on the signature line.
+
+**The WordPress stubs must be loaded once.** `szepeviktor/phpstan-wordpress`
+already lists them under `bootstrapFiles`; listing them again under `scanFiles`
+parses ten megabytes of stubs a second time **in every parallel worker**, and a
+512M limit disappears on a theme of sixty files. The number of workers is a
+memory decision, not a speed one.
+
+**A stub can be narrower than the function it describes.** PHPStan believed
+`paginate_links( [ 'type' => 'array' ] )` always returns a list, so it called
+the guard redundant; WordPress's own docblock says `string|string[]|void`, and
+the function really does fall off its end when there is nothing to paginate.
+Removing the guard would have traded a warning for a `count( null )` on any
+page with a single screen of results. When an analyser and the documentation
+disagree, check which one has read the source — then keep the guard and write
+down why.
+
+**`wp_setup_nav_menu_item()` decorates a `WP_Post` at runtime**: `url`,
+`target`, `title` are not declared on the class and never will be.
+`universalObjectCratesClasses` is the honest answer; inventing a type is not.
