@@ -21,8 +21,11 @@ docker compose --profile qa run --rm e2e
 From the host, if Node 22 or newer is installed:
 
 ```sh
-BASE_URL=http://localhost:8080 node --test tools/e2e/
+BASE_URL=http://localhost:8080 node --test tools/e2e/*.test.js
 ```
+
+The files are listed rather than the directory: `node --test tools/e2e/` is
+read as a single file to run, and the run fails before a test starts.
 
 `BASE_URL` defaults to `http://app`, which is how the site answers from inside
 the compose network.
