@@ -594,9 +594,18 @@ h1 + .kicker, h2 + .kicker, h3 + .kicker {
     display: none;
   }
 }
-/* The logo keeps its size on a phone. It was shrunk when the bar still carried
- * five controls; with three it fits, and the wordmark is the one thing on this
- * bar that has to be read rather than recognised by its shape. */
+/* The logo grows a little on a phone rather than shrinking. It was shrunk when
+ * the bar still carried five controls; with three there is room, and the
+ * wordmark is the one thing up there that has to be read rather than
+ * recognised by its shape — on the screen held closest to the face it can
+ * afford the extra two pixels. Measured against 360px, the narrowest phone
+ * worth designing for: wordmark plus three 44px controls plus the gutter still
+ * fits on one line. */
+@media (max-width: 640px) {
+  .logo {
+    font-size: 27px;
+  }
+}
 @media (max-width: 480px) {
   .nav-tools {
     gap: 4px;
