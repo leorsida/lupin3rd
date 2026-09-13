@@ -161,6 +161,19 @@ satisfy `Squiz.Commenting.BlockComment.NoNewLine` and produced
 `CloserSameLine`, which it then reported as an error. A banner is not a doc
 comment: `// --- Name ---` ends the argument.
 
+**A block comment always wants a blank line above it — inside an array too.**
+`Squiz.Commenting.BlockComment.NoEmptyLineBefore` fires wherever a `/* … */`
+follows a line of code directly: after the last `add_filter()` in
+`register_hooks()`, between two elements of an array literal. It is the single
+most frequent finding in this theme, and phpcbf does not fix it. Write the
+blank line while writing the comment.
+
+**A `phpcs:ignore` on an array element changes how that element is aligned.**
+The trailing comment lengthens the line, and `MultipleStatementAlignment` then
+measures the block against a width that is no longer there; five warnings
+arrive at once for keys that were aligned before the ignore was added. Align
+the block after adding the ignore, not before.
+
 **A `phpcs:ignore` between a docblock and a signature detaches the docblock.**
 The comment becomes the thing above the function, the documentation stops
 belonging to it, and phpcs reports a missing doc comment that was there all
