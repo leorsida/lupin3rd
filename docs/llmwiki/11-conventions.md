@@ -185,6 +185,21 @@ parses ten megabytes of stubs a second time **in every parallel worker**, and a
 512M limit disappears on a theme of sixty files. The number of workers is a
 memory decision, not a speed one.
 
+**Two `instanceof` guards that look identical are opposite mistakes.** PHPStan
+reports both as «always true», and the right answer differs:
+
+- After a core call the stubs type definitely — `wp_get_current_user()`,
+  `get_posts()` without `fields` — the guard is dead weight. Delete it and keep
+  whatever check actually carries meaning (`->exists()`, a count).
+- On a value that arrived through a hook — a comment passed to a
+  `transition_comment_status` callback, a user passed to `show_user_profile` —
+  the guard is the only thing making the rest of the method safe to read. There
+  it is the **docblock** that is wrong: it promised more than the hook
+  guarantees. Widen the parameter to `mixed` and keep the guard.
+
+Reading the error alone cannot tell the two apart. Ask where the value came
+from.
+
 **A stub can be narrower than the function it describes.** PHPStan believed
 `paginate_links( [ 'type' => 'array' ] )` always returns a list, so it called
 the guard redundant; WordPress's own docblock says `string|string[]|void`, and

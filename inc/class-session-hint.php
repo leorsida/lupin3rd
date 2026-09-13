@@ -93,7 +93,7 @@ final class Session_Hint {
 			? sanitize_text_field( wp_unslash( $_COOKIE[ self::COOKIE ] ) )
 			: '';
 
-		if ( $user instanceof \WP_User && $user->exists() && $current !== $this->value( $user ) ) {
+		if ( $user->exists() && $current !== $this->value( $user ) ) {
 			$this->write( $user );
 		}
 	}
