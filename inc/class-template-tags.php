@@ -325,7 +325,7 @@ final class Template_Tags {
 			)
 		);
 
-		if ( ! is_array( $links ) || count( $links ) < 2 ) {
+		if ( null === $links || count( $links ) < 2 ) {
 			return;
 		}
 

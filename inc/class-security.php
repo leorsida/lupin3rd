@@ -168,7 +168,7 @@ final class Security {
 	 * @param mixed                $id_or_email User identifier.
 	 * @param array<string, mixed> $args   Avatar arguments.
 	 */
-	public function replace_gravatar( $avatar, $id_or_email, $args ) {
+	public function replace_gravatar( $avatar, $id_or_email, $args ): string {
 		$seed    = '';
 		$initial = '';
 

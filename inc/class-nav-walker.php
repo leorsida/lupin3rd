@@ -31,7 +31,7 @@ final class Nav_Walker extends \Walker_Nav_Menu {
 	 * @param \stdClass $args        wp_nav_menu arguments.
 	 * @param int       $current_object_id Current item id.
 	 */
-	public function start_el( &$output, $data_object, $depth = 0, $args = null, $current_object_id = 0 ) {
+	public function start_el( &$output, $data_object, $depth = 0, $args = null, $current_object_id = 0 ): void {
 		if ( $depth > 0 ) {
 			return;
 		}
@@ -59,7 +59,7 @@ final class Nav_Walker extends \Walker_Nav_Menu {
 	 * @param int       $depth       Nesting depth.
 	 * @param \stdClass $args        wp_nav_menu arguments.
 	 */
-	public function end_el( &$output, $data_object, $depth = 0, $args = null ) {}
+	public function end_el( &$output, $data_object, $depth = 0, $args = null ): void {}
 
 	/**
 	 * Submenus are not part of this design.
@@ -68,7 +68,7 @@ final class Nav_Walker extends \Walker_Nav_Menu {
 	 * @param int       $depth  Nesting depth.
 	 * @param \stdClass $args   wp_nav_menu arguments.
 	 */
-	public function start_lvl( &$output, $depth = 0, $args = null ) {}
+	public function start_lvl( &$output, $depth = 0, $args = null ): void {}
 
 	/**
 	 * Submenus are not part of this design.
@@ -77,5 +77,5 @@ final class Nav_Walker extends \Walker_Nav_Menu {
 	 * @param int       $depth  Nesting depth.
 	 * @param \stdClass $args   wp_nav_menu arguments.
 	 */
-	public function end_lvl( &$output, $depth = 0, $args = null ) {}
+	public function end_lvl( &$output, $depth = 0, $args = null ): void {}
 }

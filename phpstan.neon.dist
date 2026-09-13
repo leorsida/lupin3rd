@@ -21,6 +21,12 @@ parameters:
 	parallel:
 		maximumNumberOfProcesses: 4
 
+	# wp_setup_nav_menu_item() hangs url, target, title and friends on a WP_Post
+	# at runtime. They are not declared on the class and never will be, so the
+	# object is read as a crate rather than pretended to be typed.
+	universalObjectCratesClasses:
+		- WP_Post
+
 	# Template files are procedural and receive $args from get_template_part():
 	# analysing them says little and complains much. They are covered by phpcs
 	# and by the end-to-end tests, which load the pages they build.

@@ -29,7 +29,7 @@ final class Comment_Walker extends \Walker_Comment {
 	 * @param int                  $depth   Nesting depth.
 	 * @param array<string, mixed> $args    wp_list_comments arguments.
 	 */
-	protected function html5_comment( $comment, $depth, $args ) {
+	protected function html5_comment( $comment, $depth, $args ): void {
 		$classes = 'comment' . ( $depth > 1 ? ' comment-nested' : '' );
 		$removed = '' === trim( (string) $comment->comment_author );
 		$name    = $removed ? __( 'account rimosso', 'lupin3rd' ) : get_comment_author( $comment );

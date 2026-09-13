@@ -278,9 +278,13 @@ final class Blocks {
 		$offset = 0;
 
 		while ( preg_match( $pattern, $code, $match, PREG_OFFSET_CAPTURE, $offset ) ) {
-			$start = ( $match['comment'][1] ?? -1 ) >= 0 ? $match['comment'][1] : $match['string'][1];
-			$text  = ( $match['comment'][1] ?? -1 ) >= 0 ? $match['comment'][0] : $match['string'][0];
-			$class = ( $match['comment'][1] ?? -1 ) >= 0 ? 'tok-com' : 'tok-str';
+			// A group that did not take part in the match reports offset -1.
+			$is_comment = $match['comment'][1] >= 0;
+			$token      = $is_comment ? $match['comment'] : $match['string'];
+
+			$start = (int) $token[1];
+			$text  = (string) $token[0];
+			$class = $is_comment ? 'tok-com' : 'tok-str';
 
 			$out   .= self::mark_keywords( substr( $code, $offset, $start - $offset ), $keywords );
 			$out   .= sprintf( '<span class="%s">%s</span>', $class, esc_html( $text ) );
