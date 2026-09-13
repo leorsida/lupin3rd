@@ -229,6 +229,19 @@ layer of indirection that every future tool — WP-CLI, phpcs, the IDE, a
 contributor's clone — has to be taught about, in exchange for a tidiness that
 two plain repositories already provide.
 
+**Amended 13.09.2026.** Everything that belongs to the theme lives in the theme
+repository: `docs/` (this llmwiki and the development plan), `tools/e2e/`,
+`tools/seed-demo-content.sh`, `LICENSE`, `README.md`. What stays outside is
+what the theme does not own — `OD/`, the WordPress install, and the local stack
+(`compose.yaml`, `docker/`, `.env.example`), which mounts both. A theme
+repository shipping a compose file whose paths point four levels up would be
+lying to whoever cloned it.
+
+Two consequences, both handled: `docs/llmwiki/tools/sync_from_od.py` now finds
+`OD/` by walking up (or from `OD_ROOT`) and says so plainly when it cannot, and
+`tools/seed-demo-content.sh` finds `compose.yaml` the same way and runs from
+there.
+
 ## D-015 — The theme repository commits its compiled assets
 
 **Decided:** 12.09.2026 · **Status:** accepted · **Closes:** Q7

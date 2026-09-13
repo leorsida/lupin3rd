@@ -283,8 +283,8 @@ Tutti i meta registrati con `register_post_meta` (`show_in_rest` dove serve all'
 > | 7 | phpcs e phpstan **configurati** (`composer.json`, `phpcs.xml.dist`, `phpstan.neon.dist`, servizio `qa` in compose). **Mai eseguiti**: il proxy di rete da qui non raggiunge Packagist. La prima passata è tua | `docker compose --profile qa run --rm qa` |
 > | 8 | L'interfaccia in redazione non è mai stata vista: pannello dei campi e blocco della pubblicazione senza «perimetro legale». Serve una sessione da amministratore, che non passa da me | fase 6, verifica |
 > | ~~9~~ | ~~Test end-to-end~~ — **scritti**: `tools/e2e/`, 30 asserzioni su quattro file, zero dipendenze. **Mai eseguiti contro il sito**: da qui non raggiungo localhost:8080. `docker compose --profile qa run --rm e2e` |  |
-> | 10 | `sync_from_od.py` da rilanciare, llmwiki da riallineare, `OD/struttura-wordpress.html` e `OD/en/wordpress-structure.html` ancora descrivono un tema a blocchi | fase 9 |
-> | 11 | Decisioni aperte: repo solo-tema, `css/` e `js/` compilati dentro o fuori, deploy (§7.23–7.25) | prima del primo commit |
+> | ~~10~~ | ~~Riallineamento~~ — **fatto**: `sync_from_od.py` rilanciato, e le due pagine di struttura dell'OD corrette dove erano false (tema classico e non FSE, i file veri al posto di `templates/*.html` e `parts/*.html`, i nomi dei blocchi in inglese). Non riscritte: 104 KB per lingua di cui il resto è ancora vero |  |
+> | ~~11~~ | ~~Decisioni~~ — **prese**: il repository è il tema e tutto ciò che gli appartiene (D-014 emendata), `css/` e `js/` compilati sono versionati (D-015). Primo commit fatto. Resta il deploy, che ora è semplice: il repository è già il contenuto di `wp-content/themes/lupin3rd/` |  |
 >
 > ~~Stato al 12.09.2026: fasi 0–5 realizzate~~: il tema `lupin3rd` esiste in `wp/wp-content/themes/lupin3rd`, la build è verde, i 47 file PHP passano `php -l`, i 15 moduli si avviano con 38 hook registrati, il porting CSS è verificato 341 regole su 341. Restano: fase 6 (blocchi e pattern), fase 7 (SEO/GEO è scritta ma non verificata su pagine reali), fase 8 (audit) e fase 9 (rifinitura).
 
