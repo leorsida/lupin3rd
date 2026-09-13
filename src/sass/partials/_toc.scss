@@ -6,11 +6,6 @@
  * its own lets them scroll straight through it. The column is what sticks —
  * see `.grid-main-side > aside:has(.toc)` in _layout.scss — and the index
  * flows inside it. */
-/* The index takes `widget` for its spacing, not for its frame: the rule above
- * a widget marks where a new one starts, and the index already announces
- * itself. */
-.toc.widget { border-top: 0; padding-top: 0; }
-
 .toc ol,
 .toc ul { list-style: none; margin: 0; padding: 0; counter-reset: toc; }
 .toc li { counter-increment: toc; }

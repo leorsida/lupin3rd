@@ -13,3 +13,9 @@
 .tab[aria-selected="true"]:hover { background: var(--fg-soft); border-bottom-color: var(--fg); }
 .tab .num { font-size: 11px; color: inherit; margin-left: 7px; }
 .tabpanel[hidden] { display: none; }
+
+/* The strip draws the rule under itself, so a row that opens with its own
+ * stacks two lines with nothing between them. `:first-of-type` and not
+ * `:first-child`: the panel opens with the heading that stands in for the
+ * strip when the script has not run. */
+.tabpanel > article:first-of-type { border-top: 0; padding-top: 0; }

@@ -286,7 +286,14 @@ final class Profile_Fields {
 			return 0;
 		}
 
-		if ( ! get_user_meta( $user->ID, self::SHOW_JOIN_DATE, true ) ) {
+		/*
+		 * Visible unless the account turned it off. A missing value means the
+		 * account was created before the field existed and has never been
+		 * asked — and the prototype shows the date by default, so absence of a
+		 * choice is not a choice to hide.
+		 */
+		if ( metadata_exists( 'user', $user->ID, self::SHOW_JOIN_DATE )
+			&& ! get_user_meta( $user->ID, self::SHOW_JOIN_DATE, true ) ) {
 			return 0;
 		}
 
@@ -475,7 +482,7 @@ final class Profile_Fields {
 				<th><?php esc_html_e( 'Data di iscrizione', 'lupin3rd' ); ?></th>
 				<td>
 					<label>
-						<input type="checkbox" name="l3_show_join_date" value="1" <?php checked( (bool) get_user_meta( $user->ID, self::SHOW_JOIN_DATE, true ) ); ?>>
+						<input type="checkbox" name="l3_show_join_date" value="1" <?php checked( self::joined( $user ) > 0 ); ?>>
 						<?php esc_html_e( 'Mostrala sul profilo pubblico', 'lupin3rd' ); ?>
 					</label>
 				</td>

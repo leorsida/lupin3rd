@@ -2,6 +2,10 @@
 
 .widget { border-top: 2px solid var(--fg); padding-top: 14px; }
 .widget + .widget { margin-top: var(--gap-lg); }
+/* The rule above a widget marks where a new one starts. The first widget in
+ * a column starts nothing: there is nothing above it to be separated from,
+ * and the line reads as the bottom edge of the header instead. */
+.grid-main-side > aside > .widget:first-child { border-top: 0; padding-top: 0; }
 .widget-title { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
 .widget ul { list-style: none; margin: 0; padding: 0; }
 .widget li { border-bottom: 1px solid var(--border); }

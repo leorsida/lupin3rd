@@ -1015,6 +1015,14 @@ a.tag:hover {
   margin-top: var(--gap-lg);
 }
 
+/* The rule above a widget marks where a new one starts. The first widget in
+ * a column starts nothing: there is nothing above it to be separated from,
+ * and the line reads as the bottom edge of the header instead. */
+.grid-main-side > aside > .widget:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
 .widget-title {
   font-family: var(--font-mono);
   font-size: 11px;
@@ -1335,14 +1343,6 @@ a.tag:hover {
  * its own lets them scroll straight through it. The column is what sticks —
  * see `.grid-main-side > aside:has(.toc)` in _layout.scss — and the index
  * flows inside it. */
-/* The index takes `widget` for its spacing, not for its frame: the rule above
- * a widget marks where a new one starts, and the index already announces
- * itself. */
-.toc.widget {
-  border-top: 0;
-  padding-top: 0;
-}
-
 .toc ol,
 .toc ul {
   list-style: none;
@@ -1982,6 +1982,15 @@ span.comment-tool {
 
 .tabpanel[hidden] {
   display: none;
+}
+
+/* The strip draws the rule under itself, so a row that opens with its own
+ * stacks two lines with nothing between them. `:first-of-type` and not
+ * `:first-child`: the panel opens with the heading that stands in for the
+ * strip when the script has not run. */
+.tabpanel > article:first-of-type {
+  border-top: 0;
+  padding-top: 0;
 }
 
 /* Counters and stat grids. */
