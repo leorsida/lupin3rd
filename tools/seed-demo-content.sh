@@ -11,7 +11,7 @@
 #   ./tools/seed-demo-content.sh --reset         clean up, then create or update
 #   ./tools/seed-demo-content.sh --trash-dupes   move duplicates to the trash only
 #   ./tools/seed-demo-content.sh --status        list what is published
-#   ./tools/seed-demo-content.sh --fix-authors  sign pieces left at post_author 0
+#   ./tools/seed-demo-content.sh --fix-authors   sign pieces left at post_author 0
 #
 set -euo pipefail
 
