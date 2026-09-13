@@ -60,8 +60,8 @@ final class Session_Hint {
 	/**
 	 * Write the hint when a session opens.
 	 *
-	 * @param string    $login Login name, as core passes it.
-	 * @param mixed     $user  Account that signed in.
+	 * @param string $login Login name, as core passes it.
+	 * @param mixed  $user  Account that signed in.
 	 */
 	public function remember( $login, $user = null ): void {
 		if ( $user instanceof \WP_User ) {
@@ -82,7 +82,15 @@ final class Session_Hint {
 		}
 
 		$user    = wp_get_current_user();
-		$current = isset( $_COOKIE[ self::COOKIE ] ) ? (string) wp_unslash( $_COOKIE[ self::COOKIE ] ) : '';
+		/*
+		 * Sanitised although it is only ever compared, never printed: the value
+		 * we write is url-encoded JSON, so it passes through untouched, and the
+		 * day somebody uses this variable for something else the safe habit is
+		 * already in place.
+		 */
+		$current = isset( $_COOKIE[ self::COOKIE ] )
+			? sanitize_text_field( wp_unslash( $_COOKIE[ self::COOKIE ] ) )
+			: '';
 
 		if ( $user instanceof \WP_User && $user->exists() && $current !== $this->value( $user ) ) {
 			$this->write( $user );
