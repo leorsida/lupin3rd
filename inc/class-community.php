@@ -404,9 +404,9 @@ final class Community {
 	/**
 	 * Write down when a contribution was let through.
 	 *
-	 * @param string      $new_status New comment status.
-	 * @param string      $old_status Previous comment status.
-	 * @param \WP_Comment $comment    Comment that moved.
+	 * @param string $new_status New comment status.
+	 * @param string $old_status Previous comment status.
+	 * @param mixed  $comment    Comment that moved; WordPress passes a WP_Comment.
 	 */
 	public function record_approval( $new_status, $old_status, $comment ): void {
 		if ( 'approved' !== $new_status || 'approved' === $old_status ) {
@@ -441,7 +441,7 @@ final class Community {
 		$active = new \WP_User_Query(
 			array(
 				'meta_key'     => Profile_Fields::CONTRIBUTIONS, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
-				'meta_value'   => 0,                             // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
+				'meta_value'   => '0',                             // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
 				'meta_compare' => '>',
 				'meta_type'    => 'NUMERIC',
 				'fields'       => 'ID',
@@ -599,7 +599,7 @@ final class Community {
 		$query = new \WP_User_Query(
 			array(
 				'meta_key'     => Profile_Fields::CONTRIBUTIONS, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
-				'meta_value'   => 0,                             // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
+				'meta_value'   => '0',                             // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
 				'meta_compare' => '>',
 				'meta_type'    => 'NUMERIC',
 				'orderby'      => 'meta_value_num',
@@ -633,7 +633,7 @@ final class Community {
 		return array_values(
 			array_filter(
 				$posts,
-				static fn ( $post ): bool => $post instanceof \WP_Post && (int) $post->comment_count > 0
+				static fn ( \WP_Post $post ): bool => (int) $post->comment_count > 0
 			)
 		);
 	}
