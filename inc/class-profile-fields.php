@@ -425,7 +425,11 @@ final class Profile_Fields {
 	/**
 	 * Show the profile fields on the user screen, for the desk.
 	 *
-	 * @param \WP_User $user Account being edited.
+	 * Typed loosely on purpose: WordPress documents a WP_User here, but the
+	 * value arrives through a hook anybody can fire, and the guard below is
+	 * what makes the rest of the method safe to read.
+	 *
+	 * @param mixed $user Account being edited.
 	 */
 	public function render_admin_fields( $user ): void {
 		if ( ! $user instanceof \WP_User ) {
