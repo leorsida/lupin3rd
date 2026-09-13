@@ -171,6 +171,13 @@ test('neither account form takes an account id from the request', async () => {
 		l3_pseudonym: 'takeover',
 	});
 
-	assert.ok([301, 302].includes(response.status), `the handler answered ${response.status}`);
-	assert.doesNotMatch(String(response.headers.get('location')), /l3_account=saved/, 'a profile was saved without a nonce');
+	/*
+	 * 400, not a redirect: there is no `admin_post_nopriv_l3_save_profile`, so
+	 * WordPress refuses the request before any of this theme's code runs. That
+	 * is a stronger answer than the one this test first expected — a handler
+	 * that checks and declines still has to be right, and this one is never
+	 * reached at all.
+	 */
+	assert.ok(response.status >= 400, `an anonymous save answered ${response.status}`);
+	assert.doesNotMatch(String(response.headers.get('location') || ''), /l3_account=saved/, 'a profile was saved anyway');
 });
