@@ -58,7 +58,7 @@ export default function initSession() {
 		element.textContent = hint.name;
 	});
 
-	document.querySelectorAll('[data-account-profile]').forEach((link) => {
+	document.querySelectorAll('[data-account-public]').forEach((link) => {
 		if (typeof hint.profile === 'string' && hint.profile.startsWith('/')) {
 			link.setAttribute('href', hint.profile);
 		}

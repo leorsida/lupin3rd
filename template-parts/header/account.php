@@ -33,7 +33,16 @@ defined( 'ABSPATH' ) || exit;
 
 	<div class="account-menu hidden" id="account-panel" data-account-panel>
 		<span class="account-menu-head meta" data-account-name></span>
-		<a href="<?php echo esc_url( Authentication::account_url() ); ?>" data-account-profile><?php esc_html_e( 'Il tuo profilo', 'lupin3rd' ); ?></a>
+		<?php
+		/*
+		 * «Il tuo profilo» is the one you can change, and its address is the
+		 * same for everybody, so PHP can write it. The public one is different
+		 * for every reader, which is why it is the only link here the script
+		 * has to fill in.
+		 */
+		?>
+		<a href="<?php echo esc_url( Authentication::account_url() ); ?>"><?php esc_html_e( 'Il tuo profilo', 'lupin3rd' ); ?></a>
+		<a href="<?php echo esc_url( home_url( '/comunita/' ) ); ?>" data-account-public><?php esc_html_e( 'Profilo pubblico', 'lupin3rd' ); ?></a>
 		<a href="<?php echo esc_url( home_url( '/comunita/' ) ); ?>"><?php esc_html_e( 'Comunità', 'lupin3rd' ); ?></a>
 		<a href="<?php echo esc_url( Authentication::sign_in_url() ); ?>"><?php esc_html_e( 'Esci', 'lupin3rd' ); ?></a>
 	</div>
