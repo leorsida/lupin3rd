@@ -19,6 +19,7 @@ defined( 'ABSPATH' ) || exit;
 
 	<input type="hidden" name="action" value="<?php echo esc_attr( Authentication::ACTION_REGISTER ); ?>">
 	<?php wp_nonce_field( Authentication::ACTION_REGISTER, '_wpnonce', false ); ?>
+	<?php get_template_part( 'template-parts/auth/redirect-field' ); ?>
 
 	<?php
 	/*

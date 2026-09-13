@@ -14,6 +14,7 @@ defined( 'ABSPATH' ) || exit;
 
 	<input type="hidden" name="action" value="<?php echo esc_attr( Authentication::ACTION_SIGN_IN ); ?>">
 	<?php wp_nonce_field( Authentication::ACTION_SIGN_IN, '_wpnonce', false ); ?>
+	<?php get_template_part( 'template-parts/auth/redirect-field' ); ?>
 
 	<p class="hidden" aria-hidden="true">
 		<label for="l3-website-in"><?php esc_html_e( 'Sito', 'lupin3rd' ); ?></label>

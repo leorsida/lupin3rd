@@ -146,3 +146,31 @@ test('the page tells the script what to do without telling it anything worth ste
 	assert.match(bundle, /l3_hint/, 'the bundle does not read the hint cookie');
 	assert.doesNotMatch(bundle, /innerHTML\s*=\s*\w*hint/i, 'the hint is written as markup');
 });
+
+test('/account/ is not a page a stranger can open', async () => {
+	const account = await get('/account/');
+
+	assert.ok([301, 302].includes(account.status), `/account/ answered ${account.status} to a stranger`);
+	assert.match(String(account.headers.get('location')), /\/accesso\//, 'it does not lead to the sign-in page');
+});
+
+test('neither account form takes an account id from the request', async () => {
+	/*
+	 * The strongest form of this check is that there is nothing to check: the
+	 * handlers write to get_current_user_id() and the forms carry no user
+	 * field, so there is no parameter to tamper with. If one ever appears here,
+	 * somebody has added a way to edit somebody else's profile.
+	 */
+	const signedIn = await get('/account/');
+
+	assert.ok([301, 302].includes(signedIn.status), 'the page rendered to a stranger');
+
+	const response = await post('/wp-admin/admin-post.php', {
+		action: 'l3_save_profile',
+		user_id: '1',
+		l3_pseudonym: 'takeover',
+	});
+
+	assert.ok([301, 302].includes(response.status), `the handler answered ${response.status}`);
+	assert.doesNotMatch(String(response.headers.get('location')), /l3_account=saved/, 'a profile was saved without a nonce');
+});

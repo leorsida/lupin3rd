@@ -327,6 +327,13 @@ acc_id=$(ensure_post page "accesso" "Firma quello che scrivi" \
   "<p>L'account serve per intervenire sotto gli articoli, seguire le risposte e proporre correzioni. Non serve per leggere: il sito resta aperto, senza muri e senza contatori.</p>")
 wp post meta update "$acc_id" _wp_page_template "page-templates/template-sign-in.php" >/dev/null
 
+# /account/ is the private half. Its title is used as the standfirst, because
+# on this page the heading is the reader's own pseudonym.
+acct_id=$(ensure_post page "account" "Questa parte del sito la vedi solo tu" \
+  "Quello che gli altri vedono di te, e le chiavi di casa." \
+  "")
+wp post meta update "$acct_id" _wp_page_template "page-templates/template-account.php" >/dev/null
+
 # The archive is the blog index: it only gets a URL of its own once a page is
 # assigned as the posts page.
 home_id=$(ensure_post page "home" "Home" "" "")
