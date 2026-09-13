@@ -10,8 +10,16 @@ parameters:
 	tmpDir: .phpstan-cache
 	bootstrapFiles:
 		- tools/phpstan-bootstrap.php
-	scanFiles:
-		- vendor/php-stubs/wordpress-stubs/wordpress-stubs.php
+
+	# The WordPress stubs are loaded once, by the extension above, as a
+	# bootstrap file. Listing them again under scanFiles parses ten megabytes of
+	# stubs a second time in every parallel worker, which is how a 512M limit
+	# runs out on a theme of sixty files.
+
+	# Each worker holds its own copy of the stubs, so the number of workers is
+	# a memory decision, not a speed one.
+	parallel:
+		maximumNumberOfProcesses: 4
 
 	# Template files are procedural and receive $args from get_template_part():
 	# analysing them says little and complains much. They are covered by phpcs

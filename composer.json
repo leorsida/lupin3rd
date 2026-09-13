@@ -25,7 +25,7 @@
 		"lint": "@php ./vendor/bin/parallel-lint --exclude vendor --exclude node_modules --exclude languages .",
 		"phpcs": "@php ./vendor/bin/phpcs -p",
 		"phpcbf": "@php ./vendor/bin/phpcbf",
-		"phpstan": "@php ./vendor/bin/phpstan analyse --memory-limit=512M",
+		"phpstan": "@php ./vendor/bin/phpstan analyse --memory-limit=1G",
 		"qa": [
 			"@lint",
 			"@phpcs",
