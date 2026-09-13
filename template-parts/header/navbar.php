@@ -39,7 +39,14 @@ defined( 'ABSPATH' ) || exit;
 		 */
 		ob_start();
 		get_template_part( 'template-parts/header/nav-extra' );
-		$l3_extra = (string) ob_get_clean();
+
+		/*
+		 * `items_wrap` is a sprintf() format string, so every per cent sign in
+		 * this markup is a format specifier. One percent-encoded URL in here —
+		 * `redirect_to=http%3A%2F%2F…` — and the whole page dies with «Unknown
+		 * format specifier "A"». Doubling them makes sprintf print them.
+		 */
+		$l3_extra = str_replace( '%', '%%', (string) ob_get_clean() );
 
 		if ( has_nav_menu( 'primary' ) ) {
 			wp_nav_menu(

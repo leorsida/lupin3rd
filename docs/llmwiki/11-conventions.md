@@ -161,6 +161,13 @@ satisfy `Squiz.Commenting.BlockComment.NoNewLine` and produced
 `CloserSameLine`, which it then reported as an error. A banner is not a doc
 comment: `// --- Name ---` ends the argument.
 
+**`items_wrap` is a `sprintf()` format string.** Anything appended to it has
+its per cent signs read as format specifiers, and one percent-encoded URL in
+the appended markup (`redirect_to=http%3A%2F%2F…`) takes the whole page down
+with «Unknown format specifier». `str_replace( '%', '%%', $markup )` before
+concatenating. This one is not silent — it is a fatal — but it is invisible
+until a page is loaded, which is what the end-to-end suite is for.
+
 **A `backdrop-filter` makes an element the containing block for every
 `position: fixed` descendant.** So does `filter`, `transform`, `perspective`,
 `will-change` and `contain: paint`. The sticky bar carried
