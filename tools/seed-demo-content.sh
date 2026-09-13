@@ -159,12 +159,12 @@ if [ "${1:-}" = "--fix-authors" ]; then
       "fields"      => "ids",
     ) ) as $id ) {
       if ( 0 === (int) get_post_field( "post_author", $id ) ) {
-        wp_update_post( array( "ID" => $id, "post_author" => (int) $args[0] ) );
+        wp_update_post( array( "ID" => $id, "post_author" => '"$ADMIN_ID"' ) );
         $fixed++;
       }
     }
     echo $fixed . " piece(s) signed\n";
-  ' "$ADMIN_ID"
+  '
   exit 0
 fi
 
