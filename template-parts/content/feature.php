@@ -2,16 +2,14 @@
 /**
  * The lead piece, laid out across two columns.
  *
- * When it opens the home page it changes shape: the cover fills the width and
- * the words sit on top of it, the way a front page leads. It also carries the
- * page's `h1`, because there the lead story *is* the heading — while keeping
- * the `h2` size, since the design system separates what a heading means from
- * how big it is and this is exactly what that separation is for.
+ * When it opens the home page it changes shape: the cover fills the width, the
+ * words sit over its left half, and a gradient carries one into the other. It
+ * also carries the page's `h1` at full size, because there the lead story *is*
+ * the heading and a front page says so by how big it is.
  *
- * The scrim under the text fades to `--bg` and not to black: the text then
- * sits on the same colour it sits on everywhere else on the page, so the
- * contrast is the one that was measured, whatever the cover turns out to be —
- * a generated mark, a dark photograph, a light one — and in both themes.
+ * The standfirst is shorter in that shape. Next to a headline that size, the
+ * thirty-four words that read as a summary beside a card read as a paragraph
+ * somebody forgot to cut.
  *
  * @package Lupin3rd
  *
@@ -38,10 +36,10 @@ $l3_is_lead = isset( $args['heading'] ) && 'h1' === $args['heading'];
 	<div class="stack<?php echo $l3_is_lead ? ' lead-cover-text' : ''; ?>">
 		<?php Template_Tags::post_meta( get_post(), false ); ?>
 		<?php if ( $l3_is_lead ) : ?>
-			<h1 class="h2"><?php the_title(); ?></h1>
+			<h1><?php the_title(); ?></h1>
 		<?php else : ?>
 			<h2><?php the_title(); ?></h2>
 		<?php endif; ?>
-		<p class="lead"><?php echo esc_html( Template_Tags::summary( get_post(), 34 ) ); ?></p>
+		<p class="lead"><?php echo esc_html( Template_Tags::summary( get_post(), $l3_is_lead ? 22 : 34 ) ); ?></p>
 	</div>
 </a>

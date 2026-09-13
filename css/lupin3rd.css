@@ -936,11 +936,16 @@ a.tag:hover {
     gap: 26px;
   }
 }
-/* The lead on the front page: the cover fills the width and the words sit on
- * it. The scrim fades to `--bg`, not to black, so the text ends up on the same
- * colour it has everywhere else — the contrast is the one that was measured,
- * whatever the cover is and in either theme. */
+/* The lead on the front page: the cover fills the width, the words sit over its
+ * left half, and a gradient carries one into the other.
+ *
+ * The scrim fades to `--bg` and not to black. Where the text is it is opaque,
+ * so those words sit on the same colour they sit on everywhere else and the
+ * contrast is the one that was measured — whatever the cover turns out to be,
+ * generated mark or photograph, dark or light, and in both themes. Fading to
+ * black would have looked the same in the dark theme and broken the light one. */
 .post.lead-cover {
+  position: relative;
   display: grid;
   gap: 0;
 }
@@ -948,7 +953,7 @@ a.tag:hover {
 .post.lead-cover > .mark {
   grid-area: 1/1;
   aspect-ratio: 21/9;
-  min-height: 320px;
+  min-height: 380px;
   border: 0;
 }
 
@@ -958,21 +963,34 @@ a.tag:hover {
   object-fit: cover;
 }
 
+.post.lead-cover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(to right, var(--bg) 0%, var(--bg) 26%, color-mix(in oklch, var(--bg) 82%, transparent) 50%, color-mix(in oklch, var(--bg) 34%, transparent) 76%, transparent 100%);
+}
+
 .post.lead-cover > .lead-cover-text {
   grid-area: 1/1;
-  align-self: end;
-  z-index: 1;
-  padding: clamp(24px, 4vw, 52px);
-  background: linear-gradient(to top, var(--bg) 0%, color-mix(in oklch, var(--bg) 92%, transparent) 45%, color-mix(in oklch, var(--bg) 55%, transparent) 75%, transparent 100%);
+  z-index: 2;
+  align-self: center;
+  width: min(58%, 64ch);
+  padding: clamp(24px, 4vw, 56px);
 }
 
-.post.lead-cover .lead {
-  max-width: 52ch;
+.post.lead-cover .lead-cover-text h1 {
+  max-width: 15ch;
 }
 
-/* Narrow: a 21/9 cover leaves no room for four lines of text, so the two stop
- * overlapping and simply follow one another. */
-@media (max-width: 720px) {
+.post.lead-cover .lead-cover-text .lead {
+  max-width: 44ch;
+}
+
+/* Narrow: half a 21/9 cover is not a column. The two stop overlapping, the
+ * gradient stops being needed, and they simply follow one another. */
+@media (max-width: 860px) {
   .post.lead-cover {
     grid-template-rows: auto auto;
   }
@@ -981,10 +999,16 @@ a.tag:hover {
     aspect-ratio: 3/2;
     min-height: 0;
   }
+  .post.lead-cover::after {
+    content: none;
+  }
   .post.lead-cover > .lead-cover-text {
     grid-area: 2/1;
+    width: auto;
     padding: var(--gap-md) 0 0;
-    background: none;
+  }
+  .post.lead-cover .lead-cover-text .lead {
+    max-width: 58ch;
   }
 }
 /* Taxonomy filter bar. */
