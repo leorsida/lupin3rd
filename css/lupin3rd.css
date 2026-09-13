@@ -585,12 +585,12 @@ h1 + .kicker, h2 + .kicker, h3 + .kicker {
   color: var(--bg);
 }
 
-/* Below 640px the language switch leaves the bar and goes into the drawer:
- * the logo plus four 44px controls do not fit on a phone. The account chip
- * stays — it is where a reader looks for it, and it is the one control here
- * that says something about them. */
-@media (max-width: 640px) {
-  .nav-tools > .langswitch {
+/* Below the breakpoint the bar keeps only what has to be one tap away —
+ * search, theme, and the button that opens the drawer. The language switch and
+ * the account go into the drawer, where there is room to write them out. */
+@media (max-width: 1080px) {
+  .nav-tools > .langswitch,
+  .nav-tools > .account {
     display: none;
   }
 }
@@ -611,7 +611,7 @@ mark {
 /* On a wide screen the drawer's extras are hidden: the same controls are in
  * the bar. Declared before the media query that shows them, so that the
  * narrow-screen rule is the later one and wins on equal specificity. */
-.nav-extra {
+.nav-extra, .nav-account {
   display: none;
 }
 
@@ -666,13 +666,31 @@ mark {
   .nav-extra .nav-close {
     margin-left: auto;
   }
-  .nav-extra .langswitch {
-    display: none;
+  /* The account at the foot of the drawer: the menu is what the reader opened
+   * it for, and this is what they reach for after. */
+  .nav-account {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--gap-sm);
+    padding-top: var(--gap-md);
   }
-}
-@media (max-width: 640px) {
-  .nav-extra .langswitch {
-    display: inline-flex;
+  .nav-account .nav-account-name {
+    padding-bottom: var(--gap-xs);
+    border-bottom: 1px solid var(--border);
+    width: 100%;
+  }
+  .nav-account a:not(.btn) {
+    border-bottom: 0;
+    padding: 6px 0;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .nav-account a:not(.btn):hover {
+    color: var(--fg);
   }
 }
 .nav-scrim {

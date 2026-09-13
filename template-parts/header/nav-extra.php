@@ -25,3 +25,5 @@ defined( 'ABSPATH' ) || exit;
 		<?php esc_html_e( 'Chiudi', 'lupin3rd' ); ?>
 	</button>
 </div>
+
+<?php get_template_part( 'template-parts/header/account-drawer' ); ?>

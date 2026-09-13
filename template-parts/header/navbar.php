@@ -12,6 +12,17 @@
 defined( 'ABSPATH' ) || exit;
 ?>
 <header class="topnav">
+	<?php
+	/*
+	 * The backdrop is inside the bar, not beside it, and that is not a detail:
+	 * `.topnav` is sticky with a z-index, so it is a stacking context, and
+	 * everything inside it paints as one layer at 30. A backdrop outside at 50
+	 * therefore covers the drawer inside at 60 — the panel comes out dimmed and
+	 * unreadable, which is exactly what it did.
+	 */
+	?>
+	<div class="nav-scrim" data-nav-scrim hidden></div>
+
 	<div class="container topnav-inner">
 		<a class="logo" href="<?php echo esc_url( home_url( '/' ) ); ?>">
 			<?php echo esc_html( get_bloginfo( 'name' ) ); ?>
@@ -92,6 +103,4 @@ defined( 'ABSPATH' ) || exit;
  * script so that its look lives in the stylesheet with everything else.
  */
 ?>
-<div class="nav-scrim" data-nav-scrim hidden></div>
-
 <?php get_template_part( 'template-parts/header/search-overlay' ); ?>
