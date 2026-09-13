@@ -81,7 +81,8 @@ final class Session_Hint {
 			return;
 		}
 
-		$user    = wp_get_current_user();
+		$user = wp_get_current_user();
+
 		/*
 		 * Sanitised although it is only ever compared, never printed: the value
 		 * we write is url-encoded JSON, so it passes through untouched, and the
