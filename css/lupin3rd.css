@@ -977,7 +977,12 @@ a.tag:hover {
   z-index: 2;
   align-self: center;
   width: min(58%, 64ch);
-  padding: clamp(24px, 4vw, 56px);
+  /* No padding on the left: the headline starts on the container's own
+   * gutter, in the same vertical line as the masthead line above it. An
+   * indent here reads as a mistake precisely because everything else on the
+   * page agrees on where the left edge is. */
+  padding-block: clamp(24px, 4vw, 56px);
+  padding-inline: 0 clamp(24px, 4vw, 56px);
 }
 
 .post.lead-cover .lead-cover-text h1 {
