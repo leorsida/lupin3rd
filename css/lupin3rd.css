@@ -167,6 +167,13 @@ h1, h2, h3, h4 {
   border-top: 0;
 }
 
+/* A stat grid is a box with four borders of its own. The rule the next section
+ * draws lands a few pixels under that box's bottom edge, in the same colour and
+ * at a different width: two parallel lines where the design has one. */
+.section-tight:has(.statgrid) + .section {
+  border-top: 0;
+}
+
 .stack {
   display: flex;
   flex-direction: column;
