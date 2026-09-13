@@ -22,22 +22,28 @@ const paths = await (async () => {
 test('the home page renders its sections', async () => {
 	const html = await page('/');
 
-	assert.match(html, /class="[^"]*\bhero\b/, 'no hero');
+	/*
+	 * `.hero` is no longer here: it is the fallback for a site with nothing to
+	 * lead with. What the page must always have is a lead and the rows under
+	 * it — asserting the fallback was asserting the exception.
+	 */
+	assert.match(html, /class="post lead-cover"/, 'no lead');
 	assert.match(html, /class="[^"]*\bpost\b/, 'no cards');
 	assert.ok(count(html, /class="[^"]*\bsection\b/) >= 4, 'fewer sections than expected');
 });
 
-test('the feature card is rendered once, not three times', async () => {
+test('the lead is rendered once, not three times', async () => {
 	/*
 	 * It was rendered three times: post_meta() printed a category <a> inside
 	 * .post, which is itself an <a>, and the parser split the outer element at
-	 * every nested anchor.
+	 * every nested anchor. The lead changed shape since; what it must not have
+	 * changed is this.
 	 */
 	const html = await page('/');
-	const feature = element(html, /<a[^>]*class="[^"]*\bsplit-feature\b/);
+	const feature = element(html, /<a[^>]*class="[^"]*\blead-cover\b/);
 
-	assert.ok(feature, 'no feature card on the home page');
-	assert.equal(count(feature, /<a\b/), 1, 'the feature card contains a nested anchor');
+	assert.ok(feature, 'no lead on the home page');
+	assert.equal(count(feature, /<a\b/), 1, 'the lead contains a nested anchor');
 });
 
 test('the dispatch form is on the home page and posts somewhere real', async () => {
