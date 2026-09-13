@@ -176,23 +176,39 @@ final class Security {
 	public function replace_gravatar( $avatar, $id_or_email, $args ): string {
 		$seed    = '';
 		$initial = '';
+		$user    = null;
 
-		if ( $id_or_email instanceof \WP_Comment ) {
-			$seed    = $id_or_email->comment_author ?: 'anon';
-			$initial = $id_or_email->comment_author;
+		if ( $id_or_email instanceof \WP_User ) {
+			$user = $id_or_email;
+		} elseif ( $id_or_email instanceof \WP_Comment ) {
+			$user = (int) $id_or_email->user_id > 0 ? get_userdata( (int) $id_or_email->user_id ) : null;
+
+			if ( ! $user instanceof \WP_User ) {
+				$seed    = $id_or_email->comment_author ?: 'anon';
+				$initial = $id_or_email->comment_author;
+			}
 		} elseif ( is_numeric( $id_or_email ) ) {
-			$user    = get_userdata( (int) $id_or_email );
-			$seed    = $user ? $user->user_login : 'anon';
-			$initial = $seed;
+			$user = get_userdata( (int) $id_or_email );
 		} elseif ( is_string( $id_or_email ) ) {
 			$seed    = $id_or_email;
 			$initial = $id_or_email;
 		}
 
+		/*
+		 * For an account the seed is the stored random one, never the login and
+		 * never the address: a pattern derived from an email address is that
+		 * address, hashed, on public display — which is the whole objection to
+		 * Gravatar.
+		 */
+		if ( $user instanceof \WP_User ) {
+			$seed    = Profile_Fields::avatar_seed( $user );
+			$initial = Profile_Fields::pseudonym( $user );
+		}
+
 		$size = isset( $args['size'] ) && (int) $args['size'] <= 32 ? 'avatar-sm' : '';
 
 		ob_start();
-		Marks::render_avatar( $seed ?: 'anon', strtoupper( substr( $initial ?: 'anon', 0, 2 ) ), $size );
+		Marks::render_avatar( $seed ?: 'anon', strtolower( substr( $initial ?: 'anon', 0, 2 ) ), $size );
 
 		return (string) ob_get_clean();
 	}

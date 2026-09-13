@@ -14,3 +14,5 @@
 .widget li a { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; font-size: 13px; }
 .widget li a:hover { color: var(--fg); text-decoration: underline; text-underline-offset: 3px; }
 .widget li a span { color: var(--muted); font-family: var(--font-mono); font-size: 11px; }
+/* Prose inside a widget, where the list markup does not apply. */
+.widget-note { font-size: 13px; color: var(--muted); margin: 0; }

@@ -100,6 +100,19 @@ A module must toggle the state the design system defines, not invent one. The se
 
 The `hidden` attribute is a separate concern and is kept in step: it takes a closed panel's links out of the tab order. Remove it before calling `focus()`, because an unrendered element cannot take focus.
 
+## Controls that need a script ship hidden, panels do not
+
+A tab strip is the clearest case. The server renders **every** panel open, each
+with its own heading, and the strip itself carrying the `hidden` attribute.
+Without the bundle the page is a sequence of labelled lists: everything the
+reader came for is on screen, and there is no control that does nothing. With
+the bundle, `tabs.js` reveals the strip, folds the per-panel headings away with
+`[data-tab-heading]` and leaves one panel showing.
+
+The inverse — shipping panels with `hidden` and revealing them from script — is
+the shape to avoid: it hides content behind a file that may not arrive, and it
+fails silently when it does not.
+
 ## Naming
 
 The prototype names these attributes in Italian (`data-quando-dentro`, `data-carica-altri`). The theme requires English identifiers throughout. The translation table lives in `12-glossary.md` and is binding: renaming one of these after the templates are written is a breaking change on both sides at once.

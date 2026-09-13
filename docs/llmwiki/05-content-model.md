@@ -105,3 +105,40 @@ theme leaves nothing orphaned behind it.
 There is no hosted list service: the colophon promises no third party in the
 page and no tracking in the email, which rules every one of them out.
 
+
+## Accounts
+
+Two roles are registered, `l3_member` and `l3_contributor`; the desk is the core
+`editor` role shown under the label «redazione» (D-018). A member holds `read`
+and nothing else — commenting needs no capability — and a contributor adds
+`edit_posts`, `delete_posts` and two capabilities of this theme's own,
+`l3_read_drafts` and `l3_propose_change`, so that reading a piece under review
+never has to be spelled `edit_others_posts`.
+
+Everything an account says about itself is user meta, and the list is short on
+purpose: there is no field for a country, a real name, a last login or an
+address, so no template can publish one.
+
+| Key | Holds | Written by |
+|---|---|---|
+| `l3_pseudonym` | the name on display; `user_login` is the immutable one (D-019) | the account |
+| `l3_bio` | two lines, plain text, no links | the account |
+| `l3_pgp_fingerprint` | declared fingerprint, hex in blocks of four | the account |
+| `l3_pgp_verified` | the desk has countersigned it | the desk only |
+| `l3_avatar_seed` | random seed the avatar pattern is drawn from | generated at registration |
+| `l3_approved_contributions` | approved comments; at three the account leaves the queue | the moderation transition |
+| `l3_show_join_date` | whether the join date appears publicly | the account |
+| `l3_languages` | up to four two-letter codes | the account |
+| `l3_notify_replies` | email when somebody answers | the account |
+
+The seed is random and stored rather than derived from the address, because a
+pattern derived from an email address is that address, hashed, on public
+display — which is the whole objection to Gravatar.
+
+A changed fingerprint clears `l3_pgp_verified` in the same write: the «chiave
+verificata» label has to mean the key on screen, not a key that was once there.
+
+Two filters make a pseudonym change reach markup this theme does not own:
+`get_the_author_display_name` and `get_comment_author`. The second is also where
+a comment by a deleted account starts reading «account rimosso», because it is
+the same lookup.

@@ -317,3 +317,88 @@ Consequences that have to be respected from phase 4, not retrofitted:
   `03-components.md` keeps it that way.
 - The cookie carries display data only. Treat it as untrusted, because the
   reader can edit it; nothing is authorised by it.
+
+## D-018 — Two new roles, not three
+
+**Decided:** 13.09.2026 · **Status:** accepted · **Phase:** community
+
+The theme registers `l3_member` and `l3_contributor`. The prototype's third
+badge, «redazione», is the core `editor` role (and `administrator`), shown
+under that label.
+
+*Rejected:* a third `l3_desk` role duplicating `editor`. WordPress already
+maintains that capability map, and every plugin that asks
+`current_user_can( 'edit_others_posts' )` would stop recognising the desk. The
+prototype describes three *visible* roles, not three rows in `wp_roles`.
+
+## D-019 — The pseudonym is the login and never changes; the display name does
+
+**Decided:** 13.09.2026 · **Status:** accepted · **Phase:** community
+
+`user_login` holds the pseudonym as first typed and is never edited.
+`l3_pseudonym` holds the one on display and can be changed from `/account/`.
+Templates render the display name and never the login. A retired pseudonym is
+held for ninety days in the `l3_retired_pseudonyms` option so that it cannot be
+claimed by somebody else in the meantime.
+
+*Rejected:* editing `user_login`, which WordPress does not support without a
+direct write, and which would break every session token in flight.
+
+## D-020 — TOTP is written in the theme
+
+**Decided:** 13.09.2026 · **Status:** accepted · **Phase:** community
+
+The secret lives in `l3_totp_secret`, encrypted with a key derived from
+`AUTH_SALT`; verification accepts one interval either side; ten recovery codes
+are stored as hashes and shown once.
+
+*Rejected:* a plugin. The no-paid-plugin constraint applies here too, and
+RFC 6238 is sixty lines of PHP. The encryption is what makes a database dump
+insufficient to sign in — a plaintext secret column would hand an attacker the
+second factor along with the first.
+
+## D-021 — `wp-login.php` is not a public door
+
+**Decided:** 13.09.2026 · **Status:** accepted · **Phase:** community
+
+`/accesso/` is the only way in. `wp-login.php` answers 302 to `/accesso/`,
+except for `action=logout` and for requests that already carry a session with
+`edit_posts`.
+
+*Rejected:* leaving both doors open. Two doors with two behaviours are two
+surfaces to keep closed, and only one of them would be covered by the tests.
+
+## D-022 — Sessions are listed from WordPress's own tokens, without a location
+
+**Decided:** 13.09.2026 · **Status:** accepted · **Phase:** community
+· **Deviates from:** `OD/profilo-connesso.html`
+
+`/account/` lists sessions by reading `WP_Session_Tokens` and shows an
+approximate browser and platform, plus how long ago each was used. It does not
+show a city.
+
+The prototype shows «Firefox su Linux · Roma · adesso». A city means
+geolocating an IP address, which means keeping the address — exactly what the
+colophon promises not to do. The prototype has to be corrected, not the theme.
+
+## D-023 — Comment drafts are not kept on the server
+
+**Decided:** 13.09.2026 · **Status:** accepted · **Phase:** community
+· **Deviates from:** `OD/profilo-connesso.html`
+
+The «Bozze» tab in `/account/` reads what the reader's own browser saved. The
+server keeps nothing unpublished.
+
+The prototype promises drafts held for ninety days. Unpublished text sitting in
+a database for three months is precisely the category of data this site says it
+does not hold, and it would be readable by anyone who reaches the database.
+
+## D-024 — Bookmarks are a list of IDs and carry no history
+
+**Decided:** 13.09.2026 · **Status:** accepted · **Phase:** community
+
+`l3_bookmarks` is a user meta array of post IDs. No table, no timestamps, no
+order of reading.
+
+*Rejected:* a bookmarks table with `added_at`. The moment a timestamp exists,
+the site holds a reading history, which the colophon says it does not.

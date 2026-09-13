@@ -42,6 +42,8 @@ final class Theme {
 		Assets::class,
 		Content_Types::class,
 		Meta_Fields::class,
+		Profile_Fields::class,
+		Community::class,
 		Blocks::class,
 		Patterns::class,
 		Marks::class,

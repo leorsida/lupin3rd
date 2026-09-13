@@ -157,6 +157,16 @@ h1, h2, h3, h4 {
   border-top: 1px solid var(--border);
 }
 
+/* A row of numbers belongs to the section above it: no rule between them,
+ * and no full section's worth of air. */
+.section-tight {
+  padding-block: 10px 0;
+}
+
+.section + .section-tight {
+  border-top: 0;
+}
+
 .stack {
   display: flex;
   flex-direction: column;
@@ -1052,6 +1062,13 @@ a.tag:hover {
   font-size: 11px;
 }
 
+/* Prose inside a widget, where the list markup does not apply. */
+.widget-note {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0;
+}
+
 /* Form controls. */
 .field {
   display: flex;
@@ -1658,6 +1675,33 @@ a.tag:hover {
   margin-right: 0;
 }
 
+/* A member profile heading: the avatar, then everything else. */
+.identity {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  gap: 26px;
+  align-items: start;
+}
+
+.identity-name {
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.identity-name h1 {
+  font-size: clamp(36px, 5vw, 56px);
+}
+
+.identity-tools {
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 560px) {
+  .identity {
+    grid-template-columns: 1fr;
+  }
+}
 /* Role badges. */
 .badge {
   display: inline-flex;

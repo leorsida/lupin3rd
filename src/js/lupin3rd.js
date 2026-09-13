@@ -17,6 +17,7 @@ import initTaxonomyFilters from './modules/taxonomy-filters.js';
 import initCodeCopy from './modules/code-copy.js';
 import initTableOfContents from './modules/table-of-contents.js';
 import initFormValidation from './modules/form-validation.js';
+import initTabs from './modules/tabs.js';
 
 const start = () => {
 	initThemeSwitch();
@@ -26,6 +27,7 @@ const start = () => {
 	initCodeCopy();
 	initTableOfContents();
 	initFormValidation();
+	initTabs();
 };
 
 if (document.readyState === 'loading') {

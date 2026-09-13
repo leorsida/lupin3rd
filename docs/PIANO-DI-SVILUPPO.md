@@ -349,7 +349,7 @@ Vedi §6 per il dettaglio.
 **Totale fase 1: ~13,5 giornate uomo.**
 
 ### Fase 2 (successiva)
-Modulo comunità (3 ruoli, profili `/membri/`, accesso fuori da `wp-login.php`, 2FA TOTP, avatar da seed, area `/account/`, esportazione e cancellazione dati) · ~6 g
+Modulo comunità (ruoli, profili `/membri/`, accesso fuori da `wp-login.php`, 2FA TOTP, avatar da seed, area `/account/`, esportazione e cancellazione dati) · ~6,5 g — **in corso**, pianificata in dettaglio in [`docs/PIANO-FASE-COMUNITA.md`](PIANO-FASE-COMUNITA.md) (decisioni D-018…D-024)
 Multilingua Polylang (alberi IT/`/en/`, hreflang reciproci, menu e stringhe per lingua, formati data) · ~2 g
 Flusso redazionale a 6 stati con stati personalizzati e revisione tecnica/legale · ~2 g
 

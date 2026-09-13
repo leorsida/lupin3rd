@@ -73,4 +73,44 @@ final class I18n {
 	public function date( int $timestamp ): string {
 		return wp_date( $this->date_format(), $timestamp );
 	}
+
+	/**
+	 * Format a moment the way the prototype does: near things in words, far
+	 * things by date.
+	 *
+	 * Deliberately coarse. «3 ore fa» is what a reader needs; the minute an
+	 * account was last seen is not, and is exactly the kind of detail the
+	 * colophon promises not to publish.
+	 *
+	 * @param int|string $when Unix timestamp, or a GMT datetime string.
+	 */
+	public function relative_date( $when ): string {
+		$timestamp = is_numeric( $when ) ? (int) $when : (int) strtotime( (string) $when . ' UTC' );
+
+		if ( $timestamp <= 0 ) {
+			return '';
+		}
+
+		$days  = (int) floor( ( (int) wp_date( 'U' ) - $timestamp ) / DAY_IN_SECONDS );
+		$time  = wp_date( 'H:i', $timestamp );
+		$today = wp_date( 'Y-m-d' );
+		$then  = wp_date( 'Y-m-d', $timestamp );
+
+		if ( $then === $today ) {
+			/* translators: %s: time of day, e.g. 11:02. */
+			return sprintf( __( 'oggi, %s', 'lupin3rd' ), $time );
+		}
+
+		if ( $then === wp_date( 'Y-m-d', (int) wp_date( 'U' ) - DAY_IN_SECONDS ) ) {
+			/* translators: %s: time of day, e.g. 21:40. */
+			return sprintf( __( 'ieri, %s', 'lupin3rd' ), $time );
+		}
+
+		if ( $days < 7 ) {
+			/* translators: %d: number of days. */
+			return sprintf( _n( '%d giorno fa', '%d giorni fa', $days, 'lupin3rd' ), $days );
+		}
+
+		return $this->date( $timestamp ) . ', ' . $time;
+	}
 }

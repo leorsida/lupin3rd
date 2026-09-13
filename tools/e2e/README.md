@@ -1,7 +1,9 @@
 # End-to-end tests
 
 They load real pages from a running site and assert on what comes back. No
-dependencies: Node's own test runner and `fetch`, nothing installed.
+dependencies: Node's own test runner and `node:http`, nothing installed.
+(Not `fetch`: it cannot set a `Host` header, and the site redirects anything
+that asks by a name other than its own. `helpers.js` says why at length.)
 
 They exist because of what this theme's defects had in common — **not one of
 them produced an error anywhere**. A feature card rendered three times, a search
@@ -58,6 +60,7 @@ setup ever needs it to.
 | `pages.test.js` | Every kind of page renders and carries its furniture: sections, byline, index, code block, related row, the dispatch form. Archive filters that actually filter on the server. |
 | `seo.test.js` | Canonical, description, Open Graph with an image that exists, JSON-LD that parses, `llms.txt`, `robots.txt`, feed, sitemap. No HTML entities in documents machines read. No third-party host anywhere in the page. |
 | `structure.test.js` | The design system's structural contracts: `.comment` takes exactly two children, `#respond` is what carries the form's frame, the side column is one block, cards contain no nested anchors, the overlay uses the state the stylesheet defines. |
+| `community.test.js` | The profile promise: a member page lives under `/membri/`, shows pseudonym and role, and carries no email address, no last access and no IP. Tab panels that work without JavaScript. |
 | `security.test.js` | `/wp/v2/users` closed, author enumeration blocked, XML-RPC shut, no generator tag, security headers, `wp-config.php` unreachable, and both public forms refusing a request without a nonce. |
 
 ## Adding one

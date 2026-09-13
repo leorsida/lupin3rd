@@ -24,3 +24,12 @@
 .avatar-stack { display: flex; }
 .avatar-stack .avatar { margin-right: -8px; box-shadow: 0 0 0 2px var(--bg); }
 .avatar-stack .avatar:last-child { margin-right: 0; }
+
+/* A member profile heading: the avatar, then everything else. */
+.identity { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 26px; align-items: start; }
+.identity-name { flex-wrap: wrap; gap: 14px; }
+.identity-name h1 { font-size: clamp(36px, 5vw, 56px); }
+.identity-tools { gap: 10px; flex-wrap: wrap; }
+@media (max-width: 560px) {
+  .identity { grid-template-columns: 1fr; }
+}
