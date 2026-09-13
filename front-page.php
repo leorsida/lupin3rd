@@ -71,40 +71,50 @@ $l3_dossiers = new WP_Query(
 );
 ?>
 
-<section class="section hero">
-	<div class="container">
-		<p class="eyebrow"><?php esc_html_e( 'Rivista indipendente · dal 1999', 'lupin3rd' ); ?></p>
-		<h1><?php echo esc_html( get_bloginfo( 'description' ) ?: __( 'Quello che l\'informatica fa quando nessuno guarda.', 'lupin3rd' ) ); ?></h1>
-
-		<div class="grid-2-1">
-			<p class="lead">
-				<?php esc_html_e( 'Notizie, tutorial con laboratorio riproducibile e inchieste a puntate. Nessun investitore, nessun cookie di profilazione, nessuna terza parte in pagina.', 'lupin3rd' ); ?>
-			</p>
-			<div class="row">
-				<a class="btn btn-primary btn-arrow" href="<?php echo esc_url( (string) get_post_type_archive_link( Content_Types::TUTORIAL ) ); ?>">
-					<?php esc_html_e( 'Tutorial', 'lupin3rd' ); ?>
-				</a>
-				<a class="btn btn-secondary" href="<?php echo esc_url( Template_Tags::archive_url() ); ?>">
-					<?php esc_html_e( 'Archivio', 'lupin3rd' ); ?>
-				</a>
-			</div>
-		</div>
-	</div>
-</section>
-
+<?php
+/*
+ * A front page opens with a piece, not with a claim about the publication.
+ * The lead is the desk's choice — a sticky post, otherwise the most recent
+ * thing — so the masthead line above it is all the self-description the page
+ * needs, and it carries the h1 because on a front page the lead story is the
+ * heading.
+ *
+ * The claim survives only where there is nothing to lead with: an empty site
+ * still needs one h1 and a sentence saying what this is.
+ */
+?>
 <?php if ( $l3_lead->have_posts() ) : ?>
 	<section class="section">
-		<div class="container">
-			<div class="row-between">
-				<p class="kicker"><?php esc_html_e( 'In evidenza', 'lupin3rd' ); ?></p>
-			</div>
+		<div class="container stack">
+			<p class="eyebrow"><?php esc_html_e( 'Rivista indipendente · dal 1999', 'lupin3rd' ); ?></p>
 			<?php
 			while ( $l3_lead->have_posts() ) :
 				$l3_lead->the_post();
-				get_template_part( 'template-parts/content/feature' );
+				get_template_part( 'template-parts/content/feature', null, array( 'heading' => 'h1' ) );
 			endwhile;
 			wp_reset_postdata();
 			?>
+		</div>
+	</section>
+<?php else : ?>
+	<section class="section hero">
+		<div class="container">
+			<p class="eyebrow"><?php esc_html_e( 'Rivista indipendente · dal 1999', 'lupin3rd' ); ?></p>
+			<h1><?php echo esc_html( get_bloginfo( 'description' ) ?: __( 'Quello che l\'informatica fa quando nessuno guarda.', 'lupin3rd' ) ); ?></h1>
+
+			<div class="grid-2-1">
+				<p class="lead">
+					<?php esc_html_e( 'Notizie, tutorial con laboratorio riproducibile e inchieste a puntate. Nessun investitore, nessun cookie di profilazione, nessuna terza parte in pagina.', 'lupin3rd' ); ?>
+				</p>
+				<div class="row">
+					<a class="btn btn-primary btn-arrow" href="<?php echo esc_url( (string) get_post_type_archive_link( Content_Types::TUTORIAL ) ); ?>">
+						<?php esc_html_e( 'Tutorial', 'lupin3rd' ); ?>
+					</a>
+					<a class="btn btn-secondary" href="<?php echo esc_url( Template_Tags::archive_url() ); ?>">
+						<?php esc_html_e( 'Archivio', 'lupin3rd' ); ?>
+					</a>
+				</div>
+			</div>
 		</div>
 	</section>
 <?php endif; ?>

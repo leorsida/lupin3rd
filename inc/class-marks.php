@@ -110,13 +110,24 @@ final class Marks {
 
 		if ( $post && has_post_thumbnail( $post ) ) {
 			$classes = 'mark' . ( $shape ? ' ' . $shape : '' );
+
+			/*
+			 * `wide` means the lead, and the lead is the first thing on the
+			 * page: it gets the large size and is fetched at once. Everything
+			 * else is a card further down and is fetched when it is needed.
+			 * Lazy-loading the largest image above the fold is the classic way
+			 * to make a page feel slower than it is.
+			 */
+			$is_lead = 'wide' === $shape;
+
 			printf( '<div class="%s">', esc_attr( $classes ) );
 			echo get_the_post_thumbnail(
 				$post,
-				'l3-card',
+				$is_lead ? 'l3-feature' : 'l3-card',
 				array(
-					'loading' => 'lazy',
-					'alt'     => '',
+					'loading'       => $is_lead ? 'eager' : 'lazy',
+					'fetchpriority' => $is_lead ? 'high' : 'auto',
+					'alt'           => '',
 				)
 			); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Core escapes this.
 			if ( $tag ) {

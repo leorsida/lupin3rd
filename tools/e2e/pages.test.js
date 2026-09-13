@@ -138,3 +138,33 @@ test('a tag page does not wear its own name as a layout class', async () => {
 		assert.ok(!classes.includes(colliding), `body carries the component class "${colliding}"`);
 	}
 });
+
+test('the home page leads with a piece and gives it the h1', async () => {
+	/*
+	 * A front page that opens with a claim about the publication has its h1 on
+	 * the claim; this one opens with the lead story, so the h1 is the lead's
+	 * headline. Either is defensible — having neither, or two, is not.
+	 */
+	const html = await page('/');
+	const headings = html.match(/<h1[^>]*>/g) || [];
+
+	assert.equal(headings.length, 1, `the home page has ${headings.length} first-level headings`);
+
+	const lead = element(html, /<a class="post lead-cover"/);
+
+	assert.ok(lead, 'the lead is not the cover-and-words block');
+	assert.match(lead, /<h1/, 'the lead does not carry the h1');
+	assert.doesNotMatch(lead, /class="mark-tag"/, 'the corner label is back, on top of the words');
+});
+
+test('the cover behind the lead is fetched at once, not lazily', async () => {
+	const html = await page('/');
+	const lead = element(html, /<a class="post lead-cover"/);
+	const img = lead && /<img[^>]*>/.exec(lead);
+
+	if (!img) {
+		return; // A generated mark, not a photograph: nothing to fetch.
+	}
+
+	assert.doesNotMatch(img[0], /loading="lazy"/, 'the largest image above the fold is lazy-loaded');
+});
