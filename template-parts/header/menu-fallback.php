@@ -32,11 +32,27 @@ $l3_links = array(
 		'url'   => Template_Tags::archive_url(),
 	),
 );
+
+/*
+ * Which of these is the section the reader is in. The same rule the real menu
+ * uses, so the two do not disagree about where you are.
+ */
+$l3_paths   = Template_Tags::section_paths();
+$l3_here    = array_map( static fn ( array $l3_item ): string => Template_Tags::path_of( (string) $l3_item['url'] ), $l3_links );
+$l3_current = '';
+
+foreach ( $l3_paths as $l3_path ) {
+	if ( in_array( $l3_path, $l3_here, true ) ) {
+		$l3_current = $l3_path;
+		break;
+	}
+}
 ?>
 <nav id="primary-nav" aria-label="<?php esc_attr_e( 'Navigazione principale', 'lupin3rd' ); ?>">
 	<?php foreach ( $l3_links as $l3_link ) : ?>
 		<?php if ( $l3_link['url'] ) : ?>
-			<a href="<?php echo esc_url( $l3_link['url'] ); ?>"><?php echo esc_html( $l3_link['label'] ); ?></a>
+			<a href="<?php echo esc_url( $l3_link['url'] ); ?>"
+				<?php echo Template_Tags::path_of( $l3_link['url'] ) === $l3_current ? ' aria-current="page"' : ''; ?>><?php echo esc_html( $l3_link['label'] ); ?></a>
 		<?php endif; ?>
 	<?php endforeach; ?>
 

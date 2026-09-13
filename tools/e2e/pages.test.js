@@ -190,3 +190,24 @@ test('the menu is reachable without the script that turns it into a drawer', asy
 	assert.match(html, /<button[^>]*data-nav-toggle[^>]*\bhidden\b/, 'the burger ships usable but inert');
 	assert.match(html, /<div class="nav-scrim"[^>]*\bhidden\b/, 'the backdrop ships visible');
 });
+
+test('the menu says which section you are in, on a single piece too', async () => {
+	/*
+	 * Every entry in this menu is a custom link, and WordPress marks a menu
+	 * item current by matching the request against the object it points at —
+	 * which a custom link does not have. So on /tutorial/<slug>/ nothing was
+	 * marked and the navigation stopped saying where the reader was.
+	 */
+	const check = async (path, expected) => {
+		const html = await page(path);
+		const nav = element(html, /<nav[^>]*id="primary-nav"/);
+		const marked = [...nav.matchAll(/<a[^>]*aria-current="page"[^>]*>([^<]*)</g)].map((m) => m[1].trim());
+
+		assert.equal(marked.length, 1, `${path} marks ${marked.length} entries: ${marked.join(', ')}`);
+		assert.match(marked[0], expected, `${path} marks «${marked[0]}»`);
+	};
+
+	await check(paths.tutorial, /tutorial/i);
+	await check(paths.dossier, /dossier/i);
+	await check('/archivio/', /archivio/i);
+});

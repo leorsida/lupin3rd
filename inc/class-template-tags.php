@@ -31,6 +31,119 @@ final class Template_Tags {
 		 * size this theme sets, a repeated label reads as a mistake.
 		 */
 		add_filter( 'get_the_archive_title_prefix', '__return_empty_string' );
+
+		/*
+		 * WordPress marks a menu item as current by matching the request
+		 * against the object the item points at. Every entry in this menu is a
+		 * custom link, so nothing matches once the reader is on a single piece:
+		 * on /tutorial/<slug>/ the «Tutorial» entry goes quiet. This puts the
+		 * highlight back on the section the piece belongs to.
+		 */
+		add_filter( 'wp_nav_menu_objects', array( $this, 'mark_current_section' ), 10, 1 );
+	}
+
+	/**
+	 * Light up the menu entry for the section this page belongs to.
+	 *
+	 * Runs on the whole list at once rather than item by item, because picking
+	 * the right entry means comparing the candidates against each other: a
+	 * piece in Crypto matches both «Crypto» and «Notizie», and only the first
+	 * should light up.
+	 *
+	 * @param array<int, \WP_Post> $items Menu items.
+	 * @return array<int, \WP_Post>
+	 */
+	public function mark_current_section( $items ) {
+		foreach ( $items as $item ) {
+			$classes = (array) ( $item->classes ?? array() );
+
+			// WordPress already knew: a page entry on its own page, say.
+			if ( in_array( 'current-menu-item', $classes, true ) ) {
+				return $items;
+			}
+		}
+
+		$wanted = self::section_paths();
+
+		foreach ( $wanted as $path ) {
+			foreach ( $items as $item ) {
+				if ( self::path_of( (string) ( $item->url ?? '' ) ) !== $path ) {
+					continue;
+				}
+
+				$item->classes = array_merge( (array) ( $item->classes ?? array() ), array( 'current-menu-item' ) );
+
+				return $items;
+			}
+		}
+
+		return $items;
+	}
+
+	/**
+	 * The sections this request could belong to, most specific first.
+	 *
+	 * @return array<int, string>
+	 */
+	public static function section_paths(): array {
+		$urls = array();
+
+		if ( is_singular( Content_Types::TUTORIAL ) || is_post_type_archive( Content_Types::TUTORIAL ) ) {
+			$urls[] = get_post_type_archive_link( Content_Types::TUTORIAL );
+		}
+
+		if ( is_singular( Content_Types::DOSSIER ) || is_post_type_archive( Content_Types::DOSSIER ) ) {
+			$urls[] = get_post_type_archive_link( Content_Types::DOSSIER );
+		}
+
+		if ( is_category() ) {
+			$urls[] = get_category_link( (int) get_queried_object_id() );
+		}
+
+		/*
+		 * A news piece filed under a category that has its own entry — Crypto —
+		 * belongs there before it belongs to the news at large.
+		 */
+		if ( is_singular( 'post' ) ) {
+			foreach ( (array) get_the_category() as $category ) {
+				if ( $category instanceof \WP_Term ) {
+					$urls[] = get_category_link( $category->term_id );
+				}
+			}
+
+			$urls[] = home_url( '/' );
+		}
+
+		if ( is_tag() || is_date() || is_author() || is_search() || is_home() ) {
+			$urls[] = self::archive_url();
+		}
+
+		if ( is_front_page() ) {
+			$urls[] = home_url( '/' );
+		}
+
+		$paths = array();
+
+		foreach ( $urls as $url ) {
+			$path = self::path_of( is_string( $url ) ? $url : '' );
+
+			if ( '' !== $path && ! in_array( $path, $paths, true ) ) {
+				$paths[] = $path;
+			}
+		}
+
+		return $paths;
+	}
+
+	/**
+	 * The path of a URL, without host, query or trailing slash.
+	 *
+	 * @param string $url URL to reduce.
+	 */
+	public static function path_of( string $url ): string {
+		$path = wp_parse_url( $url, PHP_URL_PATH );
+
+		return is_string( $path ) ? untrailingslashit( $path ) : '';
 	}
 
 	/**
