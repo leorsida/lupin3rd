@@ -325,7 +325,14 @@ final class Template_Tags {
 			)
 		);
 
-		if ( null === $links || count( $links ) < 2 ) {
+		/*
+		 * The stub says this returns a list of strings, so the check below
+		 * looks redundant to the analyser. WordPress's own docblock says
+		 * `string|string[]|void`: with 'type' => 'array' it usually returns an
+		 * array, and it returns nothing at all when there is nothing to
+		 * paginate. The guard stays; the analyser is told why.
+		 */
+		if ( ! is_array( $links ) || count( $links ) < 2 ) { // @phpstan-ignore function.alreadyNarrowedType
 			return;
 		}
 
