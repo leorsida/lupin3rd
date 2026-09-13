@@ -95,6 +95,7 @@ final class Community {
 			self::ROLE_CONTRIBUTOR,
 			__( 'Collaboratore', 'lupin3rd' ),
 			array(
+
 				/*
 				 * A contributor writes drafts and reads the ones under review.
 				 * `edit_others_posts` is deliberately absent: reading a draft

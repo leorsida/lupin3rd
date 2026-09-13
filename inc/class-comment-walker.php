@@ -33,24 +33,45 @@ final class Comment_Walker extends \Walker_Comment {
 		$classes = 'comment' . ( $depth > 1 ? ' comment-nested' : '' );
 		$removed = '' === trim( (string) $comment->comment_author );
 		$name    = $removed ? __( 'account rimosso', 'lupin3rd' ) : get_comment_author( $comment );
-		$url     = $removed ? '' : (string) get_comment_author_url( $comment );
+
+		/*
+		 * A signed comment points at its member profile; a guest's own website
+		 * stays what it was, a third-party link carrying nofollow and ugc. The
+		 * two are not the same kind of link and must not be rendered alike.
+		 */
+		$member = (int) $comment->user_id > 0 ? get_userdata( (int) $comment->user_id ) : null;
+		$member = $member instanceof \WP_User ? $member : null;
+
+		if ( $member instanceof \WP_User ) {
+			$url  = Community::profile_url( $member );
+			$seed = Profile_Fields::avatar_seed( $member );
+			$mark = Profile_Fields::initials( $member );
+		} else {
+			$url  = $removed ? '' : (string) get_comment_author_url( $comment );
+			$seed = $name;
+			$mark = mb_strtolower( mb_substr( $name, 0, 2 ) );
+		}
 		?>
 		<article id="comment-<?php comment_ID(); ?>" <?php comment_class( $classes, $comment ); ?>>
 			<?php
 			// Full size: the avatar column is 44px and the prototype fills it.
-			Marks::render_avatar( $name, mb_strtoupper( mb_substr( $name, 0, 2 ) ) );
+			Marks::render_avatar( $seed, $mark );
 			?>
 
 			<div>
 				<div class="comment-head">
-					<?php if ( $url ) : ?>
+					<?php if ( $member instanceof \WP_User ) : ?>
+						<a class="comment-name" href="<?php echo esc_url( $url ); ?>"><?php echo esc_html( $name ); ?></a>
+					<?php elseif ( $url ) : ?>
 						<a class="comment-name" href="<?php echo esc_url( $url ); ?>" rel="nofollow ugc"><?php echo esc_html( $name ); ?></a>
 					<?php else : ?>
 						<span class="comment-name"><?php echo esc_html( $name ); ?></span>
 					<?php endif; ?>
 
-					<?php if ( $comment->user_id && user_can( (int) $comment->user_id, 'edit_posts' ) ) : ?>
-						<span class="badge badge-strong"><?php esc_html_e( 'redazione', 'lupin3rd' ); ?></span>
+					<?php if ( $member instanceof \WP_User ) : ?>
+						<span class="badge<?php echo $member->has_cap( 'edit_others_posts' ) ? ' badge-strong' : ''; ?>">
+							<?php echo esc_html( Community::role_label( $member ) ); ?>
+						</span>
 					<?php endif; ?>
 
 					<time class="meta" datetime="<?php echo esc_attr( (string) get_comment_time( 'c' ) ); ?>">

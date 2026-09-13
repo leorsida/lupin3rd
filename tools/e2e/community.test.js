@@ -12,6 +12,36 @@ import assert from 'node:assert/strict';
 import { get, page, element } from './helpers.js';
 
 const profile = await (async () => {
+	/*
+	 * Two ways to find a member, in the order of how much they prove. The
+	 * byline on a real article is the link a reader actually follows, so it is
+	 * tried first; the users sitemap is the fallback for a site whose pieces
+	 * have no author yet.
+	 */
+	const firstPostPath = async (type) => {
+		const sitemap = await get(`/wp-sitemap-posts-${type}-1.xml`);
+		const found = /<loc>([^<]+)<\/loc>/.exec(sitemap.body);
+
+		return found ? new URL(found[1]).pathname : null;
+	};
+
+	for (const type of ['post', 'tutorial']) {
+		const path = await firstPostPath(type);
+
+		if (!path) {
+			continue;
+		}
+
+		const article = await page(path);
+		const byline = /<a href="([^"]*\/membri\/[^"]+)"/.exec(article);
+
+		if (byline) {
+			const profilePath = new URL(byline[1], 'http://placeholder').pathname;
+
+			return { path: profilePath, html: await page(profilePath), from: path };
+		}
+	}
+
 	const index = await page('/wp-sitemap.xml');
 
 	if (!/wp-sitemap-users/.test(index)) {
@@ -27,10 +57,10 @@ const profile = await (async () => {
 
 	const path = new URL(found[1]).pathname;
 
-	return { path, html: await page(path) };
+	return { path, html: await page(path), from: null };
 })();
 
-const skip = !profile && 'no member profile published';
+const skip = !profile && 'no member profile published — re-run tools/seed-demo-content.sh so the pieces carry an author';
 
 test('a profile lives under /membri/, not /author/', { skip }, () => {
 	assert.match(profile.path, /^\/membri\//, `the profile is at ${profile.path}`);
@@ -80,4 +110,11 @@ test('/author/ is not a second door to the same page', { skip }, async () => {
 	const old = await get(`/author/${slug}/`);
 
 	assert.notEqual(old.status, 200, '/author/<slug>/ still answers');
+});
+
+test('the byline under a piece leads to its author\'s profile', { skip: skip || (!profile.from && 'no piece with an author') }, async () => {
+	const article = await page(profile.from);
+
+	assert.match(article, /class="card authorcard"/, 'no author card');
+	assert.match(article, /<a href="[^"]*\/membri\/[^"]+"/, 'the byline is not a link to the profile');
 });

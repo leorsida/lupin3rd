@@ -101,7 +101,7 @@ final class I18n {
 			return sprintf( __( 'oggi, %s', 'lupin3rd' ), $time );
 		}
 
-		if ( $then === wp_date( 'Y-m-d', (int) wp_date( 'U' ) - DAY_IN_SECONDS ) ) {
+		if ( wp_date( 'Y-m-d', (int) wp_date( 'U' ) - DAY_IN_SECONDS ) === $then ) {
 			/* translators: %s: time of day, e.g. 21:40. */
 			return sprintf( __( 'ieri, %s', 'lupin3rd' ), $time );
 		}

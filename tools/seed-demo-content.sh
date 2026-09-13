@@ -11,6 +11,7 @@
 #   ./tools/seed-demo-content.sh --reset         clean up, then create or update
 #   ./tools/seed-demo-content.sh --trash-dupes   move duplicates to the trash only
 #   ./tools/seed-demo-content.sh --status        list what is published
+#   ./tools/seed-demo-content.sh --fix-authors  sign pieces left at post_author 0
 #
 set -euo pipefail
 
@@ -140,6 +141,31 @@ if [ "${1:-}" = "--trash-dupes" ] || [ -n "$RESET" ]; then
   echo "Nothing was deleted permanently."
   [ -n "$RESET" ] || exit 0
   echo
+fi
+
+# --- fix authors ------------------------------------------------------------
+# Pieces created before `--post_author` was added to this script sit at
+# post_author 0: no byline, no author card, no `author` in the JSON-LD, and no
+# member profile for the e2e tests to find. Re-seeding would fix it and throw
+# away everything else; this signs them where they are.
+if [ "${1:-}" = "--fix-authors" ]; then
+  echo "==> signing unsigned pieces as user ${ADMIN_ID}"
+  wp eval '
+    $fixed = 0;
+    foreach ( get_posts( array(
+      "post_type"   => array( "post", "tutorial", "dossier" ),
+      "post_status" => "any",
+      "numberposts" => -1,
+      "fields"      => "ids",
+    ) ) as $id ) {
+      if ( 0 === (int) get_post_field( "post_author", $id ) ) {
+        wp_update_post( array( "ID" => $id, "post_author" => (int) $args[0] ) );
+        $fixed++;
+      }
+    }
+    echo $fixed . " piece(s) signed\n";
+  ' "$ADMIN_ID"
+  exit 0
 fi
 
 # --- check ------------------------------------------------------------------

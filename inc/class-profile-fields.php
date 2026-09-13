@@ -521,7 +521,7 @@ final class Profile_Fields {
 
 		$fingerprint = $this->sanitize_fingerprint( sanitize_text_field( wp_unslash( $_POST['l3_pgp_fingerprint'] ?? '' ) ) );
 
-		if ( $fingerprint !== self::fingerprint( $user_id ) ) {
+		if ( self::fingerprint( $user_id ) !== $fingerprint ) {
 			// A changed key is an unverified key until the desk signs it again.
 			update_user_meta( $user_id, self::PGP_VERIFIED, '' );
 		}
