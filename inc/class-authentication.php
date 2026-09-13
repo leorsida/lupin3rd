@@ -104,18 +104,23 @@ final class Authentication {
 	}
 
 	/**
-	 * A link that ends the session, carrying its own nonce.
+	 * A link that ends the session.
+	 *
+	 * With the nonce everywhere the page is rendered for one reader. Without
+	 * it in the header, which is in every cached page and must be the same for
+	 * everybody: there the script appends the nonce from the session cookie.
 	 *
 	 * @param string $redirect Where to land afterwards.
+	 * @param bool   $signed   Whether to put the nonce in the URL.
 	 */
-	public static function sign_out_url( string $redirect = '' ): string {
+	public static function sign_out_url( string $redirect = '', bool $signed = true ): string {
 		$url = add_query_arg( 'action', self::ACTION_SIGN_OUT, admin_url( 'admin-post.php' ) );
 
 		if ( '' !== $redirect ) {
 			$url = add_query_arg( 'redirect_to', rawurlencode( $redirect ), $url );
 		}
 
-		return wp_nonce_url( $url, self::ACTION_SIGN_OUT );
+		return $signed ? wp_nonce_url( $url, self::ACTION_SIGN_OUT ) : $url;
 	}
 
 	/**
@@ -291,7 +296,14 @@ final class Authentication {
 		$nonce = isset( $_REQUEST['_wpnonce'] ) ? sanitize_text_field( wp_unslash( (string) $_REQUEST['_wpnonce'] ) ) : '';
 
 		if ( ! wp_verify_nonce( $nonce, self::ACTION_SIGN_OUT ) ) {
-			wp_safe_redirect( home_url( '/' ) );
+			/*
+			 * Almost always this is the header's link followed without the
+			 * script that signs it. Sending the reader to /accesso/, which
+			 * carries the real button, turns a control that did nothing into a
+			 * control that takes one more click — and leaves the refusal itself
+			 * intact for the case it exists for.
+			 */
+			wp_safe_redirect( self::sign_in_url() );
 			exit;
 		}
 

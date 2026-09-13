@@ -64,6 +64,21 @@ export default function initSession() {
 		}
 	});
 
+	/*
+	 * The sign-out link ships without its nonce, because a nonce is different
+	 * for every reader and the header is in every cached page. This is where it
+	 * gets one. The server verifies it against the session, so a reader who
+	 * edits the cookie only breaks their own sign-out.
+	 */
+	if ('string' === typeof hint.out && /^[a-z0-9]+$/i.test(hint.out)) {
+		document.querySelectorAll('[data-account-signout]').forEach((link) => {
+			const url = new URL(link.href, window.location.origin);
+
+			url.searchParams.set('_wpnonce', hint.out);
+			link.setAttribute('href', url.pathname + url.search);
+		});
+	}
+
 	const chip = document.querySelector('[data-account-chip]');
 	const panel = document.querySelector('[data-account-panel]');
 

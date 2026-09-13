@@ -27,7 +27,11 @@ defined( 'ABSPATH' ) || exit;
  *    own cookie, which is `HttpOnly` and is never read by script.
  * 2. It is **not a credential**. The reader can edit it, and editing it
  *    changes what their own header says and nothing else. Nothing anywhere is
- *    authorised by it.
+ *    authorised by it — including the sign-out nonce it carries: the server
+ *    verifies that against the session, so a reader who edits it does not gain
+ *    a way to do anything, only a way to make their own sign-out fail. A nonce
+ *    is a request token, not a secret; whoever can read this cookie could
+ *    already act as the reader anyway.
  * 3. It is display data, so it goes into the page as text and never as markup.
  *    `session.js` writes it with `textContent`; the day somebody reaches for
  *    `innerHTML` there, this cookie becomes a cross-site scripting hole that
@@ -152,6 +156,7 @@ final class Session_Hint {
 				'mark'    => Profile_Fields::initials( $user ),
 				'pattern' => Marks::avatar_variant( $seed ),
 				'profile' => wp_make_link_relative( Community::profile_url( $user ) ),
+				'out'     => wp_create_nonce( Authentication::ACTION_SIGN_OUT ),
 			)
 		);
 	}

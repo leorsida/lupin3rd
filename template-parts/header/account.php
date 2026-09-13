@@ -44,6 +44,17 @@ defined( 'ABSPATH' ) || exit;
 		<a href="<?php echo esc_url( Authentication::account_url() ); ?>"><?php esc_html_e( 'Il tuo profilo', 'lupin3rd' ); ?></a>
 		<a href="<?php echo esc_url( home_url( '/comunita/' ) ); ?>" data-account-public><?php esc_html_e( 'Profilo pubblico', 'lupin3rd' ); ?></a>
 		<a href="<?php echo esc_url( home_url( '/comunita/' ) ); ?>"><?php esc_html_e( 'Comunità', 'lupin3rd' ); ?></a>
-		<a href="<?php echo esc_url( Authentication::sign_in_url() ); ?>"><?php esc_html_e( 'Esci', 'lupin3rd' ); ?></a>
+		<?php
+		/*
+		 * Rendered without the nonce, because a nonce is different for every
+		 * reader and this markup is in every cached page. The script appends it
+		 * from the session cookie. Without the script the link still leads
+		 * somewhere useful: the handler answers a missing nonce by sending the
+		 * reader to /accesso/, which carries the real button.
+		 */
+		?>
+		<a href="<?php echo esc_url( Authentication::sign_out_url( home_url( '/' ), false ) ); ?>" data-account-signout>
+			<?php esc_html_e( 'Esci', 'lupin3rd' ); ?>
+		</a>
 	</div>
 </div>

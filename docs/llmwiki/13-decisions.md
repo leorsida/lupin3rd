@@ -440,19 +440,28 @@ it is the difference between two timestamps the site already holds. The median
 and not the mean — one comment held over a weekend drags an average into a
 number that describes nothing that happened.
 
-## D-026 — Signing out is not in the header
+## D-026 — The sign-out link ships unsigned and the script signs it
 
-**Decided:** 13.09.2026 · **Status:** accepted · **Phase:** community
+**Decided:** 13.09.2026 · **Amended:** 13.09.2026 · **Status:** accepted
+· **Phase:** community
 
-The account menu in the header offers «Esci», and it is a link to `/accesso/`,
-where the real button is. It does not end the session itself.
+The account menu's «Esci» is a real sign-out link. PHP renders it without the
+nonce — a nonce is different for every reader and this markup is in every
+cached page — and `session.js` appends one from the session hint cookie.
 
-Ending a session needs a nonce; a nonce is different for every reader; a nonce
-in the header would be in every cached page and would make every page unique —
-which is the single thing D-017 exists to prevent. The alternatives were a
-nonce-less logout, which is a CSRF, and fetching one over the network, which
-makes signing out depend on a script. `/accesso/` is never cached and already
-shows who you are signed in as, so it is where the button belongs.
+The first version of this decision made «Esci» a link to `/accesso/`, on the
+grounds that a nonce could not be in cached markup. That reasoning was right
+and the conclusion was wrong: a control labelled «Esci» that does not sign you
+out is a worse thing to ship than the problem it avoided. It was caught by the
+first person who clicked it.
 
-The cost is one extra click, and `auth.test.js` asserts the header carries no
-`_wpnonce` so that the cost is not quietly paid back later.
+Carrying the nonce in the hint cookie does not make that cookie a credential.
+The server verifies the nonce against the session, so a reader who edits it
+gains no way to do anything — only a way to make their own sign-out fail. A
+nonce is a request token, not a secret, and whoever can read a non-`HttpOnly`
+cookie on this origin could already act as the reader.
+
+Without the script the link still leads somewhere useful: the handler answers a
+missing nonce by redirecting to `/accesso/`, which carries a server-rendered
+button with a real nonce. `auth.test.js` still asserts that no `_wpnonce`
+appears in the header as PHP renders it, which is the invariant that mattered.
