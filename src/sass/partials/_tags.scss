@@ -1,0 +1,19 @@
+/* Pills, tags and the difficulty meter. */
+
+.pill {
+  display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px;
+  background: var(--accent-soft); color: var(--accent);
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+}
+.tag {
+  display: inline-flex; align-items: center; padding: 4px 10px;
+  color: var(--muted); border: 1px solid var(--border-strong);
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em;
+}
+a.tag:hover { color: var(--fg); border-color: var(--fg); background: var(--fg-soft); }
+.tag-strong { color: var(--fg); border-color: var(--fg); }
+
+/* difficoltà — codificata con blocchi, non con colore */
+.diff { display: inline-flex; align-items: center; gap: 5px; font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+.diff i { width: 7px; height: 7px; background: var(--border); display: block; }
+.diff i.on { background: var(--fg); }

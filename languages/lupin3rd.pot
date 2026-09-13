@@ -1,0 +1,742 @@
+# Copyright (C) 2026 lupin3rd.org
+# This file is distributed under the MIT.
+msgid ""
+msgstr ""
+"Project-Id-Version: lupin3rd.org 0.1.0\n"
+"Report-Msgid-Bugs-To: https://lupin3rd.org/\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: lupin3rd.org\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-09-13T09:47:51+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: lupin3rd\n"
+
+#. Theme Name of the theme
+#: style.css
+#: inc/class-blocks.php:65
+#: inc/class-patterns.php:41
+msgid "lupin3rd"
+msgstr ""
+
+#. Theme URI of the theme
+#: style.css
+msgid "https://lupin3rd.org"
+msgstr ""
+
+#. Description of the theme
+#: style.css
+msgid "Theme for lupin3rd.org, built from the Open Design prototype. Standalone: no parent theme, no CSS framework, no web fonts, no third-party requests. Dark by default, with a light variant."
+msgstr ""
+
+#. Author of the theme
+#: style.css
+msgid "lupin3rd.org"
+msgstr ""
+
+#. Author URI of the theme
+#: style.css
+msgid "https://lupin3rd.org/chi-siamo/"
+msgstr ""
+
+#: 404.php:65
+msgid "Questo indirizzo non porta da nessuna parte"
+msgstr ""
+
+#: 404.php:66
+msgid "Può essere un refuso, o un pezzo che non è mai esistito. Gli URL pubblicati non cambiano mai, quindi se avevi un link che funzionava, funziona ancora."
+msgstr ""
+
+#: 404.php:71
+msgid "Forse cercavi"
+msgstr ""
+
+#: 404.php:84
+msgid "Intanto, gli ultimi tre"
+msgstr ""
+
+#: archive.php:22
+#: home.php:24
+#: page.php:25
+#: single-dossier.php:33
+#: single-tutorial.php:33
+#: single.php:29
+msgid "Home"
+msgstr ""
+
+#: archive.php:65
+#: home.php:61
+msgid "Nessun pezzo con questi filtri."
+msgstr ""
+
+#: archive.php:66
+#: home.php:62
+msgid "Togline uno e riprova."
+msgstr ""
+
+#: blocks/code/render.php:31
+msgid "codice"
+msgstr ""
+
+#: blocks/code/render.php:36
+msgid "copiato"
+msgstr ""
+
+#: blocks/code/render.php:37
+msgid "seleziona e copia"
+msgstr ""
+
+#: blocks/code/render.php:37
+msgid "Copia"
+msgstr ""
+
+#: blocks/notice/render.php:20
+#: single-dossier.php:95
+msgid "Nota di metodo"
+msgstr ""
+
+#: blocks/notice/render.php:21
+#: front-page.php:190
+msgid "Perimetro legale"
+msgstr ""
+
+#: blocks/notice/render.php:22
+msgid "Correzione"
+msgstr ""
+
+#. translators: %s: display name of the signed-in user.
+#: comments.php:47
+#, php-format
+msgid "Stai scrivendo come %s"
+msgstr ""
+
+#: comments.php:51
+msgid "esci"
+msgstr ""
+
+#: comments.php:78
+msgid "Discussione"
+msgstr ""
+
+#: comments.php:98
+msgid "La discussione su questo pezzo è chiusa."
+msgstr ""
+
+#: comments.php:105
+msgid "Lascia un intervento"
+msgstr ""
+
+#. translators: %s: pseudonym of the person being replied to.
+#: comments.php:107
+#, php-format
+msgid "Rispondi a %s"
+msgstr ""
+
+#: comments.php:108
+msgid "Annulla"
+msgstr ""
+
+#: comments.php:109
+msgid "Invia"
+msgstr ""
+
+#: comments.php:115
+msgid "Ogni intervento passa dalla moderazione prima di comparire. Non usare i commenti per materiale sensibile: c'è la cassetta sicura."
+msgstr ""
+
+#: comments.php:116
+msgid "Il tuo intervento"
+msgstr ""
+
+#: comments.php:121
+msgid "Pseudonimo"
+msgstr ""
+
+#: comments.php:125
+msgid "Come vuoi firmarti. Non serve il tuo nome vero, e preferiamo che non lo sia."
+msgstr ""
+
+#: comments.php:129
+msgid "Email"
+msgstr ""
+
+#: comments.php:133
+msgid "Serve solo alla moderazione. Non viene pubblicata, non finisce in una lista, non la diamo a nessuno."
+msgstr ""
+
+#: comments.php:137
+msgid "Sito"
+msgstr ""
+
+#: comments.php:145
+msgid "Ricorda pseudonimo ed email in questo browser, così non li riscrivo la prossima volta."
+msgstr ""
+
+#: footer.php:20
+#: template-parts/header/navbar.php:18
+msgid "dal 1999"
+msgstr ""
+
+#: footer.php:26
+msgid "Sezioni"
+msgstr ""
+
+#: footer.php:41
+#: single.php:31
+#: template-parts/header/menu-fallback.php:18
+msgid "Notizie"
+msgstr ""
+
+#: footer.php:42
+#: front-page.php:85
+#: front-page.php:143
+#: inc/class-content-types.php:78
+#: inc/class-content-types.php:92
+#: inc/class-content-types.php:93
+#: single-tutorial.php:34
+#: single-tutorial.php:58
+#: single-tutorial.php:78
+#: template-parts/header/menu-fallback.php:19
+msgid "Tutorial"
+msgstr ""
+
+#: footer.php:43
+#: front-page.php:169
+#: inc/class-content-types.php:79
+#: inc/class-content-types.php:123
+#: inc/class-content-types.php:124
+#: single-dossier.php:34
+#: single-dossier.php:58
+#: single-dossier.php:77
+#: template-parts/header/menu-fallback.php:20
+msgid "Dossier"
+msgstr ""
+
+#: footer.php:51
+msgid "Redazione"
+msgstr ""
+
+#: footer.php:97
+msgid "Canali"
+msgstr ""
+
+#: footer.php:99
+msgid "Feed RSS"
+msgstr ""
+
+#. translators: %s: site name.
+#: footer.php:122
+#, php-format
+msgid "© 2019–%1$s %2$s · testi in CC BY-SA 4.0, codice in MIT"
+msgstr ""
+
+#: footer.php:128
+msgid "Nessun cookie di profilazione · statistiche aggregate self-hosted"
+msgstr ""
+
+#: front-page.php:76
+msgid "Rivista indipendente · dal 1999"
+msgstr ""
+
+#: front-page.php:77
+msgid "Quello che l'informatica fa quando nessuno guarda."
+msgstr ""
+
+#: front-page.php:81
+msgid "Notizie, tutorial con laboratorio riproducibile e inchieste a puntate. Nessun investitore, nessun cookie di profilazione, nessuna terza parte in pagina."
+msgstr ""
+
+#: front-page.php:88
+#: home.php:25
+#: home.php:32
+#: inc/class-template-tags.php:55
+#: inc/class-template-tags.php:70
+#: index.php:21
+#: template-parts/header/menu-fallback.php:21
+#: template-parts/single/related.php:23
+msgid "Archivio"
+msgstr ""
+
+#: front-page.php:99
+msgid "In evidenza"
+msgstr ""
+
+#: front-page.php:117
+msgid "Ultime dal fronte"
+msgstr ""
+
+#: front-page.php:118
+msgid "Cosa è successo"
+msgstr ""
+
+#: front-page.php:121
+msgid "Tutto l'archivio"
+msgstr ""
+
+#: front-page.php:144
+msgid "Passo-passo, con laboratorio riproducibile"
+msgstr ""
+
+#: front-page.php:147
+msgid "Tutti i tutorial"
+msgstr ""
+
+#: front-page.php:170
+msgid "Inchieste lunghe, pubblicate a puntate"
+msgstr ""
+
+#: front-page.php:191
+msgid "Quello che pubblichiamo serve a capire e a difendersi. Provare una tecnica su sistemi che non sono tuoi, o senza un incarico scritto, è un reato in quasi ogni giurisdizione."
+msgstr ""
+
+#: header.php:23
+msgid "Salta al contenuto"
+msgstr ""
+
+#: home.php:33
+msgid "Tutto quello che abbiamo pubblicato"
+msgstr ""
+
+#. translators: %d: number of pieces.
+#: home.php:39
+#, php-format
+msgid "%d pezzo"
+msgid_plural "%d pezzi"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/class-blocks.php:186
+msgid "Un tutorial non si pubblica senza il riquadro «perimetro legale». Aggiungi un blocco Avviso con variante «perimetro legale» e riprova."
+msgstr ""
+
+#: inc/class-comment-reports.php:111
+msgid "Segnalazioni"
+msgstr ""
+
+#: inc/class-comment-reports.php:159
+msgid "Un intervento è stato segnalato"
+msgstr ""
+
+#. translators: 1: comment author, 2: piece title, 3: admin URL.
+#: inc/class-comment-reports.php:162
+#, php-format
+msgid ""
+"Qualcuno ha segnalato un intervento di %1$s sotto «%2$s».\n"
+"\n"
+"Leggilo qui:\n"
+"%3$s\n"
+"\n"
+"La segnalazione non ha nascosto niente: l'intervento è ancora in pagina."
+msgstr ""
+
+#: inc/class-comment-walker.php:35
+msgid "account rimosso"
+msgstr ""
+
+#: inc/class-comment-walker.php:52
+msgid "redazione"
+msgstr ""
+
+#: inc/class-comment-walker.php:61
+msgid "In coda di moderazione. La leggiamo a mano."
+msgstr ""
+
+#: inc/class-comment-walker.php:74
+msgid "Rispondi"
+msgstr ""
+
+#: inc/class-comment-walker.php:84
+msgid "segnalato alla moderazione"
+msgstr ""
+
+#: inc/class-comment-walker.php:97
+msgid "Segnala"
+msgstr ""
+
+#: inc/class-content-types.php:80
+#: single.php:57
+msgid "Notizia"
+msgstr ""
+
+#: inc/class-content-types.php:94
+msgid "Aggiungi tutorial"
+msgstr ""
+
+#: inc/class-content-types.php:95
+msgid "Modifica tutorial"
+msgstr ""
+
+#: inc/class-content-types.php:125
+msgid "Aggiungi dossier"
+msgstr ""
+
+#: inc/class-content-types.php:126
+msgid "Modifica dossier"
+msgstr ""
+
+#: inc/class-content-types.php:156
+#: inc/class-content-types.php:157
+#: inc/class-template-tags.php:49
+msgid "Difficoltà"
+msgstr ""
+
+#: inc/class-content-types.php:188
+msgid "Base"
+msgstr ""
+
+#: inc/class-content-types.php:189
+msgid "Medio"
+msgstr ""
+
+#: inc/class-content-types.php:190
+msgid "Avanzato"
+msgstr ""
+
+#: inc/class-feeds.php:49
+msgid "Non pubblichiamo feed per autore."
+msgstr ""
+
+#: inc/class-feeds.php:50
+msgid "Feed non disponibile"
+msgstr ""
+
+#: inc/class-newsletter.php:87
+msgid "Iscritti al dispaccio"
+msgstr ""
+
+#: inc/class-newsletter.php:333
+msgid "Conferma l'iscrizione al dispaccio"
+msgstr ""
+
+#. translators: 1: confirmation URL, 2: site name.
+#: inc/class-newsletter.php:336
+#, php-format
+msgid ""
+"Qualcuno ha chiesto di iscrivere questo indirizzo al dispaccio settimanale di %2$s.\n"
+"\n"
+"Se sei stato tu, conferma da qui:\n"
+"%1$s\n"
+"\n"
+"Se non sei stato tu, non fare niente: senza conferma l'indirizzo non riceve nulla e viene cancellato."
+msgstr ""
+
+#: inc/class-newsletter.php:365
+msgid "Fatto. Controlla la posta: l'iscrizione vale solo dopo che hai seguito il link."
+msgstr ""
+
+#: inc/class-newsletter.php:369
+msgid "Iscrizione confermata. Il primo dispaccio arriva giovedì."
+msgstr ""
+
+#: inc/class-newsletter.php:373
+msgid "Quell'indirizzo non sembra un indirizzo. Riprova."
+msgstr ""
+
+#: inc/class-newsletter.php:377
+msgid "Non ha funzionato. Riprova fra poco."
+msgstr ""
+
+#: inc/class-patterns.php:47
+msgid "Testata tutorial"
+msgstr ""
+
+#: inc/class-patterns.php:48
+msgid "Sommario, perimetro legale e prerequisiti: le tre cose che un tutorial ha sempre."
+msgstr ""
+
+#: inc/class-patterns.php:58
+msgid "Blocco di laboratorio"
+msgstr ""
+
+#: inc/class-patterns.php:59
+msgid "Un passo con il suo comando e la nota di metodo accanto."
+msgstr ""
+
+#: inc/class-patterns.php:71
+msgid "Due o tre frasi che stanno in piedi da sole, fuori dal contesto: sono quelle che un motore cita e che un lettore legge prima di decidere se continuare."
+msgstr ""
+
+#: inc/class-patterns.php:72
+msgid "Questo tutorial riguarda sistemi che possiedi o che sei autorizzato a trattare. Provare una di queste tecniche su sistemi altrui, senza un incarico scritto, è un reato in quasi ogni giurisdizione."
+msgstr ""
+
+#: inc/class-patterns.php:73
+msgid "Cosa serve avere davanti prima di cominciare."
+msgstr ""
+
+#: inc/class-patterns.php:82
+#: single-tutorial.php:85
+msgid "Prerequisiti"
+msgstr ""
+
+#: inc/class-patterns.php:96
+msgid "Il passo"
+msgstr ""
+
+#: inc/class-patterns.php:97
+msgid "Cosa fa questo passo e perché, in una frase."
+msgstr ""
+
+#: inc/class-patterns.php:98
+msgid "comando"
+msgstr ""
+
+#: inc/class-patterns.php:99
+msgid "Come verificare di aver fatto la cosa giusta, e cosa significa se il risultato è diverso."
+msgstr ""
+
+#: inc/class-security.php:81
+msgid "API non disponibile agli utenti non autenticati."
+msgstr ""
+
+#: inc/class-seo.php:45
+msgid "news, tutorial e dossier dal margine dell'informatica"
+msgstr ""
+
+#: inc/class-setup.php:100
+#: template-parts/header/menu-fallback.php:24
+#: template-parts/header/navbar.php:27
+msgid "Navigazione principale"
+msgstr ""
+
+#: inc/class-setup.php:101
+msgid "Piè di pagina — sezioni"
+msgstr ""
+
+#: inc/class-setup.php:102
+msgid "Piè di pagina — redazione"
+msgstr ""
+
+#: inc/class-setup.php:103
+msgid "Piè di pagina — canali"
+msgstr ""
+
+#: inc/class-template-tags.php:41
+msgid "Categoria"
+msgstr ""
+
+#: inc/class-template-tags.php:45
+#: template-parts/sidebar/widget-tags.php:25
+msgid "Tag"
+msgstr ""
+
+#: inc/class-template-tags.php:63
+msgid "Membro"
+msgstr ""
+
+#: inc/class-template-tags.php:67
+msgid "Data"
+msgstr ""
+
+#: inc/class-template-tags.php:163
+msgid "Difficoltà:"
+msgstr ""
+
+#: inc/class-template-tags.php:294
+msgid "Percorso"
+msgstr ""
+
+#: inc/class-template-tags.php:330
+msgid "Pagine"
+msgstr ""
+
+#. translators: %s: search term.
+#: search.php:24
+#, php-format
+msgid "Risultati per «%s»"
+msgstr ""
+
+#: search.php:29
+msgid "Ricerca"
+msgstr ""
+
+#. translators: %d: number of results.
+#: search.php:34
+#, php-format
+msgid "%d pezzo trovato"
+msgid_plural "%d pezzi trovati"
+msgstr[0] ""
+msgstr[1] ""
+
+#: search.php:58
+#: template-parts/content/empty-state.php:13
+msgid "Nessun risultato."
+msgstr ""
+
+#: search.php:59
+msgid "Prova con un termine più corto, o con un tag."
+msgstr ""
+
+#. translators: %d: minutes.
+#: single-dossier.php:68
+#: single-tutorial.php:69
+#, php-format
+msgid "%d min"
+msgstr ""
+
+#: single-tutorial.php:109
+msgid "Laboratorio"
+msgstr ""
+
+#: single-tutorial.php:112
+msgid "Repository:"
+msgstr ""
+
+#: single-tutorial.php:119
+msgid "SHA-256 del campione:"
+msgstr ""
+
+#. translators: %d: minutes.
+#: single.php:66
+#, php-format
+msgid "%d min di lettura"
+msgstr ""
+
+#: single.php:71
+msgid "fonte primaria"
+msgstr ""
+
+#: template-parts/archive/filter-bar.php:17
+msgid "Tutto"
+msgstr ""
+
+#: template-parts/archive/filter-bar.php:25
+msgid "Filtra per formato"
+msgstr ""
+
+#: template-parts/content/empty-state.php:14
+msgid "Prova con un tag, o togli qualche filtro."
+msgstr ""
+
+#: template-parts/content/empty-state.php:25
+msgid "Azzera i filtri"
+msgstr ""
+
+#: template-parts/content/empty-state.php:28
+msgid "Torna alla home"
+msgstr ""
+
+#: template-parts/header/navbar.php:42
+msgid "Cerca"
+msgstr ""
+
+#: template-parts/header/navbar.php:48
+msgid "Cambia tema"
+msgstr ""
+
+#: template-parts/header/navbar.php:57
+msgid "Menu"
+msgstr ""
+
+#: template-parts/header/search-overlay.php:27
+msgid "Cerca nel sito"
+msgstr ""
+
+#: template-parts/header/search-overlay.php:31
+msgid "Termine di ricerca"
+msgstr ""
+
+#: template-parts/header/search-overlay.php:39
+msgid "Cerca notizie, tutorial, dossier, tag…"
+msgstr ""
+
+#: template-parts/header/search-overlay.php:41
+msgid "Chiudi"
+msgstr ""
+
+#: template-parts/header/search-overlay.php:64
+msgid "Nessun risultato fra i pezzi recenti. Invio per cercare in tutto l'archivio."
+msgstr ""
+
+#: template-parts/header/search-overlay.php:67
+msgid "esc per chiudere · invio per cercare in archivio"
+msgstr ""
+
+#: template-parts/header/statusbar.php:18
+msgid "nodo"
+msgstr ""
+
+#: template-parts/header/statusbar.php:18
+msgid "online"
+msgstr ""
+
+#: template-parts/header/statusbar.php:19
+msgid "mirror .onion"
+msgstr ""
+
+#: template-parts/header/statusbar.php:19
+msgid "attivo"
+msgstr ""
+
+#: template-parts/header/statusbar.php:20
+msgid "chiave pgp"
+msgstr ""
+
+#. translators: 1: edition number, 2: date.
+#: template-parts/header/statusbar.php:26
+#, php-format
+msgid "ed. #%1$s · %2$s"
+msgstr ""
+
+#: template-parts/home/newsletter.php:21
+msgid "Un dispaccio a settimana, il giovedì"
+msgstr ""
+
+#: template-parts/home/newsletter.php:22
+msgid "Tre link commentati e una nota di metodo. Nessun tracciamento nelle email, archivio pubblico, disiscrizione con un clic."
+msgstr ""
+
+#: template-parts/home/newsletter.php:28
+msgid "Indirizzo email"
+msgstr ""
+
+#: template-parts/home/newsletter.php:39
+msgid "Non compilare"
+msgstr ""
+
+#: template-parts/home/newsletter.php:43
+msgid "Iscrivimi"
+msgstr ""
+
+#: template-parts/home/newsletter.php:45
+msgid "Inserisci un indirizzo email valido."
+msgstr ""
+
+#: template-parts/sidebar/widget-links.php:14
+msgid "Cassetta sicura"
+msgstr ""
+
+#: template-parts/sidebar/widget-links.php:15
+msgid "Materiale sensibile solo tramite SecureDrop sul mirror .onion, oppure via email cifrata. Mai dai commenti."
+msgstr ""
+
+#: template-parts/sidebar/widget-links.php:17
+msgid "Come scrivere"
+msgstr ""
+
+#: template-parts/single/author-card.php:29
+msgid "Autore"
+msgstr ""
+
+#: template-parts/single/dossier-navigation.php:42
+msgid "Puntate del dossier"
+msgstr ""
+
+#: template-parts/single/dossier-navigation.php:46
+msgid "Le puntate"
+msgstr ""
+
+#: template-parts/single/dossier-navigation.php:47
+msgid "In questo dossier"
+msgstr ""
+
+#: template-parts/single/related.php:21
+msgid "Continua da qui"
+msgstr ""
+
+#: template-parts/single/table-of-contents.php:16
+#: template-parts/single/table-of-contents.php:17
+msgid "Indice"
+msgstr ""

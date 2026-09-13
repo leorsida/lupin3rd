@@ -1,0 +1,28 @@
+/* Market quotes with sparklines. */
+
+.coin {
+  display: grid; grid-template-columns: minmax(0, 1fr) 64px 62px;
+  gap: 10px; align-items: center;
+  padding: 11px 0; border-bottom: 1px solid var(--border);
+}
+.coin:first-of-type { padding-top: 2px; }
+.coin-sym { display: block; font-family: var(--font-mono); font-size: 13px; letter-spacing: .06em; color: var(--fg); }
+.coin-price { display: block; margin-top: 2px; font-family: var(--font-mono); font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.spark { width: 64px; height: 22px; }
+.spark path { fill: none; stroke-width: 1.6; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.coin-delta {
+  text-align: right; white-space: nowrap;
+  font-family: var(--font-mono); font-size: 12px; font-variant-numeric: tabular-nums;
+}
+.coin.is-up .spark path { stroke: var(--fg); }
+.coin.is-up .coin-delta { color: var(--fg); }
+.coin.is-down .spark path { stroke: var(--accent); }
+.coin.is-down .coin-delta { color: var(--accent); }
+
+/* riga di mercato: etichetta a sinistra, numero a destra */
+.mkt {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
+  padding: 9px 0; border-bottom: 1px solid var(--border);
+  font-family: var(--font-mono); font-size: 12px; color: var(--muted);
+}
+.mkt b { font-weight: 400; color: var(--fg); font-variant-numeric: tabular-nums; }

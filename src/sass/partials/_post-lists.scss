@@ -1,0 +1,23 @@
+/* Post lists: rows, cards, features. */
+
+.log-row {
+  display: grid; grid-template-columns: 132px minmax(0,1fr) 132px;
+  gap: var(--gap-lg); padding: 20px 0; border-top: 1px solid var(--border); align-items: baseline;
+}
+.log-row:hover h3 { text-decoration: underline; text-underline-offset: 4px; }
+.log-row .pull { text-align: right; }
+@media (max-width: 720px) {
+  .log-row { grid-template-columns: 1fr; gap: var(--gap-xs); }
+  .log-row .pull { text-align: left; }
+}
+
+.post { display: flex; flex-direction: column; gap: 12px; }
+.post .mark { margin-bottom: 2px; }
+.post h3 { font-size: 21px; }
+.post:hover h3 { text-decoration: underline; text-underline-offset: 4px; }
+.post:hover h2 { text-decoration: underline; text-underline-offset: 4px; }
+.post p { margin: 0; color: var(--muted); font-size: 14px; }
+.post-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+/* il blocco in evidenza è una .post impaginata su due colonne: la griglia vince sul flex */
+.post.split-feature { display: grid; gap: 44px; }
+@media (max-width: 920px) { .post.split-feature { gap: 26px; } }

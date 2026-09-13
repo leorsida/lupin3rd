@@ -1,0 +1,127 @@
+<?php
+/**
+ * A dossier instalment.
+ *
+ * Same shape as a tutorial — long, indexed, read in order — but the extra
+ * fields are the methodology note and the navigation between instalments.
+ *
+ * @package Lupin3rd
+ */
+
+use Lupin3rd\I18n;
+use Lupin3rd\Marks;
+use Lupin3rd\Meta_Fields;
+use Lupin3rd\Template_Tags;
+
+defined( 'ABSPATH' ) || exit;
+
+get_header();
+
+while ( have_posts() ) :
+	the_post();
+
+	$l3_parsed   = Template_Tags::extract_headings( (string) apply_filters( 'the_content', get_the_content() ) );
+	$l3_category = Template_Tags::primary_category( get_post() );
+	$l3_minutes  = (int) Meta_Fields::get( 'l3_estimated_time', 0 );
+	?>
+
+	<article class="section">
+		<div class="container stack">
+			<?php
+			Template_Tags::breadcrumb(
+				array(
+					array( 'label' => __( 'Home', 'lupin3rd' ), 'url' => home_url( '/' ) ),
+					array( 'label' => __( 'Dossier', 'lupin3rd' ), 'url' => (string) get_post_type_archive_link( 'dossier' ) ),
+					array( 'label' => get_the_title(), 'url' => '' ),
+				)
+			);
+			?>
+
+			<header class="stack">
+				<h1><?php the_title(); ?></h1>
+
+				<?php if ( has_excerpt() ) : ?>
+					<p class="lead"><?php echo esc_html( wp_strip_all_tags( get_the_excerpt() ) ); ?></p>
+				<?php endif; ?>
+
+				<?php
+				/*
+				 * The section the piece belongs to travels with the rest of the
+				 * byline, as a chip, the way the prototype does it. Above the
+				 * title it only repeated the breadcrumb one line higher.
+				 */
+				?>
+				<div class="post-meta">
+					<?php if ( $l3_category ) : ?>
+						<a class="tag tag-strong" href="<?php echo esc_url( (string) get_category_link( $l3_category ) ); ?>"><?php echo esc_html( $l3_category->name ); ?></a>
+					<?php else : ?>
+						<span class="tag tag-strong"><?php echo esc_html__( 'Dossier', 'lupin3rd' ); ?></span>
+					<?php endif; ?>
+
+					<span class="meta">
+						<time datetime="<?php echo esc_attr( (string) get_the_date( 'c' ) ); ?>"><?php echo esc_html( I18n::instance()->post_date() ); ?></time>
+						<?php if ( $l3_minutes ) : ?>
+							&middot;
+							<?php
+							printf(
+								/* translators: %d: minutes. */
+								esc_html__( '%d min', 'lupin3rd' ),
+								(int) $l3_minutes
+							);
+							?>
+						<?php endif; ?>
+					</span>
+				</div>
+			</header>
+
+			<?php Marks::render( get_post(), 'wide', __( 'Dossier', 'lupin3rd' ) ); ?>
+
+			<div class="grid-main-side">
+				<div class="stack stack-lg">
+					<div class="prose" data-article>
+						<?php
+						/*
+						 * Printed without kses. This string is already the output of
+						 * the_content filters, and kses would strip exactly what the
+						 * theme's own blocks depend on: the data-* attributes the copy
+						 * button binds to, and the <svg> in a notice's heading. Running
+						 * it a second time sanitises nothing new and breaks the page.
+						 */
+						echo $l3_parsed['content']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+						?>
+
+						<?php if ( Meta_Fields::get( 'l3_method_note' ) ) : ?>
+							<div class="callout">
+								<p class="callout-title"><?php esc_html_e( 'Nota di metodo', 'lupin3rd' ); ?></p>
+								<?php echo wp_kses_post( wpautop( (string) Meta_Fields::get( 'l3_method_note' ) ) ); ?>
+							</div>
+						<?php endif; ?>
+
+					</div>
+
+					<?php get_template_part( 'template-parts/single/author-card' ); ?>
+
+					<?php Template_Tags::tags( get_post() ); ?>
+
+					<?php comments_template(); ?>
+				</div>
+
+				<aside>
+					<?php
+					if ( $l3_parsed['headings'] ) {
+						get_template_part( 'template-parts/single/table-of-contents', null, array( 'headings' => $l3_parsed['headings'] ) );
+					}
+					get_template_part( 'template-parts/single/dossier-navigation' );
+					get_template_part( 'template-parts/sidebar/widget-links' );
+					?>
+				</aside>
+			</div>
+		</div>
+	</article>
+
+	<?php get_template_part( 'template-parts/single/related' ); ?>
+
+	<?php
+endwhile;
+
+get_footer();

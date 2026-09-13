@@ -1,0 +1,21 @@
+/* Buttons and icon buttons. */
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  min-height: 44px; padding: 11px 22px; border: 1px solid transparent;
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+  transition: background .15s ease, border-color .15s ease, color .15s ease, transform .05s ease;
+}
+.btn:active { transform: translateY(1px); }
+.btn-primary { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+.btn-primary:hover { background: color-mix(in oklch, var(--accent) 84%, var(--fg)); border-color: color-mix(in oklch, var(--accent) 84%, var(--fg)); color: var(--on-accent); }
+.btn-secondary { background: transparent; color: var(--fg); border-color: var(--border-strong); }
+.btn-secondary:hover { border-color: var(--fg); background: var(--fg-soft); color: var(--fg); }
+.btn-ghost { background: transparent; color: var(--fg); border-color: transparent; padding-inline: 10px; }
+.btn-ghost:hover { background: var(--fg-soft); color: var(--fg); }
+.btn-arrow::after { content: '→'; transition: transform .15s ease; }
+.btn-arrow:hover::after { transform: translateX(3px); }
+.btn-sm { min-height: 36px; padding: 7px 14px; font-size: 11px; }
+/* nella barra di navigazione i controlli sono tutti alti 44px:
+   selettore di lingua, pulsanti icona e ingresso all'account */
+.btn-nav { min-height: 44px; padding: 11px 16px; }

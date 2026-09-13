@@ -1,0 +1,13 @@
+/* Counters and stat grids. */
+
+.statgrid {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px; background: var(--border); border: 1px solid var(--border);
+}
+.statgrid .stat { background: var(--bg); padding: 20px; }
+.stat .stat-num {
+  display: block; font-family: var(--font-mono); font-variant-numeric: tabular-nums;
+  font-size: clamp(26px, 3vw, 34px); line-height: 1; letter-spacing: -.03em; color: var(--fg);
+}
+.stat .stat-lab { display: block; margin-top: 9px; font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+@media (max-width: 720px) { .statgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

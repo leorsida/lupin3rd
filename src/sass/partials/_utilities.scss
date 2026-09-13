@@ -1,0 +1,12 @@
+/* Utilities. */
+
+.hidden { display: none !important; }
+.mw-36 { max-width: 36ch; }
+.bigcode {
+  font-family: var(--font-mono); font-weight: 700;
+  font-size: clamp(88px, 18vw, 220px); line-height: 0.85; letter-spacing: -0.05em;
+  color: color-mix(in oklch, var(--fg) 22%, var(--bg));
+}
+.person { display: grid; grid-template-columns: 58px minmax(0,1fr); gap: 16px; align-items: start; }
+.person .mark { aspect-ratio: 1/1; }
+.mw-46 { max-width: 46ch; }

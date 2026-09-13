@@ -1,0 +1,38 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "l3/code",
+	"title": "Blocco codice",
+	"category": "lupin3rd",
+	"icon": "editor-code",
+	"description": "Codice con intestazione, nome file e pulsante di copia. Colorazione monocromatica, generata dal server: nessuna libreria, nessuno script in pagina.",
+	"textdomain": "lupin3rd",
+	"supports": {
+		"html": false,
+		"anchor": true,
+		"color": false,
+		"spacing": {
+			"margin": false,
+			"padding": false
+		}
+	},
+	"attributes": {
+		"content": {
+			"type": "string",
+			"default": ""
+		},
+		"language": {
+			"type": "string",
+			"default": ""
+		},
+		"filename": {
+			"type": "string",
+			"default": ""
+		},
+		"showLineNumbers": {
+			"type": "boolean",
+			"default": false
+		}
+	},
+	"render": "file:./render.php"
+}

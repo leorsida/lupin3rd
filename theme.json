@@ -1,0 +1,64 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/theme.json",
+	"version": 3,
+	"settings": {
+		"appearanceTools": true,
+		"useRootPaddingAwareAlignments": false,
+		"color": {
+			"custom": false,
+			"customGradient": false,
+			"customDuotone": false,
+			"defaultPalette": false,
+			"defaultGradients": false,
+			"defaultDuotone": false,
+			"palette": [
+				{ "slug": "bg", "name": "Sfondo", "color": "oklch(13% 0.008 250)" },
+				{ "slug": "surface", "name": "Superficie", "color": "oklch(17% 0.010 250)" },
+				{ "slug": "fg", "name": "Testo", "color": "oklch(95% 0.004 100)" },
+				{ "slug": "muted", "name": "Testo attenuato", "color": "oklch(68% 0.012 100)" },
+				{ "slug": "border", "name": "Bordo", "color": "oklch(32% 0.012 250)" },
+				{ "slug": "accent", "name": "Accento", "color": "oklch(66% 0.200 27)" }
+			]
+		},
+		"typography": {
+			"customFontSize": false,
+			"dropCap": false,
+			"fontFamilies": [
+				{
+					"slug": "display",
+					"name": "Titoli",
+					"fontFamily": "'Times New Roman', 'Iowan Old Style', Georgia, serif"
+				},
+				{
+					"slug": "body",
+					"name": "Testo",
+					"fontFamily": "ui-monospace, 'JetBrains Mono', 'IBM Plex Mono', Menlo, monospace"
+				}
+			],
+			"fontSizes": [
+				{ "slug": "meta", "name": "Metadati", "size": "12px" },
+				{ "slug": "body", "name": "Testo", "size": "15px" },
+				{ "slug": "lead", "name": "Sommario", "size": "17px" },
+				{ "slug": "heading", "name": "Titolo", "size": "20px" }
+			]
+		},
+		"spacing": {
+			"customSpacingSize": false,
+			"units": [ "px", "rem", "%" ]
+		},
+		"layout": {
+			"contentSize": "720px",
+			"wideSize": "1240px"
+		},
+		"border": { "radius": false }
+	},
+	"styles": {
+		"color": {
+			"background": "var(--bg)",
+			"text": "var(--fg)"
+		},
+		"elements": {
+			"link": { "color": { "text": "var(--accent)" } }
+		}
+	}
+}

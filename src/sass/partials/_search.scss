@@ -1,0 +1,16 @@
+/* Search overlay. */
+
+.overlay {
+  position: fixed; inset: 0; z-index: 50; display: none;
+  background: color-mix(in oklch, var(--bg) 88%, transparent);
+  backdrop-filter: blur(8px);
+  padding: 12vh var(--gutter) 0;
+}
+.overlay.is-open { display: block; }
+.overlay-panel { max-width: 640px; margin-inline: auto; background: var(--surface); border: 1px solid var(--fg); }
+.overlay-panel .input { border: 0; border-bottom: 1px solid var(--border); font-size: 16px; min-height: 58px; }
+.overlay-results { list-style: none; margin: 0; padding: 0; max-height: 46vh; overflow-y: auto; }
+.overlay-results li a { display: block; padding: 13px 16px; border-bottom: 1px solid var(--border); }
+.overlay-results li a:hover, .overlay-results li a:focus-visible { background: var(--fg-soft); }
+.overlay-results .r-title { font-size: 14px; }
+.overlay-empty { padding: 18px 16px; color: var(--muted); font-size: 13px; }

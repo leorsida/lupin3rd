@@ -1,0 +1,31 @@
+/*
+ * Editor styles.
+ *
+ * The block editor has to look like the published page, or the desk lays out
+ * by guesswork. Tokens, type and prose only: no layout chrome, because the
+ * editor supplies its own.
+ */
+
+@use 'partials/tokens';
+@use 'partials/typography';
+@use 'partials/prose';
+@use 'partials/tags';
+@use 'partials/marks';
+
+/* The two proprietary blocks, so the editor shows what will be published.
+ * The code block's highlighting is not reproduced here: it happens on the
+ * server, and an approximation in the editor would be a second implementation
+ * to keep in step with the first. */
+.codeblock pre { margin: 0; padding: 16px; overflow-x: auto; font-size: 13px; line-height: 1.7; }
+.codeblock pre textarea,
+.codeblock pre .block-editor-plain-text {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.7;
+  background: transparent;
+  color: var(--fg);
+  border: 0;
+  width: 100%;
+  resize: vertical;
+}
+.codeblock-head .copy-btn { pointer-events: none; opacity: .6; }

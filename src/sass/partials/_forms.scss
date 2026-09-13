@@ -1,0 +1,14 @@
+/* Form controls. */
+
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.input, .textarea, select.input {
+  width: 100%; padding: 12px 14px; min-height: 44px;
+  border: 1px solid var(--border-strong); background: var(--surface); color: var(--fg);
+  font: inherit; font-size: 14px; border-radius: 0;
+}
+.input::placeholder, .textarea::placeholder { color: color-mix(in oklch, var(--muted) 80%, var(--bg)); }
+.input:focus, .textarea:focus { outline: 2px solid var(--accent); outline-offset: -1px; border-color: var(--accent); }
+.textarea { min-height: 110px; resize: vertical; }
+.field-error { color: var(--accent); font-family: var(--font-mono); font-size: 11px; }
+.input[aria-invalid="true"] { border-color: var(--accent); }

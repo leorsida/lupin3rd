@@ -1,0 +1,38 @@
+{
+  "name": "lupin3rd",
+  "version": "0.1.0",
+  "description": "Theme for lupin3rd.org",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "browserslist": [
+    "last 2 Chrome versions",
+    "last 2 Firefox versions",
+    "last 2 Safari versions",
+    "last 2 Edge versions"
+  ],
+  "scripts": {
+    "css": "npm-run-all css-compile css-prefix css-minify",
+    "css-compile": "sass --style expanded --no-source-map --quiet-deps src/sass/lupin3rd.scss:css/lupin3rd.css src/sass/editor.scss:css/editor.css",
+    "css-prefix": "postcss --config src/build/postcss.config.cjs --replace \"css/*.css\" \"!css/*.min.css\"",
+    "css-minify": "cleancss -O1 --format breakWith=lf --output css/ --batch --batch-suffix \".min\" \"css/*.css\" \"!css/*.min.css\"",
+    "js": "npm-run-all js-bundle js-minify",
+    "js-bundle": "rollup --config src/build/rollup.config.js",
+    "js-minify": "terser js/lupin3rd.js --compress --mangle --output js/lupin3rd.min.js && terser js/lupin3rd-editor.js --compress --mangle --output js/lupin3rd-editor.min.js",
+    "dist": "npm-run-all css js",
+    "watch": "npm-run-all --parallel watch-css watch-js",
+    "watch-css": "nodemon --watch src/sass --ext scss --exec \"npm run css\"",
+    "watch-js": "nodemon --watch src/js --ext js --exec \"npm run js\""
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.0",
+    "clean-css-cli": "^5.6.0",
+    "nodemon": "^3.1.0",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.4.0",
+    "postcss-cli": "^11.0.0",
+    "rollup": "^4.0.0",
+    "sass": "^1.77.0",
+    "terser": "^5.31.0"
+  }
+}

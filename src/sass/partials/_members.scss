@@ -1,0 +1,19 @@
+/* Member rows. */
+
+.member {
+  display: grid; grid-template-columns: 44px minmax(0, 1fr) auto;
+  gap: 14px; align-items: center; padding: 13px 0;
+  border-bottom: 1px solid var(--border);
+}
+.member:first-child { padding-top: 0; }
+.member-id { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.member-name { font-family: var(--font-mono); font-size: 14px; color: var(--fg); }
+a.member:hover { background: var(--fg-soft); }
+a.member:hover .member-name { text-decoration: underline; text-underline-offset: 3px; }
+a.member { padding-inline: 8px; margin-inline: -8px; }
+.member-note { margin: 3px 0 0; font-size: 13px; color: var(--muted); }
+.member-pull { text-align: right; white-space: nowrap; }
+@media (max-width: 520px) {
+  .member { grid-template-columns: 44px minmax(0, 1fr); }
+  .member-pull { grid-column: 2; text-align: left; }
+}

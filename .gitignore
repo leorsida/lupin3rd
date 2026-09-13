@@ -1,0 +1,17 @@
+# Dependencies. Compiled assets are NOT here on purpose: css/ and js/ are
+# committed, because a theme that is downloaded and dropped into
+# wp-content/themes/ has to work without anybody running npm install.
+node_modules/
+vendor/
+
+# Tool caches
+.phpcs-cache
+.phpstan-cache/
+
+# Editor and OS noise
+.DS_Store
+Thumbs.db
+*.swp
+*.log
+.idea/
+.vscode/

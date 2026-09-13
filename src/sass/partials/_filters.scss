@@ -1,0 +1,12 @@
+/* Taxonomy filter bar. */
+
+.filterbar { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  background: transparent; border: 1px solid var(--border-strong); color: var(--muted);
+  padding: 8px 14px; min-height: 38px;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+  transition: background .15s ease, border-color .15s ease, color .15s ease;
+}
+.chip:hover { color: var(--fg); border-color: var(--fg); background: var(--fg-soft); }
+.chip[aria-pressed="true"], .chip.is-active { background: var(--fg); border-color: var(--fg); color: var(--bg); }
+.chip[aria-pressed="true"]:hover, .chip.is-active:hover { background: color-mix(in oklch, var(--fg) 86%, var(--bg)); color: var(--bg); }

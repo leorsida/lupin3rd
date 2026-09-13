@@ -1,0 +1,26 @@
+/* Discussion and comments. */
+
+.comment {
+  display: grid; grid-template-columns: 44px minmax(0, 1fr);
+  gap: 16px; padding: 22px 0; border-bottom: 1px solid var(--border);
+}
+.comment-head { display: flex; flex-wrap: wrap; align-items: center; gap: 9px; margin-bottom: 7px; }
+.comment-name { font-family: var(--font-mono); font-size: 13px; color: var(--fg); }
+.comment-name:hover { text-decoration: underline; text-underline-offset: 3px; }
+.comment-body { margin: 0; font-size: 14.5px; }
+.comment-reply-to { margin: 0 0 6px; font-family: var(--font-mono); font-size: 11.5px; color: var(--muted); }
+.comment-tools { display: flex; gap: 16px; margin-top: 11px; }
+.comment-tool {
+  background: none; border: 0; padding: 3px 0; border-bottom: 1px solid transparent;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--muted);
+}
+.comment-tool:hover { color: var(--fg); border-bottom-color: var(--fg); }
+/* The report tool is a form, because a link that reports gets followed by
+ * crawlers. `display: contents` drops the form's box so the button is the flex
+ * item and the row's gap applies to it. */
+.comment-report { display: contents; }
+.comment-tool[disabled],
+span.comment-tool { color: var(--muted); border-bottom-color: transparent; cursor: default; }
+.comment-nested { margin-left: 60px; }
+@media (max-width: 520px) { .comment-nested { margin-left: 22px; } }

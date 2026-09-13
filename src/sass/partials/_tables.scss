@@ -1,0 +1,12 @@
+/* Tables. */
+
+.ds-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.ds-table th, .ds-table td { padding: 11px 12px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+.ds-table th { color: var(--muted); font-weight: 400; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; }
+.ds-table tbody tr:hover { background: var(--fg-soft); }
+.ds-table .num-col { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.ds-table code, .code-inline {
+  font-family: var(--font-mono); font-size: 12.5px;
+  background: var(--fg-soft); padding: 2px 6px; border: 1px solid var(--border);
+}
+.table-wrap { overflow-x: auto; }

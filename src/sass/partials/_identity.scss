@@ -1,0 +1,26 @@
+/* Locally generated avatars. */
+
+.avatar {
+  position: relative; flex: none; display: grid; place-items: center;
+  width: 44px; height: 44px; overflow: hidden;
+  background: var(--surface); border: 1px solid var(--border-strong); color: var(--fg);
+  font-family: var(--font-mono); font-size: 13px; letter-spacing: .02em;
+}
+.avatar::before { content: ''; position: absolute; inset: 0; }
+.avatar b { position: relative; font-weight: 400; }
+.av--scan::before { background: repeating-linear-gradient(0deg, var(--fg-soft) 0 2px, transparent 2px 6px); }
+.av--bars::before { background: repeating-linear-gradient(90deg, var(--fg-soft) 0 3px, transparent 3px 9px); }
+.av--grid::before {
+  background:
+    linear-gradient(var(--fg-soft) 1px, transparent 1px) 0 0 / 100% 7px,
+    linear-gradient(90deg, var(--fg-soft) 1px, transparent 1px) 0 0 / 7px 100%;
+}
+.av--dots::before { background: radial-gradient(var(--dot) 1px, transparent 1px) 0 0 / 6px 6px; }
+.av--diag::before { background: repeating-linear-gradient(45deg, var(--fg-soft) 0 3px, transparent 3px 8px); }
+.avatar-sm { width: 32px; height: 32px; font-size: 10px; }
+.avatar-lg { width: 96px; height: 96px; font-size: 30px; border-width: 2px; }
+.avatar-self { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.avatar-self::before { opacity: .22; }
+.avatar-stack { display: flex; }
+.avatar-stack .avatar { margin-right: -8px; box-shadow: 0 0 0 2px var(--bg); }
+.avatar-stack .avatar:last-child { margin-right: 0; }

@@ -1,0 +1,210 @@
+/* Rules the prototype carries as inline style attributes.
+ *
+ * The prototype spreads 618 inline declarations across its 15 pages — spacing,
+ * small muted notes, ruled lists — none of which reached app.css. A theme that
+ * may only emit classes from the inventory cannot reproduce that, so the
+ * recurring patterns are promoted here, as classes, once.
+ *
+ * Anything appearing five times or more in the prototype is here. The long tail
+ * is genuinely per-instance and stays in the markup of the page that needs it.
+ *
+ * This partial loads last on purpose: it refines components defined earlier,
+ * and it must be able to win. */
+
+/* Hero: a taller section and a narrower measure for the headline. */
+/* Every page opens tighter than the rhythm between its sections: the prototype
+ * gives each intestazione 36-40px of top padding inline, where `.section`
+ * alone would leave 86px under the navigation. The home page's hero is not an
+ * exception — it keeps the deep bottom that lets the headline breathe into the
+ * page, but starts where every other page starts. Only the top: in this theme
+ * the first section often runs to the end of the page, and its bottom padding
+ * is what separates it from the footer. */
+main > .section:first-child { padding-top: 40px; }
+
+.section.hero { padding-block: clamp(56px, 8vw, 108px); }
+.hero h1 { max-width: 15ch; }
+.hero .grid-2-1 { margin-top: 40px; align-items: end; }
+
+/* The small muted paragraph that follows a heading. 37 occurrences. */
+.note {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 13.5px;
+}
+.note-sm {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* Measures, alongside the .mw-36 and .mw-46 the system already has. */
+.mw-32 { max-width: 32ch; }
+
+/* Stack gaps. The prototype sets these inline at four recurring values. */
+.stack-sm { gap: 14px; }
+.stack-md { gap: 18px; }
+.stack-lg { gap: 30px; }
+
+/* A row of tags or chips that wraps. */
+.row-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+/* A list whose items are separated by rules rather than bullets. */
+.list-rule {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.list-rule > li {
+  border-top: 1px solid var(--border);
+  padding: 13px 0;
+  font-size: 14px;
+}
+
+/* A row-between whose columns align on their last line, not their middle. */
+.row-between--bottom { align-items: flex-end; }
+
+/* Section that sits tight under the one above it. */
+.section--tight { padding-block: 40px 30px; }
+
+/* The difficulty blocks live in a wrapper that hides them from screen readers;
+ * the wrapper must not break the row the blocks lay out in. */
+.diff > span[aria-hidden] {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Instalment list: the order matters, the numerals do not — the titles say
+ * "Puntata 1" already. */
+ol.list-rule > li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--gap-md);
+}
+
+/* Footer navigation is a list for screen readers and a column of links to
+ * everybody else. */
+.list-plain,
+.pagefoot ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.list-plain > li,
+.pagefoot ul > li { margin: 0 0 8px; }
+
+/* Search overlay.
+ *
+ * The prototype has a bare input; this is a form, so that Enter reaches the
+ * real search page when the script has not loaded. The close control sits
+ * beside the field rather than below it, and a result reads as two lines the
+ * way the prototype does. */
+.overlay-search {
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid var(--border);
+}
+.overlay-search .input {
+  flex: 1;
+  border: 0;
+  font-size: 16px;
+  min-height: 58px;
+}
+.overlay-search .btn {
+  border: 0;
+  border-left: 1px solid var(--border);
+  padding-inline: 18px;
+}
+.overlay-results .r-title { display: block; }
+.overlay-results .meta { display: block; margin-top: 3px; }
+.overlay-hint {
+  padding: 12px 16px;
+  border-top: 1px solid var(--border);
+  margin: 0;
+}
+
+/* Optional line numbers on a code block.
+ *
+ * The prototype's code blocks have none, so there is nothing to copy from it —
+ * `.num-col` belongs to tables. The gutter is a column beside the code, never
+ * inside it: a reader dragging a selection, and the copy button, must get the
+ * code and nothing else. */
+.codeblock-body { display: flex; align-items: stretch; }
+.codeblock-body > pre { flex: 1; min-width: 0; }
+.codeblock-lines {
+  flex: none;
+  padding: 16px 10px 16px 14px;
+  border-right: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.7;
+  text-align: right;
+  white-space: pre;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  user-select: none;
+}
+
+/* comment_text() returns paragraphs, while the prototype's .comment-body is a
+ * single <p> with no margin. Keep the spacing inside the box rather than
+ * letting the first paragraph push the name away from its avatar. */
+.comment-body > :first-child { margin-top: 0; }
+.comment-body > :last-child { margin-bottom: 0; }
+.comment-body p { margin: 0 0 9px; font-size: 14.5px; }
+
+/* The comment form.
+ *
+ * The card lives on #respond rather than on a wrapper of ours, because
+ * comment-reply.js moves #respond — and nothing else — next to the comment
+ * being answered. A wrapper would stay behind and the reply form would come
+ * out of the box.
+ *
+ * comment_form() emits its own wrappers around the fields this theme supplies;
+ * they need to behave like the stack the design system expects. */
+.comment-respond {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: clamp(22px, 3vw, 32px);
+}
+.comment-respond .meta { margin: 0 0 var(--gap-md); }
+.comment-form { display: flex; flex-direction: column; gap: var(--gap-md); }
+.comment-form p { margin: 0; }
+.comment-respond > h3,
+.comment-reply-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: 400;
+  margin: 0 0 var(--gap-md);
+}
+.comment-reply-title small { font-family: var(--font-mono); font-size: 11px; margin-left: 10px; }
+.form-submit { margin: 0; }
+
+/* The author, under the piece. The prototype builds this box from inline
+ * styles: a 64px mark, then the name and the line about who they are. */
+.authorcard {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+.authorcard .avatar { width: 64px; height: 64px; font-size: 20px; }
+.authorcard .meta { margin: 0 0 4px; }
+.authorcard h3 { font-size: 18px; margin: 0; }
+.authorcard p:last-child { margin: 6px 0 0; color: var(--muted); font-size: 13.5px; }
+
+/* A section that speaks to the reader rather than listing things: centred,
+ * narrow, with room to breathe. */
+.section-cta { text-align: center; }
+.container-narrow { max-width: 620px; }
+.row-center { justify-content: center; flex-wrap: wrap; gap: 8px; }
+.input-inline { max-width: 300px; }
+.form-note { width: 100%; margin: 0; font-family: var(--font-mono); font-size: 11px; color: var(--fg); }
+.form-note--error { color: var(--accent); }
+.row-center .field-error { width: 100%; }
+

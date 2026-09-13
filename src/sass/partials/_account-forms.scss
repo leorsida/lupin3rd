@@ -1,0 +1,16 @@
+/* Account forms. */
+
+.check { display: flex; align-items: flex-start; gap: 11px; font-size: 13px; color: var(--muted); }
+.check input[type="checkbox"] { width: 18px; height: 18px; margin: 2px 0 0; flex: none; accent-color: var(--fg); }
+.check a { color: var(--fg); text-decoration: underline; text-underline-offset: 3px; }
+.hint { font-family: var(--font-mono); font-size: 11px; color: var(--muted); margin: 0; }
+.meter { display: flex; gap: 4px; margin-top: 8px; }
+.meter i { flex: 1; height: 4px; background: var(--border); }
+.meter i.on { background: var(--fg); }
+.formcard { background: var(--surface); border: 1px solid var(--border); padding: clamp(22px, 3vw, 32px); }
+.gate {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: var(--gap-md); padding: 22px; border: 1px dashed var(--border-strong); background: var(--surface);
+}
+.gate p { margin: 0; font-size: 14px; color: var(--muted); max-width: 46ch; }
+.compose-as { display: flex; align-items: center; gap: 11px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }

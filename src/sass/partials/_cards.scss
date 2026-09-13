@@ -1,0 +1,5 @@
+/* Cards and flat surfaces. */
+
+.card { background: var(--surface); border: 1px solid var(--border); padding: 26px; }
+.card-flat { background: transparent; border: 0; padding: 0; }
+.card-rule { background: transparent; border: 0; border-top: 2px solid var(--fg); padding: 20px 0 0; }

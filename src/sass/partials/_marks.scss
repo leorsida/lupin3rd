@@ -1,0 +1,42 @@
+/* Generative marks, used instead of photographs. */
+
+.mark {
+  position: relative; overflow: hidden;
+  aspect-ratio: 16 / 10;
+  background-color: color-mix(in oklch, var(--fg) 5%, var(--surface));
+  background-image: radial-gradient(var(--dot) 1px, transparent 1.3px);
+  background-size: 7px 7px;
+  border: 1px solid var(--border);
+  display: grid; place-items: center;
+}
+.mark.wide { aspect-ratio: 21 / 9; }
+.mark.square { aspect-ratio: 1 / 1; }
+.mark.tall { aspect-ratio: 4 / 5; }
+.mark-glyph {
+  position: relative; z-index: 1;
+  font-family: var(--font-mono); font-size: clamp(28px, 5vw, 64px);
+  letter-spacing: -0.04em; color: color-mix(in oklch, var(--fg) 55%, var(--bg));
+  mix-blend-mode: normal; user-select: none;
+}
+.mark::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: repeating-linear-gradient(0deg, var(--fg-soft) 0 1px, transparent 1px 4px);
+  opacity: .55;
+}
+.mark--scan::after { background: repeating-linear-gradient(0deg, var(--fg-soft) 0 2px, transparent 2px 7px); opacity: .9; }
+.mark--bars::after {
+  background: repeating-linear-gradient(105deg, var(--fg-soft) 0 14px, transparent 14px 34px);
+  opacity: .8;
+}
+.mark--grid::after {
+  background:
+    repeating-linear-gradient(0deg, var(--fg-soft) 0 1px, transparent 1px 18px),
+    repeating-linear-gradient(90deg, var(--fg-soft) 0 1px, transparent 1px 18px);
+  opacity: .9;
+}
+.mark-tag {
+  position: absolute; left: 10px; bottom: 10px; z-index: 2;
+  background: var(--surface); border: 1px solid var(--border);
+  padding: 4px 9px; font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--fg);
+}

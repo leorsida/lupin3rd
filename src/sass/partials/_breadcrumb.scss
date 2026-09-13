@@ -1,0 +1,5 @@
+/* Breadcrumb. */
+
+.breadcrumb { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.breadcrumb a:hover { color: var(--fg); text-decoration: underline; text-underline-offset: 3px; }
+.breadcrumb span[aria-hidden] { opacity: .5; }

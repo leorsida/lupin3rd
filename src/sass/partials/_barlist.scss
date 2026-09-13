@@ -1,0 +1,17 @@
+/* Inline bar charts. */
+
+.barlist { display: flex; flex-direction: column; gap: 16px; margin: 0; padding: 0; }
+.barlist .bar-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 7px 16px; align-items: baseline; }
+.barlist .bar-lab { font-size: 14px; color: var(--fg); }
+.barlist .bar-val { font-family: var(--font-mono); font-size: 13px; font-variant-numeric: tabular-nums; color: var(--fg); }
+.barlist .bar-track { grid-column: 1 / -1; height: 10px; background: var(--fg-soft); }
+.barlist .bar-fill { display: block; height: 100%; background: var(--fg); }
+.barlist .bar-row.is-muted .bar-fill { background: var(--border-strong); }
+
+/* colonna dei widget a sinistra: sul telefono il contenuto viene prima */
+.grid-side-main { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: var(--gap-xl); align-items: start; }
+@media (max-width: 920px) {
+  .grid-side-main { grid-template-columns: 1fr; }
+  .grid-side-main > aside { order: 2; }
+  .grid-side-main > div { order: 1; }
+}

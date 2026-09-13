@@ -1,0 +1,53 @@
+/* Design tokens. The only place colour and typography are defined. */
+
+:root {
+  color-scheme: dark;
+  /* ─── tema scuro (default) ─────────────────────────────── */
+  --bg:      oklch(13% 0.008 250);
+  --surface: oklch(17% 0.010 250);
+  --fg:      oklch(95% 0.004 100);
+  --muted:   oklch(68% 0.012 100);
+  --border:  oklch(32% 0.012 250);
+  --border-strong: oklch(52% 0.012 250);
+  --accent:  oklch(66% 0.200 27);
+  --on-accent: oklch(14% 0.010 250);
+
+  /* derivati — non modificare */
+  --accent-soft: color-mix(in oklch, var(--accent) 18%, transparent);
+  --fg-soft:     color-mix(in oklch, var(--fg) 7%, transparent);
+  --dot:         color-mix(in oklch, var(--fg) 24%, transparent);
+  --scrim:       color-mix(in oklch, var(--bg) 82%, transparent);
+
+  /* tipografia */
+  --font-display: 'Times New Roman', 'Iowan Old Style', Georgia, serif;
+  --font-body:    ui-monospace, 'JetBrains Mono', 'IBM Plex Mono', Menlo, monospace;
+  --font-mono:    ui-monospace, 'JetBrains Mono', 'IBM Plex Mono', Menlo, monospace;
+
+  /* scala */
+  --fs-h1: clamp(46px, 7vw, 104px);
+  --fs-h2: clamp(30px, 3.6vw, 46px);
+  --fs-h3: 20px;
+  --fs-lead: 17px;
+  --fs-body: 15px;
+  --fs-meta: 12px;
+
+  --gap-xs: 8px;  --gap-sm: 12px; --gap-md: 20px;
+  --gap-lg: 32px; --gap-xl: 56px; --gap-2xl: 88px;
+  --container: 1240px;
+  --gutter: 28px;
+  --radius: 0px;
+  --radius-lg: 0px;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg:      oklch(97% 0.004 240);
+  --surface: oklch(100% 0 0);
+  --fg:      oklch(15% 0.020 100);
+  --muted:   oklch(42% 0.020 100);
+  --border:  oklch(80% 0.010 240);
+  --border-strong: oklch(58% 0.012 240);
+  --accent:  oklch(52% 0.210 27);
+  --on-accent: oklch(100% 0 0);
+  --dot:     color-mix(in oklch, var(--fg) 20%, transparent);
+}

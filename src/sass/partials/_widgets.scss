@@ -1,0 +1,16 @@
+/* Sidebar widgets. */
+
+.widget { border-top: 2px solid var(--fg); padding-top: 14px; }
+.widget + .widget { margin-top: var(--gap-lg); }
+.widget-title { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
+.widget ul { list-style: none; margin: 0; padding: 0; }
+.widget li { border-bottom: 1px solid var(--border); }
+/* A rule separates two items. Under the last one it separates the list from
+ * nothing, and the widget below already opens with its own. */
+.widget li:last-child { border-bottom: 0; }
+/* `.list-rule` already separates its items from above; inside a widget the two
+ * rules would stack into one thick line between items. */
+.widget .list-rule > li { border-bottom: 0; }
+.widget li a { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; font-size: 13px; }
+.widget li a:hover { color: var(--fg); text-decoration: underline; text-underline-offset: 3px; }
+.widget li a span { color: var(--muted); font-family: var(--font-mono); font-size: 11px; }

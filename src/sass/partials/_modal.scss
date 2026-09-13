@@ -1,0 +1,11 @@
+/* Modal dialog. */
+
+.overlay-form { padding-top: 8vh; }
+.overlay-panel-form { max-width: 620px; padding: clamp(22px, 3vw, 30px); max-height: 78vh; overflow-y: auto; }
+.overlay-panel-form h2 { font-size: 26px; }
+.overlay-panel-form .input, .overlay-panel-form .textarea {
+  border: 1px solid var(--border-strong); font-size: 14px; min-height: 44px;
+  padding: 11px 13px; background: var(--bg);
+}
+.overlay-panel-form .textarea { min-height: 96px; }
+.comment-tool[disabled] { color: var(--muted); border-bottom-color: transparent; cursor: default; }

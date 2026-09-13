@@ -1,0 +1,20 @@
+/*
+Theme Name:  lupin3rd
+Theme URI:   https://lupin3rd.org
+Author:      lupin3rd.org
+Author URI:  https://lupin3rd.org/chi-siamo/
+Description: Theme for lupin3rd.org, built from the Open Design prototype. Standalone: no parent theme, no CSS framework, no web fonts, no third-party requests. Dark by default, with a light variant.
+Version:     0.1.0
+Requires at least: 6.5
+Tested up to: 7.1
+Requires PHP: 8.3
+License:     MIT
+License URI: https://opensource.org/licenses/MIT
+Text Domain: lupin3rd
+Tags: news, blog, custom-colors, editor-style, translation-ready, accessibility-ready
+*/
+
+/*
+ * This file carries the theme header only. Every rule lives in the single
+ * compiled stylesheet css/lupin3rd.css, built from src/sass/lupin3rd.scss.
+ */

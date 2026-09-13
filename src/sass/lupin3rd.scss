@@ -1,0 +1,49 @@
+/*
+ * lupin3rd.org — the theme's only stylesheet.
+ *
+ * One partial per section of the design system, in cascade order. The order of
+ * these statements is the order of the output: rearranging them changes which
+ * rule wins.
+ *
+ * Ported from the Open Design prototype (OD/assets/app.css), which stays the
+ * visual source of truth. See docs/llmwiki/03-components.md.
+ */
+
+@use 'partials/tokens';
+@use 'partials/reset';
+@use 'partials/layout';
+@use 'partials/typography';
+@use 'partials/navbar';
+@use 'partials/buttons';
+@use 'partials/cards';
+@use 'partials/marks';
+@use 'partials/tags';
+@use 'partials/post-lists';
+@use 'partials/filters';
+@use 'partials/empty-state';
+@use 'partials/widgets';
+@use 'partials/forms';
+@use 'partials/tables';
+@use 'partials/prose';
+@use 'partials/toc';
+@use 'partials/search';
+@use 'partials/pagination';
+@use 'partials/breadcrumb';
+@use 'partials/footer';
+@use 'partials/utilities';
+@use 'partials/identity';
+@use 'partials/badges';
+@use 'partials/members';
+@use 'partials/activity';
+@use 'partials/comments';
+@use 'partials/tabs';
+@use 'partials/counters';
+@use 'partials/account';
+@use 'partials/account-area';
+@use 'partials/account-forms';
+@use 'partials/modal';
+@use 'partials/market';
+@use 'partials/barlist';
+
+/* Loads last: it refines the components above and has to be able to win. */
+@use 'partials/parity';

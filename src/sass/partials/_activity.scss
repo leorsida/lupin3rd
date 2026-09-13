@@ -1,0 +1,12 @@
+/* Activity feed. */
+
+.activity {
+  display: grid; grid-template-columns: 32px minmax(0, 1fr);
+  gap: 13px; padding: 15px 0; border-bottom: 1px solid var(--border);
+}
+.activity:first-child { padding-top: 0; }
+.activity-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.activity-quote { margin: 7px 0 0; font-size: 13.5px; color: color-mix(in oklch, var(--fg) 86%, var(--bg)); }
+.activity-on { margin: 7px 0 0; font-size: 12px; font-family: var(--font-mono); color: var(--muted); }
+.activity-on a { color: var(--fg); border-bottom: 1px solid var(--border-strong); }
+.activity-on a:hover { border-bottom-color: var(--fg); }

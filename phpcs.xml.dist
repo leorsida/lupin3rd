@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<ruleset name="lupin3rd">
+
+	<description>WordPress coding standards for the lupin3rd.org theme.</description>
+
+	<arg name="cache" value=".phpcs-cache"/>
+	<arg name="basepath" value="./"/>
+	<arg name="extensions" value="php"/>
+	<arg name="parallel" value="8"/>
+	<arg name="colors"/>
+	<arg value="s"/>
+
+	<file>.</file>
+
+	<exclude-pattern>/vendor/*</exclude-pattern>
+	<exclude-pattern>/node_modules/*</exclude-pattern>
+	<exclude-pattern>/languages/*</exclude-pattern>
+	<exclude-pattern>/css/*</exclude-pattern>
+	<exclude-pattern>/js/*</exclude-pattern>
+	<exclude-pattern>/src/*</exclude-pattern>
+	<exclude-pattern>/\.*</exclude-pattern>
+
+	<rule ref="WordPress"/>
+
+	<!-- Every string in this theme belongs to one domain. -->
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="lupin3rd"/>
+			</property>
+		</properties>
+	</rule>
+
+	<!--
+		Everything global the theme owns is prefixed: l3_ for meta keys, query
+		variables and template variables, Lupin3rd for the namespace.
+	-->
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<property name="prefixes" type="array">
+				<element value="l3"/>
+				<element value="lupin3rd"/>
+				<element value="Lupin3rd"/>
+			</property>
+		</properties>
+	</rule>
+
+	<!-- Template files follow the WordPress hierarchy, not the class-file rule. -->
+	<rule ref="WordPress.Files.FileName">
+		<properties>
+			<property name="is_theme" value="true"/>
+		</properties>
+	</rule>
+
+	<config name="minimum_wp_version" value="6.5"/>
+
+	<!-- The stack is PHP 8.3; the theme promises 8.2 and up. -->
+	<rule ref="PHPCompatibilityWP"/>
+	<config name="testVersion" value="8.2-"/>
+
+</ruleset>

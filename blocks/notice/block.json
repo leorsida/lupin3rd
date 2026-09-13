@@ -1,0 +1,22 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "l3/notice",
+	"title": "Avviso",
+	"category": "lupin3rd",
+	"icon": "info-outline",
+	"description": "Nota di metodo, perimetro legale o correzione. Il perimetro legale è obbligatorio nei tutorial e senza di esso il pezzo non si pubblica.",
+	"textdomain": "lupin3rd",
+	"supports": {
+		"html": false,
+		"anchor": true,
+		"color": false
+	},
+	"attributes": {
+		"variant": {
+			"type": "string",
+			"default": "method"
+		}
+	},
+	"render": "file:./render.php"
+}

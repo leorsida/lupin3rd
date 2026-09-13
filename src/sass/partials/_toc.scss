@@ -1,0 +1,31 @@
+/* Side table of contents with progress. */
+
+/* The prototype's article aside holds the index and nothing else, so there
+ * `.toc { position: sticky }` and "the column is sticky" are the same rule.
+ * Here the index has widgets under it, and a sticky box with no background of
+ * its own lets them scroll straight through it. The column is what sticks —
+ * see `.grid-main-side > aside:has(.toc)` in _layout.scss — and the index
+ * flows inside it. */
+/* The index takes `widget` for its spacing, not for its frame: the rule above
+ * a widget marks where a new one starts, and the index already announces
+ * itself. */
+.toc.widget { border-top: 0; padding-top: 0; }
+
+.toc ol,
+.toc ul { list-style: none; margin: 0; padding: 0; counter-reset: toc; }
+.toc li { counter-increment: toc; }
+
+/* Written as `.toc li a`, not `.toc a`, to outweigh `.widget li a` — the index
+ * is a widget too. In the prototype that rule wins and flattens every row
+ * except the current one, which keeps its indent through `.toc a.is-active`:
+ * the rail is what the index was drawn with, and one row alone having it is
+ * the accident. Here every row gets it. */
+.toc li a {
+  display: flex; justify-content: flex-start; gap: 10px;
+  padding: 7px 0 7px 12px; font-size: 13px;
+  color: var(--muted); border-left: 1px solid var(--border);
+}
+.toc li a::before { content: counter(toc, decimal-leading-zero); font-family: var(--font-mono); font-size: 11px; }
+.toc li a:hover { color: var(--fg); border-left-color: var(--fg); }
+.toc li a.is-active { color: var(--fg); border-left: 2px solid var(--fg); padding-left: 11px; }
+.progress { height: 2px; background: var(--fg); width: 0; }

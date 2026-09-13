@@ -1,0 +1,41 @@
+/* Layout primitives: container, section, grids. */
+
+.container { max-width: var(--container); margin-inline: auto; padding-inline: var(--gutter); }
+.section { padding-block: clamp(44px, 6vw, var(--gap-2xl)); }
+.section + .section { border-top: 1px solid var(--border); }
+.stack { display: flex; flex-direction: column; gap: var(--gap-md); }
+.row { display: flex; align-items: center; gap: var(--gap-md); }
+.row-between { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--gap-md); }
+.grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap-lg); }
+.grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap-lg); }
+.grid-4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--gap-md); }
+.grid-2-1 { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: var(--gap-xl); align-items: start; }
+.grid-1-2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: var(--gap-xl); align-items: start; }
+.grid-main-side { display: grid; grid-template-columns: minmax(0,1fr) 300px; gap: var(--gap-xl); align-items: start; }
+
+/* The side column travels with the reader. It sticks as one block — index,
+ * dossier navigation, widgets — rather than sticking the index alone, which
+ * has no background of its own and would have everything under it scroll
+ * straight through. `align-items: start` above gives the column its content
+ * height, which is what sticky needs. */
+.grid-main-side > aside {
+  position: sticky;
+  top: 92px;
+  max-height: calc(100dvh - 92px - var(--gap-lg));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+
+.split-feature { display: grid; grid-template-columns: minmax(0,1.15fr) minmax(0,1fr); gap: 44px; align-items: center; }
+@media (max-width: 920px) {
+  .grid-2, .grid-3, .grid-4, .grid-2-1, .grid-1-2, .grid-main-side, .split-feature { grid-template-columns: 1fr; }
+  .split-feature { gap: 26px; }
+  /* One column: the side column is now a block of the page, and nothing
+   * scrolls past it. Dissolving the main column's stack makes its parts grid
+   * items in their own right, so the index can sit where a phone reader wants
+   * it — after the piece, before the discussion — instead of below everything. */
+  .grid-main-side > aside { position: static; max-height: none; overflow: visible; }
+  .grid-main-side > .stack { display: contents; }
+  .grid-main-side #comments { order: 1; }
+}
