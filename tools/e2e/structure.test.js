@@ -106,7 +106,19 @@ test('the search overlay is in the page and uses the state the stylesheet define
 
 	assert.ok(overlay, 'no search overlay');
 	assert.match(overlay, /<form/, 'the overlay has no form to submit without JavaScript');
-	assert.doesNotMatch(overlay, /class="[^"]*\bhidden\b/, 'the overlay is hidden with .hidden, which beats .is-open');
+
+	/*
+	 * The overlay's own class attribute, not a descendant's: the
+	 * empty-results message inside it is supposed to carry .hidden.
+	 */
+	const ownClasses = /^<div[^>]*\sclass="([^"]*)"/.exec(overlay);
+
+	assert.ok(ownClasses, 'the overlay has no class attribute');
+	assert.ok(
+		!ownClasses[1].split(/\s+/).includes('hidden'),
+		'the overlay is hidden with .hidden, which is !important and beats .is-open'
+	);
+	assert.match(overlay, /^<div[^>]*\shidden\b/, 'the overlay is not hidden from assistive technology when closed');
 });
 
 test('the menu is a list of links, not a list of bullets', async () => {

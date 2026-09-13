@@ -30,7 +30,12 @@ final class Security {
 		add_filter( 'wp_headers', array( $this, 'remove_pingback_header' ) );
 		add_filter( 'rest_authentication_errors', array( $this, 'close_rest_to_anonymous_users' ) );
 		add_filter( 'rest_endpoints', array( $this, 'remove_user_endpoints' ) );
-		add_action( 'template_redirect', array( $this, 'block_author_enumeration' ) );
+		/*
+		 * Priority 1: core's redirect_canonical() sits on the same hook at 10 and
+		 * is registered first, so at the default priority this guard would run
+		 * after the 301 to /author/<pseudonym>/ had already been sent.
+		 */
+		add_action( 'template_redirect', array( $this, 'block_author_enumeration' ), 1 );
 		add_filter( 'wp_handle_upload_prefilter', array( $this, 'strip_upload_metadata' ) );
 		add_filter( 'pre_get_avatar', array( $this, 'replace_gravatar' ), 10, 3 );
 		add_filter( 'get_avatar_url', array( $this, 'block_gravatar_url' ) );

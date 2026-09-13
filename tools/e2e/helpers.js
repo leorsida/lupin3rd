@@ -214,15 +214,30 @@ export function count(html, pattern) {
 export function externalHosts(html, ownHosts = []) {
 	const own = new Set([new URL(BASE).host, SITE_HOST, ...ownHosts]);
 	const hosts = new Set();
-	const walker = /(?:src|href)="(https?:\/\/[^"]+)"/gi;
 
-	let step;
+	/*
+	 * Subresources only. An <a href> to another site is an editorial link: the
+	 * browser contacts nobody until the reader decides to go. A src, or a
+	 * stylesheet or font the page pulls in, is the browser being sent
+	 * somewhere without being asked — which is the thing the colophon promises
+	 * never happens.
+	 */
+	const subresources = [
+		/<[a-z-]+[^>]*\ssrc="(https?:\/\/[^"]+)"/gi,
+		/<link[^>]*\shref="(https?:\/\/[^"]+)"/gi,
+		/url\((["']?)(https?:\/\/[^"')]+)\1\)/gi,
+	];
 
-	while ((step = walker.exec(html)) !== null) {
-		const host = new URL(step[1]).host;
+	for (const walker of subresources) {
+		let step;
 
-		if (!own.has(host)) {
-			hosts.add(host);
+		while ((step = walker.exec(html)) !== null) {
+			const url = step[2] || step[1];
+			const host = new URL(url).host;
+
+			if (!own.has(host)) {
+				hosts.add(host);
+			}
 		}
 	}
 

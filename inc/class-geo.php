@@ -41,7 +41,17 @@ final class Geo {
 	protected function register_hooks(): void {
 		add_action( 'init', array( $this, 'add_rewrite' ) );
 		add_filter( 'query_vars', array( $this, 'add_query_var' ) );
-		add_action( 'template_redirect', array( $this, 'serve_llms_txt' ) );
+		add_action( 'template_redirect', array( $this, 'serve_llms_txt' ), 1 );
+
+		/*
+		 * A rewrite rule that maps to a query variable looks to
+		 * redirect_canonical() like a page whose URL needs tidying, and /llms.txt
+		 * answered 301. A document has one address.
+		 */
+		add_filter(
+			'redirect_canonical',
+			static fn ( $redirect ) => get_query_var( 'l3_llms' ) ? false : $redirect
+		);
 		add_filter( 'robots_txt', array( $this, 'robots_txt' ), 10, 2 );
 	}
 
