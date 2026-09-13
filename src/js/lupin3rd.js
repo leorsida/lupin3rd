@@ -18,6 +18,7 @@ import initCodeCopy from './modules/code-copy.js';
 import initTableOfContents from './modules/table-of-contents.js';
 import initFormValidation from './modules/form-validation.js';
 import initTabs from './modules/tabs.js';
+import initPasswordStrength from './modules/password-strength.js';
 
 const start = () => {
 	initThemeSwitch();
@@ -28,6 +29,7 @@ const start = () => {
 	initTableOfContents();
 	initFormValidation();
 	initTabs();
+	initPasswordStrength();
 };
 
 if (document.readyState === 'loading') {

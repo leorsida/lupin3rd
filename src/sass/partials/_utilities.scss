@@ -13,3 +13,7 @@
 /* A list that carries content rather than navigation: bullets kept, chrome not. */
 .plain-list { margin: 0; padding-left: 18px; font-size: 14px; color: var(--muted); }
 .plain-list li { margin-bottom: 4px; }
+/* A link that reads as text until you look at it: used where a whole line is
+ * already quiet and a coloured link would shout. */
+.link-quiet { color: var(--fg); border-bottom: 1px solid var(--border-strong); }
+.link-quiet:hover { border-bottom-color: var(--fg); }

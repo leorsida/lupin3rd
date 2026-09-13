@@ -54,6 +54,8 @@ defined( 'ABSPATH' ) || exit;
 				</svg>
 			</button>
 
+			<?php get_template_part( 'template-parts/header/account' ); ?>
+
 			<button class="icon-btn nav-burger" type="button" data-nav-toggle aria-label="<?php esc_attr_e( 'Menu', 'lupin3rd' ); ?>" aria-expanded="false">
 				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
 					<path d="M4 7h16M4 12h16M4 17h16"></path>

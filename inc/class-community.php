@@ -290,7 +290,7 @@ final class Community {
 			return;
 		}
 
-		wp_safe_redirect( home_url( '/account/' ) );
+		wp_safe_redirect( Authentication::account_url() );
 		exit;
 	}
 

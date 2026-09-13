@@ -357,16 +357,27 @@ RFC 6238 is sixty lines of PHP. The encryption is what makes a database dump
 insufficient to sign in — a plaintext secret column would hand an attacker the
 second factor along with the first.
 
-## D-021 — `wp-login.php` is not a public door
+## D-021 — `wp-login.php` is the desk's page, not a redirect
 
-**Decided:** 13.09.2026 · **Status:** accepted · **Phase:** community
+**Decided:** 13.09.2026 · **Amended:** 13.09.2026 · **Status:** accepted
+· **Phase:** community
 
-`/accesso/` is the only way in. `wp-login.php` answers 302 to `/accesso/`,
-except for `action=logout` and for requests that already carry a session with
-`edit_posts`.
+`/accesso/` is where readers sign in. `wp-login.php` still renders, and says so
+— but an account without `edit_posts` is refused there even when the password
+is right, and `?action=register` redirects to `/accesso/`. Every URL WordPress
+generates for signing in or registering is filtered to point at `/accesso/`.
 
-*Rejected:* leaving both doors open. Two doors with two behaviours are two
-surfaces to keep closed, and only one of them would be covered by the tests.
+The first version of this decision sent `wp-login.php` to a blanket 302. It was
+amended before it shipped, because a 302 reads better in a log and is worse in
+practice: it removes the one door that still opens when the theme is broken,
+which is precisely when somebody needs to get in. Refusing the account instead
+of hiding the page keeps the lifeboat and still closes the door — and the
+refusal is a thing a test can assert, which a hidden page is not.
+
+Password recovery stays on `wp-login.php` (`lostpassword`, `rp`, `resetpass`).
+Those screens are core's, they are safe, and they are hard to reimplement
+correctly; theming them is its own piece of work and is not pretended to be
+done here.
 
 ## D-022 — Sessions are listed from WordPress's own tokens, without a location
 
@@ -428,3 +439,20 @@ The median moderation wait on the same page needed a new field,
 it is the difference between two timestamps the site already holds. The median
 and not the mean — one comment held over a weekend drags an average into a
 number that describes nothing that happened.
+
+## D-026 — Signing out is not in the header
+
+**Decided:** 13.09.2026 · **Status:** accepted · **Phase:** community
+
+The account menu in the header offers «Esci», and it is a link to `/accesso/`,
+where the real button is. It does not end the session itself.
+
+Ending a session needs a nonce; a nonce is different for every reader; a nonce
+in the header would be in every cached page and would make every page unique —
+which is the single thing D-017 exists to prevent. The alternatives were a
+nonce-less logout, which is a CSRF, and fetching one over the network, which
+makes signing out depend on a script. `/accesso/` is never cached and already
+shows who you are signed in as, so it is where the button belongs.
+
+The cost is one extra click, and `auth.test.js` asserts the header carries no
+`_wpnonce` so that the cost is not quietly paid back later.

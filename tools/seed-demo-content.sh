@@ -320,6 +320,13 @@ comm_id=$(ensure_post page "comunita" "Chi legge, corregge e alza la mano" \
   "<p>Un account qui serve a una cosa sola: firmare quello che scrivi sotto gli articoli e risponderne. Niente bacheca personale, niente punteggi, niente rete di amicizie. Pseudonimo, chiave PGP se la usi, e la traccia pubblica dei tuoi interventi.</p>")
 wp post meta update "$comm_id" _wp_page_template "page-templates/template-community.php" >/dev/null
 
+# /accesso/ holds both forms. The copy above them is the desk's; everything
+# below is the theme's.
+acc_id=$(ensure_post page "accesso" "Firma quello che scrivi" \
+  "L'account serve per intervenire sotto gli articoli, seguire le risposte e proporre correzioni." \
+  "<p>L'account serve per intervenire sotto gli articoli, seguire le risposte e proporre correzioni. Non serve per leggere: il sito resta aperto, senza muri e senza contatori.</p>")
+wp post meta update "$acc_id" _wp_page_template "page-templates/template-sign-in.php" >/dev/null
+
 # The archive is the blog index: it only gets a URL of its own once a page is
 # assigned as the posts page.
 home_id=$(ensure_post page "home" "Home" "" "")
