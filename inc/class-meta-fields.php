@@ -183,19 +183,19 @@ final class Meta_Fields {
 	 * Read a field, with a default.
 	 *
 	 * @param string $key     Meta key.
-	 * @param mixed  $default Value to return when the field is empty.
+	 * @param mixed  $fallback Value to return when the field is empty.
 	 * @param int    $post_id Post to read from; current post when 0.
 	 * @return mixed
 	 */
-	public static function get( string $key, $default = '', int $post_id = 0 ) {
-		$post_id = $post_id ?: get_the_ID();
+	public static function get( string $key, $fallback = '', int $post_id = 0 ) {
+		$post_id = $post_id > 0 ? $post_id : (int) get_the_ID();
 
 		if ( ! $post_id ) {
-			return $default;
+			return $fallback;
 		}
 
 		$value = get_post_meta( $post_id, $key, true );
 
-		return ( '' === $value || null === $value ) ? $default : $value;
+		return ( '' === $value || null === $value ) ? $fallback : $value;
 	}
 }

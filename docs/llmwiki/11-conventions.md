@@ -118,3 +118,23 @@ Strings: `wp i18n make-pot . languages/lupin3rd.pot --domain=lupin3rd` after
 adding or changing any. Every `%s` needs a `translators:` comment above the
 call — phpcs and make-pot both say so.
 
+## Two prefixes, and why
+
+`l3_` is the theme's prefix for everything that is a **contract**: meta keys
+(`l3_estimated_time`), query variables (`l3_format`, which appears in published
+URLs), template variables, data attributes. Those are written into the database
+and into readers' bookmarks; they do not change to please a tool.
+
+`lupin3rd_` is the prefix for what genuinely lives in the global namespace and
+could collide with somebody else's code: the hooks this theme invokes —
+`lupin3rd_allow_anonymous_rest`, `lupin3rd_colliding_body_classes`,
+`lupin3rd_current_language`.
+
+The reason for the split is that phpcs rejects any prefix shorter than four
+characters, and it is right to: `l3_` is not unique enough for a global hook.
+It is unique enough for a meta key on this site's own posts.
+
+A template file declares no functions. `404.php` used to declare one; the
+Levenshtein search now lives in `Template_Tags::tag_suggestions()`, where
+template logic belongs and where phpcs stops asking about the global namespace.
+

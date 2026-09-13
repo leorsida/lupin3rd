@@ -140,10 +140,10 @@ final class Geo {
 	 * Append the crawler policy to robots.txt.
 	 *
 	 * @param string $output  Current robots.txt body.
-	 * @param bool   $public  Whether the site is public.
+	 * @param bool   $is_public Whether the site is public.
 	 */
-	public function robots_txt( string $output, $public ): string {
-		if ( ! $public ) {
+	public function robots_txt( string $output, $is_public ): string {
+		if ( ! $is_public ) {
 			return $output;
 		}
 

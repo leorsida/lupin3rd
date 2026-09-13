@@ -9,43 +9,13 @@
  */
 
 use Lupin3rd\Content_Types;
+use Lupin3rd\Template_Tags;
 
 defined( 'ABSPATH' ) || exit;
 
 get_header();
 
-/**
- * Return the tags whose slug most resembles the requested path.
- *
- * @param int $limit Maximum suggestions.
- * @return array<int, WP_Term>
- */
-function l3_404_suggestions( int $limit = 5 ): array {
-	$path     = trim( (string) wp_parse_url( (string) ( $_SERVER['REQUEST_URI'] ?? '' ), PHP_URL_PATH ), '/' ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
-	$segments = array_filter( explode( '/', $path ) );
-	$slug     = sanitize_title( (string) ( $segments ? (string) array_pop( $segments ) : '' ) );
-	$terms = get_terms(
-		array(
-			'taxonomy'   => 'post_tag',
-			'hide_empty' => true,
-			'number'     => 60,
-		)
-	);
-
-	if ( is_wp_error( $terms ) || ! $terms || '' === $slug ) {
-		return is_wp_error( $terms ) ? array() : array_slice( (array) $terms, 0, $limit );
-	}
-
-	usort(
-		$terms,
-		static fn ( WP_Term $a, WP_Term $b ): int =>
-			levenshtein( $slug, $a->slug ) <=> levenshtein( $slug, $b->slug )
-	);
-
-	return array_slice( $terms, 0, $limit );
-}
-
-$l3_suggestions = l3_404_suggestions();
+$l3_suggestions = Template_Tags::tag_suggestions();
 
 $l3_recent = new WP_Query(
 	array(

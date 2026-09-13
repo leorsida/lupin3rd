@@ -164,7 +164,9 @@ final class Template_Tags {
 		);
 
 		echo '<span aria-hidden="true">';
-		for ( $i = 1; $i <= count( $levels ); $i++ ) {
+		$total = count( $levels );
+
+		for ( $i = 1; $i <= $total; $i++ ) {
 			printf( '<i%s></i>', $i <= $filled ? ' class="on"' : '' );
 		}
 		echo '</span>';
@@ -351,10 +353,10 @@ final class Template_Tags {
 
 		$content = (string) preg_replace_callback(
 			'/<h2\b([^>]*)>(.*?)<\/h2>/is',
-			static function ( array $match ) use ( &$headings, &$used ): string {
-				$attributes = $match[1];
+			static function ( array $found_heading ) use ( &$headings, &$used ): string {
+				$attributes = $found_heading[1];
 				$text       = html_entity_decode(
-					wp_strip_all_tags( $match[2] ),
+					wp_strip_all_tags( $found_heading[2] ),
 					ENT_QUOTES | ENT_HTML5,
 					'UTF-8'
 				);
@@ -362,10 +364,13 @@ final class Template_Tags {
 				if ( preg_match( '/\bid=["\']([^"\']+)["\']/', $attributes, $found ) ) {
 					$id = $found[1];
 				} else {
-					$id = sanitize_title( $text ) ?: 'sezione';
-					$n  = 2;
+					$base = sanitize_title( $text );
+					$id   = '' !== $base ? $base : 'sezione';
+					$n    = 2;
+
 					while ( in_array( $id, $used, true ) ) {
-						$id = sanitize_title( $text ) . '-' . $n++;
+						$id = $base . '-' . $n;
+						++$n;
 					}
 					$attributes .= sprintf( ' id="%s"', esc_attr( $id ) );
 				}
@@ -376,7 +381,7 @@ final class Template_Tags {
 					'text' => $text,
 				);
 
-				return sprintf( '<h2%s>%s</h2>', $attributes, $match[2] );
+				return sprintf( '<h2%s>%s</h2>', $attributes, $found_heading[2] );
 			},
 			$content
 		);
@@ -473,5 +478,41 @@ final class Template_Tags {
 		}
 
 		return $found;
+	}
+
+	/**
+	 * Tags whose slug most resembles the one that was asked for.
+	 *
+	 * Somebody who mistypes a URL usually knows roughly what they were after,
+	 * so the 404 offers the nearest tags rather than an apology. Levenshtein
+	 * over at most sixty terms: small enough to run on a page nobody caches.
+	 *
+	 * @param int $limit Maximum suggestions.
+	 * @return array<int, \WP_Term>
+	 */
+	public static function tag_suggestions( int $limit = 5 ): array {
+		$path     = trim( (string) wp_parse_url( (string) ( $_SERVER['REQUEST_URI'] ?? '' ), PHP_URL_PATH ), '/' ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput -- Read as a slug, sanitised below.
+		$segments = array_filter( explode( '/', $path ) );
+		$slug     = sanitize_title( (string) ( $segments ? (string) array_pop( $segments ) : '' ) );
+
+		$terms = get_terms(
+			array(
+				'taxonomy'   => 'post_tag',
+				'hide_empty' => true,
+				'number'     => 60,
+			)
+		);
+
+		if ( is_wp_error( $terms ) || ! $terms || '' === $slug ) {
+			return is_wp_error( $terms ) ? array() : array_slice( (array) $terms, 0, $limit );
+		}
+
+		usort(
+			$terms,
+			static fn ( \WP_Term $a, \WP_Term $b ): int =>
+				levenshtein( $slug, $a->slug ) <=> levenshtein( $slug, $b->slug )
+		);
+
+		return array_slice( $terms, 0, $limit );
 	}
 }

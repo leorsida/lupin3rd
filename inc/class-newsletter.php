@@ -97,6 +97,7 @@ final class Newsletter {
 				'supports'            => array( 'title' ),
 				'capability_type'     => 'l3_subscriber',
 				'map_meta_cap'        => true,
+
 				/*
 				 * Primitive capabilities only. With map_meta_cap on, WordPress
 				 * derives the per-post ones — edit_post, read_post, delete_post
@@ -125,7 +126,8 @@ final class Newsletter {
 	 * Handle the subscription form.
 	 */
 	public function handle_form(): void {
-		$referer = wp_get_referer() ?: home_url( '/' );
+		$referer = wp_get_referer();
+		$referer = is_string( $referer ) && '' !== $referer ? $referer : home_url( '/' );
 		$nonce   = isset( $_POST['_wpnonce'] ) ? sanitize_text_field( wp_unslash( (string) $_POST['_wpnonce'] ) ) : '';
 
 		if ( ! wp_verify_nonce( $nonce, self::ACTION ) ) {

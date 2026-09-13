@@ -72,7 +72,9 @@ final class Comment_Reports {
 		$comment    = $comment_id ? get_comment( $comment_id ) : null;
 
 		if ( ! $comment || ! wp_verify_nonce( $nonce, self::ACTION . '_' . $comment_id ) ) {
-			wp_safe_redirect( wp_get_referer() ?: home_url( '/' ) );
+			$back = wp_get_referer();
+
+			wp_safe_redirect( is_string( $back ) && '' !== $back ? $back : home_url( '/' ) );
 			exit;
 		}
 

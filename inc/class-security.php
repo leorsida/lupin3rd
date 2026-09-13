@@ -72,7 +72,7 @@ final class Security {
 		 *
 		 * @param bool $allowed Whether to allow the request.
 		 */
-		if ( apply_filters( 'l3_allow_anonymous_rest', false ) ) {
+		if ( apply_filters( 'lupin3rd_allow_anonymous_rest', false ) ) {
 			return $result;
 		}
 

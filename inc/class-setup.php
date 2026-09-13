@@ -58,7 +58,7 @@ final class Setup {
 		 *
 		 * @param array<int, string> $names Class names to strip.
 		 */
-		$colliding = (array) apply_filters( 'l3_colliding_body_classes', self::COLLIDING_BODY_CLASSES );
+		$colliding = (array) apply_filters( 'lupin3rd_colliding_body_classes', self::COLLIDING_BODY_CLASSES );
 
 		return array_values( array_diff( $classes, $colliding ) );
 	}

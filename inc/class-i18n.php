@@ -46,7 +46,7 @@ final class I18n {
 		 *
 		 * @param string $code Two-letter language code.
 		 */
-		return (string) apply_filters( 'l3_current_language', substr( get_locale(), 0, 2 ) );
+		return (string) apply_filters( 'lupin3rd_current_language', substr( get_locale(), 0, 2 ) );
 	}
 
 	/**
