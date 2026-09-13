@@ -78,7 +78,7 @@ final class Authentication {
 
 		// Every link WordPress generates points at the theme's own page.
 		add_filter( 'login_url', array( $this, 'filter_sign_in_url' ), 10, 2 );
-		add_filter( 'register_url', array( $this, 'filter_register_url' ) );
+		add_filter( 'register_url', array( $this, 'filter_sign_in_url' ) );
 	}
 
 	// --- URLs ---
@@ -144,15 +144,6 @@ final class Authentication {
 		return self::sign_in_url( (string) $redirect );
 	}
 
-	/**
-	 * Same for the registration link.
-	 *
-	 * @param string $url URL core built.
-	 */
-	public function filter_register_url( $url ): string {
-		return self::sign_in_url();
-	}
-
 	// --- The forms ---
 
 	/**
@@ -184,8 +175,8 @@ final class Authentication {
 		);
 		$email     = sanitize_email( wp_unslash( $_POST['l3_email'] ?? '' ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Verified in check().
 		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Missing -- A password is hashed and compared, never rendered; sanitising it would change what the reader typed.
-		$password  = isset( $_POST['l3_password'] ) ? (string) wp_unslash( $_POST['l3_password'] ) : '';
-		$rules     = isset( $_POST['l3_rules'] ); // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Verified in check().
+		$password = isset( $_POST['l3_password'] ) ? (string) wp_unslash( $_POST['l3_password'] ) : '';
+		$rules    = isset( $_POST['l3_rules'] ); // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Verified in check().
 
 		if ( ! $rules ) {
 			$this->go_back( 'rules', 'registrazione' );
@@ -230,7 +221,28 @@ final class Authentication {
 			update_user_meta( (int) $user_id, Profile_Fields::PGP, $fingerprint );
 		}
 
-		$this->open_session( (int) $user_id );
+		/*
+		 * Signed in through wp_signon() and not by setting the cookie here:
+		 * that path fires `wp_login`, refreshes the session token and runs the
+		 * authentication filters, and all three are somebody else's contract to
+		 * keep. Firing a core hook by hand is how a theme ends up owning a
+		 * promise it did not write.
+		 */
+		$signed = wp_signon(
+			array(
+				'user_login'    => $pseudonym,
+				'user_password' => $password,
+				'remember'      => true,
+			),
+			is_ssl()
+		);
+
+		if ( is_wp_error( $signed ) ) {
+			// The account exists; only the session did not open. Say exactly that.
+			$this->go_back( 'created', 'accesso' );
+		}
+
+		wp_set_current_user( $signed->ID );
 		$this->leave( 'welcome' );
 	}
 
@@ -407,19 +419,6 @@ final class Authentication {
 	}
 
 	/**
-	 * Sign in an account that has just been created.
-	 *
-	 * @param int $user_id Account.
-	 */
-	private function open_session( int $user_id ): void {
-		wp_set_current_user( $user_id );
-		wp_set_auth_cookie( $user_id, true, is_ssl() );
-
-		/** This action is documented in wp-includes/user.php */
-		do_action( 'wp_login', (string) get_userdata( $user_id )->user_login, get_userdata( $user_id ) );
-	}
-
-	/**
 	 * Where the reader asked to land, when that is somewhere on this site.
 	 */
 	private function destination(): string {
@@ -482,6 +481,10 @@ final class Authentication {
 			'back' => array(
 				'tone' => 'ok',
 				'text' => __( 'Bentornato. Sessione aperta su questo browser.', 'lupin3rd' ),
+			),
+			'created' => array(
+				'tone' => 'ok',
+				'text' => __( 'Account creato. Entra con lo pseudonimo e la password che hai appena scelto.', 'lupin3rd' ),
 			),
 			'refused' => array(
 				'tone' => 'error',
