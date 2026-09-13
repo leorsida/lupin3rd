@@ -11,6 +11,9 @@
  * draws lands a few pixels under that box's bottom edge, in the same colour and
  * at a different width: two parallel lines where the design has one. */
 .section-tight:has(.statgrid) + .section { border-top: 0; }
+/* Same for the lead on the front page: the cover ends in an edge of its own,
+ * and a rule a few pixels under it is a second one. */
+.section:has(.lead-cover) + .section { border-top: 0; }
 .stack { display: flex; flex-direction: column; gap: var(--gap-md); }
 .row { display: flex; align-items: center; gap: var(--gap-md); }
 .row-tight { gap: 10px; }
