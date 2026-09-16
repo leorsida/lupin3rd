@@ -168,9 +168,9 @@ Nessuno di questi è rifinitura. Se uno salta, quello che resta è M3 travestito
 | 2 | **Scrive solo chi è uscito dalla coda di moderazione** (tre interventi accettati). | Un account aperto due minuti fa non deve poter scrivere a nessuno: è il costo d'ingresso per chi molesta. |
 | 3 | **Limite di frequenza**: N messaggi al giorno, e non più di uno a un destinatario che non ha mai risposto. | Toglie l'invio in massa senza toccare la conversazione vera. |
 | 4 | **Blocco** per destinatario, immediato e silenzioso. | — |
-| 5 | **Segnalazione alla redazione**, che sblocca la lettura di *quel* messaggio e solo di quello. | La moderazione deve poter vedere ciò che le viene segnalato, e nient'altro. |
+| 5 | **La redazione vede in bacheca**, al livello deciso in §2.4. | Senza una vista di moderazione la casella è un canale che nessuno sorveglia. Quanto la redazione veda cambia però cosa il sito può dire ai membri: §2.5. |
 | 6 | **Cancellazione automatica** dopo 180 giorni, senza copia. | Un archivio che non invecchia è un archivio che qualcuno verrà a chiedere. |
-| 7 | **Cifratura a riposo** con chiave derivata dai sali di WordPress. | Difende da un dump del database. **Non** difende dal server: va scritto così, perché scrivere «cifrati» e basta è una promessa più grande di quella che si mantiene. |
+| 7 | **Cifratura a riposo** con chiave derivata dai sali di WordPress. | Difende da un dump del database rubato senza i file del sito. **Non** difende dal server, e non difende affatto se la bacheca decifra per mostrare i messaggi alla redazione: la chiave è lì accanto. Va scritto così, perché «cifrati» e basta è una promessa più grande di quella che si mantiene. |
 | 8 | **Esportazione e cancellazione** agganciate agli strumenti privacy del core. | Il resto dell'account già lo fa. |
 | 9 | **Nessuna notifica che riveli il contenuto.** L'email dice «hai un messaggio», mai il testo. | Il testo in chiaro in una casella di posta altrui annulla tutto il resto. |
 
@@ -180,13 +180,71 @@ orfani se il tema viene disattivato. Autore = mittente, meta = destinatario,
 contenuto = testo cifrato. Nessuna interfaccia in bacheca se non quella delle
 segnalazioni.
 
-### 2.4 Le fette, se si fa M2
+### 2.4 Quanto vede la redazione
+
+Requisito posto: **gli editor devono vedere i messaggi in bacheca.** È
+legittimo — senza una vista di moderazione la casella è un canale che nessuno
+sorveglia — ma il livello scelto non è un dettaglio d'interfaccia: decide cosa
+il sito può onestamente scrivere accanto al modulo.
+
+| | Cosa vede la redazione | Cosa il sito può dire ai membri |
+|---|---|---|
+| **V1** · solo su segnalazione | il messaggio segnalato e nient'altro | «privato: nessuno oltre a te e al destinatario, salvo segnalazione» |
+| **V2** · metadati sempre, testo su segnalazione o apertura tracciata | chi ha scritto a chi, quando, quanto lungo — sempre; il testo quando serve, e l'apertura resta scritta | «privato dagli altri lettori. La redazione vede che ci siete scritti; il testo lo legge solo se segnalato, e l'apertura resta registrata» |
+| **V3** · tutto, sempre | ogni messaggio in chiaro nella bacheca | «i messaggi passano dalla redazione» — e allora non si chiamano privati |
+
+**Raccomandazione: V2.** I metadati sono ciò che serve davvero alla moderazione:
+un account che scrive a quaranta persone in un'ora si vede dal conteggio, non dal
+contenuto. Il testo serve quando qualcuno segnala, ed è lì che va aperto. Costa
+quanto V3 — è la stessa schermata con una colonna in meno — e lascia alla parola
+«privato» un significato.
+
+**Se invece la scelta è V3, la conseguenza va scritta in tre punti**, non uno:
+sotto il modulo di invio, nel colophon, e in `/comunita/`. Su una rivista che
+pubblica di sorveglianza, dire «messaggio privato» sopra una casella che la
+redazione legge per intero è la bugia peggiore che questo sito possa raccontare:
+non perché sia grave in sé — molti forum fanno così — ma perché è esattamente il
+comportamento che gli articoli qui sotto smontano.
+
+Vale per tutte e tre: se la redazione può leggere, allora un provvedimento può
+farsi consegnare l'archivio in chiaro. La ritenzione a 180 giorni (§2.3, vincolo
+6) è la sola difesa reale contro quella richiesta, ed è il motivo per cui è nella
+lista.
+
+### 2.5 «Non genera traffico?»
+
+La domanda è giusta e la risposta breve è: **genera attività, che non è la stessa
+cosa.**
+
+Un messaggio privato produce visite a una pagina di posta in arrivo. Sono visite
+che non leggono un articolo, non lasciano un commento e non danno a nessun altro
+un motivo per arrivare. Il traffico di una rivista arriva da due posti: qualcuno
+pubblica qualcosa, e qualcuno torna perché una discussione è viva.
+
+C'è anche un effetto contrario che vale la pena mettere sul piatto. Una risposta
+sotto un articolo è contenuto: indicizzabile, leggibile dal prossimo che passa,
+e a volte è il motivo per cui quel prossimo arriva da una ricerca. La stessa
+frase spedita in privato è contenuto **sottratto** al sito. Una casella non
+aggiunge soltanto una funzione: sposta conversazioni da dove si vedono a dove non
+si vedono, ed è la parte pubblica quella che porta gente.
+
+**Quello che genererebbe traffico davvero costa mezza giornata ed è già mezzo
+scritto:** l'avviso «qualcuno ha risposto al tuo intervento». Il campo
+`l3_notify_replies` esiste dalla fase comunità, è nella schermata del profilo, e
+non è agganciato a niente. Un lettore che riceve quell'email torna — e torna
+**su una pagina pubblica**, sotto l'articolo, dove la sua risposta è ancora
+contenuto. È l'anello che chiude il giro, e oggi è aperto.
+
+Detto questo: il tuo pubblico lo conosci tu. Se la richiesta di scriversi in
+privato arriva dai lettori, questo è un argomento che vale più del mio.
+
+### 2.6 Le fette, se si fa M2
 
 | | Consegna | Verifica |
 |---|---|---|
 | **M2.1** | Tipo di contenuto, cifratura, invio e lettura; casella in `/account/` | test unitario su cifra/decifra; e2e: la casella risponde 302 a uno sconosciuto |
 | **M2.2** | Apertura della casella, blocco, limiti di frequenza | e2e: un invio a casella chiusa non scrive niente; l'undicesimo invio del giorno viene rifiutato |
-| **M2.3** | Segnalazione e vista di moderazione | test: un messaggio non segnalato non è leggibile dalla redazione |
+| **M2.3** | Segnalazione, e la vista di moderazione al livello scelto in §2.4 | test: con V2, l'elenco in bacheca mostra mittente, destinatario e data e **non** il testo; il testo compare solo su un messaggio segnalato o aperto, e l'apertura lascia una riga di registro |
 | **M2.4** | Ritenzione a 180 giorni via cron; esportazione e cancellazione | test: un messaggio con data finta oltre la soglia sparisce al passaggio del cron |
 | **M2.5** | Colophon, `/comunita/`, `OD/` riallineati | — |
 
@@ -202,6 +260,8 @@ segnalazioni.
 | **D-028** | La presenza sta in cache con scadenza, non in una colonna? | sì |
 | **D-029** | Messaggi: M0, M1, M2 o M3? | M1 se basta; M2 con i nove vincoli se non basta |
 | **D-030** | Ritenzione dei messaggi | 180 giorni, dichiarati in pagina |
+| **D-032** | Quanto vede la redazione: V1, V2 o V3 | **V2** — metadati sempre, testo su segnalazione, apertura tracciata |
+| **D-033** | Avviso «hanno risposto al tuo intervento» prima o dopo i messaggi? | **prima**: mezza giornata, riporta i lettori su pagine pubbliche |
 | **D-031** | Chi riscrive il colophon e `OD/`, e quando | prima del rilascio, non dopo |
 
 ---
