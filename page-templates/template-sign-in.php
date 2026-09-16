@@ -148,8 +148,24 @@ $l3_inside = $l3_user instanceof WP_User && $l3_user->exists();
 				<p class="widget-note"><?php esc_html_e( 'Niente Gravatar. L\'immagine di profilo è un motivo generato dal seme dell\'account: nessun servizio esterno riceve l\'hash della tua email.', 'lupin3rd' ); ?></p>
 				<div class="avatar-stack" aria-hidden="true">
 					<?php
-					foreach ( array( 'seme-uno', 'seme-due', 'seme-tre', 'seme-quattro' ) as $l3_seed ) {
-						Marks::render_avatar( $l3_seed, '' );
+					/*
+					 * Four samples, and the four seeds are not arbitrary: they
+					 * hash to four different patterns. The point of this widget
+					 * is that the pattern comes from the seed, so showing the
+					 * same one four times would illustrate the opposite — which
+					 * is what the first version did, having passed four seeds
+					 * that all began with the same two letters and no initials
+					 * at all.
+					 */
+					$l3_samples = array(
+						'k0bra'        => 'k0',
+						'dfir_mar'     => 'dm',
+						'nulla0x'      => 'n0',
+						'cavo.seriale' => 'cs',
+					);
+
+					foreach ( $l3_samples as $l3_seed => $l3_mark ) {
+						Marks::render_avatar( (string) $l3_seed, $l3_mark );
 					}
 					?>
 				</div>

@@ -163,6 +163,14 @@ h1, h2, h3, h4 {
   padding-block: 10px 0;
 }
 
+/* «Tight» means «belongs to the section above», which is why it has no bottom
+ * padding: something follows it and supplies its own. When nothing follows,
+ * that missing padding is the gap between the last thing on the page and the
+ * footer's rule — and there isn't one. */
+main > .section-tight:last-child {
+  padding-bottom: clamp(44px, 6vw, var(--gap-2xl));
+}
+
 .section + .section-tight {
   border-top: 0;
 }
@@ -1271,6 +1279,11 @@ a.tag:hover {
   font-size: 13px;
   color: var(--muted);
   margin: 0;
+}
+
+/* The sample avatars illustrate the note above them, and sat against it. */
+.widget .avatar-stack {
+  margin-top: var(--gap-md);
 }
 
 /* Form controls. */

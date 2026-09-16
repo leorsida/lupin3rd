@@ -25,3 +25,5 @@
 .widget li a span { color: var(--muted); font-family: var(--font-mono); font-size: 11px; }
 /* Prose inside a widget, where the list markup does not apply. */
 .widget-note { font-size: 13px; color: var(--muted); margin: 0; }
+/* The sample avatars illustrate the note above them, and sat against it. */
+.widget .avatar-stack { margin-top: var(--gap-md); }

@@ -6,6 +6,11 @@
 /* A row of numbers belongs to the section above it: no rule between them,
  * and no full section's worth of air. */
 .section-tight { padding-block: 10px 0; }
+/* «Tight» means «belongs to the section above», which is why it has no bottom
+ * padding: something follows it and supplies its own. When nothing follows,
+ * that missing padding is the gap between the last thing on the page and the
+ * footer's rule — and there isn't one. */
+main > .section-tight:last-child { padding-bottom: clamp(44px, 6vw, var(--gap-2xl)); }
 .section + .section-tight { border-top: 0; }
 /* A stat grid is a box with four borders of its own. The rule the next section
  * draws lands a few pixels under that box's bottom edge, in the same colour and
