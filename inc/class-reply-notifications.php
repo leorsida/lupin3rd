@@ -263,8 +263,13 @@ final class Reply_Notifications {
 			return;
 		}
 
+		/*
+		 * explode() always returns at least one element, so the first has no
+		 * default; the second is missing whenever the link arrived without a
+		 * signature, which is the case this method exists to refuse.
+		 */
 		$parts   = explode( '.', $token, 2 );
-		$user_id = (int) ( $parts[0] ?? 0 );
+		$user_id = (int) $parts[0];
 		$given   = (string) ( $parts[1] ?? '' );
 
 		if ( $user_id > 0 && hash_equals( self::signature( $user_id ), $given ) ) {
