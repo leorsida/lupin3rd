@@ -156,7 +156,8 @@ final class Comment_Reports {
 	private function notify( \WP_Comment $comment ): void {
 		$link = admin_url( 'comment.php?action=editcomment&c=' . $comment->comment_ID );
 
-		wp_mail(
+		Mail::send(
+			'comment_reported',
 			(string) get_option( 'admin_email' ),
 			__( 'Un intervento è stato segnalato', 'lupin3rd' ),
 			sprintf(
@@ -165,6 +166,11 @@ final class Comment_Reports {
 				(string) $comment->comment_author,
 				(string) get_the_title( (int) $comment->comment_post_ID ),
 				$link
+			),
+			array(),
+			array(
+				'comment' => $comment,
+				'link'    => $link,
 			)
 		);
 	}

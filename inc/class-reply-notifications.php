@@ -203,7 +203,8 @@ final class Reply_Notifications {
 			$stop
 		);
 
-		wp_mail(
+		Mail::send(
+			'new_contribution',
 			(string) $user->user_email,
 			sprintf(
 				/* translators: %s: title of the piece. */
@@ -211,7 +212,13 @@ final class Reply_Notifications {
 				(string) get_the_title( $post )
 			),
 			$body,
-			array( 'List-Unsubscribe: <' . $stop . '>' )
+			array( 'List-Unsubscribe: <' . $stop . '>' ),
+			array(
+				'user'     => $user,
+				'comment'  => $comment,
+				'post'     => $post,
+				'unfollow' => $stop,
+			)
 		);
 	}
 

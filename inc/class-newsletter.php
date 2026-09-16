@@ -331,7 +331,8 @@ final class Newsletter {
 
 		$link = add_query_arg( self::CONFIRM_VAR, $token, home_url( '/' ) );
 
-		wp_mail(
+		Mail::send(
+			'dispatch_confirmation',
 			(string) $subscriber->post_title,
 			__( 'Conferma l\'iscrizione al dispaccio', 'lupin3rd' ),
 			sprintf(
@@ -339,6 +340,11 @@ final class Newsletter {
 				__( "Qualcuno ha chiesto di iscrivere questo indirizzo al dispaccio settimanale di %2\$s.\n\nSe sei stato tu, conferma da qui:\n%1\$s\n\nSe non sei stato tu, non fare niente: senza conferma l'indirizzo non riceve nulla e viene cancellato.", 'lupin3rd' ),
 				$link,
 				(string) get_bloginfo( 'name' )
+			),
+			array(),
+			array(
+				'subscriber' => $subscriber,
+				'link'       => $link,
 			)
 		);
 	}

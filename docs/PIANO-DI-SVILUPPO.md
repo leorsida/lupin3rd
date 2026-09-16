@@ -3,7 +3,7 @@
 **Versione:** 1.0 · 12.09.2026
 **Fonte di verità del design:** `OD/` (prototipo Open Design, 17 pagine IT + 17 EN, `OD/assets/app.css`, `OD/assets/app.js`)
 **Fonte di verità dell'architettura:** `OD/struttura-wordpress.html`
-**Base di conoscenza:** `docs/llmwiki/` — 17 pagine in inglese, tre rigenerate dal prototipo
+**Base di conoscenza:** `docs/llmwiki/` — 18 pagine in inglese, tre rigenerate dal prototipo
 **Ambiente locale:** `compose.yaml` alla radice, istruzioni in `docker/README.md`
 
 ---
@@ -52,6 +52,7 @@
 | `13-decisions.md` | log delle decisioni (D-001 … D-008) |
 | `14-open-questions.md` | Q1 … Q9, chi decide e cosa blocca (Q9 chiusa da D-009) |
 | `15-local-environment.md` | lo stack locale e cosa **non** dimostra |
+| `16-emails.md` | i tre messaggi che il tema invia, e dove cambiarne il testo |
 
 Tre pagine sono **derivate meccanicamente** dal prototipo e non si modificano a mano:
 

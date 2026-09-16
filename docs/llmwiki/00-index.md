@@ -28,6 +28,7 @@ Knowledge base for the `lupin3rd` WordPress theme. Read `01-project.md` and
 | `13-decisions.md` | why the theme is built the way it is |
 | `14-open-questions.md` | what is still undecided, and who decides it |
 | `15-local-environment.md` | how to run the project, and what local success does not prove |
+| `16-emails.md` | the three messages the theme sends, and where to change their wording |
 
 ## Fixed points
 
