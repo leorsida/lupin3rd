@@ -173,3 +173,19 @@ test('the role filter runs on the server, not only in the browser', { skip: noIn
 		'the filtered list still carries other roles: the filter is only client-side'
 	);
 });
+
+test('the opt-out link cannot be guessed into unsubscribing somebody else', async () => {
+	/*
+	 * The link in a notification has to work without signing in — an email
+	 * whose only way out is «sign in first» is an email with no way out. So it
+	 * carries an account id, and the id alone would let anybody unsubscribe
+	 * anybody by counting upwards. The signature is what stops that, and this
+	 * is the assertion that it is actually checked.
+	 */
+	for (const token of ['1', '1.', '1.deadbeef', '1.' + 'a'.repeat(32)]) {
+		const response = await get(`/?l3_unfollow=${encodeURIComponent(token)}`);
+		const where = String(response.headers.get('location') || '');
+
+		assert.doesNotMatch(where, /l3_account=unfollowed/, `«${token}» was accepted as a signature`);
+	}
+});

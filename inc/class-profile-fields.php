@@ -301,6 +301,29 @@ final class Profile_Fields {
 	}
 
 	/**
+	 * Whether this account wants to hear that a discussion moved.
+	 *
+	 * Missing means yes: the field is written at registration, so an account
+	 * created before it existed has never been asked — and never having chosen
+	 * is not a choice. The same rule as the join date, for the same reason.
+	 *
+	 * @param int|\WP_User $user Account.
+	 */
+	public static function wants_replies( $user ): bool {
+		$user = self::user( $user );
+
+		if ( ! $user instanceof \WP_User ) {
+			return false;
+		}
+
+		if ( ! metadata_exists( 'user', $user->ID, self::NOTIFY_REPLIES ) ) {
+			return true;
+		}
+
+		return (bool) get_user_meta( $user->ID, self::NOTIFY_REPLIES, true );
+	}
+
+	/**
 	 * Languages the account writes in.
 	 *
 	 * @param int|\WP_User $user Account.

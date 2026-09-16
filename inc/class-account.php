@@ -205,6 +205,10 @@ final class Account {
 				'tone' => 'ok',
 				'text' => __( 'Salvato.', 'lupin3rd' ),
 			),
+			'unfollowed' => array(
+				'tone' => 'ok',
+				'text' => __( 'Fatto: non ti avvisiamo più quando una discussione a cui hai partecipato si muove. La casella qui sotto lo riaccende.', 'lupin3rd' ),
+			),
 			'taken' => array(
 				'tone' => 'error',
 				'text' => __( 'Quello pseudonimo è già di qualcuno, o è stato lasciato da meno di novanta giorni.', 'lupin3rd' ),

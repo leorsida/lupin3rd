@@ -6,6 +6,22 @@
 
 ---
 
+## Esito, 16.09.2026
+
+**Presenza e messaggeria: annullate.** Nessuna delle due entra. Il piano resta
+qui perché la discussione che ci ha portati a questa conclusione vale più della
+conclusione: se la richiesta torna fra sei mesi, si riparte da §0 e non da zero.
+
+**Fatto invece: l'avviso di risposta** (§2.5, ultima parte) — l'unica cosa in
+tutto questo documento che riporti un lettore su una pagina **pubblica**. Modulo
+`Reply_Notifications`, mezza giornata, contro le cinque delle alternative.
+
+Le proposte P-1…P-7 qui sotto restano non prese, e restano scritte. Non
+portano un numero D perché non sono decisioni: i numeri D-027 e D-028 nel
+registro sono il rifiuto e la forma dell'avviso.
+
+---
+
 ## 0. Leggere prima del resto
 
 Queste due funzioni non sono neutre rispetto a quello che il sito dichiara. Non
@@ -252,17 +268,17 @@ privato arriva dai lettori, questo è un argomento che vale più del mio.
 
 ---
 
-## 3. Decisioni da prendere
+## 3. Proposte, nessuna presa
 
 | ID | Domanda | Raccomandazione |
 |---|---|---|
-| **D-027** | Presenza: aggregata, per account su richiesta, o per account sempre? | aggregata subito, per account **su richiesta** |
-| **D-028** | La presenza sta in cache con scadenza, non in una colonna? | sì |
-| **D-029** | Messaggi: M0, M1, M2 o M3? | M1 se basta; M2 con i nove vincoli se non basta |
-| **D-030** | Ritenzione dei messaggi | 180 giorni, dichiarati in pagina |
-| **D-032** | Quanto vede la redazione: V1, V2 o V3 | **V2** — metadati sempre, testo su segnalazione, apertura tracciata |
-| **D-033** | Avviso «hanno risposto al tuo intervento» prima o dopo i messaggi? | **prima**: mezza giornata, riporta i lettori su pagine pubbliche |
-| **D-031** | Chi riscrive il colophon e `OD/`, e quando | prima del rilascio, non dopo |
+| **P-1** | Presenza: aggregata, per account su richiesta, o per account sempre? | aggregata subito, per account **su richiesta** |
+| **P-2** | La presenza sta in cache con scadenza, non in una colonna? | sì |
+| **P-3** | Messaggi: M0, M1, M2 o M3? | M1 se basta; M2 con i nove vincoli se non basta |
+| **P-4** | Ritenzione dei messaggi | 180 giorni, dichiarati in pagina |
+| **P-6** | Quanto vede la redazione: V1, V2 o V3 | **V2** — metadati sempre, testo su segnalazione, apertura tracciata |
+| **P-7** | Avviso «hanno risposto al tuo intervento» prima o dopo i messaggi? | **prima**: mezza giornata, riporta i lettori su pagine pubbliche |
+| **P-5** | Chi riscrive il colophon e `OD/`, e quando | prima del rilascio, non dopo |
 
 ---
 

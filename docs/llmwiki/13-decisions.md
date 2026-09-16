@@ -465,3 +465,61 @@ Without the script the link still leads somewhere useful: the handler answers a
 missing nonce by redirecting to `/accesso/`, which carries a server-rendered
 button with a real nonce. `auth.test.js` still asserts that no `_wpnonce`
 appears in the header as PHP renders it, which is the invariant that mattered.
+
+## D-027 — Neither presence nor private messages
+
+**Decided:** 16.09.2026 · **Status:** accepted · **Phase:** community
+
+The site does not show who is online, and accounts cannot write to each other.
+Instead, somebody who commented under a piece is emailed when the discussion
+there moves.
+
+Both of the rejected features were asked for, and both were asked for in good
+faith — presence to make the community page feel alive, messages to give
+readers a reason to come back. Both were refused on the same two grounds, and
+the grounds are worth keeping because they will come up again.
+
+**They contradict what the site says in public.** «Non conserviamo cronologia di
+lettura» and «un account qui serve a una cosa sola: firmare quello che scrivi
+sotto gli articoli e risponderne» are on `/comunita/` now. A last-seen column is
+the reading record the first sentence denies; an inbox is the second thing the
+second sentence says this is not. Shipping either without rewriting those lines
+would have made the colophon a lie, on a magazine whose subject is surveillance.
+
+**And the traffic argument runs the other way.** A private message produces a
+visit to an inbox: a visit that reads no article, leaves no comment and gives
+nobody else a reason to arrive. A reply under a piece is content — indexable,
+readable by the next visitor, sometimes the reason that visitor came. An inbox
+does not only add a feature; it moves conversations from where they are visible
+to where they are not, and the visible half is the half that brings people.
+
+What was built instead closes a loop that was already half-written:
+`l3_notify_replies` existed as a field, was on the account screen, and was
+attached to nothing.
+
+## D-028 — A notification is restraint before it is a feature
+
+**Decided:** 16.09.2026 · **Status:** accepted · **Phase:** community
+
+`Reply_Notifications` writes to somebody only when a contribution is **approved**
+(never when it is filed), never to whoever just wrote it, at most once per person
+per piece per hour, only to accounts that left the setting on, and always with a
+link that turns it off without signing in.
+
+An unwanted email is worse than no email: it teaches the reader to ignore the
+address and it teaches their provider to file the domain as spam. Every one of
+those rules exists to make the message rare enough to be read.
+
+Two details that are easy to get wrong:
+
+- A comment reaches «approved» by two different routes — inserted approved
+  (`comment_post`) for a member out of the queue, or moved there later
+  (`transition_comment_status`) by the desk. Watching one of them covers about
+  half the discussion and never says so.
+- The opt-out link carries an account id, so it is signed with `wp_salt()`:
+  without a signature anybody could unsubscribe anybody by counting upwards.
+  `community.test.js` checks that the signature is actually verified.
+
+Sending happens on a scheduled event, not in the request that posted the
+comment: thirty participants would otherwise be thirty `wp_mail()` calls between
+«Invia» and the page coming back.

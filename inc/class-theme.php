@@ -47,6 +47,7 @@ final class Theme {
 		Authentication::class,
 		Session_Hint::class,
 		Account::class,
+		Reply_Notifications::class,
 		Blocks::class,
 		Patterns::class,
 		Marks::class,

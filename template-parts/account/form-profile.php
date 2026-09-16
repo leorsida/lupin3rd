@@ -51,8 +51,8 @@ $l3_me = wp_get_current_user();
 	</label>
 
 	<label class="check">
-		<input type="checkbox" name="l3_notify_replies" value="1" <?php checked( (bool) get_user_meta( $l3_me->ID, Profile_Fields::NOTIFY_REPLIES, true ) ); ?>>
-		<span><?php esc_html_e( 'Avvisami via email quando qualcuno risponde a un mio intervento.', 'lupin3rd' ); ?></span>
+		<input type="checkbox" name="l3_notify_replies" value="1" <?php checked( Profile_Fields::wants_replies( $l3_me ) ); ?>>
+		<span><?php esc_html_e( 'Avvisami via email quando qualcuno scrive sotto un articolo in cui sono intervenuto. Al massimo un messaggio all\'ora per articolo.', 'lupin3rd' ); ?></span>
 	</label>
 
 	<div class="row-between row-wrap">
