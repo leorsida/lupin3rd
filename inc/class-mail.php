@@ -60,6 +60,15 @@ final class Mail {
 		 * @param array<string, mixed> $message Recipient, subject, body and headers.
 		 * @param array<string, mixed> $context What the message is about.
 		 */
+		/**
+		 * A callback can return anything at all, whatever the docblock above
+		 * promises: the type here describes what the theme passes in, not what
+		 * somebody else's plugin hands back. That is the entire reason the
+		 * checks below exist, so the analyser is told the truth rather than
+		 * silenced.
+		 *
+		 * @var mixed $filtered
+		 */
 		$filtered = apply_filters( "lupin3rd_mail_{$key}", $message, $context );
 
 		/*

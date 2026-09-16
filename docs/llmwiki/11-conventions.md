@@ -209,6 +209,13 @@ parses ten megabytes of stubs a second time **in every parallel worker**, and a
 512M limit disappears on a theme of sixty files. The number of workers is a
 memory decision, not a speed one.
 
+**What comes back from `apply_filters()` is `mixed`, whatever the docblock
+says.** PHPStan reads the type of the value passed *in* and concludes that the
+value coming *out* has it too, so a guard on the return reads as «always true».
+It is not: the return comes from somebody else's callback and can be anything.
+Correct the inference with an inline `@var mixed` rather than silencing the
+check — the guard is the reason the code is safe, and the comment should say so.
+
 **Two `instanceof` guards that look identical are opposite mistakes.** PHPStan
 reports both as «always true», and the right answer differs:
 
