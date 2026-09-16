@@ -1206,6 +1206,15 @@ a.tag:hover {
   padding-top: 0;
 }
 
+/* A widget whose content is a table already closes with a rule: the last row
+ * draws one. The next widget's own rule lands a gap below it, and the two read
+ * as an indecision about where one thing ends and the next begins. The table's
+ * line stays, because it belongs to the content; the widget's goes. */
+.widget:has(.ds-table) + .widget {
+  border-top: 0;
+  padding-top: 0;
+}
+
 .widget-title {
   font-family: var(--font-mono);
   font-size: 11px;

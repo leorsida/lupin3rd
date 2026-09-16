@@ -6,6 +6,11 @@
  * a column starts nothing: there is nothing above it to be separated from,
  * and the line reads as the bottom edge of the header instead. */
 .grid-main-side > aside > .widget:first-child { border-top: 0; padding-top: 0; }
+/* A widget whose content is a table already closes with a rule: the last row
+ * draws one. The next widget's own rule lands a gap below it, and the two read
+ * as an indecision about where one thing ends and the next begins. The table's
+ * line stays, because it belongs to the content; the widget's goes. */
+.widget:has(.ds-table) + .widget { border-top: 0; padding-top: 0; }
 .widget-title { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
 .widget ul { list-style: none; margin: 0; padding: 0; }
 .widget li { border-bottom: 1px solid var(--border); }
