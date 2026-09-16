@@ -33,14 +33,14 @@ final class Mail {
 	/**
 	 * Send one of the theme's messages.
 	 *
-	 * @param string                $key     Short name of the message: what the
-	 *                                       filter is called after.
-	 * @param string                $to      Recipient address.
-	 * @param string                $subject Subject line.
-	 * @param string                $body    Plain text body.
-	 * @param array<int, string>    $headers Extra headers.
-	 * @param array<string, mixed>  $context What the message is about, for
-	 *                                       whoever filters it.
+	 * @param string               $key     Short name of the message: what the
+	 *                                      filter is called after.
+	 * @param string               $to      Recipient address.
+	 * @param string               $subject Subject line.
+	 * @param string               $body    Plain text body.
+	 * @param array<int, string>   $headers Extra headers.
+	 * @param array<string, mixed> $context What the message is about, for
+	 *                                      whoever filters it.
 	 */
 	public static function send( string $key, string $to, string $subject, string $body, array $headers = array(), array $context = array() ): bool {
 		$message = array(
