@@ -138,8 +138,8 @@ final class Geo {
 			'',
 			'## Contatti',
 			'',
-			'Materiale sensibile: solo tramite SecureDrop sul mirror .onion o via email',
-			'cifrata. Mai dai commenti, mai da un modulo di contatto.',
+			'Materiale sensibile: solo via email cifrata con PGP. Mai dai commenti, mai da',
+			'un modulo di contatto.',
 			'',
 		);
 

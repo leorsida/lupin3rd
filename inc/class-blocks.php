@@ -181,7 +181,7 @@ final class Blocks {
 
 		return new \WP_Error(
 			'l3_missing_legal_notice',
-			__( 'Un tutorial non si pubblica senza il riquadro «perimetro legale». Aggiungi un blocco Avviso con variante «perimetro legale» e riprova.', 'lupin3rd' ),
+			__( 'Un tutorial non viene pubblicato senza il riquadro con l\'informativa legale. Aggiungi un blocco Avviso con variante «informativa legale» e riprova.', 'lupin3rd' ),
 			array( 'status' => 400 )
 		);
 	}

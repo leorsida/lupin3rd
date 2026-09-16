@@ -16,8 +16,8 @@ $l3_edition = get_option( 'l3_edition_number', '182' );
 	<div class="container">
 		<div class="ticker">
 			<span><?php esc_html_e( 'nodo', 'lupin3rd' ); ?> <b><?php esc_html_e( 'online', 'lupin3rd' ); ?></b></span>
-			<span><?php esc_html_e( 'mirror .onion', 'lupin3rd' ); ?> <b><?php esc_html_e( 'attivo', 'lupin3rd' ); ?></b></span>
-			<span><?php esc_html_e( 'chiave pgp', 'lupin3rd' ); ?> <b>0x9F2C 4B11</b></span>
+			<span><?php esc_html_e( 'mirror .onion', 'lupin3rd' ); ?> <b><?php esc_html_e( 'soon', 'lupin3rd' ); ?></b></span>
+			<span><?php esc_html_e( 'chiave pgp', 'lupin3rd' ); ?> <b>435296A73BCF8593</b></span>
 		</div>
 		<span>
 			<?php

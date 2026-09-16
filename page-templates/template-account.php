@@ -100,7 +100,7 @@ $l3_stats  = Community::profile_stats( $l3_me->ID );
 				'stats' => array(
 					array(
 						'num'   => number_format_i18n( $l3_stats['contributions'] ),
-						'label' => __( 'interventi pubblicati', 'lupin3rd' ),
+						'label' => __( 'commenti pubblicati', 'lupin3rd' ),
 					),
 					array(
 						'num'   => Community::is_queued( $l3_me->ID ) ? __( 'sì', 'lupin3rd' ) : __( 'no', 'lupin3rd' ),
@@ -153,12 +153,12 @@ $l3_stats  = Community::profile_stats( $l3_me->ID );
 					if ( Community::is_queued( $l3_me->ID ) ) {
 						printf(
 							/* translators: 1: approved contributions so far, 2: how many are needed. */
-							esc_html__( 'I tuoi interventi vengono letti prima di comparire: %1$d su %2$d.', 'lupin3rd' ),
+							esc_html__( 'I tuoi commenti vengono letti prima di comparire: %1$d su %2$d.', 'lupin3rd' ),
 							(int) Community::contributions( $l3_me->ID ),
 							(int) Community::MODERATION_THRESHOLD
 						);
 					} else {
-						esc_html_e( 'I tuoi interventi compaiono senza attesa. Due segnalazioni respinte riportano l\'account in coda.', 'lupin3rd' );
+						esc_html_e( 'I tuoi commenti compaiono senza attesa. Due segnalazioni respinte riportano l\'account in coda.', 'lupin3rd' );
 					}
 					?>
 				</p>
@@ -169,7 +169,7 @@ $l3_stats  = Community::profile_stats( $l3_me->ID );
 				<ul class="plain-list">
 					<li><?php esc_html_e( 'Pseudonimo, data di iscrizione, ruolo.', 'lupin3rd' ); ?></li>
 					<li><?php esc_html_e( 'Email, visibile solo alla moderazione.', 'lupin3rd' ); ?></li>
-					<li><?php esc_html_e( 'Interventi pubblicati.', 'lupin3rd' ); ?></li>
+					<li><?php esc_html_e( 'Commenti pubblicati.', 'lupin3rd' ); ?></li>
 				</ul>
 				<p class="widget-note"><?php esc_html_e( 'Niente cronologia di lettura, niente indirizzi oltre le 24 ore di finestra antispam.', 'lupin3rd' ); ?></p>
 			</div>
@@ -177,7 +177,7 @@ $l3_stats  = Community::profile_stats( $l3_me->ID );
 			<div class="widget">
 				<p class="widget-title"><?php esc_html_e( 'Andarsene', 'lupin3rd' ); ?></p>
 				<p class="widget-note">
-					<?php esc_html_e( 'Esportazione e cancellazione dell\'account non sono ancora qui: per ora si chiedono alla redazione. Gli interventi già pubblicati restano, a firma «account rimosso».', 'lupin3rd' ); ?>
+					<?php esc_html_e( 'Esportazione e cancellazione dell\'account non sono ancora qui: per ora si chiedono alla redazione. I commenti già pubblicati restano, a firma «account rimosso».', 'lupin3rd' ); ?>
 				</p>
 			</div>
 		</aside>

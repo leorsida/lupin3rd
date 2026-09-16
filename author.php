@@ -105,7 +105,7 @@ $l3_key       = Profile_Fields::fingerprint( $l3_user );
 						<?php
 						printf(
 							/* translators: %s: link to the sign-in page. */
-							esc_html__( 'Profilo pubblico. %s per rispondere ai suoi interventi.', 'lupin3rd' ),
+							esc_html__( 'Profilo pubblico. %s per rispondere ai suoi commenti.', 'lupin3rd' ),
 							sprintf(
 								'<a href="%s">%s</a>',
 								esc_url( home_url( '/accesso/' ) ),
@@ -130,7 +130,7 @@ $l3_key       = Profile_Fields::fingerprint( $l3_user );
 				'stats' => array(
 					array(
 						'num'   => number_format_i18n( $l3_stats['contributions'] ),
-						'label' => __( 'interventi pubblicati', 'lupin3rd' ),
+						'label' => __( 'commenti pubblicati', 'lupin3rd' ),
 					),
 					array(
 						'num'   => number_format_i18n( $l3_stats['threads'] ),
@@ -164,7 +164,7 @@ $l3_key       = Profile_Fields::fingerprint( $l3_user );
 			?>
 			<div class="tabs" role="tablist" aria-label="<?php esc_attr_e( 'Attività del profilo', 'lupin3rd' ); ?>" data-tabs hidden>
 				<button class="tab" type="button" role="tab" id="tab-contributions" aria-controls="pan-contributions" aria-selected="true">
-					<?php esc_html_e( 'Interventi', 'lupin3rd' ); ?>
+					<?php esc_html_e( 'Commenti', 'lupin3rd' ); ?>
 					<span class="num"><?php echo esc_html( number_format_i18n( $l3_stats['contributions'] ) ); ?></span>
 				</button>
 				<button class="tab" type="button" role="tab" id="tab-published" aria-controls="pan-published" aria-selected="false" tabindex="-1">
@@ -174,7 +174,7 @@ $l3_key       = Profile_Fields::fingerprint( $l3_user );
 			</div>
 
 			<div class="tabpanel" id="pan-contributions" role="tabpanel" aria-labelledby="tab-contributions">
-				<p class="kicker" data-tab-heading><?php esc_html_e( 'Interventi', 'lupin3rd' ); ?></p>
+				<p class="kicker" data-tab-heading><?php esc_html_e( 'Commenti', 'lupin3rd' ); ?></p>
 
 				<?php
 				$l3_contributions = Community::contributions_by( $l3_user->ID );
@@ -188,11 +188,11 @@ $l3_key       = Profile_Fields::fingerprint( $l3_user );
 						);
 					}
 					?>
-					<p class="meta"><?php esc_html_e( 'Gli interventi restano pubblici finché resta l\'articolo.', 'lupin3rd' ); ?></p>
+					<p class="meta"><?php esc_html_e( 'I commenti restano pubblici finché questo articolo rimane online.', 'lupin3rd' ); ?></p>
 					<?php
 				} else {
 					?>
-					<p class="meta"><?php esc_html_e( 'Nessun intervento pubblicato, per ora.', 'lupin3rd' ); ?></p>
+					<p class="meta"><?php esc_html_e( 'Nessun commento pubblicato, per ora.', 'lupin3rd' ); ?></p>
 					<?php
 				}
 				?>
@@ -231,7 +231,7 @@ $l3_key       = Profile_Fields::fingerprint( $l3_user );
 							</tr>
 						<?php endif; ?>
 						<tr>
-							<td><?php esc_html_e( 'Interventi', 'lupin3rd' ); ?></td>
+							<td><?php esc_html_e( 'Commenti', 'lupin3rd' ); ?></td>
 							<td class="num-col"><?php echo esc_html( number_format_i18n( $l3_stats['contributions'] ) ); ?></td>
 						</tr>
 						<?php if ( $l3_languages ) : ?>
@@ -274,11 +274,11 @@ $l3_key       = Profile_Fields::fingerprint( $l3_user );
 					if ( Community::is_queued( $l3_user->ID ) ) {
 						printf(
 							/* translators: %d: number of contributions read before an account leaves the queue. */
-							esc_html__( 'I primi %d interventi passano dalla moderazione. Questo account è ancora in coda.', 'lupin3rd' ),
+							esc_html__( 'I primi %d commenti passano dalla moderazione. Questo account è ancora in coda.', 'lupin3rd' ),
 							(int) Community::MODERATION_THRESHOLD
 						);
 					} else {
-						esc_html_e( 'Superati i primi tre interventi, i suoi commenti compaiono senza attesa. Due segnalazioni respinte riportano l\'account in coda.', 'lupin3rd' );
+						esc_html_e( 'Superati i primi tre commenti, i suoi commenti compaiono senza attesa. Due segnalazioni respinte riportano l\'account in coda.', 'lupin3rd' );
 					}
 					?>
 				</p>

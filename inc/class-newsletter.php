@@ -84,7 +84,7 @@ final class Newsletter {
 		register_post_type(
 			self::POST_TYPE,
 			array(
-				'label'               => __( 'Iscritti al dispaccio', 'lupin3rd' ),
+				'label'               => __( 'Iscritti alla newsletter', 'lupin3rd' ),
 				'public'              => false,
 				'show_ui'             => true,
 				'show_in_menu'        => 'tools.php',
@@ -334,10 +334,10 @@ final class Newsletter {
 		Mail::send(
 			'dispatch_confirmation',
 			(string) $subscriber->post_title,
-			__( 'Conferma l\'iscrizione al dispaccio', 'lupin3rd' ),
+			__( 'Conferma l\'iscrizione alla newsletter', 'lupin3rd' ),
 			sprintf(
 				/* translators: 1: confirmation URL, 2: site name. */
-				__( "Qualcuno ha chiesto di iscrivere questo indirizzo al dispaccio settimanale di %2\$s.\n\nSe sei stato tu, conferma da qui:\n%1\$s\n\nSe non sei stato tu, non fare niente: senza conferma l'indirizzo non riceve nulla e viene cancellato.", 'lupin3rd' ),
+				__( "Qualcuno ha chiesto di iscrivere questo indirizzo alla newsletter di %2\$s.\n\nSe sei stato tu, conferma da qui:\n%1\$s\n\nSe non sei stato tu, non fare niente: senza conferma l'indirizzo non riceve nulla e viene cancellato.", 'lupin3rd' ),
 				$link,
 				(string) get_bloginfo( 'name' )
 			),
@@ -356,7 +356,7 @@ final class Newsletter {
 	 * @param string $outcome What happened.
 	 */
 	private function redirect( string $url, string $outcome ): void {
-		wp_safe_redirect( add_query_arg( self::NOTICE_VAR, $outcome, remove_query_arg( self::NOTICE_VAR, $url ) ) . '#dispaccio' );
+		wp_safe_redirect( add_query_arg( self::NOTICE_VAR, $outcome, remove_query_arg( self::NOTICE_VAR, $url ) ) . '#newsletter' );
 		exit;
 	}
 
@@ -375,7 +375,7 @@ final class Newsletter {
 			),
 			'confirmed' => array(
 				'tone' => 'ok',
-				'text' => __( 'Iscrizione confermata. Il primo dispaccio arriva giovedì.', 'lupin3rd' ),
+				'text' => __( 'Iscrizione confermata. Il primo invio arriva con la prossima uscita.', 'lupin3rd' ),
 			),
 			'invalid' => array(
 				'tone' => 'error',

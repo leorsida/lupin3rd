@@ -84,11 +84,11 @@ Attributes already in English in the prototype stay as they are:
 | difficoltà | difficulty | taxonomy `difficulty`; terms stay `base` / `medio` / `avanzato` |
 | occhiello | kicker | `.kicker` |
 | sommario | standfirst | `.lead` |
-| perimetro legale | legal scope | `l3/notice` variant `legal`, mandatory on tutorials |
+| informativa legale | legal scope | `l3/notice` variant `legal`, mandatory on tutorials |
 | nota di metodo | method note | `l3/notice` variant `method` |
 | correzione | correction | `l3/notice` variant `correction`, never deleted |
 | marca | generative mark | `.mark`, used instead of a photograph |
 | cassetta sicura | secure drop | `/cassetta-sicura/` |
 | in coda | queued | custom post status, phase 2 |
 | membro | member | role `l3_member` |
-| interventi | contributions | approved comments and corrections |
+| commenti | contributions | approved comments and corrections. The Italian UI said «interventi» until 16.09.2026; the code identifier stays `contributions`, because it covers corrections too and «commenti» does not |

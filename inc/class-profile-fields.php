@@ -475,7 +475,7 @@ final class Profile_Fields {
 				<td>
 					<input type="text" class="regular-text" id="l3_pseudonym" name="l3_pseudonym"
 						value="<?php echo esc_attr( self::pseudonym( $user ) ); ?>">
-					<p class="description"><?php esc_html_e( 'Compare sotto ogni intervento. Il nome di accesso resta quello della registrazione.', 'lupin3rd' ); ?></p>
+					<p class="description"><?php esc_html_e( 'Compare sotto ogni commento. Il nome di accesso resta quello della registrazione.', 'lupin3rd' ); ?></p>
 				</td>
 			</tr>
 			<tr>
@@ -511,7 +511,7 @@ final class Profile_Fields {
 				</td>
 			</tr>
 			<tr>
-				<th><?php esc_html_e( 'Interventi pubblicati', 'lupin3rd' ); ?></th>
+				<th><?php esc_html_e( 'Commenti pubblicati', 'lupin3rd' ); ?></th>
 				<td>
 					<?php
 					printf(

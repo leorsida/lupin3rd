@@ -18,7 +18,7 @@ $l3_variant = (string) ( $attributes['variant'] ?? 'method' );
 
 $l3_titles = array(
 	'method'     => __( 'Nota di metodo', 'lupin3rd' ),
-	'legal'      => __( 'Perimetro legale', 'lupin3rd' ),
+	'legal'      => __( 'Informativa legale', 'lupin3rd' ),
 	'correction' => __( 'Correzione', 'lupin3rd' ),
 );
 

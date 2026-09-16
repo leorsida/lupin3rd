@@ -159,10 +159,10 @@ final class Comment_Reports {
 		Mail::send(
 			'comment_reported',
 			(string) get_option( 'admin_email' ),
-			__( 'Un intervento è stato segnalato', 'lupin3rd' ),
+			__( 'Un commento è stato segnalato', 'lupin3rd' ),
 			sprintf(
 				/* translators: 1: comment author, 2: piece title, 3: admin URL. */
-				__( "Qualcuno ha segnalato un intervento di %1\$s sotto «%2\$s».\n\nLeggilo qui:\n%3\$s\n\nLa segnalazione non ha nascosto niente: l'intervento è ancora in pagina.", 'lupin3rd' ),
+				__( "Qualcuno ha segnalato un commento di %1\$s sotto «%2\$s».\n\nLeggilo qui:\n%3\$s\n\nLa segnalazione non ha nascosto niente: il commento è ancora in pagina.", 'lupin3rd' ),
 				(string) $comment->comment_author,
 				(string) get_the_title( (int) $comment->comment_post_ID ),
 				$link

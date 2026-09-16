@@ -5,7 +5,7 @@
 	"title": "Avviso",
 	"category": "lupin3rd",
 	"icon": "info-outline",
-	"description": "Nota di metodo, perimetro legale o correzione. Il perimetro legale è obbligatorio nei tutorial e senza di esso il pezzo non si pubblica.",
+	"description": "Nota di metodo, informativa legale o correzione. L'informativa legale è obbligatoria nei tutorial e senza di essa l'articolo non viene pubblicato.",
 	"textdomain": "lupin3rd",
 	"supports": {
 		"html": false,

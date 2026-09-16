@@ -81,10 +81,16 @@ Both header states ship in every page with one hidden, and both occupy the same
 
 ## Sensitive material
 
-Sensitive material reaches the desk through the SecureDrop instance on the
-`.onion` mirror, or by email encrypted to `0x9F2C 4B11`. Never through
-comments, never through a contact form. The theme's job is to say so clearly
-and to never offer a form that invites otherwise.
+Sensitive material reaches the desk by email encrypted to the key the status
+bar publishes. Never through comments, never through a contact form. The
+theme's job is to say so clearly and to never offer a form that invites
+otherwise.
+
+The `.onion` mirror and the SecureDrop instance it was to carry are announced
+as «soon» and are not in service. Three places used to describe them as if they
+were — this page, the sidebar widget and `llms.txt` — and `llms.txt` is the one
+that mattered, because it is the document machines read and quote. When the
+mirror does arrive, those are the three places to change together.
 
 ## Data rights
 

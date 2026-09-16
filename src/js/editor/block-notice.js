@@ -1,7 +1,7 @@
 /*
  * l3/notice — editing.
  *
- * Three variants. "Perimetro legale" is the one a tutorial cannot be published
+ * Three variants. "Informativa legale" is the one a tutorial cannot be published
  * without, so the variant control says so rather than leaving the author to
  * discover it when the publish button refuses.
  */
@@ -10,7 +10,7 @@ import { h, __ } from './dom.js';
 
 export const VARIANTS = [
 	{ value: 'method', label: 'Nota di metodo' },
-	{ value: 'legal', label: 'Perimetro legale' },
+	{ value: 'legal', label: 'Informativa legale' },
 	{ value: 'correction', label: 'Correzione' },
 ];
 

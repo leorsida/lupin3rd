@@ -95,14 +95,14 @@ $l3_field = static function ( string $id, string $label, string $value, string $
 	<?php endif; ?>
 
 	<?php if ( ! comments_open() ) : ?>
-		<p class="meta"><?php esc_html_e( 'La discussione su questo pezzo è chiusa.', 'lupin3rd' ); ?></p>
+		<p class="meta"><?php esc_html_e( 'La discussione su questo articolo è chiusa.', 'lupin3rd' ); ?></p>
 	<?php else : ?>
 		<?php
 		comment_form(
 			array(
 				'class_form'           => 'stack stack-md',
 				'class_submit'         => 'btn btn-primary',
-				'title_reply'          => __( 'Lascia un intervento', 'lupin3rd' ),
+				'title_reply'          => __( 'Lascia un commento', 'lupin3rd' ),
 				/* translators: %s: pseudonym of the person being replied to. */
 				'title_reply_to'       => __( 'Rispondi a %s', 'lupin3rd' ),
 				'cancel_reply_link'    => __( 'Annulla', 'lupin3rd' ),
@@ -112,8 +112,8 @@ $l3_field = static function ( string $id, string $label, string $value, string $
 				'logged_in_as'         => $l3_logged_in_as,
 				'comment_field'        => sprintf(
 					'<p class="meta">%1$s</p><div class="field"><label for="comment">%2$s</label><textarea class="textarea" id="comment" name="comment" rows="5" required></textarea></div>',
-					esc_html__( 'Ogni intervento passa dalla moderazione prima di comparire. Non usare i commenti per materiale sensibile: c\'è la cassetta sicura.', 'lupin3rd' ),
-					esc_html__( 'Il tuo intervento', 'lupin3rd' )
+					esc_html__( 'Ogni commento è moderato prima di essere pubblicato. Non usare i commenti per materiale sensibile: scrivi una mail con pgp.', 'lupin3rd' ),
+					esc_html__( 'Il tuo commento', 'lupin3rd' )
 				),
 				'fields'               => array(
 					'author'  => $l3_field(
@@ -122,7 +122,7 @@ $l3_field = static function ( string $id, string $label, string $value, string $
 						(string) $l3_commenter['comment_author'],
 						'text',
 						$l3_required,
-						__( 'Come vuoi firmarti. Non serve il tuo nome vero, e preferiamo che non lo sia.', 'lupin3rd' )
+						__( 'Inserisci il tuo nickname', 'lupin3rd' )
 					),
 					'email'   => $l3_field(
 						'email',
@@ -130,7 +130,7 @@ $l3_field = static function ( string $id, string $label, string $value, string $
 						(string) $l3_commenter['comment_author_email'],
 						'email',
 						$l3_required,
-						__( 'Serve solo alla moderazione. Non viene pubblicata, non finisce in una lista, non la diamo a nessuno.', 'lupin3rd' )
+						__( 'Serve solo per la moderazione. Non viene pubblicata, non finisce in una lista, non la diamo a nessuno.', 'lupin3rd' )
 					),
 					'url'     => $l3_field(
 						'url',
@@ -142,7 +142,7 @@ $l3_field = static function ( string $id, string $label, string $value, string $
 					'cookies' => sprintf(
 						'<label class="check"><input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes"%s><span>%s</span></label>',
 						empty( $l3_commenter['comment_author_email'] ) ? '' : ' checked',
-						esc_html__( 'Ricorda pseudonimo ed email in questo browser, così non li riscrivo la prossima volta.', 'lupin3rd' )
+						esc_html__( 'Ricorda pseudonimo ed email in questo browser.', 'lupin3rd' )
 					),
 				),
 			)

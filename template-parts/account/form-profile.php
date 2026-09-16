@@ -22,7 +22,7 @@ $l3_me = wp_get_current_user();
 		<label for="p-pseudonym"><?php esc_html_e( 'Pseudonimo', 'lupin3rd' ); ?></label>
 		<input class="input" type="text" id="p-pseudonym" name="l3_pseudonym" required
 			value="<?php echo esc_attr( Profile_Fields::pseudonym( $l3_me ) ); ?>">
-		<p class="hint"><?php esc_html_e( 'Cambiandolo, gli interventi già pubblicati passano al nuovo nome. Il vecchio resta bloccato per novanta giorni.', 'lupin3rd' ); ?></p>
+		<p class="hint"><?php esc_html_e( 'Cambiandolo, i commenti già pubblicati passano al nuovo nome. Il vecchio resta bloccato per novanta giorni.', 'lupin3rd' ); ?></p>
 		<p class="field-error hidden" data-error-for="l3_pseudonym"><?php esc_html_e( 'Serve uno pseudonimo.', 'lupin3rd' ); ?></p>
 	</div>
 
@@ -52,7 +52,7 @@ $l3_me = wp_get_current_user();
 
 	<label class="check">
 		<input type="checkbox" name="l3_notify_replies" value="1" <?php checked( Profile_Fields::wants_replies( $l3_me ) ); ?>>
-		<span><?php esc_html_e( 'Avvisami via email quando qualcuno scrive sotto un articolo in cui sono intervenuto. Al massimo un messaggio all\'ora per articolo.', 'lupin3rd' ); ?></span>
+		<span><?php esc_html_e( 'Avvisami via email quando qualcuno scrive sotto un articolo in cui ho commentato. Al massimo un messaggio all\'ora per articolo.', 'lupin3rd' ); ?></span>
 	</label>
 
 	<div class="row-between row-wrap">

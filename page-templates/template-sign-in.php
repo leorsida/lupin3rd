@@ -133,7 +133,7 @@ $l3_inside = $l3_user instanceof WP_User && $l3_user->exists();
 				<p class="widget-title"><?php esc_html_e( 'Cosa sblocca l\'account', 'lupin3rd' ); ?></p>
 				<ul>
 					<li><a href="<?php echo esc_url( home_url( '/archivio/' ) ); ?>"><?php esc_html_e( 'Intervenire sotto gli articoli', 'lupin3rd' ); ?> <span>01</span></a></li>
-					<li><a href="<?php echo esc_url( home_url( '/comunita/' ) ); ?>"><?php esc_html_e( 'Un profilo pubblico con i tuoi interventi', 'lupin3rd' ); ?> <span>02</span></a></li>
+					<li><a href="<?php echo esc_url( home_url( '/comunita/' ) ); ?>"><?php esc_html_e( 'Un profilo pubblico con i tuoi commenti', 'lupin3rd' ); ?> <span>02</span></a></li>
 					<li><a href="<?php echo esc_url( home_url( '/linee-guida/' ) ); ?>"><?php esc_html_e( 'Proporre correzioni e writeup', 'lupin3rd' ); ?> <span>03</span></a></li>
 				</ul>
 			</div>
@@ -145,7 +145,7 @@ $l3_inside = $l3_user instanceof WP_User && $l3_user->exists();
 
 			<div class="widget">
 				<p class="widget-title"><?php esc_html_e( 'L\'avatar non esce dal server', 'lupin3rd' ); ?></p>
-				<p class="widget-note"><?php esc_html_e( 'Niente Gravatar. L\'immagine di profilo è un motivo generato dal seme dell\'account: nessun servizio esterno riceve l\'hash della tua email.', 'lupin3rd' ); ?></p>
+				<p class="widget-note"><?php esc_html_e( 'Niente Gravatar. L\'immagine di profilo è un motivo generato da un codice casuale legato all\'account: nessun servizio esterno riceve l\'hash della tua email.', 'lupin3rd' ); ?></p>
 				<div class="avatar-stack" aria-hidden="true">
 					<?php
 					/*

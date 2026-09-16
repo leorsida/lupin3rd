@@ -45,7 +45,7 @@ final class Patterns {
 			'l3/tutorial-header',
 			array(
 				'title'       => __( 'Testata tutorial', 'lupin3rd' ),
-				'description' => __( 'Sommario, perimetro legale e prerequisiti: le tre cose che un tutorial ha sempre.', 'lupin3rd' ),
+				'description' => __( 'Sommario, informativa legale e prerequisiti: le tre cose che un tutorial deve sempre avere.', 'lupin3rd' ),
 				'categories'  => array( 'lupin3rd' ),
 				'postTypes'   => array( Content_Types::TUTORIAL ),
 				'content'     => $this->tutorial_header(),

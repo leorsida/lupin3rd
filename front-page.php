@@ -86,7 +86,7 @@ $l3_dossiers = new WP_Query(
 <?php if ( $l3_lead->have_posts() ) : ?>
 	<section class="section">
 		<div class="container stack">
-			<p class="eyebrow"><?php esc_html_e( 'Rivista indipendente · dal 1999', 'lupin3rd' ); ?></p>
+			<p class="eyebrow"><?php esc_html_e( 'Hack, inchieste, riservatezza · dal 1999', 'lupin3rd' ); ?></p>
 			<?php
 			while ( $l3_lead->have_posts() ) :
 				$l3_lead->the_post();
@@ -99,12 +99,12 @@ $l3_dossiers = new WP_Query(
 <?php else : ?>
 	<section class="section hero">
 		<div class="container">
-			<p class="eyebrow"><?php esc_html_e( 'Rivista indipendente · dal 1999', 'lupin3rd' ); ?></p>
+			<p class="eyebrow"><?php esc_html_e( 'Hack, inchieste, riservatezza · dal 1999', 'lupin3rd' ); ?></p>
 			<h1><?php echo esc_html( get_bloginfo( 'description' ) ?: __( 'Quello che l\'informatica fa quando nessuno guarda.', 'lupin3rd' ) ); ?></h1>
 
 			<div class="grid-2-1">
 				<p class="lead">
-					<?php esc_html_e( 'Notizie, tutorial con laboratorio riproducibile e inchieste a puntate. Nessun investitore, nessun cookie di profilazione, nessuna terza parte in pagina.', 'lupin3rd' ); ?>
+					<?php esc_html_e( 'Notizie, tutorial e inchieste a puntate. Nessun cookie di profilazione, nessun script di terze parti in pagina.', 'lupin3rd' ); ?>
 				</p>
 				<div class="row">
 					<a class="btn btn-primary btn-arrow" href="<?php echo esc_url( (string) get_post_type_archive_link( Content_Types::TUTORIAL ) ); ?>">
@@ -124,8 +124,8 @@ $l3_dossiers = new WP_Query(
 		<div class="container stack">
 			<div class="row-between">
 				<div>
-					<p class="kicker"><?php esc_html_e( 'Ultime dal fronte', 'lupin3rd' ); ?></p>
-					<h2><?php esc_html_e( 'Cosa è successo', 'lupin3rd' ); ?></h2>
+					<p class="kicker"><?php esc_html_e( 'Ultimissime notizie', 'lupin3rd' ); ?></p>
+					<h2><?php esc_html_e( 'Le notizie del momento', 'lupin3rd' ); ?></h2>
 				</div>
 				<a class="btn btn-ghost btn-arrow btn-sm" href="<?php echo esc_url( Template_Tags::archive_url() ); ?>">
 					<?php esc_html_e( 'Tutto l\'archivio', 'lupin3rd' ); ?>
@@ -151,7 +151,7 @@ $l3_dossiers = new WP_Query(
 			<div class="row-between">
 				<div class="mw-46">
 					<p class="kicker"><?php esc_html_e( 'Tutorial', 'lupin3rd' ); ?></p>
-					<h2><?php esc_html_e( 'Passo-passo, con laboratorio riproducibile', 'lupin3rd' ); ?></h2>
+					<h2><?php esc_html_e( 'Tutorial passo passo, con script di laboratorio', 'lupin3rd' ); ?></h2>
 				</div>
 				<a class="btn btn-ghost btn-arrow btn-sm" href="<?php echo esc_url( (string) get_post_type_archive_link( Content_Types::TUTORIAL ) ); ?>">
 					<?php esc_html_e( 'Tutti i tutorial', 'lupin3rd' ); ?>
@@ -177,7 +177,7 @@ $l3_dossiers = new WP_Query(
 			<div class="stack">
 				<div>
 					<p class="kicker"><?php esc_html_e( 'Dossier', 'lupin3rd' ); ?></p>
-					<h2 class="mw-36"><?php esc_html_e( 'Inchieste lunghe, pubblicate a puntate', 'lupin3rd' ); ?></h2>
+					<h2 class="mw-36"><?php esc_html_e( 'Indagini approfondite, pubblicate a episodi', 'lupin3rd' ); ?></h2>
 				</div>
 
 				<div class="grid-2">
@@ -197,8 +197,8 @@ $l3_dossiers = new WP_Query(
 				</div>
 
 				<div class="callout callout--legal">
-					<p class="callout-title"><?php esc_html_e( 'Perimetro legale', 'lupin3rd' ); ?></p>
-					<p><?php esc_html_e( 'Quello che pubblichiamo serve a capire e a difendersi. Provare una tecnica su sistemi che non sono tuoi, o senza un incarico scritto, è un reato in quasi ogni giurisdizione.', 'lupin3rd' ); ?></p>
+					<p class="callout-title"><?php esc_html_e( 'Informativa legale', 'lupin3rd' ); ?></p>
+					<p><?php esc_html_e( 'Quello che pubblichiamo è solo a scopo di studio. Provare una tecnica su sistemi online che non sono i tuoi, o senza un incarico scritto, è un reato in quasi ogni giurisdizione.', 'lupin3rd' ); ?></p>
 				</div>
 			</div>
 

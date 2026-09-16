@@ -49,7 +49,7 @@ export default function registerLegalGate() {
 			dispatch('core/notices').createNotice(
 				'warning',
 				__(
-					'Questo tutorial non ha il riquadro «perimetro legale». Aggiungi un blocco Avviso con quella variante: senza, non si pubblica.',
+					'Questo tutorial non ha il riquadro informativa legale. Aggiungi un blocco Avviso con quella variante.',
 					'lupin3rd'
 				),
 				{ id: NOTICE_ID, isDismissible: false }

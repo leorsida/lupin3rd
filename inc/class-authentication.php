@@ -488,7 +488,7 @@ final class Authentication {
 		return match ( $outcome ) {
 			'welcome' => array(
 				'tone' => 'ok',
-				'text' => __( 'Account creato. Sei dentro: i primi tre interventi passano dalla moderazione.', 'lupin3rd' ),
+				'text' => __( 'Account creato. Sei dentro: i primi tre commenti passano dalla moderazione.', 'lupin3rd' ),
 			),
 			'back' => array(
 				'tone' => 'ok',

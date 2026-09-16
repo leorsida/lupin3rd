@@ -81,7 +81,7 @@ test('a tutorial carries an index, a code block and the legal notice', async () 
 	assert.match(html, /class="toc widget"/, 'no index');
 	assert.match(html, /class="[^"]*\bcodeblock\b/, 'no code block: the blocks may not be registered');
 	assert.match(html, /data-copy/, 'the code block has no copy button');
-	assert.match(html, /class="[^"]*\bcallout--legal\b|perimetro legale/i, 'no legal notice');
+	assert.match(html, /class="[^"]*\bcallout--legal\b|informativa legale/i, 'no legal notice');
 });
 
 test('the line numbers sit outside <code>, so copying gives code alone', async () => {

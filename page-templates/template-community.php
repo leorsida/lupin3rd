@@ -109,7 +109,7 @@ $l3_roles = array(
 					),
 					array(
 						'num'   => number_format_i18n( $l3_stats['recent'] ),
-						'label' => __( 'interventi in 30 giorni', 'lupin3rd' ),
+						'label' => __( 'commenti in 30 giorni', 'lupin3rd' ),
 					),
 					array(
 						'num'   => number_format_i18n( $l3_stats['corrections'] ),
@@ -127,7 +127,7 @@ $l3_roles = array(
 		?>
 
 		<p class="meta">
-			<?php esc_html_e( 'È attivo un account che ha pubblicato almeno un intervento: non contiamo le iscrizioni dormienti per gonfiare il numero, e non teniamo traccia di chi è entrato e quando.', 'lupin3rd' ); ?>
+			<?php esc_html_e( 'È attivo un account che ha pubblicato almeno un commento: non contiamo le iscrizioni dormienti per gonfiare il numero, e non teniamo traccia di chi è entrato e quando.', 'lupin3rd' ); ?>
 		</p>
 	</div>
 </section>
@@ -195,7 +195,7 @@ $l3_roles = array(
 	<div class="container grid-main-side">
 		<div class="stack">
 			<div class="mw-46">
-				<p class="kicker"><?php esc_html_e( 'Ultimi interventi', 'lupin3rd' ); ?></p>
+				<p class="kicker"><?php esc_html_e( 'Ultimi commenti', 'lupin3rd' ); ?></p>
 				<h2><?php esc_html_e( 'Chi ha commentato, e sotto quale articolo', 'lupin3rd' ); ?></h2>
 			</div>
 
@@ -214,11 +214,11 @@ $l3_roles = array(
 					);
 				}
 				?>
-				<p class="meta"><?php esc_html_e( 'Compaiono solo gli interventi già passati dalla moderazione.', 'lupin3rd' ); ?></p>
+				<p class="meta"><?php esc_html_e( 'Compaiono solo i commenti già passati dalla moderazione.', 'lupin3rd' ); ?></p>
 				<?php
 			} else {
 				?>
-				<p class="meta"><?php esc_html_e( 'Nessun intervento pubblicato, per ora.', 'lupin3rd' ); ?></p>
+				<p class="meta"><?php esc_html_e( 'Nessun commento pubblicato, per ora.', 'lupin3rd' ); ?></p>
 				<?php
 			}
 			?>
@@ -273,7 +273,7 @@ $l3_roles = array(
 					<thead>
 						<tr>
 							<th><?php esc_html_e( 'Membro', 'lupin3rd' ); ?></th>
-							<th class="num-col"><?php esc_html_e( 'Interventi', 'lupin3rd' ); ?></th>
+							<th class="num-col"><?php esc_html_e( 'Commenti', 'lupin3rd' ); ?></th>
 							<th class="num-col"><?php esc_html_e( 'Correzioni accettate', 'lupin3rd' ); ?></th>
 							<th><?php esc_html_e( 'Iscritto', 'lupin3rd' ); ?></th>
 						</tr>
@@ -309,7 +309,7 @@ $l3_roles = array(
 			</div>
 
 			<p class="meta">
-				<?php esc_html_e( 'Nessun punteggio, nessuna classifica pubblica oltre questa: contiamo interventi passati in moderazione e correzioni finite davvero in pagina.', 'lupin3rd' ); ?>
+				<?php esc_html_e( 'Nessun punteggio, nessuna classifica pubblica oltre questa: contiamo commenti passati in moderazione e correzioni finite davvero in pagina.', 'lupin3rd' ); ?>
 			</p>
 		</div>
 	</section>
@@ -329,7 +329,7 @@ $l3_roles = array(
 					<ul class="plain-list">
 						<li><?php esc_html_e( 'Pseudonimo, data di iscrizione, ruolo.', 'lupin3rd' ); ?></li>
 						<li><?php esc_html_e( 'Email, visibile solo alla moderazione.', 'lupin3rd' ); ?></li>
-						<li><?php esc_html_e( 'Interventi pubblicati e cronologia delle modifiche.', 'lupin3rd' ); ?></li>
+						<li><?php esc_html_e( 'Commenti pubblicati e cronologia delle modifiche.', 'lupin3rd' ); ?></li>
 					</ul>
 				</div>
 
@@ -351,7 +351,7 @@ $l3_roles = array(
 
 				<div class="callout callout--legal">
 					<p class="callout-title"><?php esc_html_e( 'Cancellazione', 'lupin3rd' ); ?></p>
-					<p><?php esc_html_e( 'Dalla tua area personale chiedi l\'esportazione o la cancellazione. Gli interventi già pubblicati restano, ma passano a firma «account rimosso»: quello che ha corretto un articolo non sparisce dalla discussione.', 'lupin3rd' ); ?></p>
+					<p><?php esc_html_e( 'Dalla tua area personale chiedi l\'esportazione o la cancellazione. I commenti già pubblicati restano, ma passano a firma «account rimosso»: quello che ha corretto un articolo non sparisce dalla discussione.', 'lupin3rd' ); ?></p>
 				</div>
 
 				<div class="card">

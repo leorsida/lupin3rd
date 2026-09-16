@@ -2,14 +2,14 @@
 # This file is distributed under the MIT.
 msgid ""
 msgstr ""
-"Project-Id-Version: lupin3rd.org 0.1.0\n"
-"Report-Msgid-Bugs-To: https://lupin3rd.org/\n"
+"Project-Id-Version: lupin3rd 0.1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/theme/lupin3rd\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: lupin3rd.org\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-13T09:47:51+00:00\n"
+"POT-Creation-Date: 2026-09-16T14:30:07+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: lupin3rd\n"
@@ -41,65 +41,217 @@ msgstr ""
 msgid "https://lupin3rd.org/chi-siamo/"
 msgstr ""
 
-#: 404.php:65
+#: 404.php:35
 msgid "Questo indirizzo non porta da nessuna parte"
 msgstr ""
 
-#: 404.php:66
+#: 404.php:36
 msgid "Può essere un refuso, o un pezzo che non è mai esistito. Gli URL pubblicati non cambiano mai, quindi se avevi un link che funzionava, funziona ancora."
 msgstr ""
 
-#: 404.php:71
+#: 404.php:41
 msgid "Forse cercavi"
 msgstr ""
 
-#: 404.php:84
+#: 404.php:54
 msgid "Intanto, gli ultimi tre"
 msgstr ""
 
-#: archive.php:22
-#: home.php:24
-#: page.php:25
-#: single-dossier.php:33
-#: single-tutorial.php:33
-#: single.php:29
+#: archive.php:23
+#: author.php:48
+#: home.php:25
+#: page-templates/template-account.php:42
+#: page-templates/template-community.php:55
+#: page-templates/template-sign-in.php:35
+#: page.php:26
+#: single-dossier.php:34
+#: single-tutorial.php:34
+#: single.php:30
 msgid "Home"
 msgstr ""
 
-#: archive.php:65
-#: home.php:61
+#: archive.php:71
+#: home.php:67
 msgid "Nessun pezzo con questi filtri."
 msgstr ""
 
-#: archive.php:66
-#: home.php:62
+#: archive.php:72
+#: home.php:68
 msgid "Togline uno e riprova."
 msgstr ""
 
-#: blocks/code/render.php:31
-msgid "codice"
+#. Template Name of the theme
+#: author.php:52
+#: page-templates/template-sign-in.php:39
+#: template-parts/header/account.php:46
+msgid "Comunità"
 msgstr ""
 
+#: author.php:71
+#: template-parts/community/member-row.php:43
+msgid "Chiave PGP controfirmata dalla redazione"
+msgstr ""
+
+#: author.php:73
+#: page-templates/template-account.php:63
+msgid "chiave verificata"
+msgstr ""
+
+#. translators: %s: join date.
+#: author.php:88
+#: page-templates/template-account.php:74
+#, php-format
+msgid "Iscritto il %s"
+msgstr ""
+
+#. translators: %s: comma-separated language codes.
+#: author.php:93
+#, php-format
+msgid "scrive in %s"
+msgstr ""
+
+#: author.php:102
+msgid "Scrivigli in privato"
+msgstr ""
+
+#. translators: %s: link to the sign-in page.
+#: author.php:108
+#, php-format
+msgid "Profilo pubblico. %s per rispondere ai suoi interventi."
+msgstr ""
+
+#: author.php:112
+#: page-templates/template-sign-in.php:101
+#: page-templates/template-sign-in.php:111
+#: template-parts/header/account-drawer.php:23
+#: template-parts/header/account.php:25
+msgid "Accedi"
+msgstr ""
+
+#: author.php:133
+#: page-templates/template-account.php:103
+msgid "interventi pubblicati"
+msgstr ""
+
+#: author.php:137
+msgid "articoli commentati"
+msgstr ""
+
+#: author.php:141
+#: page-templates/template-account.php:111
+msgid "correzioni accettate"
+msgstr ""
+
+#: author.php:145
+msgid "writeup pubblicati"
+msgstr ""
+
+#: author.php:165
+msgid "Attività del profilo"
+msgstr ""
+
+#: author.php:167
+#: author.php:177
+#: author.php:234
+#: page-templates/template-community.php:276
+msgid "Interventi"
+msgstr ""
+
+#: author.php:171
+#: author.php:202
+#: page-templates/template-community.php:267
+msgid "Contributi"
+msgstr ""
+
+#: author.php:191
+msgid "Gli interventi restano pubblici finché questo articolo rimane online."
+msgstr ""
+
+#: author.php:195
+#: page-templates/template-community.php:221
+msgid "Nessun intervento pubblicato, per ora."
+msgstr ""
+
+#: author.php:213
+msgid "Nessun pezzo firmato da questo account."
+msgstr ""
+
+#: author.php:220
+msgid "Scheda"
+msgstr ""
+
+#: author.php:224
+msgid "Ruolo"
+msgstr ""
+
+#: author.php:229
+#: page-templates/template-community.php:278
+msgid "Iscritto"
+msgstr ""
+
+#: author.php:239
+#: inc/class-profile-fields.php:501
+msgid "Lingue"
+msgstr ""
+
+#: author.php:249
+msgid "Chiave dichiarata"
+msgstr ""
+
+#: author.php:252
+msgid "impronta pgp"
+msgstr ""
+
+#: author.php:257
 #: blocks/code/render.php:36
 msgid "copiato"
 msgstr ""
 
+#: author.php:258
 #: blocks/code/render.php:37
 msgid "seleziona e copia"
 msgstr ""
 
+#: author.php:258
 #: blocks/code/render.php:37
+#: js/lupin3rd-editor.js:78
+#: src/js/editor/block-code.js:64
 msgid "Copia"
 msgstr ""
 
+#: author.php:265
+msgid "Dichiarata dall'account, non ancora controfirmata dalla redazione."
+msgstr ""
+
+#: author.php:271
+#: page-templates/template-account.php:150
+msgid "Moderazione"
+msgstr ""
+
+#. translators: %d: number of contributions read before an account leaves the queue.
+#: author.php:277
+#, php-format
+msgid "I primi %d interventi passano dalla moderazione. Questo account è ancora in coda."
+msgstr ""
+
+#: author.php:281
+msgid "Superati i primi tre interventi, i suoi commenti compaiono senza attesa. Due segnalazioni respinte riportano l'account in coda."
+msgstr ""
+
+#: blocks/code/render.php:31
+#: js/lupin3rd-editor.js:77
+#: src/js/editor/block-code.js:63
+msgid "codice"
+msgstr ""
+
 #: blocks/notice/render.php:20
-#: single-dossier.php:95
+#: single-dossier.php:104
 msgid "Nota di metodo"
 msgstr ""
 
 #: blocks/notice/render.php:21
-#: front-page.php:190
-msgid "Perimetro legale"
+#: front-page.php:200
+msgid "Informativa legale"
 msgstr ""
 
 #: blocks/notice/render.php:22
@@ -121,11 +273,11 @@ msgid "Discussione"
 msgstr ""
 
 #: comments.php:98
-msgid "La discussione su questo pezzo è chiusa."
+msgid "La discussione su questo articolo è chiusa."
 msgstr ""
 
 #: comments.php:105
-msgid "Lascia un intervento"
+msgid "Lascia un commento"
 msgstr ""
 
 #. translators: %s: pseudonym of the person being replied to.
@@ -143,39 +295,46 @@ msgid "Invia"
 msgstr ""
 
 #: comments.php:115
-msgid "Ogni intervento passa dalla moderazione prima di comparire. Non usare i commenti per materiale sensibile: c'è la cassetta sicura."
+msgid "Ogni intervento è moderato prima di essere pubblicato. Non usare i commenti per materiale sensibile: scrivi una mail con pgp."
 msgstr ""
 
 #: comments.php:116
-msgid "Il tuo intervento"
+msgid "Il tuo commento"
 msgstr ""
 
 #: comments.php:121
+#: inc/class-profile-fields.php:474
+#: template-parts/account/form-profile.php:22
+#: template-parts/auth/form-register.php:37
 msgid "Pseudonimo"
 msgstr ""
 
 #: comments.php:125
-msgid "Come vuoi firmarti. Non serve il tuo nome vero, e preferiamo che non lo sia."
+msgid "Inserisci il tuo nickname"
 msgstr ""
 
 #: comments.php:129
+#: template-parts/account/form-credentials.php:22
+#: template-parts/auth/form-register.php:45
 msgid "Email"
 msgstr ""
 
 #: comments.php:133
-msgid "Serve solo alla moderazione. Non viene pubblicata, non finisce in una lista, non la diamo a nessuno."
+msgid "Serve solo per la moderazione. Non viene pubblicata, non finisce in una lista, non la diamo a nessuno."
 msgstr ""
 
 #: comments.php:137
+#: template-parts/auth/form-register.php:32
+#: template-parts/auth/form-sign-in.php:20
 msgid "Sito"
 msgstr ""
 
 #: comments.php:145
-msgid "Ricorda pseudonimo ed email in questo browser, così non li riscrivo la prossima volta."
+msgid "Ricorda pseudonimo ed email in questo browser."
 msgstr ""
 
 #: footer.php:20
-#: template-parts/header/navbar.php:18
+#: template-parts/header/navbar.php:29
 msgid "dal 1999"
 msgstr ""
 
@@ -184,33 +343,35 @@ msgid "Sezioni"
 msgstr ""
 
 #: footer.php:41
-#: single.php:31
-#: template-parts/header/menu-fallback.php:18
+#: single.php:34
+#: template-parts/header/menu-fallback.php:19
 msgid "Notizie"
 msgstr ""
 
 #: footer.php:42
-#: front-page.php:85
-#: front-page.php:143
+#: front-page.php:111
+#: front-page.php:153
 #: inc/class-content-types.php:78
 #: inc/class-content-types.php:92
 #: inc/class-content-types.php:93
-#: single-tutorial.php:34
-#: single-tutorial.php:58
-#: single-tutorial.php:78
-#: template-parts/header/menu-fallback.php:19
+#: single-tutorial.php:38
+#: single-tutorial.php:67
+#: single-tutorial.php:87
+#: template-parts/header/menu-fallback.php:23
+#: js/lupin3rd-editor.js:284
+#: src/js/editor/tutorial-panel.js:60
 msgid "Tutorial"
 msgstr ""
 
 #: footer.php:43
-#: front-page.php:169
+#: front-page.php:179
 #: inc/class-content-types.php:79
 #: inc/class-content-types.php:123
 #: inc/class-content-types.php:124
-#: single-dossier.php:34
-#: single-dossier.php:58
-#: single-dossier.php:77
-#: template-parts/header/menu-fallback.php:20
+#: single-dossier.php:38
+#: single-dossier.php:67
+#: single-dossier.php:86
+#: template-parts/header/menu-fallback.php:27
 msgid "Dossier"
 msgstr ""
 
@@ -236,91 +397,171 @@ msgstr ""
 msgid "Nessun cookie di profilazione · statistiche aggregate self-hosted"
 msgstr ""
 
-#: front-page.php:76
-msgid "Rivista indipendente · dal 1999"
+#: front-page.php:89
+#: front-page.php:102
+msgid "Hack, inchieste, riservatezza · dal 1999"
 msgstr ""
 
-#: front-page.php:77
-msgid "Quello che l'informatica fa quando nessuno guarda."
+#: front-page.php:103
+msgid "Hack, inchieste, riservatezza dal 1999"
 msgstr ""
 
-#: front-page.php:81
-msgid "Notizie, tutorial con laboratorio riproducibile e inchieste a puntate. Nessun investitore, nessun cookie di profilazione, nessuna terza parte in pagina."
+#: front-page.php:107
+msgid "Notizie, tutorial e inchieste a puntate. Nessun cookie di profilazione, nessun script di terze parti in pagina."
 msgstr ""
 
-#: front-page.php:88
-#: home.php:25
-#: home.php:32
-#: inc/class-template-tags.php:55
-#: inc/class-template-tags.php:70
+#: front-page.php:114
+#: home.php:29
+#: home.php:38
+#: inc/class-template-tags.php:166
+#: inc/class-template-tags.php:181
 #: index.php:21
-#: template-parts/header/menu-fallback.php:21
+#: template-parts/header/menu-fallback.php:31
 #: template-parts/single/related.php:23
 msgid "Archivio"
 msgstr ""
 
-#: front-page.php:99
-msgid "In evidenza"
+#: front-page.php:127
+msgid "Ultimissime notizie"
 msgstr ""
 
-#: front-page.php:117
-msgid "Ultime dal fronte"
+#: front-page.php:128
+msgid "Le notizie del momento"
 msgstr ""
 
-#: front-page.php:118
-msgid "Cosa è successo"
-msgstr ""
-
-#: front-page.php:121
+#: front-page.php:131
 msgid "Tutto l'archivio"
 msgstr ""
 
-#: front-page.php:144
-msgid "Passo-passo, con laboratorio riproducibile"
+#: front-page.php:154
+msgid "Tutorial passo passo, con script di laboratorio"
 msgstr ""
 
-#: front-page.php:147
+#: front-page.php:157
 msgid "Tutti i tutorial"
 msgstr ""
 
-#: front-page.php:170
-msgid "Inchieste lunghe, pubblicate a puntate"
+#: front-page.php:180
+msgid "Indagini approfondite, pubblicate a episodi"
 msgstr ""
 
-#: front-page.php:191
-msgid "Quello che pubblichiamo serve a capire e a difendersi. Provare una tecnica su sistemi che non sono tuoi, o senza un incarico scritto, è un reato in quasi ogni giurisdizione."
+#: front-page.php:201
+msgid "Quello che pubblichiamo è solo a scopo di studio. Provare una tecnica su sistemi online che non sono i tuoi, o senza un incarico scritto, è un reato in quasi ogni giurisdizione."
 msgstr ""
 
 #: header.php:23
 msgid "Salta al contenuto"
 msgstr ""
 
-#: home.php:33
+#: home.php:39
 msgid "Tutto quello che abbiamo pubblicato"
 msgstr ""
 
 #. translators: %d: number of pieces.
-#: home.php:39
+#: home.php:45
 #, php-format
 msgid "%d pezzo"
 msgid_plural "%d pezzi"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/class-blocks.php:186
-msgid "Un tutorial non si pubblica senza il riquadro «perimetro legale». Aggiungi un blocco Avviso con variante «perimetro legale» e riprova."
+#: inc/class-account.php:206
+msgid "Salvato."
 msgstr ""
 
-#: inc/class-comment-reports.php:111
+#: inc/class-account.php:210
+msgid "Fatto: non ti avvisiamo più quando una discussione a cui hai partecipato si muove. La casella qui sotto lo riaccende."
+msgstr ""
+
+#: inc/class-account.php:214
+msgid "Quello pseudonimo è già di qualcuno, o è stato lasciato da meno di novanta giorni."
+msgstr ""
+
+#: inc/class-account.php:218
+msgid "La password attuale non corrisponde. Non è stato cambiato niente."
+msgstr ""
+
+#. translators: %d: minimum number of characters.
+#: inc/class-account.php:223
+#, php-format
+msgid "La nuova password deve essere lunga almeno %d caratteri."
+msgstr ""
+
+#: inc/class-account.php:227
+#: inc/class-authentication.php:515
+msgid "Quell'indirizzo non è valido, o è già usato da un altro account."
+msgstr ""
+
+#: inc/class-account.php:231
+#: inc/class-authentication.php:532
+msgid "Non ha funzionato. Ricarica la pagina e riprova."
+msgstr ""
+
+#. translators: %s: URL of the theme's sign-in page.
+#: inc/class-authentication.php:341
+#, php-format
+msgid "I lettori entrano da <a href=\"%s\">accesso</a>. Questa pagina è della redazione."
+msgstr ""
+
+#. translators: %s: URL of the theme's sign-in page.
+#: inc/class-authentication.php:369
+#, php-format
+msgid "Questa pagina è della redazione. I lettori entrano da <a href=\"%s\">accesso</a>."
+msgstr ""
+
+#: inc/class-authentication.php:491
+msgid "Account creato. Sei dentro: i primi tre interventi passano dalla moderazione."
+msgstr ""
+
+#: inc/class-authentication.php:495
+msgid "Bentornato. Sessione aperta su questo browser."
+msgstr ""
+
+#: inc/class-authentication.php:499
+msgid "Account creato. Entra con lo pseudonimo e la password che hai appena scelto."
+msgstr ""
+
+#: inc/class-authentication.php:503
+msgid "Pseudonimo o password non corrispondono."
+msgstr ""
+
+#: inc/class-authentication.php:507
+msgid "Quello pseudonimo è già di qualcuno. Scegline un altro."
+msgstr ""
+
+#: inc/class-authentication.php:511
+msgid "Lo pseudonimo va da 3 a 20 caratteri, minuscole, niente spazi."
+msgstr ""
+
+#. translators: %d: minimum number of characters.
+#: inc/class-authentication.php:520
+#, php-format
+msgid "La password deve essere lunga almeno %d caratteri."
+msgstr ""
+
+#: inc/class-authentication.php:524
+msgid "Senza la spunta sulle linee guida non possiamo aprire l'account."
+msgstr ""
+
+#: inc/class-authentication.php:528
+#: page-templates/template-sign-in.php:122
+msgid "Le registrazioni sono chiuse in questo momento."
+msgstr ""
+
+#: inc/class-blocks.php:184
+msgid "Un tutorial non viene pubblicato senza il riquadro con l'informativa legale. Aggiungi un blocco Avviso con variante «informativa legale» e riprova."
+msgstr ""
+
+#: inc/class-comment-reports.php:113
 msgid "Segnalazioni"
 msgstr ""
 
-#: inc/class-comment-reports.php:159
+#: inc/class-comment-reports.php:162
 msgid "Un intervento è stato segnalato"
 msgstr ""
 
 #. translators: 1: comment author, 2: piece title, 3: admin URL.
-#: inc/class-comment-reports.php:162
+#: inc/class-comment-reports.php:165
 #, php-format
 msgid ""
 "Qualcuno ha segnalato un intervento di %1$s sotto «%2$s».\n"
@@ -332,31 +573,51 @@ msgid ""
 msgstr ""
 
 #: inc/class-comment-walker.php:35
+#: inc/class-profile-fields.php:189
+#: inc/class-profile-fields.php:203
 msgid "account rimosso"
 msgstr ""
 
-#: inc/class-comment-walker.php:52
-msgid "redazione"
-msgstr ""
-
-#: inc/class-comment-walker.php:61
+#: inc/class-comment-walker.php:83
 msgid "In coda di moderazione. La leggiamo a mano."
 msgstr ""
 
-#: inc/class-comment-walker.php:74
+#: inc/class-comment-walker.php:96
 msgid "Rispondi"
 msgstr ""
 
-#: inc/class-comment-walker.php:84
+#: inc/class-comment-walker.php:106
 msgid "segnalato alla moderazione"
 msgstr ""
 
-#: inc/class-comment-walker.php:97
+#: inc/class-comment-walker.php:119
 msgid "Segnala"
 msgstr ""
 
+#: inc/class-community.php:94
+#: inc/class-template-tags.php:174
+#: page-templates/template-community.php:275
+msgid "Membro"
+msgstr ""
+
+#: inc/class-community.php:100
+msgid "Collaboratore"
+msgstr ""
+
+#: inc/class-community.php:224
+msgid "collaboratore"
+msgstr ""
+
+#: inc/class-community.php:228
+msgid "redazione"
+msgstr ""
+
+#: inc/class-community.php:231
+msgid "membro"
+msgstr ""
+
 #: inc/class-content-types.php:80
-#: single.php:57
+#: single.php:63
 msgid "Notizia"
 msgstr ""
 
@@ -378,7 +639,7 @@ msgstr ""
 
 #: inc/class-content-types.php:156
 #: inc/class-content-types.php:157
-#: inc/class-template-tags.php:49
+#: inc/class-template-tags.php:160
 msgid "Difficoltà"
 msgstr ""
 
@@ -402,16 +663,36 @@ msgstr ""
 msgid "Feed non disponibile"
 msgstr ""
 
+#. translators: %s: time of day, e.g. 11:02.
+#: inc/class-i18n.php:101
+#, php-format
+msgid "oggi, %s"
+msgstr ""
+
+#. translators: %s: time of day, e.g. 21:40.
+#: inc/class-i18n.php:106
+#, php-format
+msgid "ieri, %s"
+msgstr ""
+
+#. translators: %d: number of days.
+#: inc/class-i18n.php:111
+#, php-format
+msgid "%d giorno fa"
+msgid_plural "%d giorni fa"
+msgstr[0] ""
+msgstr[1] ""
+
 #: inc/class-newsletter.php:87
 msgid "Iscritti al dispaccio"
 msgstr ""
 
-#: inc/class-newsletter.php:333
+#: inc/class-newsletter.php:337
 msgid "Conferma l'iscrizione al dispaccio"
 msgstr ""
 
 #. translators: 1: confirmation URL, 2: site name.
-#: inc/class-newsletter.php:336
+#: inc/class-newsletter.php:340
 #, php-format
 msgid ""
 "Qualcuno ha chiesto di iscrivere questo indirizzo al dispaccio settimanale di %2$s.\n"
@@ -422,19 +703,19 @@ msgid ""
 "Se non sei stato tu, non fare niente: senza conferma l'indirizzo non riceve nulla e viene cancellato."
 msgstr ""
 
-#: inc/class-newsletter.php:365
+#: inc/class-newsletter.php:374
 msgid "Fatto. Controlla la posta: l'iscrizione vale solo dopo che hai seguito il link."
 msgstr ""
 
-#: inc/class-newsletter.php:369
+#: inc/class-newsletter.php:378
 msgid "Iscrizione confermata. Il primo dispaccio arriva giovedì."
 msgstr ""
 
-#: inc/class-newsletter.php:373
+#: inc/class-newsletter.php:382
 msgid "Quell'indirizzo non sembra un indirizzo. Riprova."
 msgstr ""
 
-#: inc/class-newsletter.php:377
+#: inc/class-newsletter.php:386
 msgid "Non ha funzionato. Riprova fra poco."
 msgstr ""
 
@@ -443,7 +724,7 @@ msgid "Testata tutorial"
 msgstr ""
 
 #: inc/class-patterns.php:48
-msgid "Sommario, perimetro legale e prerequisiti: le tre cose che un tutorial ha sempre."
+msgid "Sommario, informativa legale e prerequisiti: le tre cose che un tutorial deve sempre avere."
 msgstr ""
 
 #: inc/class-patterns.php:58
@@ -467,7 +748,7 @@ msgid "Cosa serve avere davanti prima di cominciare."
 msgstr ""
 
 #: inc/class-patterns.php:82
-#: single-tutorial.php:85
+#: single-tutorial.php:94
 msgid "Prerequisiti"
 msgstr ""
 
@@ -487,7 +768,67 @@ msgstr ""
 msgid "Come verificare di aver fatto la cosa giusta, e cosa significa se il risultato è diverso."
 msgstr ""
 
-#: inc/class-security.php:81
+#: inc/class-profile-fields.php:471
+msgid "Profilo di comunità"
+msgstr ""
+
+#: inc/class-profile-fields.php:478
+msgid "Compare sotto ogni intervento. Il nome di accesso resta quello della registrazione."
+msgstr ""
+
+#: inc/class-profile-fields.php:482
+msgid "Due righe"
+msgstr ""
+
+#: inc/class-profile-fields.php:486
+msgid "Impronta PGP"
+msgstr ""
+
+#: inc/class-profile-fields.php:494
+msgid "Controfirmata dalla redazione"
+msgstr ""
+
+#: inc/class-profile-fields.php:505
+msgid "Data di iscrizione"
+msgstr ""
+
+#: inc/class-profile-fields.php:509
+msgid "Mostrala sul profilo pubblico"
+msgstr ""
+
+#: inc/class-profile-fields.php:514
+msgid "Interventi pubblicati"
+msgstr ""
+
+#. translators: 1: number of approved contributions, 2: the threshold after which comments appear at once.
+#: inc/class-profile-fields.php:519
+#, php-format
+msgid "%1$d su %2$d prima di uscire dalla coda di moderazione."
+msgstr ""
+
+#. translators: 1: pseudonym of whoever wrote, 2: title of the piece, 3: what they wrote, 4: link to the contribution, 5: link that turns these messages off.
+#: inc/class-reply-notifications.php:198
+#, php-format
+msgid ""
+"%1$s ha scritto sotto «%2$s», dove eri intervenuto anche tu.\n"
+"\n"
+"«%3$s»\n"
+"\n"
+"Leggi e rispondi:\n"
+"%4$s\n"
+"\n"
+"—\n"
+"Ricevi questo messaggio perché hai commentato quell'articolo. Per non riceverne più:\n"
+"%5$s"
+msgstr ""
+
+#. translators: %s: title of the piece.
+#: inc/class-reply-notifications.php:211
+#, php-format
+msgid "Nuovo intervento sotto «%s»"
+msgstr ""
+
+#: inc/class-security.php:87
 msgid "API non disponibile agli utenti non autenticati."
 msgstr ""
 
@@ -496,8 +837,8 @@ msgid "news, tutorial e dossier dal margine dell'informatica"
 msgstr ""
 
 #: inc/class-setup.php:100
-#: template-parts/header/menu-fallback.php:24
-#: template-parts/header/navbar.php:27
+#: template-parts/header/menu-fallback.php:51
+#: template-parts/header/navbar.php:57
 msgid "Navigazione principale"
 msgstr ""
 
@@ -513,33 +854,359 @@ msgstr ""
 msgid "Piè di pagina — canali"
 msgstr ""
 
-#: inc/class-template-tags.php:41
+#: inc/class-template-tags.php:152
 msgid "Categoria"
 msgstr ""
 
-#: inc/class-template-tags.php:45
+#: inc/class-template-tags.php:156
 #: template-parts/sidebar/widget-tags.php:25
 msgid "Tag"
 msgstr ""
 
-#: inc/class-template-tags.php:63
-msgid "Membro"
-msgstr ""
-
-#: inc/class-template-tags.php:67
+#: inc/class-template-tags.php:178
 msgid "Data"
 msgstr ""
 
-#: inc/class-template-tags.php:163
+#: inc/class-template-tags.php:274
 msgid "Difficoltà:"
 msgstr ""
 
-#: inc/class-template-tags.php:294
+#: inc/class-template-tags.php:407
 msgid "Percorso"
 msgstr ""
 
-#: inc/class-template-tags.php:330
+#: inc/class-template-tags.php:450
 msgid "Pagine"
+msgstr ""
+
+#. Template Name of the theme
+#: page-templates/template-sign-in.php:43
+msgid "Account"
+msgstr ""
+
+#: page-templates/template-account.php:46
+#: page-templates/template-sign-in.php:88
+#: template-parts/header/account-drawer.php:29
+#: template-parts/header/account.php:44
+msgid "Il tuo profilo"
+msgstr ""
+
+#: page-templates/template-account.php:82
+msgid "Vedi il profilo pubblico"
+msgstr ""
+
+#: page-templates/template-account.php:85
+#: page-templates/template-sign-in.php:91
+#: template-parts/header/account-drawer.php:38
+#: template-parts/header/account.php:57
+msgid "Esci"
+msgstr ""
+
+#: page-templates/template-account.php:106
+msgid "sì"
+msgstr ""
+
+#: page-templates/template-account.php:106
+msgid "no"
+msgstr ""
+
+#: page-templates/template-account.php:107
+msgid "in coda di moderazione"
+msgstr ""
+
+#: page-templates/template-account.php:115
+msgid "pezzi firmati"
+msgstr ""
+
+#: page-templates/template-account.php:134
+#: template-parts/header/account-drawer.php:33
+#: template-parts/header/account.php:45
+msgid "Profilo pubblico"
+msgstr ""
+
+#: page-templates/template-account.php:135
+msgid "Quello che si vede di te"
+msgstr ""
+
+#. Template Name of the theme
+#: page-templates/template-account.php:141
+msgid "Accesso"
+msgstr ""
+
+#: page-templates/template-account.php:142
+msgid "Indirizzo e password"
+msgstr ""
+
+#. translators: 1: approved contributions so far, 2: how many are needed.
+#: page-templates/template-account.php:156
+#, php-format
+msgid "I tuoi interventi vengono letti prima di comparire: %1$d su %2$d."
+msgstr ""
+
+#: page-templates/template-account.php:161
+msgid "I tuoi interventi compaiono senza attesa. Due segnalazioni respinte riportano l'account in coda."
+msgstr ""
+
+#: page-templates/template-account.php:168
+msgid "Cosa teniamo"
+msgstr ""
+
+#: page-templates/template-account.php:170
+#: page-templates/template-community.php:330
+msgid "Pseudonimo, data di iscrizione, ruolo."
+msgstr ""
+
+#: page-templates/template-account.php:171
+#: page-templates/template-community.php:331
+msgid "Email, visibile solo alla moderazione."
+msgstr ""
+
+#: page-templates/template-account.php:172
+msgid "Interventi pubblicati."
+msgstr ""
+
+#: page-templates/template-account.php:174
+msgid "Niente cronologia di lettura, niente indirizzi oltre le 24 ore di finestra antispam."
+msgstr ""
+
+#: page-templates/template-account.php:178
+msgid "Andarsene"
+msgstr ""
+
+#: page-templates/template-account.php:180
+msgid "Esportazione e cancellazione dell'account non sono ancora qui: per ora si chiedono alla redazione. Gli interventi già pubblicati restano, a firma «account rimosso»."
+msgstr ""
+
+#: page-templates/template-community.php:43
+msgid "Tutti"
+msgstr ""
+
+#: page-templates/template-community.php:44
+msgid "Membri"
+msgstr ""
+
+#: page-templates/template-community.php:45
+msgid "Collaboratori"
+msgstr ""
+
+#. translators: %s: number of accounts with at least one published contribution.
+#: page-templates/template-community.php:70
+#, php-format
+msgid "Comunità · %s account, nessun nome reale"
+msgstr ""
+
+#: page-templates/template-community.php:85
+#: page-templates/template-sign-in.php:106
+#: page-templates/template-sign-in.php:116
+msgid "Crea un account"
+msgstr ""
+
+#: page-templates/template-community.php:88
+msgid "Vai al tuo profilo"
+msgstr ""
+
+#: page-templates/template-community.php:91
+msgid "Come si modera"
+msgstr ""
+
+#: page-templates/template-community.php:108
+msgid "account attivi"
+msgstr ""
+
+#: page-templates/template-community.php:112
+msgid "interventi in 30 giorni"
+msgstr ""
+
+#. translators: %d: current year.
+#: page-templates/template-community.php:117
+#, php-format
+msgid "correzioni accettate nel %d"
+msgstr ""
+
+#. translators: %d: hours.
+#: page-templates/template-community.php:121
+#, php-format
+msgid "%d h"
+msgstr ""
+
+#: page-templates/template-community.php:122
+msgid "attesa media in moderazione"
+msgstr ""
+
+#: page-templates/template-community.php:130
+msgid "È attivo un account che ha pubblicato almeno un intervento: non contiamo le iscrizioni dormienti per gonfiare il numero, e non teniamo traccia di chi è entrato e quando."
+msgstr ""
+
+#: page-templates/template-community.php:139
+msgid "Ultimi iscritti"
+msgstr ""
+
+#: page-templates/template-community.php:140
+msgid "Chi è arrivato di recente"
+msgstr ""
+
+#: page-templates/template-community.php:144
+msgid "Filtra per ruolo"
+msgstr ""
+
+#: page-templates/template-community.php:169
+#: page-templates/template-community.php:181
+msgid "Nessun account con questo ruolo."
+msgstr ""
+
+#: page-templates/template-community.php:170
+#: page-templates/template-community.php:182
+msgid "I collaboratori si contano sulle dita: diventa tale chi manda tre contributi accettati."
+msgstr ""
+
+#: page-templates/template-community.php:189
+msgid "Pubblichiamo pseudonimo, ruolo e data di iscrizione. Mai l'email, mai il paese, mai l'ultimo indirizzo usato per entrare."
+msgstr ""
+
+#: page-templates/template-community.php:198
+msgid "Ultimi interventi"
+msgstr ""
+
+#: page-templates/template-community.php:199
+msgid "Chi ha commentato, e sotto quale articolo"
+msgstr ""
+
+#: page-templates/template-community.php:217
+msgid "Compaiono solo gli interventi già passati dalla moderazione."
+msgstr ""
+
+#: page-templates/template-community.php:232
+msgid "Discussioni più vive"
+msgstr ""
+
+#: page-templates/template-community.php:247
+msgid "Da membro a collaboratore"
+msgstr ""
+
+#: page-templates/template-community.php:249
+msgid "Tre contributi accettati — correzioni documentate, traduzioni, writeup — e la redazione propone il passaggio. Da collaboratore si firma in prima pagina e si accede alle bozze prima della pubblicazione."
+msgstr ""
+
+#: page-templates/template-community.php:253
+msgid "Cosa accettiamo"
+msgstr ""
+
+#: page-templates/template-community.php:268
+msgid "Chi tiene viva la discussione"
+msgstr ""
+
+#: page-templates/template-community.php:277
+msgid "Correzioni accettate"
+msgstr ""
+
+#: page-templates/template-community.php:312
+msgid "Nessun punteggio, nessuna classifica pubblica oltre questa: contiamo interventi passati in moderazione e correzioni finite davvero in pagina."
+msgstr ""
+
+#: page-templates/template-community.php:322
+msgid "Cosa chiediamo per aprire un account"
+msgstr ""
+
+#: page-templates/template-community.php:324
+msgid "Uno pseudonimo, un indirizzo email e una password. L'email serve per il recupero e per avvisarti quando qualcuno risponde: non è pubblica e non entra nella newsletter."
+msgstr ""
+
+#: page-templates/template-community.php:328
+msgid "Conserviamo"
+msgstr ""
+
+#: page-templates/template-community.php:332
+msgid "Interventi pubblicati e cronologia delle modifiche."
+msgstr ""
+
+#: page-templates/template-community.php:337
+msgid "Non conserviamo"
+msgstr ""
+
+#: page-templates/template-community.php:339
+msgid "Indirizzi IP oltre le 24 ore di finestra antispam."
+msgstr ""
+
+#: page-templates/template-community.php:340
+msgid "Cronologia di lettura, tempo sulla pagina, provenienza."
+msgstr ""
+
+#: page-templates/template-community.php:341
+msgid "Nomi reali, documenti, numeri di telefono: non li chiediamo mai."
+msgstr ""
+
+#: page-templates/template-community.php:348
+msgid "L'immagine di profilo non esce dal server"
+msgstr ""
+
+#: page-templates/template-community.php:349
+msgid "Niente Gravatar: l'avatar è un motivo generato dal seme dell'account, calcolato in locale. Nessun servizio esterno riceve l'hash della tua email quando qualcuno apre la pagina."
+msgstr ""
+
+#: page-templates/template-community.php:353
+msgid "Cancellazione"
+msgstr ""
+
+#: page-templates/template-community.php:354
+msgid "Dalla tua area personale chiedi l'esportazione o la cancellazione. Gli interventi già pubblicati restano, ma passano a firma «account rimosso»: quello che ha corretto un articolo non sparisce dalla discussione."
+msgstr ""
+
+#: page-templates/template-community.php:358
+msgid "Secondo fattore"
+msgstr ""
+
+#: page-templates/template-community.php:359
+msgid "Opzionale per i membri, obbligatorio per redazione e collaboratori: TOTP oppure sfida firmata con la chiave PGP dichiarata nel profilo."
+msgstr ""
+
+#: page-templates/template-sign-in.php:50
+msgid "Account · pseudonimo obbligatorio, nome reale mai"
+msgstr ""
+
+#. translators: %s: the reader's pseudonym.
+#: page-templates/template-sign-in.php:78
+#, php-format
+msgid "Sei già dentro come %s"
+msgstr ""
+
+#: page-templates/template-sign-in.php:83
+msgid "Sessione aperta su questo browser."
+msgstr ""
+
+#: page-templates/template-sign-in.php:97
+msgid "Accesso e registrazione"
+msgstr ""
+
+#: page-templates/template-sign-in.php:133
+msgid "Cosa sblocca l'account"
+msgstr ""
+
+#: page-templates/template-sign-in.php:135
+msgid "Intervenire sotto gli articoli"
+msgstr ""
+
+#: page-templates/template-sign-in.php:136
+msgid "Un profilo pubblico con i tuoi interventi"
+msgstr ""
+
+#: page-templates/template-sign-in.php:137
+msgid "Proporre correzioni e writeup"
+msgstr ""
+
+#: page-templates/template-sign-in.php:142
+msgid "Cosa non chiediamo"
+msgstr ""
+
+#: page-templates/template-sign-in.php:143
+msgid "Nome reale, documento, numero di telefono, foto, data di nascita, azienda. Se un giorno ci servissero, la risposta sarebbe: chiudiamo la registrazione."
+msgstr ""
+
+#: page-templates/template-sign-in.php:147
+msgid "L'avatar non esce dal server"
+msgstr ""
+
+#: page-templates/template-sign-in.php:148
+msgid "Niente Gravatar. L'immagine di profilo è un motivo generato dal nickname dell'account: nessun servizio esterno riceve l'hash della tua email."
 msgstr ""
 
 #. translators: %s: search term.
@@ -570,32 +1237,130 @@ msgid "Prova con un termine più corto, o con un tag."
 msgstr ""
 
 #. translators: %d: minutes.
-#: single-dossier.php:68
-#: single-tutorial.php:69
+#: single-dossier.php:77
+#: single-tutorial.php:78
 #, php-format
 msgid "%d min"
 msgstr ""
 
-#: single-tutorial.php:109
+#: single-tutorial.php:118
 msgid "Laboratorio"
 msgstr ""
 
-#: single-tutorial.php:112
+#: single-tutorial.php:121
 msgid "Repository:"
 msgstr ""
 
-#: single-tutorial.php:119
+#: single-tutorial.php:128
 msgid "SHA-256 del campione:"
 msgstr ""
 
 #. translators: %d: minutes.
-#: single.php:66
+#: single.php:72
 #, php-format
 msgid "%d min di lettura"
 msgstr ""
 
-#: single.php:71
+#: single.php:77
 msgid "fonte primaria"
+msgstr ""
+
+#: template-parts/account/form-credentials.php:25
+msgid "Serve solo a recuperare l'accesso e ad avvisarti delle risposte. Non è pubblica."
+msgstr ""
+
+#: template-parts/account/form-credentials.php:29
+msgid "Nuova password"
+msgstr ""
+
+#: template-parts/account/form-credentials.php:35
+#: template-parts/account/form-credentials.php:40
+msgid "Lasciala vuota se non vuoi cambiarla."
+msgstr ""
+
+#: template-parts/account/form-credentials.php:36
+#: template-parts/auth/form-register.php:61
+msgid "Corta. Allungala, non complicarla."
+msgstr ""
+
+#: template-parts/account/form-credentials.php:37
+#: template-parts/auth/form-register.php:62
+msgid "Accettabile."
+msgstr ""
+
+#: template-parts/account/form-credentials.php:38
+#: template-parts/auth/form-register.php:63
+msgid "Buona."
+msgstr ""
+
+#: template-parts/account/form-credentials.php:39
+#: template-parts/auth/form-register.php:64
+msgid "Ottima: annotala nel gestore, non a memoria."
+msgstr ""
+
+#: template-parts/account/form-credentials.php:45
+msgid "Password attuale"
+msgstr ""
+
+#: template-parts/account/form-credentials.php:47
+msgid "Serve per cambiare l'indirizzo o la password: una sessione rubata da sola non deve bastare a prendersi l'account."
+msgstr ""
+
+#: template-parts/account/form-credentials.php:48
+msgid "Serve la password attuale."
+msgstr ""
+
+#: template-parts/account/form-credentials.php:52
+msgid "Cambiando la password, le altre sessioni si chiudono."
+msgstr ""
+
+#: template-parts/account/form-credentials.php:53
+msgid "Aggiorna"
+msgstr ""
+
+#: template-parts/account/form-profile.php:25
+msgid "Cambiandolo, gli interventi già pubblicati passano al nuovo nome. Il vecchio resta bloccato per novanta giorni."
+msgstr ""
+
+#: template-parts/account/form-profile.php:26
+msgid "Serve uno pseudonimo."
+msgstr ""
+
+#: template-parts/account/form-profile.php:30
+msgid "Due righe su di te"
+msgstr ""
+
+#: template-parts/account/form-profile.php:32
+msgid "Testo semplice. I collegamenti non vengono pubblicati."
+msgstr ""
+
+#: template-parts/account/form-profile.php:36
+#: template-parts/auth/form-register.php:71
+msgid "Impronta PGP (facoltativa)"
+msgstr ""
+
+#: template-parts/account/form-profile.php:39
+msgid "Se cambia, l'etichetta «chiave verificata» sparisce finché la redazione non controfirma la nuova."
+msgstr ""
+
+#: template-parts/account/form-profile.php:43
+msgid "Lingue in cui scrivi"
+msgstr ""
+
+#: template-parts/account/form-profile.php:50
+msgid "Mostra la data di iscrizione sul profilo pubblico."
+msgstr ""
+
+#: template-parts/account/form-profile.php:55
+msgid "Avvisami via email quando qualcuno scrive sotto un articolo in cui sono intervenuto. Al massimo un messaggio all'ora per articolo."
+msgstr ""
+
+#: template-parts/account/form-profile.php:59
+msgid "Email, paese e ultimo accesso non compaiono mai sul profilo: non esiste un campo che possa contenerli."
+msgstr ""
+
+#: template-parts/account/form-profile.php:60
+msgid "Salva"
 msgstr ""
 
 #: template-parts/archive/filter-bar.php:17
@@ -604,6 +1369,104 @@ msgstr ""
 
 #: template-parts/archive/filter-bar.php:25
 msgid "Filtra per formato"
+msgstr ""
+
+#: template-parts/auth/form-register.php:39
+msgid "come vuoi firmarti"
+msgstr ""
+
+#: template-parts/auth/form-register.php:40
+msgid "Da 3 a 20 caratteri, minuscole, niente spazi. Comparirà così sotto ogni tuo intervento."
+msgstr ""
+
+#: template-parts/auth/form-register.php:41
+msgid "Serve uno pseudonimo, anche inventato."
+msgstr ""
+
+#: template-parts/auth/form-register.php:48
+msgid "Solo per recuperare l'accesso e avvisarti delle risposte. Non è pubblica e non entra nella newsletter."
+msgstr ""
+
+#: template-parts/auth/form-register.php:49
+msgid "Indirizzo email non valido."
+msgstr ""
+
+#: template-parts/auth/form-register.php:53
+#: template-parts/auth/form-sign-in.php:31
+msgid "Password"
+msgstr ""
+
+#: template-parts/auth/form-register.php:56
+msgid "almeno dieci caratteri"
+msgstr ""
+
+#: template-parts/auth/form-register.php:60
+#: template-parts/auth/form-register.php:65
+msgid "Quattro parole senza senso battono una password contorta."
+msgstr ""
+
+#: template-parts/auth/form-register.php:67
+msgid "Serve una password."
+msgstr ""
+
+#: template-parts/auth/form-register.php:73
+msgid "Se la dichiari, la redazione la controfirma e il profilo mostra l'etichetta «chiave verificata»."
+msgstr ""
+
+#. translators: %s: link to the guidelines page.
+#: template-parts/auth/form-register.php:82
+#, php-format
+msgid "Ho letto le %s: si discute del metodo, si porta la fonte, non si pubblicano dati di terzi."
+msgstr ""
+
+#: template-parts/auth/form-register.php:86
+msgid "linee guida"
+msgstr ""
+
+#: template-parts/auth/form-register.php:92
+msgid "Senza questa spunta non possiamo aprire l'account."
+msgstr ""
+
+#: template-parts/auth/form-register.php:95
+msgid "Nessuna verifica dell'identità. Nessun invito necessario."
+msgstr ""
+
+#: template-parts/auth/form-register.php:96
+msgid "Crea l'account"
+msgstr ""
+
+#: template-parts/auth/form-sign-in.php:25
+msgid "Pseudonimo o email"
+msgstr ""
+
+#: template-parts/auth/form-sign-in.php:27
+msgid "Serve lo pseudonimo o l'email."
+msgstr ""
+
+#: template-parts/auth/form-sign-in.php:33
+msgid "Serve la password."
+msgstr ""
+
+#: template-parts/auth/form-sign-in.php:38
+msgid "Password persa?"
+msgstr ""
+
+#: template-parts/auth/form-sign-in.php:40
+msgid "Entra"
+msgstr ""
+
+#. translators: %s: link to the article the contribution sits under.
+#: template-parts/community/activity-row.php:58
+#, php-format
+msgid "su %s"
+msgstr ""
+
+#: template-parts/community/member-row.php:37
+msgid "nuovo"
+msgstr ""
+
+#: template-parts/community/member-row.php:45
+msgid "pgp"
 msgstr ""
 
 #: template-parts/content/empty-state.php:14
@@ -618,15 +1481,24 @@ msgstr ""
 msgid "Torna alla home"
 msgstr ""
 
-#: template-parts/header/navbar.php:42
+#: template-parts/header/account.php:30
+msgid "Il tuo account"
+msgstr ""
+
+#: template-parts/header/nav-extra.php:25
+#: template-parts/header/search-overlay.php:41
+msgid "Chiudi"
+msgstr ""
+
+#: template-parts/header/navbar.php:72
 msgid "Cerca"
 msgstr ""
 
-#: template-parts/header/navbar.php:48
+#: template-parts/header/navbar.php:78
 msgid "Cambia tema"
 msgstr ""
 
-#: template-parts/header/navbar.php:57
+#: template-parts/header/navbar.php:98
 msgid "Menu"
 msgstr ""
 
@@ -640,10 +1512,6 @@ msgstr ""
 
 #: template-parts/header/search-overlay.php:39
 msgid "Cerca notizie, tutorial, dossier, tag…"
-msgstr ""
-
-#: template-parts/header/search-overlay.php:41
-msgid "Chiudi"
 msgstr ""
 
 #: template-parts/header/search-overlay.php:64
@@ -667,7 +1535,7 @@ msgid "mirror .onion"
 msgstr ""
 
 #: template-parts/header/statusbar.php:19
-msgid "attivo"
+msgid "soon"
 msgstr ""
 
 #: template-parts/header/statusbar.php:20
@@ -681,11 +1549,11 @@ msgid "ed. #%1$s · %2$s"
 msgstr ""
 
 #: template-parts/home/newsletter.php:21
-msgid "Un dispaccio a settimana, il giovedì"
+msgid "Newsletter"
 msgstr ""
 
 #: template-parts/home/newsletter.php:22
-msgid "Tre link commentati e una nota di metodo. Nessun tracciamento nelle email, archivio pubblico, disiscrizione con un clic."
+msgid "Mandiamo mediamente un invio a settimana. Nessuna tracciatura, nessun dato condiviso, disiscrizione immediata."
 msgstr ""
 
 #: template-parts/home/newsletter.php:28
@@ -705,30 +1573,30 @@ msgid "Inserisci un indirizzo email valido."
 msgstr ""
 
 #: template-parts/sidebar/widget-links.php:14
-msgid "Cassetta sicura"
+msgid "Email sicura"
 msgstr ""
 
 #: template-parts/sidebar/widget-links.php:15
-msgid "Materiale sensibile solo tramite SecureDrop sul mirror .onion, oppure via email cifrata. Mai dai commenti."
+msgid "Materiale sensibile ivialo solo tramite email con pgp. Non postare materiale sensibile nei commenti."
 msgstr ""
 
 #: template-parts/sidebar/widget-links.php:17
-msgid "Come scrivere"
+msgid "Come scrivere in maniera sicuro"
 msgstr ""
 
-#: template-parts/single/author-card.php:29
+#: template-parts/single/author-card.php:32
 msgid "Autore"
 msgstr ""
 
-#: template-parts/single/dossier-navigation.php:42
+#: template-parts/single/dossier-navigation.php:45
 msgid "Puntate del dossier"
 msgstr ""
 
-#: template-parts/single/dossier-navigation.php:46
+#: template-parts/single/dossier-navigation.php:49
 msgid "Le puntate"
 msgstr ""
 
-#: template-parts/single/dossier-navigation.php:47
+#: template-parts/single/dossier-navigation.php:50
 msgid "In questo dossier"
 msgstr ""
 
@@ -739,4 +1607,154 @@ msgstr ""
 #: template-parts/single/table-of-contents.php:16
 #: template-parts/single/table-of-contents.php:17
 msgid "Indice"
+msgstr ""
+
+#: js/lupin3rd-editor.js:44
+#: src/js/editor/block-code.js:30
+msgid "Blocco codice"
+msgstr ""
+
+#: js/lupin3rd-editor.js:46
+#: src/js/editor/block-code.js:32
+msgid "Linguaggio"
+msgstr ""
+
+#: js/lupin3rd-editor.js:49
+#: src/js/editor/block-code.js:35
+msgid "nessuno"
+msgstr ""
+
+#: js/lupin3rd-editor.js:56
+#: src/js/editor/block-code.js:42
+msgid "Decide quali parole chiave vengono marcate. La colorazione è monocromatica e la genera il server."
+msgstr ""
+
+#: js/lupin3rd-editor.js:62
+#: src/js/editor/block-code.js:48
+msgid "Nome del file"
+msgstr ""
+
+#: js/lupin3rd-editor.js:65
+#: src/js/editor/block-code.js:51
+msgid "Compare nell’intestazione, accanto al linguaggio."
+msgstr ""
+
+#: js/lupin3rd-editor.js:68
+#: src/js/editor/block-code.js:54
+msgid "Numeri di riga"
+msgstr ""
+
+#: js/lupin3rd-editor.js:86
+#: src/js/editor/block-code.js:72
+msgid "Incolla qui il codice…"
+msgstr ""
+
+#: js/lupin3rd-editor.js:87
+#: src/js/editor/block-code.js:73
+msgid "Codice"
+msgstr ""
+
+#: js/lupin3rd-editor.js:133
+#: src/js/editor/block-notice.js:37
+msgid "Avviso"
+msgstr ""
+
+#: js/lupin3rd-editor.js:135
+#: src/js/editor/block-notice.js:39
+msgid "Variante"
+msgstr ""
+
+#: js/lupin3rd-editor.js:144
+#: src/js/editor/block-notice.js:48
+msgid "Questo è il riquadro obbligatorio nei tutorial: senza, il pezzo non si pubblica."
+msgstr ""
+
+#: js/lupin3rd-editor.js:154
+#: src/js/editor/block-notice.js:58
+msgid "Scrivi l’avviso…"
+msgstr ""
+
+#: js/lupin3rd-editor.js:213
+#: src/js/editor/legal-gate.js:51
+msgid "Questo tutorial non ha il riquadro informativa legale. Aggiungi un blocco Avviso con quella variante."
+msgstr ""
+
+#: blocks/code/block.json
+msgctxt "block title"
+msgid "Blocco codice"
+msgstr ""
+
+#: blocks/code/block.json
+msgctxt "block description"
+msgid "Codice con intestazione, nome file e pulsante di copia. Colorazione monocromatica, generata dal server: nessuna libreria, nessuno script in pagina."
+msgstr ""
+
+#: blocks/notice/block.json
+msgctxt "block title"
+msgid "Avviso"
+msgstr ""
+
+#: blocks/notice/block.json
+msgctxt "block description"
+msgid "Nota di metodo, informativa legale o correzione. L'informativa legale è obbligatoria nei tutorial e senza di essa l'articolo non viene pubblicato."
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Sfondo"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Superficie"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Testo"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Testo attenuato"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Bordo"
+msgstr ""
+
+#: theme.json
+msgctxt "Color name"
+msgid "Accento"
+msgstr ""
+
+#: theme.json
+msgctxt "Font family name"
+msgid "Titoli"
+msgstr ""
+
+#: theme.json
+msgctxt "Font family name"
+msgid "Testo"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Metadati"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Testo"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Sommario"
+msgstr ""
+
+#: theme.json
+msgctxt "Font size name"
+msgid "Titolo"
 msgstr ""

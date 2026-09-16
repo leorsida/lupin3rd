@@ -37,7 +37,7 @@ defined( 'ABSPATH' ) || exit;
 		<label for="r-pseudonym"><?php esc_html_e( 'Pseudonimo', 'lupin3rd' ); ?></label>
 		<input class="input" type="text" id="r-pseudonym" name="l3_pseudonym" required
 			autocomplete="username" placeholder="<?php esc_attr_e( 'come vuoi firmarti', 'lupin3rd' ); ?>">
-		<p class="hint"><?php esc_html_e( 'Da 3 a 20 caratteri, minuscole, niente spazi. Comparirà così sotto ogni tuo intervento.', 'lupin3rd' ); ?></p>
+		<p class="hint"><?php esc_html_e( 'Da 3 a 20 caratteri, minuscole, niente spazi. Comparirà così sotto ogni tuo commento.', 'lupin3rd' ); ?></p>
 		<p class="field-error hidden" data-error-for="l3_pseudonym"><?php esc_html_e( 'Serve uno pseudonimo, anche inventato.', 'lupin3rd' ); ?></p>
 	</div>
 

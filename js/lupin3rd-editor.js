@@ -98,7 +98,7 @@
 	/*
 	 * l3/notice — editing.
 	 *
-	 * Three variants. "Perimetro legale" is the one a tutorial cannot be published
+	 * Three variants. "Informativa legale" is the one a tutorial cannot be published
 	 * without, so the variant control says so rather than leaving the author to
 	 * discover it when the publish button refuses.
 	 */
@@ -106,7 +106,7 @@
 
 	const VARIANTS = [
 		{ value: 'method', label: 'Nota di metodo' },
-		{ value: 'legal', label: 'Perimetro legale' },
+		{ value: 'legal', label: 'Informativa legale' },
 		{ value: 'correction', label: 'Correzione' },
 	];
 
@@ -211,7 +211,7 @@
 				dispatch('core/notices').createNotice(
 					'warning',
 					__(
-						'Questo tutorial non ha il riquadro «perimetro legale». Aggiungi un blocco Avviso con quella variante: senza, non si pubblica.',
+						'Questo tutorial non ha il riquadro informativa legale. Aggiungi un blocco Avviso con quella variante.',
 						'lupin3rd'
 					),
 					{ id: NOTICE_ID, isDismissible: false }

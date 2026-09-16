@@ -16,10 +16,10 @@ $l3_notice = Newsletter::notice();
 $l3_user   = wp_get_current_user();
 $l3_email  = $l3_user && $l3_user->exists() ? (string) $l3_user->user_email : '';
 ?>
-<section class="section section-cta" id="dispaccio">
+<section class="section section-cta" id="newsletter">
 	<div class="container container-narrow stack">
-		<h2><?php esc_html_e( 'Un dispaccio a settimana, il giovedì', 'lupin3rd' ); ?></h2>
-		<p class="lead"><?php esc_html_e( 'Tre link commentati e una nota di metodo. Nessun tracciamento nelle email, archivio pubblico, disiscrizione con un clic.', 'lupin3rd' ); ?></p>
+		<h2><?php esc_html_e( 'Newsletter', 'lupin3rd' ); ?></h2>
+		<p class="lead"><?php esc_html_e( 'Mandiamo mediamente un invio a settimana. Nessuna tracciatura, nessun dato condiviso, disiscrizione immediata.', 'lupin3rd' ); ?></p>
 
 		<form class="row row-center" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" data-validate>
 			<input type="hidden" name="action" value="<?php echo esc_attr( Newsletter::ACTION ); ?>">

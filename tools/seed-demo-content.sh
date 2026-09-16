@@ -306,7 +306,7 @@ ensure_post page "chi-siamo" "Chi siamo" "Sei persone, nessun ufficio, una regol
   "<p>Redazione distribuita, server in Islanda, nessun investitore.</p><h2>Tre regole</h2><p>Testo di prova.</p>" >/dev/null
 ensure_post page "linee-guida" "Linee guida" "Cosa ci mandi, come lo trattiamo, cosa succede dopo." \
   "<p>Tre formati, tre aspettative diverse.</p><h2>Cosa deve esserci nel file</h2><p>Testo di prova.</p>" >/dev/null
-ensure_post page "cassetta-sicura" "Cassetta sicura" "Materiale sensibile: solo SecureDrop o email cifrata." \
+ensure_post page "cassetta-sicura" "Come scriverci in modo sicuro" "Materiale sensibile: solo via email cifrata con PGP." \
   "<p>Mai dai commenti, mai da un modulo di contatto.</p><h2>Sei cose, nell'ordine</h2><p>Testo di prova.</p>" >/dev/null
 ensure_post page "struttura" "Struttura del sito" "Come è costruito lupin3rd.org: colophon tecnico." \
   "<p>Tema proprietario, tre tipi di post, tre tassonomie, nessun page builder.</p><h2>Gerarchia dei template</h2><p>Testo di prova.</p>" >/dev/null

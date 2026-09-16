@@ -195,7 +195,7 @@ final class Reply_Notifications {
 
 		$body = sprintf(
 			/* translators: 1: pseudonym of whoever wrote, 2: title of the piece, 3: what they wrote, 4: link to the contribution, 5: link that turns these messages off. */
-			__( "%1\$s ha scritto sotto «%2\$s», dove eri intervenuto anche tu.\n\n«%3\$s»\n\nLeggi e rispondi:\n%4\$s\n\n—\nRicevi questo messaggio perché hai commentato quell'articolo. Per non riceverne più:\n%5\$s", 'lupin3rd' ),
+			__( "%1\$s ha scritto sotto «%2\$s», dove hai commentato anche tu.\n\n«%3\$s»\n\nLeggi e rispondi:\n%4\$s\n\n—\nRicevi questo messaggio perché hai commentato quell'articolo. Per non riceverne più:\n%5\$s", 'lupin3rd' ),
 			Profile_Fields::pseudonym( (int) $comment->user_id ),
 			(string) get_the_title( $post ),
 			wp_trim_words( wp_strip_all_tags( (string) $comment->comment_content ), 40 ),
@@ -208,7 +208,7 @@ final class Reply_Notifications {
 			(string) $user->user_email,
 			sprintf(
 				/* translators: %s: title of the piece. */
-				__( 'Nuovo intervento sotto «%s»', 'lupin3rd' ),
+				__( 'Nuovo commento sotto «%s»', 'lupin3rd' ),
 				(string) get_the_title( $post )
 			),
 			$body,
