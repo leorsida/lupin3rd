@@ -537,10 +537,14 @@ final class Authentication {
 
 	/**
 	 * Which panel the page should open on.
+	 *
+	 * Signing in, unless the URL asks otherwise. Most of the people who arrive
+	 * here already have an account: a new reader opens this page once, everyone
+	 * else opens it every time they come back on a new browser.
 	 */
 	public static function panel(): string {
 		$panel = isset( $_GET[ self::PANEL_VAR ] ) ? sanitize_key( wp_unslash( (string) $_GET[ self::PANEL_VAR ] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Choosing a tab, not acting on it.
 
-		return 'accesso' === $panel ? 'accesso' : 'registrazione';
+		return 'registrazione' === $panel ? 'registrazione' : 'accesso';
 	}
 }

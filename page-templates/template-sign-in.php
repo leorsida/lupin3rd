@@ -95,16 +95,21 @@ $l3_inside = $l3_user instanceof WP_User && $l3_user->exists();
 			<?php else : ?>
 
 				<div class="tabs" role="tablist" aria-label="<?php esc_attr_e( 'Accesso e registrazione', 'lupin3rd' ); ?>" data-tabs hidden>
-					<button class="tab" type="button" role="tab" id="tab-register" aria-controls="pan-register"
-						aria-selected="<?php echo 'registrazione' === $l3_panel ? 'true' : 'false'; ?>"
-						<?php echo 'registrazione' === $l3_panel ? '' : 'tabindex="-1"'; ?>>
-						<?php esc_html_e( 'Crea un account', 'lupin3rd' ); ?>
-					</button>
 					<button class="tab" type="button" role="tab" id="tab-sign-in" aria-controls="pan-sign-in"
 						aria-selected="<?php echo 'accesso' === $l3_panel ? 'true' : 'false'; ?>"
 						<?php echo 'accesso' === $l3_panel ? '' : 'tabindex="-1"'; ?>>
 						<?php esc_html_e( 'Accedi', 'lupin3rd' ); ?>
 					</button>
+					<button class="tab" type="button" role="tab" id="tab-register" aria-controls="pan-register"
+						aria-selected="<?php echo 'registrazione' === $l3_panel ? 'true' : 'false'; ?>"
+						<?php echo 'registrazione' === $l3_panel ? '' : 'tabindex="-1"'; ?>>
+						<?php esc_html_e( 'Crea un account', 'lupin3rd' ); ?>
+					</button>
+				</div>
+
+				<div class="tabpanel" id="pan-sign-in" role="tabpanel" aria-labelledby="tab-sign-in">
+					<h2 data-tab-heading><?php esc_html_e( 'Accedi', 'lupin3rd' ); ?></h2>
+					<?php get_template_part( 'template-parts/auth/form-sign-in' ); ?>
 				</div>
 
 				<div class="tabpanel" id="pan-register" role="tabpanel" aria-labelledby="tab-register">
@@ -118,11 +123,6 @@ $l3_inside = $l3_user instanceof WP_User && $l3_user->exists();
 						<?php
 					}
 					?>
-				</div>
-
-				<div class="tabpanel" id="pan-sign-in" role="tabpanel" aria-labelledby="tab-sign-in">
-					<h2 data-tab-heading><?php esc_html_e( 'Accedi', 'lupin3rd' ); ?></h2>
-					<?php get_template_part( 'template-parts/auth/form-sign-in' ); ?>
 				</div>
 
 			<?php endif; ?>
