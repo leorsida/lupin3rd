@@ -2053,6 +2053,14 @@ a.member {
   border-bottom: 1px solid var(--border);
 }
 
+/* A rule between two contributions separates them. Under the last one it
+ * separates the discussion from the reply card, which opens with a border of
+ * its own — two lines a few pixels apart, which is the same mistake as the one
+ * under the stat grid and the one in the side column. */
+.comment:last-child {
+  border-bottom: 0;
+}
+
 .comment-head {
   display: flex;
   flex-wrap: wrap;

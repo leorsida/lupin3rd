@@ -4,6 +4,11 @@
   display: grid; grid-template-columns: 44px minmax(0, 1fr);
   gap: 16px; padding: 22px 0; border-bottom: 1px solid var(--border);
 }
+/* A rule between two contributions separates them. Under the last one it
+ * separates the discussion from the reply card, which opens with a border of
+ * its own — two lines a few pixels apart, which is the same mistake as the one
+ * under the stat grid and the one in the side column. */
+.comment:last-child { border-bottom: 0; }
 .comment-head { display: flex; flex-wrap: wrap; align-items: center; gap: 9px; margin-bottom: 7px; }
 .comment-name { font-family: var(--font-mono); font-size: 13px; color: var(--fg); }
 .comment-name:hover { text-decoration: underline; text-underline-offset: 3px; }
