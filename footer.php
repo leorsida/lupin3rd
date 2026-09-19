@@ -102,7 +102,7 @@ defined( 'ABSPATH' ) || exit;
 				?>
 				<p class="meta">
 					<a class="link-quiet" href="<?php echo esc_url( home_url( '/privacy/' ) ); ?>" data-consent-open>
-						<?php esc_html_e( 'Preferenze cookie', 'lupin3rd' ); ?>
+						<?php esc_html_e( 'Cookie e privacy', 'lupin3rd' ); ?>
 					</a>
 				</p>
 			</div>

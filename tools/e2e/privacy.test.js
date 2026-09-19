@@ -35,8 +35,22 @@ test('the notice ships its wording as data, not as code', async () => {
 	const json = JSON.parse(block.replace(/^<script[^>]*>/, '').replace(/<\/script>$/, ''));
 
 	assert.ok(json.notice.consentModal.title, 'the notice has no title');
-	assert.ok(json.notice.consentModal.acceptNecessaryBtn, 'the notice has no way to refuse');
-	assert.ok(json.notice.consentModal.showPreferencesBtn, 'the notice has no way into the panel');
+	assert.ok(json.notice.consentModal.acceptNecessaryBtn, 'the notice cannot be dismissed');
+	assert.ok(json.notice.consentModal.showPreferencesBtn, 'the notice has no way into the table');
+});
+
+test('the notice claims no optional storage', async () => {
+	/*
+	 * The day something optional is stored, this fails — and it should, because
+	 * on that day the notice has to start asking instead of stating.
+	 */
+	const html = await page('/');
+	const block = element(html, /<script[^>]*id="l3-consent-config"/);
+	const json = JSON.parse(block.replace(/^<script[^>]*>/, '').replace(/<\/script>$/, ''));
+	const linked = json.notice.preferencesModal.sections.map((s) => s.linkedCategory).filter(Boolean);
+
+	assert.deepEqual(linked, ['necessary'], `the panel offers a choice: ${linked.join(', ')}`);
+	assert.ok(!json.notice.consentModal.acceptAllBtn, 'the notice offers to accept something');
 });
 
 test('the panel carries the cookie table, and it matches the privacy page', async () => {
@@ -52,7 +66,6 @@ test('the panel carries the cookie table, and it matches the privacy page', asyn
 
 	assert.ok(necessary, 'the panel has no necessary row');
 	assert.ok(necessary.cookieTable.body.length > 0, 'the necessary row lists no cookies');
-	assert.ok(sections.some((s) => s.linkedCategory === 'embeds'), 'the panel has no embeds row');
 
 	const privacy = await page('/privacy/');
 

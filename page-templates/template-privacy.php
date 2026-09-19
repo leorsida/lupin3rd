@@ -142,7 +142,7 @@ the_post();
 					</tr>
 					<tr>
 						<td><code>l3_consent</code></td>
-						<td><?php esc_html_e( 'Ricorda la risposta che hai dato all\'avviso sui riquadri incorporati.', 'lupin3rd' ); ?></td>
+						<td><?php esc_html_e( 'Ricorda che hai già visto l\'avviso, così non te lo riproponiamo a ogni pagina.', 'lupin3rd' ); ?></td>
 						<td><?php esc_html_e( '180 giorni', 'lupin3rd' ); ?></td>
 					</tr>
 					<tr>
@@ -154,7 +154,7 @@ the_post();
 			</table>
 
 			<h3><?php esc_html_e( 'Riquadri incorporati', 'lupin3rd' ); ?></h3>
-			<p><?php esc_html_e( 'Ogni tanto un articolo incorpora qualcosa che sta altrove — un video, una mappa, un documento. Quel riquadro, per caricarsi, fa sapere a chi lo ospita che sei su questa pagina, e da lì in poi vale la privacy di quel sito, non la nostra. Per questo non lo carichiamo da soli: al suo posto trovi un riquadro vuoto che dice quale dominio verrebbe contattato, e decidi tu. Puoi permetterli tutti dall\'avviso, o caricarne uno alla volta senza che venga ricordato.', 'lupin3rd' ); ?></p>
+			<p><?php esc_html_e( 'Ogni tanto un articolo incorpora qualcosa che sta altrove — un video, una mappa, un documento. Quel riquadro, per caricarsi, fa sapere a chi lo ospita che sei su questa pagina, e da lì in poi vale la privacy di quel sito, non la nostra. Per questo non lo carichiamo da soli: al suo posto trovi un riquadro vuoto che dice quale dominio verrebbe contattato. Se vuoi vederlo lo carichi tu, quella volta soltanto: non esiste un\'opzione per permetterli tutti, perché non vogliamo ricordarci una scelta del genere al posto tuo.', 'lupin3rd' ); ?></p>
 
 			<h2><?php esc_html_e( 'Per quanto tempo', 'lupin3rd' ); ?></h2>
 			<ul>
@@ -173,11 +173,11 @@ the_post();
 
 		<aside>
 			<div class="widget">
-				<p class="widget-title"><?php esc_html_e( 'Le tue scelte', 'lupin3rd' ); ?></p>
-				<p class="widget-note"><?php esc_html_e( 'L\'avviso sui riquadri incorporati si riapre quando vuoi, e la risposta che dai vale da subito.', 'lupin3rd' ); ?></p>
+				<p class="widget-title"><?php esc_html_e( 'Cosa resta nel browser', 'lupin3rd' ); ?></p>
+				<p class="widget-note"><?php esc_html_e( 'L\'avviso con l\'elenco completo di quello che resta nel tuo browser si riapre quando vuoi.', 'lupin3rd' ); ?></p>
 				<p>
 					<button class="btn btn-secondary btn-sm" type="button" data-consent-open hidden>
-						<?php esc_html_e( 'Rivedi le preferenze', 'lupin3rd' ); ?>
+						<?php esc_html_e( 'Rivedi l\'avviso', 'lupin3rd' ); ?>
 					</button>
 				</p>
 			</div>

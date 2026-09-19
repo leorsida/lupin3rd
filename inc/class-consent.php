@@ -14,29 +14,25 @@ defined( 'ABSPATH' ) || exit;
  * surveillance it is the worst kind: it performs a concern the rest of the
  * page is built to make unnecessary.
  *
- * So this one governs something real. There is exactly one optional category —
- * third-party embeds — and it is enforced rather than declared: an `<iframe>`
- * pointing somewhere else is replaced, server-side, with a placeholder that
- * names the host it would have contacted. Nothing is fetched until the reader
- * says so. Everything else the site stores — the session, the comment fields a
- * reader asked to be remembered, the theme switch — is strictly necessary or
- * set by an explicit action, and is described on /privacy/ rather than put
- * behind a button that only ever gets one answer.
+ * This site writes nothing optional. Everything in the cookie table is either
+ * required for the page to work or the direct result of an action the reader
+ * took — signing in, ticking «ricorda», switching the theme. There is nothing
+ * to consent to, so the notice does not pretend to ask: it states what is
+ * stored, offers the table behind a button, and takes an acknowledgement.
  *
- * There is still a preferences panel, and it is not there for the look of it:
- * it is where the cookie table lives. A reader who wants to know what is
- * stored before answering should not have to leave the notice to find out, and
- * a panel listing a category without saying what it writes would be the
- * checkbox theatre described above with extra steps.
+ * Third-party frames are handled without a category, because a category would
+ * imply the alternative is loading them. `gate_embeds()` replaces every
+ * `<iframe>` pointing at another host with a placeholder naming that host,
+ * server-side, before the HTML is sent. A reader who wants one loads that one,
+ * and nothing is remembered: the next page asks again. That is stricter than
+ * any answer a banner could have collected, and it costs the reader one click
+ * on the rare page that has an embed at all.
+ *
+ * @package Lupin3rd
  */
 final class Consent {
 
 	use Singleton;
-
-	/**
-	 * Category the embeds belong to. Matches the name used in the bundle.
-	 */
-	public const CATEGORY_EMBEDS = 'embeds';
 
 	/**
 	 * Attach hooks.
@@ -71,23 +67,21 @@ final class Consent {
 	}
 
 	/**
-	 * The notice itself: three buttons, because the third one is the only
-	 * honest way to offer the middle answer.
+	 * The notice itself: a statement and two controls.
 	 *
-	 * Accepting and refusing are both one click. «Personalizza» opens the panel
-	 * below, which is where the cookie table lives — and a reader who wants to
-	 * know what is stored before answering should not have to leave the notice
-	 * to find out.
+	 * There is no «accept» because there is nothing to accept — only one button
+	 * that dismisses the notice, and one that opens the table. A banner that
+	 * offered a refusal here would be offering to stop doing something the site
+	 * is not doing.
 	 *
 	 * @return array<string, string>
 	 */
 	private function consent_modal(): array {
 		return array(
-			'title'              => __( 'Un riquadro ospitato altrove', 'lupin3rd' ),
-			'description'        => __( 'Questo sito non profila e non ha terze parti nelle sue pagine. L\'unica eccezione possibile è un riquadro incorporato dentro un articolo — un video, una mappa — che, per caricarsi, fa sapere a chi lo ospita che sei qui. Puoi permetterlo una volta per tutte, o lasciarlo bloccato e decidere riquadro per riquadro.', 'lupin3rd' ),
-			'acceptAllBtn'       => __( 'Permetti i riquadri', 'lupin3rd' ),
-			'acceptNecessaryBtn' => __( 'Lasciali bloccati', 'lupin3rd' ),
-			'showPreferencesBtn' => __( 'Personalizza', 'lupin3rd' ),
+			'title'              => __( 'Solo cookie tecnici', 'lupin3rd' ),
+			'description'        => __( 'Questo sito non profila, non misura e non ha terze parti nelle sue pagine. Gli unici dati che restano nel tuo browser servono a farlo funzionare o sono il risultato di qualcosa che hai chiesto tu: entrare, farti ricordare il nome nei commenti, scegliere il tema scuro. Non c\'è niente da accettare e niente da rifiutare — puoi vedere l\'elenco completo, se ti va.', 'lupin3rd' ),
+			'acceptNecessaryBtn' => __( 'Ho capito', 'lupin3rd' ),
+			'showPreferencesBtn' => __( 'Vedi quali', 'lupin3rd' ),
 			'footer'             => sprintf(
 				'<a href="%s">%s</a>',
 				esc_url( home_url( '/privacy/' ) ),
@@ -97,30 +91,26 @@ final class Consent {
 	}
 
 	/**
-	 * The panel behind «Personalizza».
+	 * The panel behind «Vedi quali».
 	 *
-	 * Two rows, because the site has two categories and one of them cannot be
-	 * switched off. The table under the first row is the same one printed on
-	 * /privacy/: shown here because this is where somebody is deciding, and
-	 * because a panel that lists a category without saying what it stores is
-	 * the checkbox theatre this notice is meant to avoid.
+	 * One row, and its switch cannot move: that is the honest shape of a site
+	 * with no optional storage. What the panel is really for is the table
+	 * underneath it, which is the same one printed on /privacy/ — shown here
+	 * because this is where somebody is looking.
 	 *
 	 * @return array<string, mixed>
 	 */
 	private function preferences_modal(): array {
 		return array(
-			'title'               => __( 'Cosa resta nel tuo browser', 'lupin3rd' ),
-			'acceptAllBtn'        => __( 'Permetti tutto', 'lupin3rd' ),
-			'acceptNecessaryBtn'  => __( 'Solo il necessario', 'lupin3rd' ),
-			'savePreferencesBtn'  => __( 'Salva le mie scelte', 'lupin3rd' ),
-			'closeIconLabel'      => __( 'Chiudi', 'lupin3rd' ),
-			'serviceCounterLabel' => __( 'servizio|servizi', 'lupin3rd' ),
-			'sections'            => array(
+			'title'              => __( 'Cosa resta nel tuo browser', 'lupin3rd' ),
+			'acceptNecessaryBtn' => __( 'Chiudi', 'lupin3rd' ),
+			'closeIconLabel'     => __( 'Chiudi', 'lupin3rd' ),
+			'sections'           => array(
 				array(
 					'title'       => __( 'In due righe', 'lupin3rd' ),
 					'description' => sprintf(
 						/* translators: %s: link to the privacy page. */
-						__( 'Niente analitica, niente pubblicità, nessuno script di terze parti. C\'è una sola cosa da decidere, ed è qui sotto. Il resto è spiegato per esteso in %s.', 'lupin3rd' ),
+						__( 'Niente analitica, niente pubblicità, nessuno script di terze parti. Non c\'è nessuna casella da spuntare perché non c\'è niente di facoltativo: quello che segue è tutto necessario. Il resto è spiegato per esteso in %s.', 'lupin3rd' ),
 						sprintf(
 							'<a href="%s" class="cc__link">%s</a>',
 							esc_url( home_url( '/privacy/' ) ),
@@ -135,13 +125,8 @@ final class Consent {
 					'cookieTable'    => $this->cookie_table(),
 				),
 				array(
-					'title'          => __( 'Riquadri incorporati', 'lupin3rd' ),
-					'description'    => __( 'Ogni tanto un articolo incorpora un video o una mappa che sta altrove. Quel riquadro, per caricarsi, fa sapere a chi lo ospita che sei su questa pagina. Se lasci questo interruttore spento, al suo posto trovi un segnaposto che dice quale dominio verrebbe contattato, e decidi tu riquadro per riquadro.', 'lupin3rd' ),
-					'linkedCategory' => self::CATEGORY_EMBEDS,
-				),
-				array(
-					'title'       => __( 'Ripensarci', 'lupin3rd' ),
-					'description' => __( 'Questo pannello si riapre dal fondo di ogni pagina, e la risposta che dai vale da subito. Cancellare i cookie del sito dal tuo browser riporta tutto al punto di partenza.', 'lupin3rd' ),
+					'title'       => __( 'I riquadri che stanno altrove', 'lupin3rd' ),
+					'description' => __( 'Quando un articolo incorpora un video o una mappa ospitati da un altro sito, non li carichiamo: al loro posto trovi un segnaposto che dice quale dominio verrebbe contattato. Se vuoi vederlo lo carichi tu, quella volta soltanto. Non c\'è un interruttore perché non c\'è una scelta da ricordare.', 'lupin3rd' ),
 				),
 			),
 		);
@@ -180,7 +165,7 @@ final class Consent {
 				),
 				array(
 					'name' => 'l3_consent',
-					'desc' => __( 'Ricorda la risposta che stai dando adesso.', 'lupin3rd' ),
+					'desc' => __( 'Ricorda che hai già visto questo avviso, per non riproportelo a ogni pagina.', 'lupin3rd' ),
 					'dur'  => __( '180 giorni', 'lupin3rd' ),
 				),
 				array(

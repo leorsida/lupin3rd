@@ -524,48 +524,50 @@ Sending happens on a scheduled event, not in the request that posted the
 comment: thirty participants would otherwise be thirty `wp_mail()` calls between
 «Invia» and the page coming back.
 
-## D-029 — The notice governs one thing, and that thing is enforced
+## D-029 — The notice states, it does not ask
 
 **Decided:** 19.09.2026 · **Status:** accepted · **Phase:** privacy
 
 `orestbida/cookieconsent` 3.1.0 is vendored into `src/js/vendor/` (MIT, licence
-beside it), with a single optional category: `embeds`.
+beside it) with **one category, `necessary`, read-only**. The notice is a
+full-width bar along the bottom carrying two controls: one that dismisses it,
+one that opens the table of what is stored.
 
-The question a banner is supposed to ask is «may we do this thing to you». On
-this site there is exactly one such thing: an `<iframe>` inside an article that
-would tell another host you are reading this page. Everything else stored here
-is the session, the comment fields somebody ticked a box to keep, and the theme
-switch — necessary, or already an explicit action. A category for those is a
-question with one answer, which is the kind of banner this magazine writes
-about.
+The site writes nothing optional. Everything in that table is either required
+for the page to work or the direct result of an action the reader took —
+signing in, ticking «ricorda», switching the theme. A banner with a switch on
+it would be claiming there is a decision here, and there is not.
 
-So the one category is enforced rather than declared. `Consent::gate_embeds()`
-rewrites the content server-side before it is sent, which means a reader who
-blocks JavaScript, or who never answers the notice, still never contacts the
-third party. A banner that sets a flag some script is supposed to respect is a
-promise; a frame that was never in the HTML is a fact.
+Third-party frames were briefly an optional category and are not one any more.
+`Consent::gate_embeds()` still replaces every `<iframe>` pointing at another
+host with a placeholder naming it, server-side, before the HTML is sent — but
+there is no «allow them all», so a frame loads only when a reader asks for that
+frame, and nothing about it is remembered. That is stricter than any answer the
+banner could have collected, and it removes the one thing the banner would have
+had to store a decision about.
 
 Two consequences worth stating:
 
-- **Loading one frame remembers nothing.** `data-embed-show` restores that
-  placeholder and no other, and writes no cookie. The next page asks again.
-- **The preferences panel stays**, and the notice keeps its third button. One
-  category makes the panel's *switches* redundant — but the panel is also where
-  the cookie table lives, and a reader who wants to know what is stored before
-  answering should not have to leave the notice to find out. It costs ~17KB of
-  CSS, which is what the honest version of this notice is worth. The two colour
-  schemes are still left out: `_cookieconsent.scss` remaps `--cc-*` onto the
-  theme tokens under `#cc-main`, so the notice follows the reader's own switch
-  instead of carrying its own palette.
-- **The table is duplicated on purpose**, here and on `/privacy/`, and nothing
-  keeps the two in step but `17-privacy.md`. Generating one from the other
-  would mean the page's prose and the panel's rows sharing a structure neither
-  of them wants.
+- **The panel behind «Vedi quali» stays**, even though its single switch cannot
+  move, because the panel is where the cookie table lives and a reader looking
+  at the notice should not have to leave it to find out what is stored. It
+  costs ~17KB of CSS, which is what the honest version is worth. The library's
+  two colour schemes are still left out: `#cc-main` is remapped onto the theme
+  tokens, so the notice follows the reader's own light/dark switch.
+- **The table is duplicated on purpose**, in `Consent::cookie_table()` and on
+  `/privacy/`, and nothing keeps the two in step but `17-privacy.md` and one
+  assertion in `privacy.test.js`. Generating one from the other would mean the
+  page's prose and the panel's rows sharing a structure neither of them wants.
 
 The wording travels in a `<script type="application/json">` block rather than
 an inline `wp_add_inline_script()`: a JSON block is not executed, so a
 hash-based `script-src` never has to account for it — and its hash would
 otherwise change with every translated string.
+
+**Superseded:** the first version of this decision gave the notice an optional
+`embeds` category and three buttons. It was replaced the same day, on the
+grounds above: a category is a promise that the alternative is on offer, and
+loading third-party frames wholesale never was.
 
 ## D-030 — The privacy page is a template, not editable copy
 

@@ -8,35 +8,35 @@ sources: [`page-templates/template-privacy.php`, `inc/class-consent.php`, `src/j
 
 # The privacy page, and the notice
 
-Two things that look like compliance furniture and are not. The page is
-written from the code, and the notice governs exactly one thing that would
-otherwise happen without asking.
+Two things that look like compliance furniture and are not. The page is written
+from the code, and the notice does not ask a question it has no right to ask.
 
-## The one question worth asking
+## The notice states, it does not ask
 
-A consent notice on a site whose subject is surveillance has to be honest or
-it is worse than nothing. This one has a single optional category, `embeds`,
-and it is **enforced server-side rather than declared**: `Consent::gate_embeds()`
+A consent notice on a site whose subject is surveillance has to be honest or it
+is worse than nothing. This one has **one category, `necessary`, read-only**,
+because the site writes nothing optional: everything in its table is required
+for the page to work or is the direct result of an action the reader took —
+signing in, ticking «ricorda», switching the theme. A switch would be claiming
+there is a decision here.
+
+So the bar along the bottom of the page carries two controls: **Ho capito**,
+which dismisses it, and **Vedi quali**, which opens the panel. The panel's one
+switch cannot move; what earns it its place is the **cookie table** inside it,
+naming everything the site writes. A reader looking at the notice should not
+have to leave it to find that out.
+
+Third-party frames are handled **without a category**. `Consent::gate_embeds()`
 runs on `the_content` at priority 20 — after blocks and after WordPress has
 expanded its own oEmbeds — and replaces every `<iframe>` pointing at another
-host with a placeholder naming that host. Nothing is fetched until a reader
-says so.
+host with a placeholder naming that host, server-side. There is no «allow them
+all»: a frame loads when a reader asks for that frame, and nothing about it is
+remembered, so the next page asks again. A category would have implied the
+wholesale alternative was on offer.
 
-Everything else the site stores is either strictly necessary or the direct
-result of an action the reader took (ticking «remember me», switching the
-theme, signing in). Putting those behind a button that only ever gets one
-answer is the theatre the page is meant to avoid, so they are described on
-`/privacy/` instead.
-
-The notice has three buttons — allow, refuse, **Personalizza** — and the third
-opens the preferences panel. With one optional category the panel's switches are
-nearly redundant; what earns it its place is the **cookie table** inside it,
-naming every cookie the site writes. A reader deciding should not have to leave
-the notice to find out what is stored.
-
-`src/sass/vendor/_cookieconsent.scss` therefore carries three of the library's
-five stylesheets — base, consent modal, preferences modal — byte for byte as
-npm ships them, newlines stripped. The two colour schemes are the ones left out:
+`src/sass/vendor/_cookieconsent.scss` carries three of the library's five
+stylesheets — base, consent modal, preferences modal — byte for byte as npm
+ships them, newlines stripped. The two colour schemes are the ones left out:
 the block underneath remaps `--cc-*` onto the theme tokens under `#cc-main`, so
 the notice follows the reader's own light/dark switch rather than carrying its
 own palette.
@@ -49,7 +49,7 @@ own palette.
 | `l3-consent-config` | `wp_footer` | `<script type="application/json">` — not executed, so a hash-based `script-src` never has to account for it, and the hash would otherwise change with every translated string |
 | `initConsent()` | `src/js/modules/consent.js` | runs the library, restores gated embeds, reopens the notice |
 | vendored library | `src/js/vendor/cookieconsent.js` | `orestbida/cookieconsent` 3.1.0, MIT, licence beside it |
-| `l3_consent` | cookie, 180 days, `SameSite=Lax` | the answer, and nothing else |
+| `l3_consent` | cookie, 180 days, `SameSite=Lax` | that the notice was seen, and nothing else |
 
 The panel's cookie table is built by `Consent::cookie_table()` and duplicates
 the one on `/privacy/`. Nothing enforces the match — change one, change both.
@@ -59,7 +59,7 @@ the one on `/privacy/`. Nothing enforces the match — change one, change both.
 | Attribute | On | Meaning |
 |---|---|---|
 | `data-embed-gate` | the placeholder | holds `data-embed-host` and `data-embed` (the original iframe, base64 so quotes survive the attribute) |
-| `data-embed-show` | its button | load **this** frame, once, remembering nothing |
+| `data-embed-show` | its button | load **this** frame, once, remembering nothing — the only way a frame ever loads |
 | `data-consent-open` | footer link, privacy-page button | reopen the notice; the button ships `hidden` and the module unhides it, the footer's is a real link to `/privacy/` and is only intercepted |
 
 ## Why the page is a template and not editable copy

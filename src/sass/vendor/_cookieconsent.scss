@@ -75,6 +75,10 @@
   box-shadow: none;
   font-family: var(--font-body);
 }
+/* Full width along the bottom: only the top edge is a border, or the bar draws
+ * a box around the viewport. */
+#cc-main .cm--bar { border-left: 0; border-right: 0; border-bottom: 0; }
+#cc-main .cm--bar .cm__body { padding-block: var(--gap-sm); }
 #cc-main .cm__title { font-family: var(--font-display); font-weight: 400; }
 #cc-main .cm__desc { font-size: 13.5px; }
 #cc-main .cm__btn {

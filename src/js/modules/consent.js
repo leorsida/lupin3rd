@@ -1,20 +1,19 @@
 /*
- * The cookie notice, and the embeds it governs.
+ * The cookie notice, and the frames it keeps out.
  *
- * The notice exists to answer one question — may a third-party frame be
- * fetched — because that is the only question this site has to ask. Everything
- * else it stores is the session, the comment fields somebody ticked a box to
- * have remembered, and the theme switch: necessary, or chosen by an action.
- * Asking about those would be asking a question with one answer.
+ * The notice asks nothing, because this site stores nothing optional:
+ * everything in its table is required for the page to work or is the result of
+ * something the reader did — signing in, ticking «ricorda», switching the
+ * theme. So it states, and takes an acknowledgement. The panel behind «Vedi
+ * quali» has one row that cannot be switched off, and exists for the table
+ * inside it.
  *
- * So the panel behind «Personalizza» has two rows and one usable switch. What
- * earns it its place is the cookie table inside it: the same one on /privacy/,
- * put where somebody is actually deciding.
+ * Third-party frames are not a category. PHP has already replaced each one
+ * with a placeholder before this file runs; this module only restores the one
+ * a reader asks for, and remembers nothing about it.
  */
 
 import * as CookieConsent from '../vendor/cookieconsent.js';
-
-const EMBEDS = 'embeds';
 
 /** Put one gated embed back, from the markup PHP parked in the attribute. */
 const reveal = (gate) => {
@@ -38,10 +37,6 @@ const reveal = (gate) => {
 	if (iframe) {
 		gate.replaceWith(iframe);
 	}
-};
-
-const revealAll = () => {
-	document.querySelectorAll('[data-embed-gate]').forEach(reveal);
 };
 
 const readConfig = () => {
@@ -80,29 +75,19 @@ export default function initConsent() {
 		}
 	});
 
-	document.addEventListener('cc:onConsent', () => {
-		if (CookieConsent.acceptedCategory(EMBEDS)) {
-			revealAll();
-		}
-	});
-
-	document.addEventListener('cc:onChange', () => {
-		if (CookieConsent.acceptedCategory(EMBEDS)) {
-			revealAll();
-		}
-	});
-
 	CookieConsent.run({
 		autoShow: true,
 		disablePageInteraction: false,
 		cookie: { name: 'l3_consent', expiresAfterDays: 180, sameSite: 'Lax' },
 		guiOptions: {
-			consentModal: { layout: 'box wide', position: 'bottom left', equalWeightButtons: true, flipButtons: false },
+			/* Full width along the bottom: a statement belongs across the page,
+			 * not in a corner where it reads as something to dismiss. `inline`
+			 * puts the two buttons beside the text instead of under it. */
+			consentModal: { layout: 'bar inline', position: 'bottom', equalWeightButtons: true, flipButtons: false },
 			preferencesModal: { layout: 'box', equalWeightButtons: true, flipButtons: false },
 		},
 		categories: {
 			necessary: { enabled: true, readOnly: true },
-			[EMBEDS]: { enabled: false },
 		},
 		language: {
 			default: config.locale || 'it',
