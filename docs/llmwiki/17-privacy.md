@@ -28,11 +28,18 @@ theme, signing in). Putting those behind a button that only ever gets one
 answer is the theatre the page is meant to avoid, so they are described on
 `/privacy/` instead.
 
-One optional category also means **no preferences modal**: two buttons say what
-a page of checkboxes would, and the modal's stylesheet is ~16KB this site does
-not send. `src/sass/vendor/_cookieconsent.scss` therefore carries the base and
-the consent modal only, and remaps `--cc-*` onto the theme tokens under
-`#cc-main` rather than shipping a scheme file.
+The notice has three buttons — allow, refuse, **Personalizza** — and the third
+opens the preferences panel. With one optional category the panel's switches are
+nearly redundant; what earns it its place is the **cookie table** inside it,
+naming every cookie the site writes. A reader deciding should not have to leave
+the notice to find out what is stored.
+
+`src/sass/vendor/_cookieconsent.scss` therefore carries three of the library's
+five stylesheets — base, consent modal, preferences modal — byte for byte as
+npm ships them, newlines stripped. The two colour schemes are the ones left out:
+the block underneath remaps `--cc-*` onto the theme tokens under `#cc-main`, so
+the notice follows the reader's own light/dark switch rather than carrying its
+own palette.
 
 ## Moving parts
 
@@ -43,6 +50,9 @@ the consent modal only, and remaps `--cc-*` onto the theme tokens under
 | `initConsent()` | `src/js/modules/consent.js` | runs the library, restores gated embeds, reopens the notice |
 | vendored library | `src/js/vendor/cookieconsent.js` | `orestbida/cookieconsent` 3.1.0, MIT, licence beside it |
 | `l3_consent` | cookie, 180 days, `SameSite=Lax` | the answer, and nothing else |
+
+The panel's cookie table is built by `Consent::cookie_table()` and duplicates
+the one on `/privacy/`. Nothing enforces the match — change one, change both.
 
 `data-*` contract (also in `07-js-contract.md`):
 
@@ -65,7 +75,8 @@ Wording changes go through `languages/`, like every other string.
 Anything here is a claim the page makes. Break one and the page is wrong until
 somebody edits it.
 
-- **A new cookie, or a changed lifetime.** The table lists `wordpress_logged_in_*`,
+- **A new cookie, or a changed lifetime.** Two tables now: the page's, and
+  `Consent::cookie_table()` behind «Personalizza». Both list `wordpress_logged_in_*`,
   `wordpress_sec_*`, `l3_hint` (14 days), `comment_author_*`, `l3_consent`
   (180 days) and `l3-theme` (localStorage, described as not a cookie).
 - **A new field on the account.** The page says the site asks for a pseudonym,

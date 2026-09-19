@@ -23,9 +23,11 @@ defined( 'ABSPATH' ) || exit;
  * set by an explicit action, and is described on /privacy/ rather than put
  * behind a button that only ever gets one answer.
  *
- * One optional category also means no preferences panel: two buttons say what
- * a page of checkboxes would, and the panel's stylesheet is 16KB this site
- * does not send.
+ * There is still a preferences panel, and it is not there for the look of it:
+ * it is where the cookie table lives. A reader who wants to know what is
+ * stored before answering should not have to leave the notice to find out, and
+ * a panel listing a category without saying what it writes would be the
+ * checkbox theatre described above with extra steps.
  */
 final class Consent {
 
@@ -57,23 +59,136 @@ final class Consent {
 		$config = array(
 			'locale' => substr( I18n::instance()->language(), 0, 2 ),
 			'notice' => array(
-				'consentModal' => array(
-					'title'              => __( 'Un riquadro ospitato altrove', 'lupin3rd' ),
-					'description'        => __( 'Questo sito non profila e non ha terze parti nelle sue pagine. L\'unica eccezione possibile è un riquadro incorporato dentro un articolo — un video, una mappa — che, per caricarsi, fa sapere a chi lo ospita che sei qui. Puoi permetterlo una volta per tutte, o lasciarlo bloccato e decidere riquadro per riquadro.', 'lupin3rd' ),
-					'acceptAllBtn'       => __( 'Permetti i riquadri', 'lupin3rd' ),
-					'acceptNecessaryBtn' => __( 'Lasciali bloccati', 'lupin3rd' ),
-					'footer'             => sprintf(
-						'<a href="%s">%s</a>',
-						esc_url( home_url( '/privacy/' ) ),
-						esc_html__( 'Cosa conserviamo, e cosa no', 'lupin3rd' )
-					),
-				),
+				'consentModal'     => $this->consent_modal(),
+				'preferencesModal' => $this->preferences_modal(),
 			),
 		);
 
 		printf(
 			'<script type="application/json" id="l3-consent-config">%s</script>' . "\n",
 			wp_json_encode( $config ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- JSON, in a block that is read and never executed.
+		);
+	}
+
+	/**
+	 * The notice itself: three buttons, because the third one is the only
+	 * honest way to offer the middle answer.
+	 *
+	 * Accepting and refusing are both one click. «Personalizza» opens the panel
+	 * below, which is where the cookie table lives — and a reader who wants to
+	 * know what is stored before answering should not have to leave the notice
+	 * to find out.
+	 *
+	 * @return array<string, string>
+	 */
+	private function consent_modal(): array {
+		return array(
+			'title'              => __( 'Un riquadro ospitato altrove', 'lupin3rd' ),
+			'description'        => __( 'Questo sito non profila e non ha terze parti nelle sue pagine. L\'unica eccezione possibile è un riquadro incorporato dentro un articolo — un video, una mappa — che, per caricarsi, fa sapere a chi lo ospita che sei qui. Puoi permetterlo una volta per tutte, o lasciarlo bloccato e decidere riquadro per riquadro.', 'lupin3rd' ),
+			'acceptAllBtn'       => __( 'Permetti i riquadri', 'lupin3rd' ),
+			'acceptNecessaryBtn' => __( 'Lasciali bloccati', 'lupin3rd' ),
+			'showPreferencesBtn' => __( 'Personalizza', 'lupin3rd' ),
+			'footer'             => sprintf(
+				'<a href="%s">%s</a>',
+				esc_url( home_url( '/privacy/' ) ),
+				esc_html__( 'Cosa conserviamo, e cosa no', 'lupin3rd' )
+			),
+		);
+	}
+
+	/**
+	 * The panel behind «Personalizza».
+	 *
+	 * Two rows, because the site has two categories and one of them cannot be
+	 * switched off. The table under the first row is the same one printed on
+	 * /privacy/: shown here because this is where somebody is deciding, and
+	 * because a panel that lists a category without saying what it stores is
+	 * the checkbox theatre this notice is meant to avoid.
+	 *
+	 * @return array<string, mixed>
+	 */
+	private function preferences_modal(): array {
+		return array(
+			'title'               => __( 'Cosa resta nel tuo browser', 'lupin3rd' ),
+			'acceptAllBtn'        => __( 'Permetti tutto', 'lupin3rd' ),
+			'acceptNecessaryBtn'  => __( 'Solo il necessario', 'lupin3rd' ),
+			'savePreferencesBtn'  => __( 'Salva le mie scelte', 'lupin3rd' ),
+			'closeIconLabel'      => __( 'Chiudi', 'lupin3rd' ),
+			'serviceCounterLabel' => __( 'servizio|servizi', 'lupin3rd' ),
+			'sections'            => array(
+				array(
+					'title'       => __( 'In due righe', 'lupin3rd' ),
+					'description' => sprintf(
+						/* translators: %s: link to the privacy page. */
+						__( 'Niente analitica, niente pubblicità, nessuno script di terze parti. C\'è una sola cosa da decidere, ed è qui sotto. Il resto è spiegato per esteso in %s.', 'lupin3rd' ),
+						sprintf(
+							'<a href="%s" class="cc__link">%s</a>',
+							esc_url( home_url( '/privacy/' ) ),
+							esc_html__( 'pagina privacy', 'lupin3rd' )
+						)
+					),
+				),
+				array(
+					'title'          => __( 'Strettamente necessari', 'lupin3rd' ),
+					'description'    => __( 'Senza questi il sito non funziona, o dimentica qualcosa che gli hai chiesto di ricordare. Nessuno di loro serve a profilare, e nessuno appartiene a un altro dominio.', 'lupin3rd' ),
+					'linkedCategory' => 'necessary',
+					'cookieTable'    => $this->cookie_table(),
+				),
+				array(
+					'title'          => __( 'Riquadri incorporati', 'lupin3rd' ),
+					'description'    => __( 'Ogni tanto un articolo incorpora un video o una mappa che sta altrove. Quel riquadro, per caricarsi, fa sapere a chi lo ospita che sei su questa pagina. Se lasci questo interruttore spento, al suo posto trovi un segnaposto che dice quale dominio verrebbe contattato, e decidi tu riquadro per riquadro.', 'lupin3rd' ),
+					'linkedCategory' => self::CATEGORY_EMBEDS,
+				),
+				array(
+					'title'       => __( 'Ripensarci', 'lupin3rd' ),
+					'description' => __( 'Questo pannello si riapre dal fondo di ogni pagina, e la risposta che dai vale da subito. Cancellare i cookie del sito dal tuo browser riporta tutto al punto di partenza.', 'lupin3rd' ),
+				),
+			),
+		);
+	}
+
+	/**
+	 * What the necessary category actually writes.
+	 *
+	 * Kept in step with the table on /privacy/ by hand: see
+	 * `docs/llmwiki/17-privacy.md`, which lists both places.
+	 *
+	 * @return array<string, mixed>
+	 */
+	private function cookie_table(): array {
+		return array(
+			'headers' => array(
+				'name' => __( 'Nome', 'lupin3rd' ),
+				'desc' => __( 'A cosa serve', 'lupin3rd' ),
+				'dur'  => __( 'Durata', 'lupin3rd' ),
+			),
+			'body'    => array(
+				array(
+					'name' => 'wordpress_logged_in_*',
+					'desc' => __( 'Ti tiene connesso. Scritto solo se accedi.', 'lupin3rd' ),
+					'dur'  => __( 'fino a 14 giorni', 'lupin3rd' ),
+				),
+				array(
+					'name' => 'l3_hint',
+					'desc' => __( 'Dice alla testata come chiamarti e quale avatar disegnare. Non autorizza niente.', 'lupin3rd' ),
+					'dur'  => __( '14 giorni', 'lupin3rd' ),
+				),
+				array(
+					'name' => 'comment_author_*',
+					'desc' => __( 'Ricorda pseudonimo ed email nel modulo dei commenti, se spunti quella casella.', 'lupin3rd' ),
+					'dur'  => __( 'circa un anno', 'lupin3rd' ),
+				),
+				array(
+					'name' => 'l3_consent',
+					'desc' => __( 'Ricorda la risposta che stai dando adesso.', 'lupin3rd' ),
+					'dur'  => __( '180 giorni', 'lupin3rd' ),
+				),
+				array(
+					'name' => 'l3-theme',
+					'desc' => __( 'Il tema chiaro o scuro che hai scelto. Resta nel tuo browser e non viene mai spedito al server.', 'lupin3rd' ),
+					'dur'  => __( 'finché non lo cancelli', 'lupin3rd' ),
+				),
+			),
 		);
 	}
 

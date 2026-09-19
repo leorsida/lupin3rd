@@ -36,6 +36,29 @@ test('the notice ships its wording as data, not as code', async () => {
 
 	assert.ok(json.notice.consentModal.title, 'the notice has no title');
 	assert.ok(json.notice.consentModal.acceptNecessaryBtn, 'the notice has no way to refuse');
+	assert.ok(json.notice.consentModal.showPreferencesBtn, 'the notice has no way into the panel');
+});
+
+test('the panel carries the cookie table, and it matches the privacy page', async () => {
+	/*
+	 * The panel's rows and the page's table are written in two places and kept
+	 * in step by hand. This is the only thing that notices when they drift.
+	 */
+	const html = await page('/');
+	const block = element(html, /<script[^>]*id="l3-consent-config"/);
+	const json = JSON.parse(block.replace(/^<script[^>]*>/, '').replace(/<\/script>$/, ''));
+	const sections = json.notice.preferencesModal.sections;
+	const necessary = sections.find((s) => s.linkedCategory === 'necessary');
+
+	assert.ok(necessary, 'the panel has no necessary row');
+	assert.ok(necessary.cookieTable.body.length > 0, 'the necessary row lists no cookies');
+	assert.ok(sections.some((s) => s.linkedCategory === 'embeds'), 'the panel has no embeds row');
+
+	const privacy = await page('/privacy/');
+
+	for (const row of necessary.cookieTable.body) {
+		assert.match(privacy, new RegExp(`<code>${row.name.replace('*', '')}`), `${row.name} is in the panel and not on /privacy/`);
+	}
 });
 
 test('reopening the notice works without the bundle, and the button does not pretend to', async () => {

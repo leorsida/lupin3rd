@@ -7,8 +7,9 @@
  * have remembered, and the theme switch: necessary, or chosen by an action.
  * Asking about those would be asking a question with one answer.
  *
- * Which is why there is no preferences panel. One optional category is two
- * buttons, not a page of switches.
+ * So the panel behind «Personalizza» has two rows and one usable switch. What
+ * earns it its place is the cookie table inside it: the same one on /privacy/,
+ * put where somebody is actually deciding.
  */
 
 import * as CookieConsent from '../vendor/cookieconsent.js';
@@ -96,7 +97,8 @@ export default function initConsent() {
 		disablePageInteraction: false,
 		cookie: { name: 'l3_consent', expiresAfterDays: 180, sameSite: 'Lax' },
 		guiOptions: {
-			consentModal: { layout: 'box', position: 'bottom left', equalWeightButtons: true, flipButtons: false },
+			consentModal: { layout: 'box wide', position: 'bottom left', equalWeightButtons: true, flipButtons: false },
+			preferencesModal: { layout: 'box', equalWeightButtons: true, flipButtons: false },
 		},
 		categories: {
 			necessary: { enabled: true, readOnly: true },

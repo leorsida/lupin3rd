@@ -529,8 +529,7 @@ comment: thirty participants would otherwise be thirty `wp_mail()` calls between
 **Decided:** 19.09.2026 · **Status:** accepted · **Phase:** privacy
 
 `orestbida/cookieconsent` 3.1.0 is vendored into `src/js/vendor/` (MIT, licence
-beside it), with a single optional category — `embeds` — and **no preferences
-modal**.
+beside it), with a single optional category: `embeds`.
 
 The question a banner is supposed to ask is «may we do this thing to you». On
 this site there is exactly one such thing: an `<iframe>` inside an article that
@@ -550,9 +549,18 @@ Two consequences worth stating:
 
 - **Loading one frame remembers nothing.** `data-embed-show` restores that
   placeholder and no other, and writes no cookie. The next page asks again.
-- **No preferences modal is ~16KB of CSS not sent.** `_cookieconsent.scss`
-  carries the base and the consent modal only, and remaps `--cc-*` onto the
-  theme tokens under `#cc-main` instead of shipping a scheme file.
+- **The preferences panel stays**, and the notice keeps its third button. One
+  category makes the panel's *switches* redundant — but the panel is also where
+  the cookie table lives, and a reader who wants to know what is stored before
+  answering should not have to leave the notice to find out. It costs ~17KB of
+  CSS, which is what the honest version of this notice is worth. The two colour
+  schemes are still left out: `_cookieconsent.scss` remaps `--cc-*` onto the
+  theme tokens under `#cc-main`, so the notice follows the reader's own switch
+  instead of carrying its own palette.
+- **The table is duplicated on purpose**, here and on `/privacy/`, and nothing
+  keeps the two in step but `17-privacy.md`. Generating one from the other
+  would mean the page's prose and the panel's rows sharing a structure neither
+  of them wants.
 
 The wording travels in a `<script type="application/json">` block rather than
 an inline `wp_add_inline_script()`: a JSON block is not executed, so a
