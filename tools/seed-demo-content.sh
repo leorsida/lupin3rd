@@ -273,7 +273,7 @@ wp post meta update "$t1" l3_sample_hash "9f2c4b11a7d3e5f08c1b6a49e2d7350fbc84e9
 t2=$(ensure_post tutorial "quattro-pin-sul-pcb-la-seriale-di-un-router" \
   "Quattro pin sul PCB: la seriale di un router" \
   "Trovare, identificare e parlare con l'interfaccia seriale di un dispositivo consumer, senza dissaldare niente." \
-  "<!-- wp:l3/notice {\"variant\":\"legal\"} --><!-- wp:paragraph --><p>Questo tutorial riguarda file e dispositivi che possiedi o che sei autorizzato a trattare. Provare queste tecniche su sistemi altrui, senza un incarico scritto, è un reato in quasi ogni giurisdizione.</p><!-- /wp:paragraph --><!-- /wp:l3/notice --><h2>Trovare i quattro pin</h2><p>Cerca una fila di fori equidistanti vicino al SoC.</p><h2>Identificarli senza indovinare</h2><p>Massa per continuità, alimentazione col multimetro, TX all'accensione.</p><h2>Parlare col dispositivo</h2><p>115200 8N1 è il punto di partenza più probabile.</p>")
+  "<!-- wp:l3/notice {\"variant\":\"legal\"} --><!-- wp:paragraph --><p>Questo tutorial riguarda file e dispositivi che possiedi o che sei autorizzato a trattare. Provare queste tecniche su sistemi altrui, senza un incarico scritto, è un reato in quasi ogni giurisdizione.</p><!-- /wp:paragraph --><!-- /wp:l3/notice --><h2>Trovare i quattro pin</h2><p>Cerca una fila di fori equidistanti vicino al SoC.</p><h2>Identificarli senza indovinare</h2><p>Massa per continuità, alimentazione col multimetro, TX all'accensione.</p><h2>Parlare col dispositivo</h2><p>115200 8N1 è il punto di partenza più probabile.</p><h2>La sessione, ripresa</h2><p>Il filmato qui sotto sta su un altro dominio: il tema lo sostituisce con un segnaposto finché non sei tu a chiederlo.</p><iframe src=\"https://www.youtube-nocookie.com/embed/aqz-KE-bpKQ\" title=\"Sessione seriale\" width=\"560\" height=\"315\"></iframe>")
 wp post term set "$t2" difficulty avanzato >/dev/null
 wp post term set "$t2" category hardware >/dev/null
 wp post term set "$t2" post_tag firmware router >/dev/null
@@ -333,6 +333,14 @@ acct_id=$(ensure_post page "account" "Questa parte del sito la vedi solo tu" \
   "Quello che gli altri vedono di te, e le chiavi di casa." \
   "")
 wp post meta update "$acct_id" _wp_page_template "page-templates/template-account.php" >/dev/null
+
+# /privacy/ is written in the template, not here: it describes what the code
+# does, and a desk that could rewrite it in the editor could make it disagree
+# with the code. What lives in the page is the opening line and nothing else.
+priv_id=$(ensure_post page "privacy" "Quello che questo sito sa di te" \
+  "Scritta guardando il codice: ogni riga qui sotto corrisponde a qualcosa che il tema salva davvero." \
+  "<p>Nessuna analitica, nessuna terza parte, nessun profilo. Quello che conserviamo ce l'hai dato tu, ed è elencato qui sotto riga per riga.</p>")
+wp post meta update "$priv_id" _wp_page_template "page-templates/template-privacy.php" >/dev/null
 
 # The archive is the blog index: it only gets a URL of its own once a page is
 # assigned as the posts page.

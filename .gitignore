@@ -2,7 +2,9 @@
 # committed, because a theme that is downloaded and dropped into
 # wp-content/themes/ has to work without anybody running npm install.
 node_modules/
-vendor/
+# Anchored: Composer's is at the root. The vendored library sources under
+# src/js/ and src/sass/ are ours to ship, and an unanchored pattern ate them.
+/vendor/
 
 # Tool caches
 .phpcs-cache

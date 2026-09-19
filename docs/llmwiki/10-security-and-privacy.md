@@ -2,7 +2,7 @@
 id: security-and-privacy
 title: Security and privacy
 status: authored
-updated: 2026-09-12
+updated: 2026-09-19
 sources: [`OD/struttura-wordpress.html`, `OD/cassetta-sicura.html`]
 ---
 
@@ -23,6 +23,8 @@ readers have a reason to care how it behaves.
 | Uploads | EXIF and other metadata stripped on `wp_handle_upload`, **before** thumbnails are generated |
 | Gravatar | `pre_get_avatar` filtered; no request ever leaves for gravatar.com |
 | Comments | pre-moderation; no external anti-spam service |
+| `comment_author_IP`, `comment_agent` | `pre_comment_user_ip` and `pre_comment_user_agent` filtered to `''`; core would write both and keep them forever |
+| Third-party `<iframe>` in content | replaced server-side with a placeholder naming the host — `Consent`, see `17-privacy.md` |
 
 Enforced outside the theme, in `wp-config.php` and in Nginx, and listed here so
 that nobody assumes the theme does it: `DISALLOW_FILE_EDIT`,

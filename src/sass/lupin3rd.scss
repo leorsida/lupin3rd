@@ -47,3 +47,7 @@
 
 /* Loads last: it refines the components above and has to be able to win. */
 @use 'partials/parity';
+
+/* Vendored last: its selectors are all under #cc-main and .embed-gate, so it
+ * overrides nothing, and keeping it at the end makes that visible. */
+@use 'vendor/cookieconsent';

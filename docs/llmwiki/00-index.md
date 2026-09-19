@@ -2,7 +2,7 @@
 id: index
 title: Index
 status: authored
-updated: 2026-09-12
+updated: 2026-09-19
 sources: [`OD/`, `wp/wp-content/themes/lupin3rd/`]
 ---
 
@@ -29,6 +29,7 @@ Knowledge base for the `lupin3rd` WordPress theme. Read `01-project.md` and
 | `14-open-questions.md` | what is still undecided, and who decides it |
 | `15-local-environment.md` | how to run the project, and what local success does not prove |
 | `16-emails.md` | the three messages the theme sends, and where to change their wording |
+| `17-privacy.md` | the consent notice, the embed gate, and what keeps the privacy page true |
 
 ## Fixed points
 

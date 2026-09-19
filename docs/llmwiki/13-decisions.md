@@ -523,3 +523,81 @@ Two details that are easy to get wrong:
 Sending happens on a scheduled event, not in the request that posted the
 comment: thirty participants would otherwise be thirty `wp_mail()` calls between
 «Invia» and the page coming back.
+
+## D-029 — The notice governs one thing, and that thing is enforced
+
+**Decided:** 19.09.2026 · **Status:** accepted · **Phase:** privacy
+
+`orestbida/cookieconsent` 3.1.0 is vendored into `src/js/vendor/` (MIT, licence
+beside it), with a single optional category — `embeds` — and **no preferences
+modal**.
+
+The question a banner is supposed to ask is «may we do this thing to you». On
+this site there is exactly one such thing: an `<iframe>` inside an article that
+would tell another host you are reading this page. Everything else stored here
+is the session, the comment fields somebody ticked a box to keep, and the theme
+switch — necessary, or already an explicit action. A category for those is a
+question with one answer, which is the kind of banner this magazine writes
+about.
+
+So the one category is enforced rather than declared. `Consent::gate_embeds()`
+rewrites the content server-side before it is sent, which means a reader who
+blocks JavaScript, or who never answers the notice, still never contacts the
+third party. A banner that sets a flag some script is supposed to respect is a
+promise; a frame that was never in the HTML is a fact.
+
+Two consequences worth stating:
+
+- **Loading one frame remembers nothing.** `data-embed-show` restores that
+  placeholder and no other, and writes no cookie. The next page asks again.
+- **No preferences modal is ~16KB of CSS not sent.** `_cookieconsent.scss`
+  carries the base and the consent modal only, and remaps `--cc-*` onto the
+  theme tokens under `#cc-main` instead of shipping a scheme file.
+
+The wording travels in a `<script type="application/json">` block rather than
+an inline `wp_add_inline_script()`: a JSON block is not executed, so a
+hash-based `script-src` never has to account for it — and its hash would
+otherwise change with every translated string.
+
+## D-030 — The privacy page is a template, not editable copy
+
+**Decided:** 19.09.2026 · **Status:** accepted · **Phase:** privacy
+
+`/privacy/` is rendered by `page-templates/template-privacy.php`. The seeded
+page holds one opening paragraph; every table and every claim is in the
+template, translated like any other string.
+
+The desk can rewrite any other page in the editor. Not this one, because this
+page's only value is that it agrees with the code: it lists the cookies the
+theme actually writes, the fields the account actually has, and the things that
+are absent because there is no field for them. A page that can drift from the
+code will drift, and a privacy page that has drifted is not a stale page — it
+is a false statement with a date on it.
+
+`17-privacy.md` lists what to re-check when the code changes, which is the
+other half of this decision: making the page uneditable only helps if somebody
+knows when it has to be edited.
+
+## D-031 — The comment IP is not purged, it is never written
+
+**Decided:** 19.09.2026 · **Status:** accepted · **Phase:** privacy
+
+`Security` filters `pre_comment_user_ip` and `pre_comment_user_agent` to `''`.
+
+This was found while writing the privacy page: the colophon already promised
+that addresses are not kept beyond the antispam window, and nothing in the
+theme made that true. WordPress writes both columns with every comment and
+never expires them.
+
+The obvious fix — a scheduled purge — was rejected. WP-Cron runs when somebody
+visits the site, so «deleted after 24 hours» on a quiet night means «deleted
+whenever the next reader arrives». A promise whose clock is other people's
+traffic is not a promise. Never writing the value has no clock at all.
+
+The cost is real and accepted: core's own rate limiting and any future
+IP-based defence lose their input. The moderation queue for new accounts
+(`MODERATION_THRESHOLD`) and the report tool were chosen precisely because they
+work without knowing where somebody writes from.
+
+Rows written before this existed still carry addresses; `17-privacy.md` has the
+one-off `UPDATE`.

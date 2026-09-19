@@ -20,6 +20,7 @@ import initTableOfContents from './modules/table-of-contents.js';
 import initFormValidation from './modules/form-validation.js';
 import initTabs from './modules/tabs.js';
 import initPasswordStrength from './modules/password-strength.js';
+import initConsent from './modules/consent.js';
 
 const start = () => {
 	/* First: it corrects what the server could not know. */
@@ -33,6 +34,7 @@ const start = () => {
 	initFormValidation();
 	initTabs();
 	initPasswordStrength();
+	initConsent();
 };
 
 if (document.readyState === 'loading') {

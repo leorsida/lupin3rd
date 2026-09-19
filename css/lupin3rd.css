@@ -2967,3 +2967,762 @@ ol.list-rule > li {
 .row-center .field-error {
   width: 100%;
 }
+
+/* Vendored last: its selectors are all under #cc-main and .embed-gate, so it
+ * overrides nothing, and keeping it at the end makes that visible. */
+/* vanilla-cookieconsent 3.1.0 — MIT, © 2020-2025 Orest Bida.
+ *
+ * Two of the library's five stylesheets: the base and the notice. The
+ * preferences modal is not included because this site never opens one — with a
+ * single optional category, two buttons say what a panel of checkboxes would.
+ * The light and dark schemes are not included either: the block underneath
+ * maps the library's variables onto this theme's tokens, so the notice follows
+ * the site into both themes instead of carrying its own palette. */
+#cc-main {
+  background: transparent;
+  color: var(--cc-primary-color);
+  font-family: var(--cc-font-family);
+  font-size: 16px;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.15;
+  position: relative;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+  position: fixed;
+  z-index: var(--cc-z-index);
+}
+
+#cc-main :after, #cc-main :before, #cc-main a, #cc-main button, #cc-main div, #cc-main h2, #cc-main input, #cc-main p, #cc-main span {
+  all: unset;
+  box-sizing: border-box;
+}
+
+#cc-main .pm__badge, #cc-main button {
+  all: initial;
+  box-sizing: border-box;
+  color: unset;
+  visibility: unset;
+}
+
+#cc-main .pm__badge, #cc-main a, #cc-main button, #cc-main input {
+  appearance: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 100%;
+  line-height: normal;
+  margin: 0;
+  outline: revert;
+  outline-offset: 2px;
+  overflow: hidden;
+}
+
+#cc-main table, #cc-main tbody, #cc-main td, #cc-main th, #cc-main thead, #cc-main tr {
+  all: revert;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+:root {
+  --cc-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  --cc-modal-border-radius:.5rem;
+  --cc-btn-border-radius:.4rem;
+  --cc-modal-transition-duration:.25s;
+  --cc-link-color:var(--cc-btn-primary-bg);
+  --cc-modal-margin:1rem;
+  --cc-z-index:2147483647;
+}
+
+#cc-main.cc--rtl {
+  direction: rtl;
+}
+
+#cc-main .cm__title, #cc-main a, #cc-main b, #cc-main em, #cc-main strong {
+  font-weight: 600;
+}
+
+#cc-main button > span {
+  pointer-events: none;
+}
+
+#cc-main .cc__link, #cc-main a {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  font-weight: 600;
+  position: relative;
+  transition: background-size 0.25s, color 0.25s ease;
+}
+
+#cc-main .cc__link:hover, #cc-main a:hover {
+  background-size: 100% 1px;
+  color: var(--cc-primary-color);
+}
+
+#cc-main .cc__link {
+  color: var(--cc-link-color);
+}
+
+#cc-main .cm__desc, #cc-main .pm__body {
+  overscroll-behavior: auto contain;
+  scrollbar-width: thin;
+}
+
+@media screen and (min-width: 640px) {
+  #cc-main ::-webkit-scrollbar, #cc-main ::-webkit-scrollbar-thumb, #cc-main ::-webkit-scrollbar-track {
+    all: revert;
+  }
+  #cc-main ::-webkit-scrollbar-thumb {
+    background-clip: padding-box;
+    background: var(--cc-toggle-readonly-bg);
+    border: 0.25rem solid var(--cc-bg);
+    border-radius: 1rem;
+  }
+  #cc-main ::-webkit-scrollbar-thumb:hover {
+    background: var(--cc-toggle-off-bg);
+  }
+  #cc-main ::-webkit-scrollbar {
+    background: transparent;
+    width: 12px;
+  }
+}
+html.disable--interaction.show--consent, html.disable--interaction.show--consent body {
+  height: auto !important;
+  overflow: hidden !important;
+}
+
+@media (prefers-reduced-motion) {
+  #cc-main {
+    --cc-modal-transition-duration:0s;
+  }
+}
+#cc-main .cm {
+  background: var(--cc-bg);
+  border-radius: var(--cc-modal-border-radius);
+  box-shadow: 0 0.625em 1.875em rgba(0, 0, 2, 0.3);
+  display: flex;
+  flex-direction: column;
+  max-width: 24rem;
+  opacity: 0;
+  overflow: hidden;
+  position: fixed;
+  transform: translateY(1.6em);
+  visibility: hidden;
+  z-index: 1;
+}
+
+#cc-main .cm--top {
+  top: var(--cc-modal-margin);
+}
+
+#cc-main .cm--middle {
+  top: 50%;
+  transform: translateY(calc(-50% + 1.6em));
+}
+
+#cc-main .cm--bottom {
+  bottom: var(--cc-modal-margin);
+}
+
+#cc-main .cm--center {
+  left: var(--cc-modal-margin);
+  margin: 0 auto;
+  right: var(--cc-modal-margin);
+  width: unset;
+}
+
+#cc-main .cm--left {
+  left: var(--cc-modal-margin);
+  margin-right: var(--cc-modal-margin);
+}
+
+#cc-main .cm--right {
+  margin-left: var(--cc-modal-margin);
+  right: var(--cc-modal-margin);
+}
+
+#cc-main .cm__body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+#cc-main .cm__btns, #cc-main .cm__links {
+  padding: 1rem 1.3rem;
+  width: unset;
+}
+
+#cc-main .cm__texts {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1rem 0 0;
+}
+
+#cc-main .cm__desc, #cc-main .cm__title {
+  padding: 0 1.3rem;
+}
+
+#cc-main .cm__title {
+  font-size: 1.05em;
+}
+
+#cc-main .cm__title + .cm__desc {
+  margin-top: 1.1em;
+}
+
+#cc-main .cm__desc {
+  color: var(--cc-secondary-color);
+  font-size: 0.9em;
+  line-height: 1.5;
+  max-height: 40vh;
+  overflow-x: visible;
+  overflow-y: auto;
+  padding-bottom: 1em;
+}
+
+#cc-main .cm__btns {
+  border-top: 1px solid var(--cc-separator-border-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#cc-main .cm__btn-group {
+  display: grid;
+  grid-auto-columns: minmax(0, 1fr);
+}
+
+#cc-main .cm__btn + .cm__btn, #cc-main .cm__btn-group + .cm__btn-group {
+  margin-top: 0.375rem;
+}
+
+#cc-main .cm--flip .cm__btn + .cm__btn, #cc-main .cm--flip .cm__btn-group + .cm__btn-group {
+  margin-bottom: 0.375rem;
+  margin-top: 0;
+}
+
+#cc-main .cm--inline .cm__btn + .cm__btn {
+  margin-left: 0.375rem;
+  margin-top: 0;
+}
+
+#cc-main .cm--inline.cm--flip .cm__btn + .cm__btn {
+  margin-bottom: 0;
+  margin-left: 0;
+  margin-right: 0.375rem;
+}
+
+#cc-main .cm--inline.cm--flip .cm__btn-group + .cm__btn-group {
+  margin-bottom: 0.375rem;
+  margin-right: 0;
+}
+
+#cc-main .cm--wide .cm__btn + .cm__btn, #cc-main .cm--wide .cm__btn-group + .cm__btn-group {
+  margin-left: 0.375rem;
+  margin-top: 0;
+}
+
+#cc-main .cm--wide.cm--flip .cm__btn + .cm__btn, #cc-main .cm--wide.cm--flip .cm__btn-group + .cm__btn-group {
+  margin-bottom: 0;
+  margin-right: 0.375rem;
+}
+
+#cc-main .cm--bar:not(.cm--inline) .cm__btn-group--uneven, #cc-main .cm--wide .cm__btn-group--uneven {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+}
+
+#cc-main .cm--bar:not(.cm--inline).cm--flip .cm__btn-group--uneven, #cc-main .cm--wide.cm--flip .cm__btn-group--uneven {
+  flex-direction: row-reverse;
+}
+
+#cc-main .cm__btn {
+  background: var(--cc-btn-primary-bg);
+  border: 1px solid var(--cc-btn-primary-border-color);
+  border-radius: var(--cc-btn-border-radius);
+  color: var(--cc-btn-primary-color);
+  font-size: 0.82em;
+  font-weight: 600;
+  min-height: 42px;
+  padding: 0.5em 1em;
+  text-align: center;
+}
+
+#cc-main .cm__btn:hover {
+  background: var(--cc-btn-primary-hover-bg);
+  border-color: var(--cc-btn-primary-hover-border-color);
+  color: var(--cc-btn-primary-hover-color);
+}
+
+#cc-main .cm__btn--secondary {
+  background: var(--cc-btn-secondary-bg);
+  border-color: var(--cc-btn-secondary-border-color);
+  color: var(--cc-btn-secondary-color);
+}
+
+#cc-main .cm__btn--secondary:hover {
+  background: var(--cc-btn-secondary-hover-bg);
+  border-color: var(--cc-btn-secondary-hover-border-color);
+  color: var(--cc-btn-secondary-hover-color);
+}
+
+#cc-main .cm__btn--close {
+  border-radius: 0;
+  border-bottom-left-radius: var(--cc-btn-border-radius);
+  border-right: none;
+  border-top: none;
+  display: none;
+  font-size: 1em;
+  height: 42px;
+  min-width: auto !important;
+  overflow: hidden;
+  padding: 0 !important;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 42px;
+}
+
+#cc-main .cm__btn--close svg {
+  stroke: var(--cc-btn-primary-color);
+  transform: scale(0.5);
+  transition: stroke 0.15s ease;
+}
+
+#cc-main .cm__btn--close:hover svg {
+  stroke: var(--cc-btn-primary-hover-color);
+}
+
+#cc-main .cm__btn--close.cm__btn--secondary svg {
+  stroke: var(--cc-btn-secondary-color);
+}
+
+#cc-main .cm__btn--close.cm__btn--secondary:hover svg {
+  stroke: var(--cc-btn-secondary-hover-color);
+}
+
+#cc-main .cm__btn--close + .cm__texts .cm__title {
+  padding-right: 3rem;
+}
+
+#cc-main .cm--inline .cm__btn-group {
+  grid-auto-flow: column;
+}
+
+#cc-main .cm__footer {
+  background: var(--cc-footer-bg);
+  border-top: 1px solid var(--cc-footer-border-color);
+  color: var(--cc-footer-color);
+  padding: 0.4em 0 0.5em;
+}
+
+#cc-main .cm__links {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 0;
+  padding-top: 0;
+}
+
+#cc-main .cm__link-group {
+  display: flex;
+  flex-direction: row;
+  font-size: 0.8em;
+  width: 100%;
+}
+
+#cc-main .cm__link-group > * + * {
+  margin-left: 1.3rem;
+}
+
+#cc-main .cm--flip .cm__btn:last-child {
+  grid-row: 1;
+}
+
+#cc-main .cm--inline.cm--flip .cm__btn:last-child {
+  grid-column: 1;
+}
+
+#cc-main .cm--box .cm__btn--close {
+  display: block;
+}
+
+#cc-main .cm--box.cm--flip .cm__btns {
+  flex-direction: column-reverse;
+}
+
+#cc-main .cm--box.cm--wide {
+  max-width: 36em;
+}
+
+#cc-main .cm--box.cm--wide .cm__btns {
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#cc-main .cm--box.cm--wide .cm__btn-group {
+  grid-auto-flow: column;
+}
+
+#cc-main .cm--box.cm--wide .cm__btn {
+  min-width: 120px;
+  padding-left: 1.8em;
+  padding-right: 1.8em;
+}
+
+#cc-main .cm--box.cm--wide.cm--flip .cm__btns {
+  flex-direction: row-reverse;
+}
+
+#cc-main .cm--box.cm--wide.cm--flip .cm__btn:last-child {
+  grid-column: 1;
+}
+
+#cc-main .cm--cloud {
+  max-width: 54em;
+  width: unset;
+}
+
+#cc-main .cm--cloud .cm__body {
+  flex-direction: row;
+}
+
+#cc-main .cm--cloud .cm__texts {
+  flex: 1;
+}
+
+#cc-main .cm--cloud .cm__desc {
+  max-height: 9.4em;
+}
+
+#cc-main .cm--cloud .cm__btns {
+  border-left: 1px solid var(--cc-separator-border-color);
+  border-top: none;
+  max-width: 23em;
+}
+
+#cc-main .cm--cloud .cm__btn-group {
+  flex-direction: column;
+}
+
+#cc-main .cm--cloud .cm__btn {
+  min-width: 19em;
+}
+
+#cc-main .cm--cloud.cm--flip .cm__btn-group, #cc-main .cm--cloud.cm--flip .cm__btns {
+  flex-direction: column-reverse;
+}
+
+#cc-main .cm--cloud.cm--inline .cm__btn-group {
+  flex-direction: row;
+}
+
+#cc-main .cm--cloud.cm--inline .cm__btn {
+  min-width: 10em;
+}
+
+#cc-main .cm--cloud.cm--inline.cm--flip .cm__btn-group {
+  flex-direction: row-reverse;
+}
+
+#cc-main .cm--bar {
+  border-radius: 0;
+  left: 0;
+  margin: 0;
+  max-width: unset;
+  opacity: 1;
+  right: 0;
+  transform: translateY(0);
+  width: 100vw;
+  --cc-modal-transition-duration:.35s;
+}
+
+#cc-main .cm--bar.cm--top {
+  top: 0;
+  transform: translateY(-100%);
+}
+
+#cc-main .cm--bar.cm--bottom {
+  bottom: 0;
+  transform: translateY(100%);
+}
+
+#cc-main .cm--bar .cm__body, #cc-main .cm--bar .cm__links {
+  margin: 0 auto;
+  max-width: 55em;
+  width: 100%;
+}
+
+#cc-main .cm--bar .cm__body {
+  padding: 0.5em 0 0.9em;
+}
+
+#cc-main .cm--bar .cm__btns {
+  border-top: none;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#cc-main .cm--bar .cm__btn-group {
+  grid-auto-flow: column;
+}
+
+#cc-main .cm--bar:not(.cm--inline) .cm__btn + .cm__btn, #cc-main .cm--bar:not(.cm--inline) .cm__btn-group + .cm__btn-group {
+  margin-left: 0.375rem;
+  margin-top: 0;
+}
+
+#cc-main .cm--bar .cm__btn {
+  min-width: 120px;
+  padding-left: 2em;
+  padding-right: 2em;
+}
+
+#cc-main .cm--bar.cm--flip:not(.cm--inline) .cm__btn + .cm__btn, #cc-main .cm--bar.cm--flip:not(.cm--inline) .cm__btn-group + .cm__btn-group {
+  margin-bottom: 0;
+  margin-left: 0;
+  margin-right: 0.375rem;
+}
+
+#cc-main .cm--bar.cm--flip .cm__btns {
+  flex-direction: row-reverse;
+}
+
+#cc-main .cm--bar.cm--flip .cm__btn:last-child {
+  grid-column: 1;
+}
+
+#cc-main .cm--bar.cm--inline .cm__body, #cc-main .cm--bar.cm--inline .cm__links {
+  max-width: 74em;
+}
+
+#cc-main .cm--bar.cm--inline .cm__body {
+  flex-direction: row;
+  padding: 0;
+}
+
+#cc-main .cm--bar.cm--inline .cm__btns {
+  flex-direction: column;
+  justify-content: center;
+  max-width: 23em;
+}
+
+#cc-main .cm--bar.cm--inline.cm--flip .cm__btns {
+  flex-direction: column-reverse;
+}
+
+#cc-main .cc--anim .cm, #cc-main .cc--anim.cm-wrapper:before {
+  transition: opacity var(--cc-modal-transition-duration) ease, visibility var(--cc-modal-transition-duration) ease, transform var(--cc-modal-transition-duration) ease;
+}
+
+#cc-main .cc--anim .cm__btn, #cc-main .cc--anim .cm__close {
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.disable--interaction #cc-main .cm-wrapper:before {
+  background: var(--cc-overlay-bg);
+  bottom: 0;
+  content: "";
+  left: 0;
+  opacity: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  visibility: hidden;
+  z-index: 0;
+}
+
+.show--consent #cc-main .cc--anim .cm {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible !important;
+}
+
+.show--consent #cc-main .cc--anim .cm--middle {
+  transform: translateY(-50%);
+}
+
+.show--consent #cc-main .cc--anim .cm--bar {
+  transform: translateY(0);
+}
+
+.show--consent #cc-main .cc--anim.cm-wrapper:before {
+  opacity: 1;
+  visibility: visible;
+}
+
+#cc-main.cc--rtl .cm__btn--close {
+  border-bottom-left-radius: unset;
+  border-bottom-right-radius: var(--cc-btn-border-radius);
+  left: 0;
+  right: unset;
+}
+
+#cc-main.cc--rtl .cm__btn--close + .cm__texts .cm__title {
+  padding-left: 3rem !important;
+  padding-right: 1.3rem;
+}
+
+#cc-main.cc--rtl .cm--inline .cm__btn + .cm__btn {
+  margin-left: 0;
+  margin-right: 0.375rem;
+}
+
+#cc-main.cc--rtl .cm--inline.cm--flip .cm__btn + .cm__btn {
+  margin-left: 0.375rem;
+  margin-right: 0;
+}
+
+#cc-main.cc--rtl .cm:not(.cm--inline).cm--bar .cm__btn + .cm__btn, #cc-main.cc--rtl .cm:not(.cm--inline).cm--bar .cm__btn-group + .cm__btn-group, #cc-main.cc--rtl .cm:not(.cm--inline).cm--wide .cm__btn + .cm__btn, #cc-main.cc--rtl .cm:not(.cm--inline).cm--wide .cm__btn-group + .cm__btn-group {
+  margin-left: 0;
+  margin-right: 0.375rem;
+}
+
+#cc-main.cc--rtl .cm:not(.cm--inline).cm--bar.cm--flip .cm__btn + .cm__btn, #cc-main.cc--rtl .cm:not(.cm--inline).cm--wide.cm--flip .cm__btn + .cm__btn {
+  margin-left: 0.375rem;
+  margin-right: 0;
+}
+
+#cc-main.cc--rtl .cm__link-group > * + * {
+  margin-left: 0;
+  margin-right: 1.3rem;
+}
+
+@media screen and (max-width: 640px) {
+  #cc-main {
+    --cc-modal-margin:.5em;
+  }
+  #cc-main .cm {
+    max-width: none !important;
+    width: auto !important;
+  }
+  #cc-main .cm__body {
+    flex-direction: column !important;
+    padding: 0 !important;
+  }
+  #cc-main .cm__btns, #cc-main .cm__desc, #cc-main .cm__links, #cc-main .cm__title {
+    padding-left: 1.1rem !important;
+    padding-right: 1.1rem !important;
+  }
+  #cc-main .cm__btns {
+    border-left: none !important;
+    border-top: 1px solid var(--cc-separator-border-color) !important;
+    flex-direction: column !important;
+    max-width: none !important;
+    min-width: auto !important;
+  }
+  #cc-main .cm__btn + .cm__btn, #cc-main .cm__btn-group + .cm__btn-group {
+    margin: 0.375rem 0 0 !important;
+  }
+  #cc-main .cm--flip .cm__btn + .cm__btn, #cc-main .cm--flip .cm__btn-group + .cm__btn-group {
+    margin-bottom: 0.375rem !important;
+    margin-top: 0 !important;
+  }
+  #cc-main .cm__btn-group {
+    display: flex !important;
+    flex-direction: column !important;
+    min-width: auto !important;
+  }
+  #cc-main .cm__btn {
+    flex: auto !important;
+  }
+  #cc-main .cm__link-group {
+    justify-content: center !important;
+  }
+  #cc-main .cm--flip .cm__btn-group, #cc-main .cm--flip .cm__btns {
+    flex-direction: column-reverse !important;
+  }
+}
+/* --- The notice, in this theme's palette ------------------------------------
+ *
+ * The library ships a light scheme and a dark one. This site already has both,
+ * as tokens that a reader's own switch moves between, so mapping the library's
+ * variables onto those tokens is less code than carrying two more palettes —
+ * and it means the notice cannot drift out of step with the page behind it. */
+#cc-main {
+  --cc-font-family: var(--font-body);
+  --cc-z-index: 70;
+  --cc-bg: var(--surface);
+  --cc-primary-color: var(--fg);
+  --cc-secondary-color: var(--muted);
+  --cc-link-color: var(--fg);
+  --cc-separator-border-color: var(--border);
+  --cc-modal-border-radius: 0;
+  --cc-btn-border-radius: 0;
+  --cc-overlay-bg: color-mix(in oklch, var(--bg) 72%, transparent);
+  --cc-btn-primary-bg: var(--fg);
+  --cc-btn-primary-color: var(--bg);
+  --cc-btn-primary-border-color: var(--fg);
+  --cc-btn-primary-hover-bg: var(--muted);
+  --cc-btn-primary-hover-color: var(--bg);
+  --cc-btn-primary-hover-border-color: var(--muted);
+  --cc-btn-secondary-bg: transparent;
+  --cc-btn-secondary-color: var(--fg);
+  --cc-btn-secondary-border-color: var(--border-strong);
+  --cc-btn-secondary-hover-bg: var(--fg-soft);
+  --cc-btn-secondary-hover-color: var(--fg);
+  --cc-btn-secondary-hover-border-color: var(--fg);
+  --cc-footer-bg: var(--surface);
+  --cc-footer-color: var(--muted);
+  --cc-footer-border-color: var(--border);
+}
+
+/* The notice is a piece of this site, not a widget dropped on top of it: mono
+ * type, square corners, no shadow. */
+#cc-main .cm {
+  border: 1px solid var(--border-strong);
+  box-shadow: none;
+  font-family: var(--font-body);
+}
+
+#cc-main .cm__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+}
+
+#cc-main .cm__desc {
+  font-size: 13.5px;
+}
+
+#cc-main .cm__btn {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+/* --- Third-party embeds, before consent -------------------------------------
+ *
+ * What stands in for an embed the reader has not agreed to load. It has to be
+ * the same shape as the thing it replaces, or the article reflows when one is
+ * accepted. */
+.embed-gate {
+  display: grid;
+  place-items: center;
+  gap: var(--gap-sm);
+  aspect-ratio: 16/9;
+  padding: var(--gap-md);
+  text-align: center;
+  background: var(--surface);
+  border: 1px dashed var(--border-strong);
+}
+
+.embed-gate p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
+  max-width: 46ch;
+}
+
+.embed-gate .embed-gate-host {
+  font-family: var(--font-mono);
+  color: var(--fg);
+}
