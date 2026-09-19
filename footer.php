@@ -67,7 +67,7 @@ defined( 'ABSPATH' ) || exit;
 					 * a footer link to a page nobody has written yet is worse
 					 * than no link.
 					 */
-					$l3_desk_pages = array( 'chi-siamo', 'linee-guida', 'cassetta-sicura', 'privacy', 'struttura' );
+					$l3_desk_pages = array( 'chi-siamo', 'linee-guida', 'cassetta-sicura', 'struttura' );
 					$l3_found      = array();
 
 					foreach ( $l3_desk_pages as $l3_slug ) {
@@ -94,17 +94,23 @@ defined( 'ABSPATH' ) || exit;
 
 				<?php
 				/*
-				 * Reopens the notice. A real link to /privacy/ underneath it,
-				 * so that a reader with no JavaScript is not left with a
-				 * control that does nothing — they get the page that explains
-				 * the same thing.
+				 * Reopens the notice, and is a real link to /privacy/ for a
+				 * reader with no JavaScript — so it is the privacy entry as
+				 * well, which is why that page is not in the list above.
+				 *
+				 * Its own list rather than the last item of that one, because
+				 * the list above is a nav menu whenever the desk has assigned
+				 * it. Two adjacent lists look like one: `.pagefoot ul` styles
+				 * both, and the row spacing is the same.
 				 */
 				?>
-				<p class="meta">
-					<a class="link-quiet" href="<?php echo esc_url( home_url( '/privacy/' ) ); ?>" data-consent-open>
-						<?php esc_html_e( 'Cookie e privacy', 'lupin3rd' ); ?>
-					</a>
-				</p>
+				<ul class="list-plain">
+					<li>
+						<a href="<?php echo esc_url( home_url( '/privacy/' ) ); ?>" data-consent-open>
+							<?php esc_html_e( 'Cookie e privacy', 'lupin3rd' ); ?>
+						</a>
+					</li>
+				</ul>
 			</div>
 
 			<div>

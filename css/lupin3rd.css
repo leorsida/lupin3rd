@@ -1746,6 +1746,13 @@ a.tag:hover {
   gap: 8px;
 }
 
+/* The consent link is a list of its own, so that it can follow a nav menu the
+ * desk controls. Between two lists the flex gap does not apply, only the row
+ * margin — this puts back the half it is missing. */
+.pagefoot ul + ul {
+  margin-top: 8px;
+}
+
 .pagefoot a {
   font-size: 13px;
   color: color-mix(in oklch, var(--fg) 84%, var(--bg));
