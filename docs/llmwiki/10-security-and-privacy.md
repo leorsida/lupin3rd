@@ -178,6 +178,13 @@ the header only outranks the bar for as long as the drawer is there.
 The search overlay is a sibling of `.topnav`, after `</header>`, so its own
 `z-index: var(--z-modal)` is enough.
 
-Anything new that is fixed at the top of the viewport joins one of the two
-lists: offset by `--admin-bar` if it is part of the page, `--z-modal` if it is
-modal.
+**And anything that sticks below the header has to move with it.** The side
+column rested at a flat `top: 92px` — the header's height, written out — which
+stopped clearing the header the moment the header itself moved down by 32px.
+That number now lives once, as `--stick-below-header`
+(`calc(var(--admin-bar) + 92px)`), and the same token gives in-page anchors
+their `scroll-margin-top`.
+
+Anything new joins one of three lists: offset by `--admin-bar` if it is fixed
+at the top of the viewport and part of the page, `--z-modal` if it is modal,
+`--stick-below-header` if it sticks underneath the header.

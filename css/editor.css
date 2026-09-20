@@ -57,6 +57,11 @@
    * `position: absolute`, so where it sits depends on the scroll position and
    * no CSS offset can follow it. */
   --z-modal: 100000;
+  /* Where anything sticky below the header comes to rest: the height of
+   * .topnav plus room to breathe, after whatever the admin bar has taken.
+   * One definition, because the header's height is not something two files
+   * should each remember. */
+  --stick-below-header: calc(var(--admin-bar) + 92px);
 }
 
 body.admin-bar {

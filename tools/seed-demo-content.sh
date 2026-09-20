@@ -215,7 +215,7 @@ fi
 
 echo "==> site options"
 wp option update blogname "lupin3rd.org"
-wp option update blogdescription "Quello che l'informatica fa quando nessuno guarda."
+wp option update blogdescription "Hack, notizie e approfondimenti indipendenti dal 1999."
 wp option update timezone_string "Europe/Rome"
 wp option update posts_per_page 9
 wp rewrite structure '/%year%/%monthnum%/%postname%/' --hard
@@ -302,11 +302,11 @@ ensure_post dossier "puntata-2-quanto-costa" "Puntata 2 — quanto costa" \
   "<h2>Listini e sconti</h2><p>Il prezzo dipende più dalla catena di exploit che dal bug.</p>" "$d" 2 >/dev/null
 
 echo "==> pages, front page and archive"
-about_id=$(ensure_post page "chi-siamo" "Chi siamo" "Sei persone, nessun ufficio, una regola sola." \
+about_id=$(ensure_post page "chi-siamo" "Chi siamo" "Un sito web indipendente, senza sponsor, senza investitori, per rendere l'informazione veramente indipendente." \
   "<p>Redazione distribuita, server in Islanda, nessun investitore.</p><h2>Tre regole</h2><p>Testo di prova.</p>")
-rules_id=$(ensure_post page "linee-guida" "Linee guida" "Cosa ci mandi, come lo trattiamo, cosa succede dopo." \
+rules_id=$(ensure_post page "linee-guida" "Linee guida" "Come mandare contenuti, come lo gestiamo, e come decidiamo di pubblicarlo" \
   "<p>Tre formati, tre aspettative diverse.</p><h2>Cosa deve esserci nel file</h2><p>Testo di prova.</p>")
-safe_id=$(ensure_post page "cassetta-sicura" "Come scriverci in modo sicuro" "Materiale sensibile: solo via email cifrata con PGP." \
+safe_id=$(ensure_post page "email-sicura" "Come email in modo sicuro" "Materiale sensibile: invialo solo via email cifrata con PGP." \
   "<p>Mai dai commenti, mai da un modulo di contatto.</p><h2>Sei cose, nell'ordine</h2><p>Testo di prova.</p>")
 struct_id=$(ensure_post page "struttura" "Struttura del sito" "Come è costruito lupin3rd.org: colophon tecnico." \
   "<p>Tema proprietario, tre tipi di post, tre tassonomie, nessun page builder.</p><h2>Gerarchia dei template</h2><p>Testo di prova.</p>")
