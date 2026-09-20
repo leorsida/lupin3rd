@@ -349,11 +349,6 @@ $l3_roles = array(
 					<p><?php esc_html_e( 'Niente Gravatar: l\'avatar è un motivo generato dal seme dell\'account, calcolato in locale. Nessun servizio esterno riceve l\'hash della tua email quando qualcuno apre la pagina.', 'lupin3rd' ); ?></p>
 				</div>
 
-				<div class="callout callout--legal">
-					<p class="callout-title"><?php esc_html_e( 'Cancellazione', 'lupin3rd' ); ?></p>
-					<p><?php esc_html_e( 'Dalla tua area personale chiedi l\'esportazione o la cancellazione. I commenti già pubblicati restano, ma passano a firma «account rimosso»: quello che ha corretto un articolo non sparisce dalla discussione.', 'lupin3rd' ); ?></p>
-				</div>
-
 				<div class="card">
 					<p class="meta"><?php esc_html_e( 'Secondo fattore', 'lupin3rd' ); ?></p>
 					<p class="widget-note"><?php esc_html_e( 'Opzionale per i membri, obbligatorio per redazione e collaboratori: TOTP oppure sfida firmata con la chiave PGP dichiarata nel profilo.', 'lupin3rd' ); ?></p>
