@@ -302,14 +302,14 @@ ensure_post dossier "puntata-2-quanto-costa" "Puntata 2 — quanto costa" \
   "<h2>Listini e sconti</h2><p>Il prezzo dipende più dalla catena di exploit che dal bug.</p>" "$d" 2 >/dev/null
 
 echo "==> pages, front page and archive"
-ensure_post page "chi-siamo" "Chi siamo" "Sei persone, nessun ufficio, una regola sola." \
-  "<p>Redazione distribuita, server in Islanda, nessun investitore.</p><h2>Tre regole</h2><p>Testo di prova.</p>" >/dev/null
-ensure_post page "linee-guida" "Linee guida" "Cosa ci mandi, come lo trattiamo, cosa succede dopo." \
-  "<p>Tre formati, tre aspettative diverse.</p><h2>Cosa deve esserci nel file</h2><p>Testo di prova.</p>" >/dev/null
-ensure_post page "cassetta-sicura" "Come scriverci in modo sicuro" "Materiale sensibile: solo via email cifrata con PGP." \
-  "<p>Mai dai commenti, mai da un modulo di contatto.</p><h2>Sei cose, nell'ordine</h2><p>Testo di prova.</p>" >/dev/null
-ensure_post page "struttura" "Struttura del sito" "Come è costruito lupin3rd.org: colophon tecnico." \
-  "<p>Tema proprietario, tre tipi di post, tre tassonomie, nessun page builder.</p><h2>Gerarchia dei template</h2><p>Testo di prova.</p>" >/dev/null
+about_id=$(ensure_post page "chi-siamo" "Chi siamo" "Sei persone, nessun ufficio, una regola sola." \
+  "<p>Redazione distribuita, server in Islanda, nessun investitore.</p><h2>Tre regole</h2><p>Testo di prova.</p>")
+rules_id=$(ensure_post page "linee-guida" "Linee guida" "Cosa ci mandi, come lo trattiamo, cosa succede dopo." \
+  "<p>Tre formati, tre aspettative diverse.</p><h2>Cosa deve esserci nel file</h2><p>Testo di prova.</p>")
+safe_id=$(ensure_post page "cassetta-sicura" "Come scriverci in modo sicuro" "Materiale sensibile: solo via email cifrata con PGP." \
+  "<p>Mai dai commenti, mai da un modulo di contatto.</p><h2>Sei cose, nell'ordine</h2><p>Testo di prova.</p>")
+struct_id=$(ensure_post page "struttura" "Struttura del sito" "Come è costruito lupin3rd.org: colophon tecnico." \
+  "<p>Tema proprietario, tre tipi di post, tre tassonomie, nessun page builder.</p><h2>Gerarchia dei template</h2><p>Testo di prova.</p>")
 
 # /comunita/ is a page with a template, not a route the theme invents: the
 # heading, the standfirst and the closing paragraph are editorial copy the desk
@@ -351,15 +351,70 @@ wp option update page_on_front "$home_id"
 wp option update page_for_posts "$arch_id"
 
 echo "==> menu"
-wp menu create "Principale" >/dev/null 2>&1 || true
-if [ "$(wp menu item list principale --format=count 2>/dev/null | tr -d '\r')" = "0" ]; then
-  wp menu item add-custom principale "Notizie" "/" >/dev/null
-  wp menu item add-custom principale "Tutorial" "/tutorial/" >/dev/null
-  wp menu item add-custom principale "Dossier" "/dossier/" >/dev/null
-  wp menu item add-custom principale "Archivio" "/archivio/" >/dev/null
-  wp menu item add-custom principale "Crypto" "/categoria/crypto/" >/dev/null
+
+# A menu by name, created once. `wp menu create` fails on a second run, and its
+# slug is not something to guess from a name with an em dash in it, so the id
+# is looked up as a term and only created when it is really missing.
+ensure_menu() {
+  local name="$1" id
+  id="$(wp term list nav_menu --name="$name" --field=term_id 2>/dev/null | head -1 | tr -d '\r')"
+
+  if [ -z "$id" ]; then
+    id="$(wp menu create "$name" --porcelain | tr -d '\r')"
+  fi
+
+  echo "$id"
+}
+
+# Only fills a menu that is empty: a second run must not duplicate the items,
+# and must not undo what somebody rearranged in the back office.
+menu_is_empty() {
+  [ "$(wp menu item list "$1" --format=count 2>/dev/null | tr -d '\r')" = "0" ]
+}
+
+main_menu=$(ensure_menu "Principale")
+if menu_is_empty "$main_menu"; then
+  wp menu item add-custom "$main_menu" "Notizie" "/" >/dev/null
+  wp menu item add-custom "$main_menu" "Tutorial" "/tutorial/" >/dev/null
+  wp menu item add-custom "$main_menu" "Dossier" "/dossier/" >/dev/null
+  wp menu item add-custom "$main_menu" "Archivio" "/archivio/" >/dev/null
+  wp menu item add-custom "$main_menu" "Crypto" "/categoria/crypto/" >/dev/null
 fi
-wp menu location assign principale primary >/dev/null 2>&1 || true
+wp menu location assign "$main_menu" primary >/dev/null 2>&1 || true
+
+# The three footer columns. The theme has a hard-coded fallback for each, so
+# the footer is never empty on a fresh install — but a fallback is not
+# editable, and the desk should be able to change its own footer without a
+# deploy. Assigning these moves all three into Aspetto → Menu.
+sections_menu=$(ensure_menu "Piè di pagina — sezioni")
+if menu_is_empty "$sections_menu"; then
+  wp menu item add-custom "$sections_menu" "Notizie" "/" >/dev/null
+  wp menu item add-custom "$sections_menu" "Tutorial" "/tutorial/" >/dev/null
+  wp menu item add-custom "$sections_menu" "Dossier" "/dossier/" >/dev/null
+  wp menu item add-custom "$sections_menu" "Archivio" "/archivio/" >/dev/null
+fi
+wp menu location assign "$sections_menu" sections >/dev/null 2>&1 || true
+
+# Pages rather than custom links: a menu item that points at a page follows
+# its title and its permalink, and turns up in the back office as the page it
+# is rather than as a URL somebody typed.
+desk_menu=$(ensure_menu "Piè di pagina — redazione")
+if menu_is_empty "$desk_menu"; then
+  for page_id in "$about_id" "$rules_id" "$safe_id" "$struct_id"; do
+    wp menu item add-post "$desk_menu" "$page_id" >/dev/null
+  done
+fi
+wp menu location assign "$desk_menu" desk >/dev/null 2>&1 || true
+
+# The feed is printed by the template and is always there; this menu is what
+# goes under it. The prototype also lists a .onion mirror and a Matrix room —
+# left out until they exist, because a dead link in the footer is worse than a
+# short list.
+channels_menu=$(ensure_menu "Piè di pagina — canali")
+if menu_is_empty "$channels_menu"; then
+  wp menu item add-post "$channels_menu" "$safe_id" --title="Chiave PGP" >/dev/null
+fi
+wp menu location assign "$channels_menu" channels >/dev/null 2>&1 || true
 
 wp rewrite flush --hard
 echo

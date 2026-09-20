@@ -174,3 +174,29 @@ On a post type archive `archive_kicker()` returns the post type and the title
 is the same word — "Tutorial" over "Tutorial". On a tag or a category it reads
 "Tag" over *forense*, which is worth the line.
 
+
+## Menus, and what happens when there is none
+
+Four locations, registered in `Setup::register_hooks()`:
+
+| Location | Where it renders | Fallback when no menu is assigned |
+|---|---|---|
+| `primary` | `template-parts/header/navbar.php` | `template-parts/header/menu-fallback.php` |
+| `sections` | footer, first column | Notizie / Tutorial / Dossier, built from the post-type archives |
+| `desk` | footer, second column | the pages whose slugs are listed in `footer.php`, and only those that exist and are published |
+| `channels` | footer, third column, **under** the feed link | nothing; the feed is printed by the template either way |
+
+Every fallback exists so that a fresh install has a usable footer before
+anybody has opened *Aspetto → Menu*. None of them is editable, so
+`tools/seed-demo-content.sh` creates and assigns all four: on a seeded site
+the footer is managed entirely from the back office, and the fallbacks are
+what a brand-new install falls back to.
+
+Two consequences to keep in mind.
+
+- **Assigning a menu switches the fallback off completely.** For `desk` that
+  also switches off the check that a page exists and is published: the
+  fallback refuses to link a draft, a menu item will happily do it.
+- **«Cookie e privacy» is not in any menu, by design.** It is also the control
+  that reopens the consent notice (`data-consent-open`), so it is printed by
+  `footer.php` itself and survives any rearrangement of the `desk` menu.
