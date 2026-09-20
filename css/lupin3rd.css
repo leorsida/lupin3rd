@@ -1234,7 +1234,12 @@ a.tag:hover {
 }
 
 /* Empty states for archives and search. */
+/* Full width wherever it lands. Every list that can come back empty is a grid
+ * of some shape — two columns on /comunita/, more elsewhere — and a notice
+ * that occupies one cell reads as a result rather than as the absence of them.
+ * `grid-column` is ignored outside a grid, so this one line covers both. */
 .emptystate {
+  grid-column: 1/-1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1295,6 +1300,14 @@ a.tag:hover {
  * as an indecision about where one thing ends and the next begins. The table's
  * line stays, because it belongs to the content; the widget's goes. */
 .widget:has(.ds-table) + .widget {
+  border-top: 0;
+  padding-top: 0;
+}
+
+/* The community sidebar is one panel rather than a column of sections: the
+ * live discussions and the note under them belong together, and the rule
+ * between them reads as a break the page does not have. */
+.page-template-template-community .grid-main-side > aside > .widget + .widget {
   border-top: 0;
   padding-top: 0;
 }

@@ -128,3 +128,17 @@ test('the menu is a list of links, not a list of bullets', async () => {
 	assert.ok(nav, 'no navigation');
 	assert.doesNotMatch(nav, /<li\b/, 'the menu emits list items outside a list');
 });
+
+test('an empty state spans the whole list it replaces', async () => {
+	/*
+	 * It ships inside the members grid, hidden, so the filter module can reveal
+	 * it without a round trip. A grid item occupies one cell unless it is told
+	 * otherwise, and a «no results» notice sitting in one of two columns reads
+	 * as a result rather than as the absence of them.
+	 */
+	const html = await page('/comunita/');
+	const grid = element(html, /<div[^>]*data-filter-scope="members"/);
+
+	assert.ok(grid, 'no members grid on /comunita/');
+	assert.match(grid, /class="emptystate hidden"/, 'the grid carries no empty state to reveal');
+});

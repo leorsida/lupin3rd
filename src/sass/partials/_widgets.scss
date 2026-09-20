@@ -11,6 +11,10 @@
  * as an indecision about where one thing ends and the next begins. The table's
  * line stays, because it belongs to the content; the widget's goes. */
 .widget:has(.ds-table) + .widget { border-top: 0; padding-top: 0; }
+/* The community sidebar is one panel rather than a column of sections: the
+ * live discussions and the note under them belong together, and the rule
+ * between them reads as a break the page does not have. */
+.page-template-template-community .grid-main-side > aside > .widget + .widget { border-top: 0; padding-top: 0; }
 .widget-title { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
 .widget ul { list-style: none; margin: 0; padding: 0; }
 .widget li { border-bottom: 1px solid var(--border); }

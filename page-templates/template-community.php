@@ -250,7 +250,7 @@ $l3_roles = array(
 				</p>
 				<p>
 					<a class="btn btn-secondary btn-sm" href="<?php echo esc_url( home_url( '/linee-guida/' ) ); ?>">
-						<?php esc_html_e( 'Cosa accettiamo', 'lupin3rd' ); ?>
+						<?php esc_html_e( 'Linee guida', 'lupin3rd' ); ?>
 					</a>
 				</p>
 			</div>
@@ -314,49 +314,6 @@ $l3_roles = array(
 		</div>
 	</section>
 <?php endif; ?>
-
-<section class="section">
-	<div class="container">
-		<div class="grid-2">
-			<div class="stack">
-				<h2><?php esc_html_e( 'Cosa chiediamo per aprire un account', 'lupin3rd' ); ?></h2>
-				<p class="widget-note">
-					<?php esc_html_e( 'Uno pseudonimo, un indirizzo email e una password. L\'email serve per il recupero e per avvisarti quando qualcuno risponde: non è pubblica e non entra nella newsletter.', 'lupin3rd' ); ?>
-				</p>
-
-				<div class="card">
-					<p class="meta"><?php esc_html_e( 'Conserviamo', 'lupin3rd' ); ?></p>
-					<ul class="plain-list">
-						<li><?php esc_html_e( 'Pseudonimo, data di iscrizione, ruolo.', 'lupin3rd' ); ?></li>
-						<li><?php esc_html_e( 'Email, visibile solo alla moderazione.', 'lupin3rd' ); ?></li>
-						<li><?php esc_html_e( 'Commenti pubblicati e cronologia delle modifiche.', 'lupin3rd' ); ?></li>
-					</ul>
-				</div>
-
-				<div class="card">
-					<p class="meta"><?php esc_html_e( 'Non conserviamo', 'lupin3rd' ); ?></p>
-					<ul class="plain-list">
-						<li><?php esc_html_e( 'Indirizzi IP oltre le 24 ore di finestra antispam.', 'lupin3rd' ); ?></li>
-						<li><?php esc_html_e( 'Cronologia di lettura, tempo sulla pagina, provenienza.', 'lupin3rd' ); ?></li>
-						<li><?php esc_html_e( 'Nomi reali, documenti, numeri di telefono: non li chiediamo mai.', 'lupin3rd' ); ?></li>
-					</ul>
-				</div>
-			</div>
-
-			<div class="stack">
-				<div class="callout">
-					<p class="callout-title"><?php esc_html_e( 'L\'immagine di profilo non esce dal server', 'lupin3rd' ); ?></p>
-					<p><?php esc_html_e( 'Niente Gravatar: l\'avatar è un motivo generato dal seme dell\'account, calcolato in locale. Nessun servizio esterno riceve l\'hash della tua email quando qualcuno apre la pagina.', 'lupin3rd' ); ?></p>
-				</div>
-
-				<div class="card">
-					<p class="meta"><?php esc_html_e( 'Secondo fattore', 'lupin3rd' ); ?></p>
-					<p class="widget-note"><?php esc_html_e( 'Opzionale per i membri, obbligatorio per redazione e collaboratori: TOTP oppure sfida firmata con la chiave PGP dichiarata nel profilo.', 'lupin3rd' ); ?></p>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
 
 <?php
 get_footer();

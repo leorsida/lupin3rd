@@ -1,6 +1,11 @@
 /* Empty states for archives and search. */
 
+/* Full width wherever it lands. Every list that can come back empty is a grid
+ * of some shape — two columns on /comunita/, more elsewhere — and a notice
+ * that occupies one cell reads as a result rather than as the absence of them.
+ * `grid-column` is ignored outside a grid, so this one line covers both. */
 .emptystate {
+  grid-column: 1 / -1;
   display: flex; flex-direction: column; align-items: center; text-align: center;
   gap: 14px;
   border: 1px dashed var(--border-strong);
