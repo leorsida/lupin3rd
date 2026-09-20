@@ -263,3 +263,27 @@ Two rules follow.
   once `admin_bar_menu` has finished, whatever priorities core uses inside it.
   «After that action» is a fact; «priority 100 is late enough» is a guess that
   a core release can invalidate silently.
+
+## A custom property is substituted where it is declared
+
+```scss
+:root        { --admin-bar: 0px;  --stick: calc(var(--admin-bar) + 92px); }
+body.admin-bar { --admin-bar: 32px; }   /* --stick does not follow */
+```
+
+`--stick` computes on `:root`, where `--admin-bar` is `0px`, and the result —
+`92px` — is what inherits into `body.admin-bar`. Redefining `--admin-bar`
+lower down changes nothing, because `--stick` was already resolved.
+
+So a token that depends on another token is only safe when both are declared
+on the same element and neither is ever overridden. Where an override is the
+whole point, keep the pieces separate and combine them **at the point of use**,
+on the element that has the overridden value in scope:
+
+```scss
+top: calc(var(--admin-bar) + var(--header-height));
+```
+
+This costs a repeated `calc()` at two or three call sites and is worth it: the
+failure mode is a layout that is quietly correct for a signed-out reader and
+quietly wrong for everybody else, which is the hardest kind to notice.

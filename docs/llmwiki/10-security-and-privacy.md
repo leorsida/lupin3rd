@@ -180,11 +180,23 @@ The search overlay is a sibling of `.topnav`, after `</header>`, so its own
 
 **And anything that sticks below the header has to move with it.** The side
 column rested at a flat `top: 92px` — the header's height, written out — which
-stopped clearing the header the moment the header itself moved down by 32px.
-That number now lives once, as `--stick-below-header`
-(`calc(var(--admin-bar) + 92px)`), and the same token gives in-page anchors
-their `scroll-margin-top`.
+stopped clearing the header the moment the header moved down by 32px. The
+height is now `--header-height`, and anything sticking below the header writes
+
+```scss
+top: calc(var(--admin-bar) + var(--header-height));
+```
+
+**at the point of use**, never as a derived token on `:root`. See
+`11-conventions.md`: a custom property that references another one is
+substituted where it is *declared*, so a token built on `:root` captures
+`--admin-bar: 0px` and inherits that zero straight past `body.admin-bar`. That
+is exactly how the first attempt at this failed.
+
+The same calc gives in-page anchors their `scroll-margin-top`, on the target
+rather than as `scroll-padding-top` on `<html>`, because `admin-bar.css` sets
+that property on `<html>` too and which one wins would depend on enqueue order.
 
 Anything new joins one of three lists: offset by `--admin-bar` if it is fixed
 at the top of the viewport and part of the page, `--z-modal` if it is modal,
-`--stick-below-header` if it sticks underneath the header.
+`calc(var(--admin-bar) + var(--header-height))` if it sticks below the header.

@@ -53,11 +53,17 @@
    * no CSS offset can follow it. */
   --z-modal: 100000;
 
-  /* Where anything sticky below the header comes to rest: the height of
-   * .topnav plus room to breathe, after whatever the admin bar has taken.
-   * One definition, because the header's height is not something two files
-   * should each remember. */
-  --stick-below-header: calc(var(--admin-bar) + 92px);
+  /* The height of .topnav plus room to breathe. Anything that sticks below the
+   * header adds --admin-bar to this AT THE POINT OF USE:
+   *
+   *   top: calc(var(--admin-bar) + var(--header-height));
+   *
+   * and not as a second token defined here. A custom property that references
+   * another one is substituted on the element where it is declared, so a
+   * `--stick-below-header` written on :root would capture the :root value of
+   * --admin-bar — 0px — and go on inheriting that zero into `body.admin-bar`,
+   * where the whole point was that it is 32px. */
+  --header-height: 92px;
 }
 
 body.admin-bar { --admin-bar: var(--wp-admin--admin-bar--height, 32px); }

@@ -37,8 +37,8 @@ main > .section-tight:last-child { padding-bottom: clamp(44px, 6vw, var(--gap-2x
  * height, which is what sticky needs. */
 .grid-main-side > aside {
   position: sticky;
-  top: var(--stick-below-header);
-  max-height: calc(100dvh - var(--stick-below-header) - var(--gap-lg));
+  top: calc(var(--admin-bar) + var(--header-height));
+  max-height: calc(100dvh - var(--admin-bar) - var(--header-height) - var(--gap-lg));
   overflow-y: auto;
   overscroll-behavior: contain;
   scrollbar-width: thin;
@@ -50,7 +50,7 @@ main > .section-tight:last-child { padding-bottom: clamp(44px, 6vw, var(--gap-2x
  * own stylesheet sets that same property on <html> and which of the two wins
  * would depend on enqueue order. */
 .prose :is(h2, h3, h4)[id],
-[id^="comment-"] { scroll-margin-top: var(--stick-below-header); }
+[id^="comment-"] { scroll-margin-top: calc(var(--admin-bar) + var(--header-height)); }
 
 .split-feature { display: grid; grid-template-columns: minmax(0,1.15fr) minmax(0,1fr); gap: 44px; align-items: center; }
 @media (max-width: 920px) {
