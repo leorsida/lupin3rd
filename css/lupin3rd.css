@@ -54,6 +54,12 @@
    * already changes to 46px on narrow screens. Zero for a reader, who has no
    * bar and whose stylesheet never defines that property. */
   --admin-bar: 0px;
+  /* Above the admin bar's own 99999. A drawer or a search overlay is modal:
+   * while it is open the bar is part of the page it covers, and offsetting
+   * around it does not work anyway — below 600px core makes the bar
+   * `position: absolute`, so where it sits depends on the scroll position and
+   * no CSS offset can follow it. */
+  --z-modal: 100000;
 }
 
 body.admin-bar {
@@ -676,7 +682,7 @@ mark {
   }
   .topnav nav.is-drawer {
     position: fixed;
-    inset: var(--admin-bar) 0 0 auto;
+    inset: 0 0 0 auto;
     z-index: 60;
     width: min(86vw, 360px);
     padding: var(--gap-md) var(--gutter) var(--gap-2xl);
@@ -730,7 +736,7 @@ mark {
 }
 .nav-scrim {
   position: fixed;
-  inset: var(--admin-bar) 0 0 0;
+  inset: 0;
   z-index: 50;
   background: color-mix(in oklch, var(--bg) 72%, transparent);
   opacity: 0;
@@ -744,6 +750,18 @@ mark {
 /* The page behind a drawer does not scroll. */
 html.nav-locked, html.nav-locked body {
   overflow: hidden;
+}
+
+/* And the drawer covers the WordPress admin bar rather than starting below it.
+ *
+ * The z-index goes on .topnav and not on the drawer, because .topnav is
+ * `position: sticky` with a z-index of its own: it is a stacking context, so
+ * the drawer and its scrim paint as part of that single layer no matter what
+ * number they carry. Raising the header is the only way to lift what is
+ * inside it, and `nav-locked` means it only happens while the drawer is
+ * open. */
+html.nav-locked .topnav {
+  z-index: var(--z-modal);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1619,8 +1637,8 @@ a.tag:hover {
 /* Search overlay. */
 .overlay {
   position: fixed;
-  inset: var(--admin-bar) 0 0 0;
-  z-index: 50;
+  inset: 0;
+  z-index: var(--z-modal);
   display: none;
   background: color-mix(in oklch, var(--bg) 88%, transparent);
   backdrop-filter: blur(8px);

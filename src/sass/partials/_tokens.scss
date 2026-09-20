@@ -45,6 +45,13 @@
    * already changes to 46px on narrow screens. Zero for a reader, who has no
    * bar and whose stylesheet never defines that property. */
   --admin-bar: 0px;
+
+  /* Above the admin bar's own 99999. A drawer or a search overlay is modal:
+   * while it is open the bar is part of the page it covers, and offsetting
+   * around it does not work anyway — below 600px core makes the bar
+   * `position: absolute`, so where it sits depends on the scroll position and
+   * no CSS offset can follow it. */
+  --z-modal: 100000;
 }
 
 body.admin-bar { --admin-bar: var(--wp-admin--admin-bar--height, 32px); }

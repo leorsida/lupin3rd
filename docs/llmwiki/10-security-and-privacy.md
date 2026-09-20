@@ -144,17 +144,40 @@ nobody types `/wp-config.php` by hand. The end-to-end tests reported both on
 the first run after the change. This is what they are for.
 
 
-## The admin bar and the sticky header
+## The admin bar, the sticky header and the drawer
 
-A signed-in editor gets WordPress's admin bar, which is `position: fixed`, so
-anything this theme pins to the viewport slides under it: the sticky `.topnav`,
-the mobile drawer, its scrim, the search overlay.
+A signed-in editor gets WordPress's admin bar, and it gets in the way twice,
+in two different ways.
 
-All four read `--admin-bar`, defined in `_tokens.scss`. It is `0px` for a
-reader and, under `body.admin-bar`, core's own
-`--wp-admin--admin-bar--height` — which already becomes 46px below 782px, so
-the number is never repeated here. Below 600px core makes the bar
-`position: absolute`: it scrolls away, and the offset goes back to `0px`.
+**The sticky header goes under it.** `.topnav` offsets by `--admin-bar`,
+defined in `_tokens.scss`: `0px` for a reader and, under `body.admin-bar`,
+core's own `--wp-admin--admin-bar--height`, which already becomes 46px below
+782px so the number is never repeated here. Below 600px core makes the bar
+`position: absolute` — it scrolls away, and the header can sit at `top: 0`
+again.
 
-Anything new that is `position: fixed` or `sticky` at the top of the viewport
-belongs in that list.
+**The drawer and the search overlay go over it instead.** Offsetting does not
+work for them: below 600px the bar is `position: absolute`, so where it sits
+depends on the scroll position, and an offset that clears it at the top of the
+page leaves a gap everywhere else. They are modal, so they cover it —
+`--z-modal` is 100000, one above the bar's own 99999.
+
+The z-index that matters for the drawer goes on **`.topnav`**, not on the
+drawer:
+
+```scss
+html.nav-locked .topnav { z-index: var(--z-modal); }
+```
+
+`.topnav` is `position: sticky` with a z-index, which makes it a stacking
+context: the drawer and its scrim paint as part of that one layer whatever
+number they carry, so raising the header is the only way to lift what is
+inside it. `nav-locked` is already on `<html>` while the drawer is open, so
+the header only outranks the bar for as long as the drawer is there.
+
+The search overlay is a sibling of `.topnav`, after `</header>`, so its own
+`z-index: var(--z-modal)` is enough.
+
+Anything new that is fixed at the top of the viewport joins one of the two
+lists: offset by `--admin-bar` if it is part of the page, `--z-modal` if it is
+modal.
