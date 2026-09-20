@@ -380,6 +380,7 @@ correctly; theming them is its own piece of work and is not pretended to be
 done here.
 
 ## D-022 — Sessions are listed from WordPress's own tokens, without a location
+**Prototype realigned:** 20.09.2026 — the city is gone from both session rows, and so is the `Europe/Rome` on the identity line, which said the same thing more quietly.
 
 **Decided:** 13.09.2026 · **Status:** accepted · **Phase:** community
 · **Deviates from:** `OD/profilo-connesso.html`
@@ -393,6 +394,7 @@ geolocating an IP address, which means keeping the address — exactly what the
 colophon promises not to do. The prototype has to be corrected, not the theme.
 
 ## D-023 — Comment drafts are not kept on the server
+**Prototype realigned:** 20.09.2026 — the note now says the drafts live in the reader's own browser, with what that costs them: clear the site data and they are gone, and another device never had them.
 
 **Decided:** 13.09.2026 · **Status:** accepted · **Phase:** community
 · **Deviates from:** `OD/profilo-connesso.html`
@@ -415,6 +417,7 @@ order of reading.
 the site holds a reading history, which the colophon says it does not.
 
 ## D-025 — «Active account» means «has published», not «has signed in»
+**Prototype realigned:** 20.09.2026 — and the note now says why the other count is not available at all, not merely that this one is different.
 
 **Decided:** 13.09.2026 · **Status:** accepted · **Phase:** community
 · **Deviates from:** `OD/comunita.html`
@@ -673,3 +676,22 @@ Two surfaces were **measured rather than assumed**, and they disagreed:
 
 Checking the pages alone would have passed while `/wp-json/wp/v2/comments`
 went on publishing the name.
+
+## D-034 — The prototype is corrected when the theme is right, not left to drift
+
+**Decided:** 20.09.2026 · **Status:** accepted · **Phase:** privacy
+
+`OD/` is the design source of truth, and four of its statements had become
+false: the two in D-022 and D-023, the definition of an active account in
+D-025, and a «Cancellazione» callout on `comunita.html` promising an export
+that does not exist and naming the account closure a deletion.
+
+All four are now corrected in both languages. The rule this settles: when a
+decision says the prototype is wrong, the prototype gets edited **then**, not
+added to a list. A design source of truth that contradicts the running site is
+not a source of truth, and the longer it sits the more likely somebody rebuilds
+the mistake from it — which is exactly what `OD/` exists to make easy.
+
+What is not corrected is anything where the prototype is simply ahead of the
+theme: the second factor, the bookmarks tab, the `.onion` mirror. Those are
+promises the theme has not kept yet, not statements that are false.
