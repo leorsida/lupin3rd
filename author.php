@@ -272,11 +272,7 @@ $l3_key       = Profile_Fields::fingerprint( $l3_user );
 				<p class="widget-note">
 					<?php
 					if ( Community::is_queued( $l3_user->ID ) ) {
-						printf(
-							/* translators: %d: number of contributions read before an account leaves the queue. */
-							esc_html__( 'I primi %d commenti passano dalla moderazione. Questo account è ancora in coda.', 'lupin3rd' ),
-							(int) Community::MODERATION_THRESHOLD
-						);
+						esc_html_e( 'Questo account non è ancora validato.', 'lupin3rd' );
 					} else {
 						esc_html_e( 'Superati i primi tre commenti, i suoi commenti compaiono senza attesa. Due segnalazioni respinte riportano l\'account in coda.', 'lupin3rd' );
 					}
