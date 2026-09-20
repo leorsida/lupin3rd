@@ -2073,6 +2073,27 @@ a.tag:hover {
   padding-top: 0;
 }
 
+/* The last row has nothing under it to be separated from.
+ *
+ * `:has()` and not `:last-child`, because the grid's real last child is the
+ * empty state: it ships hidden so the filter can reveal it without a round
+ * trip, which means no `.member` is ever `:last-child`. This asks the question
+ * the design is actually asking — is there another row after this one. */
+.member:not(:has(~ .member)) {
+  border-bottom: 0;
+}
+
+/* Two columns, so the row beside the last one is on the same line and its rule
+ * separates from nothing either. Only when they really share a line: with an
+ * odd number of rows the last one sits alone and the one before it belongs to
+ * the line above, which is what the `nth-child(odd)` test says. Below the
+ * breakpoint `.grid-2` is a single column and the rule above is the whole
+ * story. */
+@media (min-width: 921px) {
+  .member:nth-child(odd):not(:has(~ .member ~ .member)) {
+    border-bottom: 0;
+  }
+}
 .member-id {
   display: flex;
   flex-wrap: wrap;
