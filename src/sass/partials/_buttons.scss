@@ -11,6 +11,11 @@
 .btn-primary:hover { background: color-mix(in oklch, var(--accent) 84%, var(--fg)); border-color: color-mix(in oklch, var(--accent) 84%, var(--fg)); color: var(--on-accent); }
 .btn-secondary { background: transparent; color: var(--fg); border-color: var(--border-strong); }
 .btn-secondary:hover { border-color: var(--fg); background: var(--fg-soft); color: var(--fg); }
+/* Outlined, not filled: this is the button somebody presses once, and a solid
+ * red block is an invitation. It says what it is and waits to be meant. */
+.btn-danger { background: transparent; color: var(--accent); border-color: var(--accent); }
+.btn-danger:hover { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+.btn-danger[disabled] { opacity: .45; pointer-events: none; }
 .btn-ghost { background: transparent; color: var(--fg); border-color: transparent; padding-inline: 10px; }
 .btn-ghost:hover { background: var(--fg-soft); color: var(--fg); }
 .btn-arrow::after { content: '→'; transition: transform .15s ease; }

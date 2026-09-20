@@ -167,7 +167,13 @@ final class Reply_Notifications {
 			$seen[ $user_id ] = true;
 			$user             = get_userdata( $user_id );
 
-			if ( $user instanceof \WP_User && Profile_Fields::wants_replies( $user ) && is_email( $user->user_email ) ) {
+			/*
+			 * `wants_replies()` is false for a closed account, so this is
+			 * already covered — but a closed account is the case where a stray
+			 * email would reach somebody who asked to be left alone, so it is
+			 * worth being able to read that here.
+			 */
+			if ( $user instanceof \WP_User && ! Retirement::is_closed( $user ) && Profile_Fields::wants_replies( $user ) && is_email( $user->user_email ) ) {
 				$users[] = $user;
 			}
 		}

@@ -143,6 +143,13 @@ $l3_stats  = Community::profile_stats( $l3_me->ID );
 			</div>
 
 			<?php get_template_part( 'template-parts/account/form-credentials' ); ?>
+
+			<div class="mw-46">
+				<p class="kicker"><?php esc_html_e( 'Andarsene', 'lupin3rd' ); ?></p>
+				<h2><?php esc_html_e( 'Chiudere l\'account', 'lupin3rd' ); ?></h2>
+			</div>
+
+			<?php get_template_part( 'template-parts/account/form-close' ); ?>
 		</div>
 
 		<aside>
@@ -175,9 +182,9 @@ $l3_stats  = Community::profile_stats( $l3_me->ID );
 			</div>
 
 			<div class="widget">
-				<p class="widget-title"><?php esc_html_e( 'Andarsene', 'lupin3rd' ); ?></p>
+				<p class="widget-title"><?php esc_html_e( 'Esportazione', 'lupin3rd' ); ?></p>
 				<p class="widget-note">
-					<?php esc_html_e( 'Esportazione e cancellazione dell\'account non sono ancora qui: per ora si chiedono alla redazione. I commenti già pubblicati restano, a firma «account rimosso».', 'lupin3rd' ); ?>
+					<?php esc_html_e( 'Una copia di quello che abbiamo su di te non si scarica ancora da qui: si chiede alla redazione. La chiusura dell\'account invece la fai da solo, qui sotto.', 'lupin3rd' ); ?>
 				</p>
 			</div>
 		</aside>

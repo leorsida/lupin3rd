@@ -199,7 +199,13 @@ final class Profile_Fields {
 	public static function pseudonym( $user ): string {
 		$user = self::user( $user );
 
-		if ( ! $user instanceof \WP_User ) {
+		/*
+		 * Two ways to be nobody: the row is gone, or its owner closed the
+		 * account. The second is the one that matters now, because closing
+		 * overwrites nothing — the pseudonym is still sitting in the meta
+		 * table, and this is the line that stops it being printed.
+		 */
+		if ( ! $user instanceof \WP_User || Retirement::is_closed( $user ) ) {
 			return __( 'account rimosso', 'lupin3rd' );
 		}
 
@@ -312,7 +318,7 @@ final class Profile_Fields {
 	public static function wants_replies( $user ): bool {
 		$user = self::user( $user );
 
-		if ( ! $user instanceof \WP_User ) {
+		if ( ! $user instanceof \WP_User || Retirement::is_closed( $user ) ) {
 			return false;
 		}
 
@@ -423,6 +429,13 @@ final class Profile_Fields {
 				'number'      => 1,
 				'fields'      => 'ID',
 				'count_total' => false,
+
+				/*
+				 * The one query that has to see closed accounts. Their
+				 * pseudonyms stay taken: nobody inherits a name somebody else
+				 * signed their contributions with. See Retirement.
+				 */
+				'l3_include_closed' => true,
 			)
 		);
 

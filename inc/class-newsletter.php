@@ -63,6 +63,14 @@ final class Newsletter {
 	 */
 	protected function register_hooks(): void {
 		add_action( 'init', array( $this, 'register_post_type' ) );
+
+		/*
+		 * A subscriber whose account has been closed stays on the list — the
+		 * two are separate consents — but the desk has to be able to see why
+		 * an address is still here when the person is not.
+		 */
+		add_filter( 'manage_' . self::POST_TYPE . '_posts_columns', array( $this, 'add_account_column' ) );
+		add_action( 'manage_' . self::POST_TYPE . '_posts_custom_column', array( $this, 'fill_account_column' ), 10, 2 );
 		add_action( 'admin_post_' . self::ACTION, array( $this, 'handle_form' ) );
 		add_action( 'admin_post_nopriv_' . self::ACTION, array( $this, 'handle_form' ) );
 		add_action( 'template_redirect', array( $this, 'handle_confirmation' ) );
@@ -296,6 +304,89 @@ final class Newsletter {
 		);
 
 		return $matches ? $matches[0] : null;
+	}
+
+	/**
+	 * An «Account» column beside the address.
+	 *
+	 * @param array<string, string> $columns Column headings.
+	 * @return array<string, string>
+	 */
+	public function add_account_column( $columns ): array {
+		$columns = (array) $columns;
+
+		$columns['l3_account'] = __( 'Account', 'lupin3rd' );
+
+		return $columns;
+	}
+
+	/**
+	 * Fill it.
+	 *
+	 * @param string $column Column being filled.
+	 * @param int    $id     Subscriber record on this row.
+	 */
+	public function fill_account_column( $column, $id ): void {
+		if ( 'l3_account' !== $column ) {
+			return;
+		}
+
+		$user_id = (int) get_post_meta( (int) $id, self::USER_KEY, true );
+		$user    = $user_id > 0 ? get_userdata( $user_id ) : null;
+
+		if ( ! $user instanceof \WP_User ) {
+			echo '—';
+
+			return;
+		}
+
+		if ( Retirement::is_closed( $user ) ) {
+			printf(
+				'<strong>%s</strong>',
+				esc_html__( 'chiuso', 'lupin3rd' )
+			);
+
+			return;
+		}
+
+		printf(
+			'<a href="%s">%s</a>',
+			esc_url( (string) get_edit_user_link( $user->ID ) ),
+			esc_html( Profile_Fields::pseudonym( $user ) )
+		);
+	}
+
+	/**
+	 * Whether an address is on the list at all, confirmed or not.
+	 *
+	 * Not `is_subscribed()`, which answers a different question: that one is
+	 * about a confirmed subscription. This one is about whether there is
+	 * anything to remove, and an unconfirmed record is still something.
+	 *
+	 * @param string $email Address to look for.
+	 */
+	public static function has_record( string $email ): bool {
+		return self::find( $email ) instanceof \WP_Post;
+	}
+
+	/**
+	 * Take an address off the list.
+	 *
+	 * The record is deleted rather than unpublished, and permanently: an
+	 * address kept «in case» is an address kept, and the only thing this site
+	 * has ever stored about a subscriber is the address itself. Nothing is
+	 * left to anonymise.
+	 *
+	 * @param string $email Address to remove.
+	 */
+	public static function unsubscribe( string $email ): bool {
+		$record = self::find( $email );
+
+		if ( ! $record instanceof \WP_Post ) {
+			return false;
+		}
+
+		return (bool) wp_delete_post( $record->ID, true );
 	}
 
 	/**

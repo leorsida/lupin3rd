@@ -611,3 +611,65 @@ work without knowing where somebody writes from.
 
 Rows written before this existed still carry addresses; `17-privacy.md` has the
 one-off `UPDATE`.
+
+## D-032 — An account is closed, not deleted, and the difference is said out loud
+
+**Decided:** 20.09.2026 · **Status:** accepted · **Phase:** community
+
+Closing an account from `/account/` changes its role to `l3_closed`, records the
+role it had, destroys every session and stops it appearing anywhere a reader
+can look. Nothing is overwritten: the address, the biography and the
+fingerprint stay in the database, reachable by the desk.
+
+Two things follow, and both are in the product rather than in the code.
+
+**It is reversible.** `Retirement::reopen()` puts the previous role back and
+the account returns exactly as it was, from a button on the user screen in
+wp-admin. A first draft of this work scrubbed the row and had to be
+irreversible; keeping the data buys the desk a way to undo somebody's mistake.
+
+**It is not an erasure, so it is not called one.** The button says «chiudi
+l'account». `/privacy/` now distinguishes the two in as many words: closing is
+self-service and immediate, erasure is a request the desk answers by hand. The
+temptation to label this «cancella i miei dati» was the whole risk of the
+design — on the one page built so that it contains no false statement.
+
+The state is a **role** and not a meta flag, because WordPress already prints a
+role column in the user list and already builds the per-role filter links above
+it: the desk sees closed accounts, and can list them, without this theme
+drawing anything.
+
+## D-033 — With nothing overwritten, hiding is the entire job
+
+**Decided:** 20.09.2026 · **Status:** accepted · **Phase:** community
+
+When the plan still scrubbed the row, a surface that forgot to check showed a
+blank. Now it shows the real pseudonym. So the exclusions were built first,
+before any button existed, and as **one rule** rather than four:
+
+```php
+add_action( 'pre_get_users', array( $this, 'skip_closed_accounts' ) );
+```
+
+Every `WP_User_Query` on the front end gets `role__not_in` — the community
+lists, the «most active» table, and the user sitemap, which is a front-end
+`WP_User_Query` like everything else. wp-admin is exempt, deliberately.
+
+`Profile_Fields::pseudonym_is_free()` is the single query that must see them,
+and says so with `l3_include_closed`. Without that opt-out a closed account's
+pseudonym would read as free and somebody else could sign contributions with
+it — the one outcome this whole mechanism exists to prevent.
+
+Two surfaces were **measured rather than assumed**, and they disagreed:
+
+- The comment feeds are safe: `get_comment_author_rss()` wraps
+  `get_comment_author()`, so the theme's filter applies.
+- REST is not. `WP_REST_Comments_Controller` assigns
+  `$data['author_name'] = $comment->comment_author` — the raw column, no
+  filter — and `author_name` is in `view` context, so an anonymous caller gets
+  it. `Security::name_the_author_in_rest()` closes it on
+  `rest_prepare_comment`, which is the right fix regardless of this feature:
+  the pseudonym filter should have governed REST all along.
+
+Checking the pages alone would have passed while `/wp-json/wp/v2/comments`
+went on publishing the name.

@@ -34,6 +34,15 @@ final class Community {
 	public const ROLE_CONTRIBUTOR = 'l3_contributor';
 
 	/**
+	 * Role of an account its owner has closed. No capabilities at all.
+	 *
+	 * A role and not a meta flag: WordPress already prints a role column in
+	 * the user list and already builds the per-role filter links above it, so
+	 * naming the state here is what makes it visible to the desk for free.
+	 */
+	public const ROLE_CLOSED = 'l3_closed';
+
+	/**
 	 * Public base of a member profile: /membri/<pseudonym>/.
 	 */
 	public const AUTHOR_BASE = 'membri';
@@ -51,7 +60,7 @@ final class Community {
 	/**
 	 * Bumped whenever the capability lists below change.
 	 */
-	private const ROLES_VERSION = 1;
+	private const ROLES_VERSION = 2;
 
 	/**
 	 * Attach hooks.
@@ -88,6 +97,7 @@ final class Community {
 
 		remove_role( self::ROLE_MEMBER );
 		remove_role( self::ROLE_CONTRIBUTOR );
+		remove_role( self::ROLE_CLOSED );
 
 		add_role(
 			self::ROLE_MEMBER,
@@ -113,6 +123,13 @@ final class Community {
 				'l3_propose_change' => true,
 			)
 		);
+
+		/*
+		 * Deliberately empty. A closed account keeps its row, its address and
+		 * its history, and loses every capability — including `read`, which is
+		 * what stops it reaching wp-admin at all.
+		 */
+		add_role( self::ROLE_CLOSED, __( 'Chiuso', 'lupin3rd' ), array() );
 
 		update_option( self::ROLES_OPTION, self::ROLES_VERSION, true );
 

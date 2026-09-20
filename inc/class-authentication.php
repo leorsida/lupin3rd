@@ -498,6 +498,10 @@ final class Authentication {
 				'tone' => 'ok',
 				'text' => __( 'Account creato. Entra con lo pseudonimo e la password che hai appena scelto.', 'lupin3rd' ),
 			),
+			'closed' => array(
+				'tone' => 'ok',
+				'text' => __( 'Account chiuso. Non compari più da nessuna parte sul sito e non puoi più entrare. Quello che hai scritto resta nelle discussioni, senza il tuo nome. Se è stato un errore, scrivi alla redazione: si può riaprire.', 'lupin3rd' ),
+			),
 			'refused' => array(
 				'tone' => 'error',
 				'text' => __( 'Pseudonimo o password non corrispondono.', 'lupin3rd' ),

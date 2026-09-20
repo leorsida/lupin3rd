@@ -47,6 +47,7 @@ final class Theme {
 		Authentication::class,
 		Session_Hint::class,
 		Account::class,
+		Retirement::class,
 		Reply_Notifications::class,
 		Consent::class,
 		Blocks::class,

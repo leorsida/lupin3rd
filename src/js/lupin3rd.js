@@ -20,6 +20,7 @@ import initTableOfContents from './modules/table-of-contents.js';
 import initFormValidation from './modules/form-validation.js';
 import initTabs from './modules/tabs.js';
 import initPasswordStrength from './modules/password-strength.js';
+import initAccountClose from './modules/account-close.js';
 import initConsent from './modules/consent.js';
 
 const start = () => {
@@ -34,6 +35,7 @@ const start = () => {
 	initFormValidation();
 	initTabs();
 	initPasswordStrength();
+	initAccountClose();
 	initConsent();
 };
 

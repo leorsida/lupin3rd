@@ -24,6 +24,7 @@ readers have a reason to care how it behaves.
 | Gravatar | `pre_get_avatar` filtered; no request ever leaves for gravatar.com |
 | Avatar in the WP admin bar | suppressed: `pre_get_avatar` returns `''` between `admin_bar_menu` (-9999) and `wp_before_admin_bar_render`. Closing on the later *action* rather than on a high priority is deliberate — core builds the greeting's avatar at priority 9991 in WP 7.1, and that number is not a contract |
 | Comments | pre-moderation; no external anti-spam service |
+| `/wp-json/wp/v2/comments` | `author_name` rewritten through `get_comment_author()` on `rest_prepare_comment`: core reads the raw column, so the pseudonym filter did not reach REST |
 | `comment_author_IP`, `comment_agent` | `pre_comment_user_ip` and `pre_comment_user_agent` filtered to `''`; core would write both and keep them forever |
 | Third-party `<iframe>` in content | replaced server-side with a placeholder naming the host — `Consent`, see `17-privacy.md` |
 
@@ -200,3 +201,33 @@ that property on `<html>` too and which one wins would depend on enqueue order.
 Anything new joins one of three lists: offset by `--admin-bar` if it is fixed
 at the top of the viewport and part of the page, `--z-modal` if it is modal,
 `calc(var(--admin-bar) + var(--header-height))` if it sticks below the header.
+
+## A closed account
+
+Closing an account (`Retirement`, from `/account/`) overwrites nothing. The
+role becomes `Community::ROLE_CLOSED`, the previous one is recorded so the desk
+can reopen it, every session is destroyed and `authenticate` refuses the
+account with the same words as a wrong password — saying «this account was
+closed» would answer a question the person typing has no right to ask.
+
+Because nothing is scrubbed, every reader-facing surface has to check. They are:
+
+| Surface | What holds |
+|---|---|
+| any front-end `WP_User_Query` | `pre_get_users` adds `role__not_in` — covers the community lists and the user sitemap |
+| `Profile_Fields::pseudonym()` | returns «account rimosso», which is what the `get_comment_author` and `get_the_author_display_name` filters then publish |
+| `Profile_Fields::wants_replies()` | `false`, so no notification is ever addressed to somebody who left |
+| `Security::replace_gravatar()` | the generic pattern: the seed is still stored, and a stable shape beside every old comment is an identifier |
+| `/wp-json/wp/v2/comments` | see the table above |
+| `/membri/<pseudonimo>/` | `410 Gone` on `template_redirect`, before any output |
+
+`Profile_Fields::pseudonym_is_free()` is the one query that opts back in, with
+`l3_include_closed`: the pseudonym stays taken, for good.
+
+The desk sees closed accounts in the user list (a role column WordPress already
+prints, plus a «Chiuso il» column), on the account's own screen, and in the
+subscriber list — an address stays on the newsletter unless the reader ticked
+the box, because those are two separate consents.
+
+**This is not an erasure.** See `13-decisions.md` D-032: the wording on
+`/privacy/` and on `/account/` is part of the feature, not decoration.

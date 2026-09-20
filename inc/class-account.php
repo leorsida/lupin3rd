@@ -35,6 +35,11 @@ final class Account {
 	public const ACTION_CREDENTIALS = 'l3_save_credentials';
 
 	/**
+	 * Form action that closes the account.
+	 */
+	public const ACTION_CLOSE = 'l3_close_account';
+
+	/**
 	 * Query argument carrying the outcome back to the page.
 	 */
 	public const NOTICE_VAR = 'l3_account';
@@ -45,6 +50,7 @@ final class Account {
 	protected function register_hooks(): void {
 		add_action( 'admin_post_' . self::ACTION_PROFILE, array( $this, 'save_profile' ) );
 		add_action( 'admin_post_' . self::ACTION_CREDENTIALS, array( $this, 'save_credentials' ) );
+		add_action( 'admin_post_' . self::ACTION_CLOSE, array( $this, 'close_account' ) );
 
 		/*
 		 * No nopriv twin for either: a form on a page only a signed-in reader
@@ -168,6 +174,53 @@ final class Account {
 	}
 
 	/**
+	 * Close the account, with the password and the pseudonym as proof.
+	 *
+	 * Two proofs and not one. The password says it is really this reader; the
+	 * pseudonym, typed out, says they meant it. A single confirm button is
+	 * plenty for saving a biography and not nearly enough for this.
+	 */
+	public function close_account(): void {
+		$user_id = $this->reader( self::ACTION_CLOSE );
+		$user    = get_userdata( $user_id );
+
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Missing -- A password is hashed and compared, never rendered.
+		$proof      = isset( $_POST['l3_current_password'] ) ? (string) wp_unslash( $_POST['l3_current_password'] ) : '';
+		$typed      = sanitize_text_field( wp_unslash( $_POST['l3_confirm_pseudonym'] ?? '' ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Verified in reader().
+		$newsletter = ! empty( $_POST['l3_drop_newsletter'] ); // phpcs:ignore WordPress.Security.NonceVerification.Missing -- Same.
+
+		if ( ! $user instanceof \WP_User || ! wp_check_password( $proof, $user->user_pass, $user_id ) ) {
+			$this->go_back( 'wrong_password' );
+		}
+
+		if ( strtolower( $typed ) !== strtolower( Profile_Fields::pseudonym( $user ) ) ) {
+			$this->go_back( 'confirm' );
+		}
+
+		/*
+		 * The desk does not leave this way — Retirement::close() refuses it —
+		 * and the reason is worth a message rather than a silent no.
+		 */
+		if ( ! Retirement::close( $user ) ) {
+			$this->go_back( 'desk' );
+		}
+
+		if ( $newsletter ) {
+			Newsletter::unsubscribe( $user->user_email );
+		}
+
+		/*
+		 * The session is already gone: close() destroyed every token this
+		 * account had, this browser's included. wp_logout() is here for the
+		 * cookies, which are this response's to clear.
+		 */
+		wp_logout();
+
+		wp_safe_redirect( add_query_arg( Authentication::NOTICE_VAR, 'closed', Authentication::sign_in_url() ) );
+		exit;
+	}
+
+	/**
 	 * The signed-in reader, or no further.
 	 *
 	 * @param string $action Form action being handled.
@@ -216,6 +269,14 @@ final class Account {
 			'wrong_password' => array(
 				'tone' => 'error',
 				'text' => __( 'La password attuale non corrisponde. Non è stato cambiato niente.', 'lupin3rd' ),
+			),
+			'confirm' => array(
+				'tone' => 'error',
+				'text' => __( 'Lo pseudonimo che hai scritto non è il tuo. L\'account non è stato chiuso.', 'lupin3rd' ),
+			),
+			'desk' => array(
+				'tone' => 'error',
+				'text' => __( 'Un account della redazione non si chiude da qui: ci sono articoli firmati che qualcuno deve decidere dove mettere. Scrivi a chi amministra il sito.', 'lupin3rd' ),
 			),
 			'short_password' => array(
 				'tone' => 'error',

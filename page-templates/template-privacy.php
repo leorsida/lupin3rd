@@ -165,7 +165,8 @@ the_post();
 
 			<h2><?php esc_html_e( 'I tuoi diritti', 'lupin3rd' ); ?></h2>
 			<p><?php esc_html_e( 'Puoi chiedere di vedere quello che abbiamo su di te, di correggerlo, di portartelo via o di cancellarlo, e puoi opporti a un trattamento o revocare un consenso che avevi dato. Scrivici e rispondiamo entro trenta giorni. Se pensi che stiamo sbagliando, puoi rivolgerti al Garante per la protezione dei dati personali.', 'lupin3rd' ); ?></p>
-			<p><?php esc_html_e( 'Cancellare un account non cancella i commenti che hai già pubblicato: restano nella discussione, ma passano a firma «account rimosso». Una correzione che hai portato a un articolo non sparisce perché te ne sei andato.', 'lupin3rd' ); ?></p>
+			<p><?php esc_html_e( 'Due cose diverse, ed è giusto saperlo prima di scegliere. Dal tuo account puoi chiuderlo da solo, subito: sparisci dal sito, non entri più, e quello che hai scritto resta nelle discussioni a firma «account rimosso». Chiudere però non cancella: il tuo indirizzo e quello che avevi scritto nel profilo restano nel nostro database, raggiungibili solo dalla redazione.', 'lupin3rd' ); ?></p>
+			<p><?php esc_html_e( 'Se vuoi che spariscano davvero, chiedicelo: la cancellazione vera la facciamo a mano, e ti rispondiamo entro trenta giorni. In nessuno dei due casi spariscono i commenti già pubblicati, e una correzione che hai portato a un articolo non se ne va perché te ne sei andato.', 'lupin3rd' ); ?></p>
 
 			<h2><?php esc_html_e( 'Dove stanno i dati', 'lupin3rd' ); ?></h2>
 			<p><?php esc_html_e( 'Su un server che gestiamo noi, in Europa. Non ci sono trasferimenti verso paesi terzi, perché non c\'è nessun servizio esterno a cui trasferirli.', 'lupin3rd' ); ?></p>

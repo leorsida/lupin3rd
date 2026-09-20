@@ -834,6 +834,25 @@ html.nav-locked .topnav {
   color: var(--fg);
 }
 
+/* Outlined, not filled: this is the button somebody presses once, and a solid
+ * red block is an invitation. It says what it is and waits to be meant. */
+.btn-danger {
+  background: transparent;
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.btn-danger:hover {
+  background: var(--accent);
+  color: var(--on-accent);
+  border-color: var(--accent);
+}
+
+.btn-danger[disabled] {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
 .btn-ghost {
   background: transparent;
   color: var(--fg);

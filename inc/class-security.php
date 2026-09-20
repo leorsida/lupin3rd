@@ -52,6 +52,16 @@ final class Security {
 		add_filter( 'comment_flood_filter', '__return_false' );
 
 		/*
+		 * REST reads comment_author straight off the row, without passing
+		 * through get_comment_author() and therefore without the filter that
+		 * renames a closed account. The comment feeds do go through it — they
+		 * call get_comment_author_rss(), which wraps get_comment_author() —
+		 * so this is the only hole of the two, and it was measured rather than
+		 * assumed. See docs/PIANO-CANCELLAZIONE-ACCOUNT.md §5.
+		 */
+		add_filter( 'rest_prepare_comment', array( $this, 'name_the_author_in_rest' ), 10, 2 );
+
+		/*
 		 * Bracket the admin bar's construction: everything core builds between
 		 * these two gets no avatar.
 		 *
@@ -295,12 +305,45 @@ final class Security {
 			$initial = Profile_Fields::pseudonym( $user );
 		}
 
+		/*
+		 * A closed account keeps its seed in the database — nothing is
+		 * overwritten — so the pattern would go on being drawn, and a pattern
+		 * is an identifier: the same shape beside every comment somebody ever
+		 * left is exactly what the pseudonym no longer says.
+		 */
+		if ( $user instanceof \WP_User && Retirement::is_closed( $user ) ) {
+			$seed    = 'anon';
+			$initial = '';
+		}
+
 		$size = isset( $args['size'] ) && (int) $args['size'] <= 32 ? 'avatar-sm' : '';
 
 		ob_start();
 		Marks::render_avatar( $seed ?: 'anon', strtolower( substr( $initial ?: 'anon', 0, 2 ) ), $size );
 
 		return (string) ob_get_clean();
+	}
+
+	/**
+	 * Let REST answer with the same author name as every other surface.
+	 *
+	 * @param \WP_REST_Response $response Response so far.
+	 * @param \WP_Comment       $comment  Comment being described.
+	 */
+	public function name_the_author_in_rest( $response, $comment ) {
+		if ( ! $response instanceof \WP_REST_Response || ! $comment instanceof \WP_Comment ) {
+			return $response;
+		}
+
+		$data = $response->get_data();
+
+		if ( is_array( $data ) && isset( $data['author_name'] ) ) {
+			$data['author_name'] = get_comment_author( $comment );
+
+			$response->set_data( $data );
+		}
+
+		return $response;
 	}
 
 	/**
