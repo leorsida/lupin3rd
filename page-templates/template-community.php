@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Comunità
+ * Template Name: Community
  *
  * The index of the community: who is here, what they have been saying, and
  * what the site keeps about them.

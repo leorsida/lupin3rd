@@ -19,6 +19,11 @@ Italian survives in exactly two places, both of them content rather than code:
 1. **Public slugs and URLs** — `/tutorial/`, `/categoria/`, `/archivio/`,
    `/membri/`, `/difficolta/`. They are already indexed and they are read by
    people.
+
+   Not a rule about language, though it reads like one: a slug is Italian
+   because that is the word the desk would use out loud. Where the word the
+   desk uses is English, the slug is English — `/community/` since 20.09.2026,
+   by the desk's own call (D-036).
 2. **Translatable strings**, which are Italian because Italian is the default
    language of the site, and which pass through `__()` regardless.
 

@@ -29,7 +29,7 @@ defined( 'ABSPATH' ) || exit;
 		<?php esc_html_e( 'Il tuo profilo', 'lupin3rd' ); ?>
 	</a>
 
-	<a class="hidden" href="<?php echo esc_url( home_url( '/comunita/' ) ); ?>" data-when-signed-in data-account-public>
+	<a class="hidden" href="<?php echo esc_url( home_url( '/community/' ) ); ?>" data-when-signed-in data-account-public>
 		<?php esc_html_e( 'Profilo pubblico', 'lupin3rd' ); ?>
 	</a>
 

@@ -49,8 +49,8 @@ $l3_key       = Profile_Fields::fingerprint( $l3_user );
 					'url'   => home_url( '/' ),
 				),
 				array(
-					'label' => __( 'Comunità', 'lupin3rd' ),
-					'url'   => home_url( '/comunita/' ),
+					'label' => __( 'Community', 'lupin3rd' ),
+					'url'   => home_url( '/community/' ),
 				),
 				array(
 					'label' => $l3_pseudonym,

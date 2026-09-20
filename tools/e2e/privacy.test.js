@@ -101,7 +101,7 @@ test('no article sends the browser to another host', async () => {
 	 * The colophon's claim, checked rather than believed — and now also the
 	 * reason the notice can have a single category.
 	 */
-	for (const path of ['/', GATED, '/privacy/', '/comunita/']) {
+	for (const path of ['/', GATED, '/privacy/', '/community/']) {
 		const html = await page(path);
 
 		assert.deepEqual(externalHosts(html), [], `${path} contacts a third party`);

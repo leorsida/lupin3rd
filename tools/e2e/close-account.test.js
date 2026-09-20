@@ -73,7 +73,7 @@ test('no closed account is named anywhere a reader can look', async () => {
 	 * assertion is written against the role slug — that one appears in the
 	 * markup only if something is printing a closed account's furniture.
 	 */
-	for (const path of ['/comunita/', '/']) {
+	for (const path of ['/community/', '/']) {
 		const html = await page(path);
 
 		assert.doesNotMatch(html, /l3_closed/, `${path} names the closed role`);
@@ -85,9 +85,9 @@ test('the community page still stands on its own', async () => {
 	 * A guard against the exclusion being implemented as a filter that empties
 	 * the page for everybody: the lists have to keep listing.
 	 */
-	const html = await page('/comunita/');
+	const html = await page('/community/');
 	const main = element(html, /<section[^>]*class="[^"]*section/);
 
-	assert.ok(main, 'no section on /comunita/');
+	assert.ok(main, 'no section on /community/');
 	assert.match(html, /\/membri\//, 'the community page lists nobody at all');
 });

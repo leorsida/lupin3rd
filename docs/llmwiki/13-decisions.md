@@ -742,3 +742,25 @@ factor, the bookmarks tab, the `.onion` mirror. Those survive as prose in
 The decision log keeps saying «Deviates from `OD/…`» in thirteen places. Those
 lines are history, not directions, and they stay: a decision that was taken
 against something is not clearer for hiding what it was taken against.
+
+## D-036 — «Community», in the copy and in the URL
+
+**Decided:** 20.09.2026 · **Status:** accepted · **Phase:** community
+· **Amends:** the slug rule in `11-conventions.md`
+
+The page is «Community» and lives at `/community/`. Every label, breadcrumb
+and heading that said «Comunità» says «Community».
+
+The convention said public slugs stay Italian, and this looks like an
+exception to it. It is not, once the rule is stated properly: a slug was
+Italian because Italian is the word the desk would use out loud, not because
+of a policy about languages. For this one the desk uses the English word. The
+convention now says that.
+
+What the change actually costs, and why it was worth doing today rather than
+later: the slug is written out in six templates, four e2e files and the seed,
+and the seed had to **rename** the existing page rather than create one —
+`ensure_post` finds a page by slug, so without the rename a seeded site would
+carry two community pages and the old URL would go on resolving. On a site
+already published this would also need a redirect from `/comunita/`; this one
+is not published yet, which is the whole reason the rename is free.

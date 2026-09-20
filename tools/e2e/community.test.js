@@ -120,12 +120,12 @@ test('the byline under a piece leads to its author\'s profile', { skip: skip || 
 });
 
 const index = await (async () => {
-	const response = await get('/comunita/');
+	const response = await get('/community/');
 
 	return 200 === response.status ? response.body : null;
 })();
 
-const noIndex = !index && '/comunita/ is not published — run tools/seed-demo-content.sh';
+const noIndex = !index && '/community/ is not published — run tools/seed-demo-content.sh';
 
 test('the community index counts what it says it counts', { skip: noIndex }, () => {
 	assert.match(index, /class="statgrid"/, 'no numbers');
@@ -160,7 +160,7 @@ test('the "all" chip carries no value, so the client filter does not hide everyb
 
 test('the role filter runs on the server, not only in the browser', { skip: noIndex }, async () => {
 	const rows = (html) => (html.match(/<a class="member"/g) || []).length;
-	const filtered = await get('/comunita/?l3_role=contributor');
+	const filtered = await get('/community/?l3_role=contributor');
 
 	assert.equal(filtered.status, 200, `?l3_role=contributor answered ${filtered.status}`);
 

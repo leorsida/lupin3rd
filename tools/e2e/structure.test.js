@@ -136,9 +136,9 @@ test('an empty state spans the whole list it replaces', async () => {
 	 * otherwise, and a «no results» notice sitting in one of two columns reads
 	 * as a result rather than as the absence of them.
 	 */
-	const html = await page('/comunita/');
+	const html = await page('/community/');
 	const grid = element(html, /<div[^>]*data-filter-scope="members"/);
 
-	assert.ok(grid, 'no members grid on /comunita/');
+	assert.ok(grid, 'no members grid on /community/');
 	assert.match(grid, /class="emptystate hidden"/, 'the grid carries no empty state to reveal');
 });

@@ -36,8 +36,8 @@ $l3_inside = $l3_user instanceof WP_User && $l3_user->exists();
 					'url'   => home_url( '/' ),
 				),
 				array(
-					'label' => __( 'Comunità', 'lupin3rd' ),
-					'url'   => home_url( '/comunita/' ),
+					'label' => __( 'Community', 'lupin3rd' ),
+					'url'   => home_url( '/community/' ),
 				),
 				array(
 					'label' => __( 'Account', 'lupin3rd' ),
@@ -133,7 +133,7 @@ $l3_inside = $l3_user instanceof WP_User && $l3_user->exists();
 				<p class="widget-title"><?php esc_html_e( 'Cosa sblocca l\'account', 'lupin3rd' ); ?></p>
 				<ul>
 					<li><a href="<?php echo esc_url( home_url( '/archivio/' ) ); ?>"><?php esc_html_e( 'Intervenire sotto gli articoli', 'lupin3rd' ); ?> <span>01</span></a></li>
-					<li><a href="<?php echo esc_url( home_url( '/comunita/' ) ); ?>"><?php esc_html_e( 'Un profilo pubblico con i tuoi commenti', 'lupin3rd' ); ?> <span>02</span></a></li>
+					<li><a href="<?php echo esc_url( home_url( '/community/' ) ); ?>"><?php esc_html_e( 'Un profilo pubblico con i tuoi commenti', 'lupin3rd' ); ?> <span>02</span></a></li>
 					<li><a href="<?php echo esc_url( home_url( '/linee-guida/' ) ); ?>"><?php esc_html_e( 'Proporre correzioni e writeup', 'lupin3rd' ); ?> <span>03</span></a></li>
 				</ul>
 			</div>

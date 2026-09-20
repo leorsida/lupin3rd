@@ -481,7 +481,7 @@ final class Profile_Fields {
 
 		$can_verify = current_user_can( 'edit_users' );
 		?>
-		<h2><?php esc_html_e( 'Profilo di comunità', 'lupin3rd' ); ?></h2>
+		<h2><?php esc_html_e( 'Profilo community', 'lupin3rd' ); ?></h2>
 		<table class="form-table" role="presentation">
 			<tr>
 				<th><label for="l3_pseudonym"><?php esc_html_e( 'Pseudonimo', 'lupin3rd' ); ?></label></th>

@@ -26,7 +26,7 @@ authoritative where the prototype and the code disagree.
 | Static page | `chi-siamo.html`, `linee-guida.html`, `cassetta-sicura.html` | `page.php` | `/<slug>/` | 1 |
 | Search results | `risultati-ricerca.html` | `search.php` | `/?s=` | 1 |
 | Not found | `pagina-404.html` | `404.php` | — | 1 |
-| Community | `comunita.html` | `page-templates/template-community.php` | `/comunita/` | 2 |
+| Community | `comunita.html` | `page-templates/template-community.php` | `/community/` | 2 |
 | Member profile | `profilo.html` | `author.php` | `/membri/<pseudonym>/` | 2 |
 | Sign in | `accesso.html` | `page-templates/template-sign-in.php` | `/accesso/` | 2 |
 | Account area | `profilo-connesso.html` | `page-templates/template-account.php` | `/account/` | 2 |

@@ -311,11 +311,20 @@ safe_id=$(ensure_post page "email-sicura" "Come email in modo sicuro" "Materiale
 struct_id=$(ensure_post page "struttura" "Struttura del sito" "Come è costruito lupin3rd.org: colophon tecnico." \
   "<p>Tema proprietario, tre tipi di post, tre tassonomie, nessun page builder.</p><h2>Gerarchia dei template</h2><p>Testo di prova.</p>")
 
-# /comunita/ is a page with a template, not a route the theme invents: the
+# The page moved from /comunita/ to /community/ (D-036). Rename rather than
+# create: ensure_post looks a page up by slug, so without this a seeded site
+# would end up with two community pages and the old URL would keep resolving.
+old_comm="$(find_post page "comunita")"
+if [ -n "$old_comm" ]; then
+  wp post update "$old_comm" --post_name=community >/dev/null
+  echo "    renamed page $old_comm comunita -> community" >&2
+fi
+
+# /community/ is a page with a template, not a route the theme invents: the
 # heading, the standfirst and the closing paragraph are editorial copy the desk
 # has to be able to rewrite. Everything counted on that page comes from the
 # database, not from this content.
-comm_id=$(ensure_post page "comunita" "L'accesso e la registrazione al sito sono gratuiti" \
+comm_id=$(ensure_post page "community" "L'accesso e la registrazione al sito sono gratuiti" \
   "La registrazione serve solo ad una cosa: firmare o rispondere agli articoli del sito." \
   "<p>La registrazione serve solo ad una cosa: firmare o rispondere agli articoli del sito. Niente bacheca personale, niente punteggi, niente rete di amicizie.</p>")
 wp post meta update "$comm_id" _wp_page_template "page-templates/template-community.php" >/dev/null

@@ -249,7 +249,7 @@ final class Community {
 	}
 
 	/**
-	 * The machine-readable role, for the filter bar on /comunita/.
+	 * The machine-readable role, for the filter bar on /community/.
 	 *
 	 * @param int|\WP_User $user Account.
 	 */
@@ -396,7 +396,7 @@ final class Community {
 	 *
 	 * About the desk's own speed, not about the reader: it is the difference
 	 * between two timestamps the site already has, and it is what makes the
-	 * «attesa media in moderazione» on /comunita/ a measurement instead of a
+	 * «attesa media in moderazione» on /community/ a measurement instead of a
 	 * claim.
 	 */
 	public const APPROVED_AT_META = 'l3_approved_at';
@@ -438,7 +438,7 @@ final class Community {
 	}
 
 	/**
-	 * The four numbers at the top of /comunita/.
+	 * The four numbers at the top of /community/.
 	 *
 	 * «Account attivi» counts accounts with at least one published
 	 * contribution, not accounts that signed in this year: the site keeps no
