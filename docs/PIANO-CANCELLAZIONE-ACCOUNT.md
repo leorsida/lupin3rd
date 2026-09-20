@@ -1,6 +1,7 @@
-# lupin3rd.org — Cancellazione dell'account
+# lupin3rd.org — Chiusura dell'account
 
-**Versione:** 1.0 · 20.09.2026
+**Versione:** 2.0 · 20.09.2026 — *la 1.0 sovrascriveva i dati personali; questa
+li lascia intatti e li rende irraggiungibili. Vedi §2.*
 **Prerequisito:** fase 2 chiusa (`/account/` in piedi, `Account`, `Profile_Fields`, `Community`)
 **Riempie:** il riquadro «Andarsene» di `page-templates/template-account.php`, che oggi dice che la cancellazione «non è ancora qui»
 **Promessa già pubblicata:** `/privacy/` — «Cancellare un account non cancella i commenti che hai già pubblicato: restano nella discussione, ma passano a firma "account rimosso"»
@@ -9,34 +10,55 @@
 
 ## 1. Cosa vuol dire «logica»
 
-Nessuna riga lascia il database. L'account viene **ritirato**: non può più
-entrare, sparisce dalla comunità e da `/membri/`, i suoi dati personali vengono
-sovrascritti, e i suoi interventi restano dove sono a firma «account rimosso».
+Niente viene eliminato e **niente viene sovrascritto**. L'account viene
+**chiuso**: non entra più, sparisce dal sito pubblico, i suoi interventi
+restano dove sono a firma «account rimosso», e la riga utente resta identica a
+com'era per chi guarda dal backend.
 
-La distinzione che conta non è fra cancellare e nascondere. È fra **i dati
-personali**, che vengono davvero sovrascritti, e **la riga utente**, che resta
-perché è ciò a cui i commenti sono agganciati. Se sparisse la riga, i commenti
-resterebbero comunque — con `user_id` che punta al nulla e il nome d'autore
-congelato nella tabella dei commenti, che è il peggiore dei due mondi: il
-pseudonimo resterebbe scritto e il legame si perderebbe.
+Due conseguenze, ed è bene tenerle a mente insieme.
 
-Non è una scorciatoia: è ciò che rende la promessa mantenibile. Ma va detto
-chiaro che la legittimità di questo schema sta **nell'elenco di cosa viene
-sovrascritto** (§3), non nel flag. Non sono un avvocato: se vuoi una conferma
-sul punto, quello è il paragrafo da far leggere.
+**La prima è buona: è reversibile.** Siccome non si distrugge niente, la
+redazione può riaprire un account chiuso per errore, o su richiesta, e tutto
+torna com'era — pseudonimo, biografia, chiave. Nella versione precedente di
+questo piano non era possibile e la cancellazione doveva essere definitiva;
+ora la riapertura è un pulsante in wp-admin (§4).
+
+**La seconda va guardata in faccia: questo non cancella i dati personali.**
+L'email, la biografia e l'impronta PGP restano nel database. È una scelta
+legittima — la redazione conserva la traccia di chi ha scritto cosa — ma
+significa che il gesto **non è una cancellazione**, è una chiusura. Vedi §2.
 
 ### Perché non `wp_delete_user()`
 
-- Riassegna o elimina i post: gli articoli di un collaboratore ritirato
+- Riassegna o elimina i post: gli articoli di un collaboratore chiuso
   sparirebbero o cambierebbero firma senza che nessuno lo decida.
 - I commenti sopravvivono comunque, ma orfani e con lo pseudonimo ancora
   scritto dentro `comment_author`.
-- È irreversibile per errore di un clic, e non lascia alla redazione modo di
-  rispondere a una richiesta su una moderazione passata.
+- È irreversibile, ed è esattamente ciò che questo piano ha deciso di evitare.
 
 ---
 
-## 2. Cosa fa il lettore
+## 2. Come va chiamata, e cosa va corretto nei testi
+
+Se i dati restano, chiamarla «cancellazione» sarebbe una dichiarazione falsa
+su una pagina che abbiamo costruito apposta perché non ne contenga. Tre
+interventi, non opzionali:
+
+1. **Il pulsante e il riquadro** su `/account/` dicono *chiudi l'account*, non
+   *cancella i miei dati*. Il testo spiega in due righe cosa resta visibile a
+   chi (nessuno) e cosa resta nel database (tutto, per la redazione).
+2. **`/privacy/`** continua a dire che si può chiedere la cancellazione — ed è
+   vero, come *richiesta alla redazione*. Va aggiunta la distinzione fra il
+   pulsante, che chiude, e la richiesta, che cancella davvero.
+3. **Una cancellazione definitiva su richiesta** resta un percorso manuale
+   della redazione, fuori da questo piano. Va nominata, però, perché il diritto
+   alla cancellazione non si soddisfa con un flag.
+
+Non sono un avvocato: questo è il punto da far leggere a chi lo è.
+
+---
+
+## 3. Cosa fa il lettore
 
 Nel riquadro «Andarsene» di `/account/`, un pulsante apre un terzo pannello
 accanto a «Profilo pubblico» e «Indirizzo e password». Il modulo chiede:
@@ -45,150 +67,168 @@ accanto a «Profilo pubblico» e «Indirizzo e password». Il modulo chiede:
 2. **lo pseudonimo, scritto a mano** — l'unica cosa che distingue un gesto
    deciso da un clic sbagliato;
 3. una casella **«cancella anche l'iscrizione alla newsletter»**, accesa di
-   default (§5).
+   default (§6).
 
-Sotto, in chiaro, cosa succede e cosa non succede. Poi `admin_post`, nonce,
-e ritorno su `/` con un messaggio.
-
-**È immediata e irreversibile, e lo dice prima.** Ogni meccanismo di ripensamento
-— finestra di grazia, link di riattivazione — richiede di conservare per
-qualche giorno esattamente i dati che si è appena chiesto di togliere, più un
-token, più un'email da spedire a un indirizzo che stiamo per sovrascrivere. Su
-un sito i cui lettori possono avere motivi seri per andarsene, «fra sette
-giorni» non è una cortesia. La digitazione dello pseudonimo è la guardia contro
-l'errore; il resto sarebbe teatro con conservazione dei dati in più.
+Sotto, in chiaro: sparisci dal sito, i tuoi commenti restano senza il tuo nome,
+non puoi più entrare, e per riaprire devi scrivere alla redazione.
 
 **La redazione non passa di qui.** Chi ha `edit_posts` riceve un rifiuto e
-l'indicazione di rivolgersi a wp-admin: perdere un account redazionale per
+l'indicazione di rivolgersi a wp-admin: chiudere un account redazionale per
 autoservizio è un problema diverso, e va gestito da chi può riassegnare gli
 articoli.
 
 ---
 
-## 3. Cosa viene sovrascritto, e cosa resta
+## 4. Lo stato, e come si vede dal backend
 
-Questo elenco è il cuore del lavoro. Vive in un posto solo,
-`inc/class-retirement.php`, perché il giorno che `Profile_Fields` aggiunge un
-campo qualcuno deve trovare subito dove dichiararlo.
+Un solo cambiamento di stato, scelto perché wp-admin lo mostri **senza che
+serva scrivere niente**:
 
-| Dato | Destino |
+| Cosa | Valore |
 |---|---|
-| `user_email` | sostituito con un indirizzo non instradabile e unico (`retired-<id>@invalid`) |
-| `user_url`, `display_name`, `nickname`, nome e cognome | svuotati |
-| `l3_pseudonym` | svuotato, e lo pseudonimo passa a `retire_pseudonym()` (90 giorni di blocco) |
-| `l3_bio`, `l3_pgp_fingerprint`, `l3_pgp_verified`, `l3_languages`, `l3_avatar_seed` | cancellati |
-| `l3_show_join_date`, `l3_notify_replies` | cancellati |
-| ruolo | rimosso (`set_role('')`): nessuna capacità, nemmeno `read` |
+| ruolo | passa a `l3_closed`, un ruolo nuovo **senza alcuna capacità**, nemmeno `read` |
+| `l3_closed_at` | timestamp della chiusura |
+| `l3_closed_role` | il ruolo che aveva prima, così la riapertura lo rimette |
 | sessioni | tutte distrutte, su ogni dispositivo |
 | `l3_hint` | cookie cancellato nella stessa risposta |
-| `l3_retired_at` | scritto: è il solo dato **nuovo**, e serve alle query |
-| `user_login`, `ID`, `user_registered` | restano: sono l'aggancio dei commenti |
-| commenti e articoli | restano, a firma «account rimosso» |
-| `l3_approved_contributions` | resta: è un contatore, non dice chi eri |
+| password, email, meta del profilo | **intatti** |
 
-L'indirizzo `@invalid` è deliberato: `.invalid` è riservato dalla RFC 2606 e
-non risolve, quindi nessun invio può partire per sbaglio. L'unicità richiesta
-da WordPress è soddisfatta dall'id.
+Il ruolo è la chiave di tutto il §4: la lista utenti di WordPress ha già una
+colonna «Ruolo» e già offre i link di filtro per ruolo. Chiamandolo
+**«Chiuso»** si ottiene gratis sia la visibilità nella riga, sia il
+«Chiuso (3)» in cima alla tabella per vederli tutti.
+
+Sopra a questo, tre aggiunte piccole in `Retirement`:
+
+- **una colonna «Chiuso il»** nella lista utenti, con la data;
+- **una classe sulla riga**, perché un account chiuso si riconosca scorrendo;
+- **nella scheda dell'utente**, un avviso in cima e un pulsante
+  **«Riapri l'account»**, che rimette `l3_closed_role` e toglie le due meta.
+  Solo per chi ha `edit_users`, con nonce.
+
+L'accesso è rifiutato sul filtro `authenticate`, con lo stesso messaggio
+indistinto usato per password sbagliata e account inesistente: dire «questo
+account è stato chiuso» a chi prova una password è raccontare qualcosa di un
+lettore a chi lo sta cercando.
 
 ---
 
-## 4. Cosa smette di mostrarlo
+## 5. Dove smette di comparire
 
-Ritirare un account è metà del lavoro. L'altra metà è che smetta di comparire,
-e sono tutti punti già scritti che vanno rivisti uno per uno.
+Qui sta il peso del lavoro, e **più che nella versione precedente**: siccome
+non si sovrascrive niente, un punto dimenticato non mostra un vuoto, mostra lo
+pseudonimo vero. Nascondere non è metà del lavoro, è il lavoro.
 
 | Dove | Cosa cambia |
 |---|---|
-| `Profile_Fields::pseudonym()` | oggi rende «account rimosso» solo se l'utente **non esiste**; deve farlo anche se è ritirato |
-| `Profile_Fields::wants_replies()` | `false` per un ritirato |
-| `Reply_Notifications::participants()` | esclude i ritirati — altrimenti l'email parte verso `@invalid` |
-| `Community::stats()`, `recent_members()`, `most_active()`, `contributions_by()` | escludono i ritirati |
+| `Profile_Fields::pseudonym()` | oggi rende «account rimosso» solo se l'utente **non esiste**; deve farlo anche se è chiuso |
+| filtri `get_the_author_display_name`, `get_comment_author` | già passano da `Profile_Fields`: verificare che coprano anche il ritorno di cui sopra |
+| `Profile_Fields::wants_replies()` | `false` per un chiuso |
+| `Reply_Notifications::participants()` | esclude i chiusi — altrimenti l'email parte verso un indirizzo che quella persona non voleva più sentire |
+| `Community::stats()`, `recent_members()`, `most_active()`, `contributions_by()` | escludono i chiusi |
 | `/membri/<pseudonimo>/` | **410 Gone**, non 404: la pagina c'era e non c'è più, ed è quello che va detto a un motore di ricerca |
-| sitemap degli utenti | verificare che i ritirati non ci siano |
-| avatar | il seme è sparito, quindi torna il motivo generico: nessuna riga da scrivere |
+| sitemap degli utenti | verificare che i chiusi non ci siano |
+| avatar | il seme resta nel database ma non deve più uscire: `Security::replace_gravatar()` disegna il motivo generico per un account chiuso |
+| feed dei commenti | **da verificare**: il feed scrive il nome d'autore per una via sua |
+| `/wp-json/wp/v2/comments` | **da verificare**: `author_name` potrebbe leggere il campo grezzo invece di `get_comment_author()` |
 
-Il **410** è l'unica scelta qui che non è ovvia: un 404 dice «non esiste»,
-lasciando il profilo in coda a essere ritentato per mesi. Un 410 lo fa togliere
-dagli indici.
+Le ultime due righe sono le uniche due incognite di questo piano, e vanno
+misurate prima di scrivere il resto: se REST e feed leggono
+`comment_author` dalla tabella senza passare dal filtro, lo pseudonimo esce da
+lì e nessun test sulle pagine se ne accorge.
 
 ---
 
-## 5. La newsletter è un consenso diverso
+## 6. La newsletter è un consenso diverso
 
 Un indirizzo può essere iscritto alla newsletter **senza** avere un account, e
-viceversa. Sono due consensi distinti, quindi cancellare l'uno non può
-decidere in silenzio per l'altro — in nessuna delle due direzioni.
+viceversa. Sono due consensi distinti, quindi chiudere l'uno non può decidere
+in silenzio per l'altro — in nessuna delle due direzioni. Da qui la casella nel
+modulo (§3), accesa di default perché è quello che quasi tutti si aspettano, ma
+visibile e disattivabile. Se l'indirizzo non risulta iscritto, la casella non
+compare affatto.
 
-Da qui la casella nel modulo, accesa di default perché è quello che quasi
-tutti si aspettano, ma visibile e disattivabile. Se l'indirizzo non risulta
-iscritto, la casella non compare affatto: una domanda senza oggetto è rumore.
+E, come per gli utenti, **la redazione lo deve vedere**. Gli iscritti sono post
+di tipo `l3_subscriber` con una meta `l3_subscriber_user` che punta
+all'account: basta una colonna in quella lista che dica «account chiuso» quando
+quella meta punta a un utente con ruolo `l3_closed`. Serve a capire, guardando
+la lista, perché un indirizzo è ancora lì ma la persona non c'è più.
 
 ---
 
-## 6. Moduli e file
+## 7. Moduli e file
 
 | File | Stato | Cosa |
 |---|---|---|
-| `inc/class-retirement.php` | **nuovo** | `retire( \WP_User $user, bool $newsletter ): bool`, `is_retired( $user ): bool`, l'elenco di §3, e i filtri che escludono i ritirati dalle query |
+| `inc/class-retirement.php` | **nuovo** | `close( \WP_User $user, bool $newsletter ): bool`, `reopen( \WP_User $user ): bool`, `is_closed( $user ): bool`, il ruolo `l3_closed`, la colonna e l'avviso in wp-admin |
 | `inc/class-account.php` | modifica | `ACTION_CLOSE = 'l3_close_account'`, handler, verifica password + pseudonimo, rifiuto per chi ha `edit_posts` |
-| `inc/class-profile-fields.php` | modifica | `pseudonym()` e `wants_replies()` consultano `Retirement::is_retired()` |
-| `inc/class-community.php` | modifica | le quattro query di §4 |
+| `inc/class-authentication.php` | modifica | rifiuto sul filtro `authenticate` |
+| `inc/class-profile-fields.php` | modifica | `pseudonym()` e `wants_replies()` consultano `Retirement::is_closed()` |
+| `inc/class-community.php` | modifica | le quattro query di §5 |
 | `inc/class-reply-notifications.php` | modifica | `participants()` |
-| `inc/class-newsletter.php` | modifica | un metodo pubblico per disiscrivere un indirizzo e uno per sapere se è iscritto |
+| `inc/class-security.php` | modifica | avatar generico per un account chiuso |
+| `inc/class-newsletter.php` | modifica | disiscrizione di un indirizzo, verifica se è iscritto, colonna in lista |
 | `page-templates/template-account.php` | modifica | il pannello, al posto del testo «non è ancora qui» |
+| `page-templates/template-privacy.php` | modifica | la distinzione fra chiusura e cancellazione (§2) |
 | `author.php` | modifica | il 410 |
 | `src/js/modules/account-close.js` | **nuovo, piccolo** | abilita il pulsante solo quando lo pseudonimo digitato combacia; senza JS il modulo funziona lo stesso, perché è il server a verificarlo |
 | `inc/class-theme.php` | modifica | `Retirement::class` nel registro |
 
-Nessun `Mail::send()` nuovo: non si manda una conferma a un indirizzo che si
-sta sovrascrivendo. Il messaggio di avvenuta cancellazione è la pagina che si
-apre dopo.
+Nessun `Mail::send()` nuovo.
 
 ---
 
-## 7. Le fette, in ordine
+## 8. Le fette, in ordine
 
-1. **`Retirement`, senza interfaccia.** Il metodo, l'elenco, `is_retired()`.
-   Verificabile da WP-CLI prima che esista un bottone.
-2. **Le esclusioni** (§4), con gli e2e che le coprono. Da fare *prima*
-   dell'interfaccia: sono la parte che si dimentica.
-3. **Il 410** su `/membri/`.
-4. **Handler e pannello** su `/account/`, con nonce, password e pseudonimo.
-5. **La newsletter**, casella compresa.
-6. **Il modulo JS**, che è comodità e basta.
-7. **Copy**: il riquadro «Andarsene», e una riga su `/privacy/` che dica che
-   la cancellazione ora si chiede da soli.
+1. **Misurare le due incognite di §5**: cosa scrivono davvero il feed dei
+   commenti e l'endpoint REST. Prima di tutto il resto, perché possono
+   aggiungere lavoro.
+2. **`Retirement`, senza interfaccia**: ruolo, `close()`, `reopen()`,
+   `is_closed()`. Verificabile da WP-CLI prima che esista un bottone.
+3. **Le esclusioni** di §5, con gli e2e che le coprono. Prima dell'interfaccia:
+   sono la parte che si dimentica.
+4. **Il backend**: colonna, riga, avviso, «Riapri l'account».
+5. **Il 410** su `/membri/`.
+6. **Handler e pannello** su `/account/`, con nonce, password e pseudonimo.
+7. **La newsletter**: casella nel modulo e colonna nella lista.
+8. **Il modulo JS**, che è comodità e basta.
+9. **Copy**: il riquadro «Andarsene» e le righe su `/privacy/` (§2).
 
 ---
 
-## 8. Test
+## 9. Test
 
 E2E, perché è dove i difetti di questo tema sono sempre stati visibili:
 
-- un account ritirato non entra più, con le credenziali di prima;
+- un account chiuso non entra più, con le credenziali di prima, e il messaggio
+  di rifiuto è lo stesso di una password sbagliata;
 - il suo profilo risponde 410;
-- i suoi commenti leggono «account rimosso» e non lo pseudonimo;
+- i suoi commenti leggono «account rimosso» **nella pagina, nel feed e in
+  REST** — tre asserzioni, non una;
 - non compare in `/comunita/` né fra i più attivi;
 - `l3_close_account` senza nonce è rifiutato; con nonce ma password sbagliata,
   o pseudonimo non combaciante, è rifiutato;
 - un account con `edit_posts` è rifiutato;
-- lo pseudonimo risulta occupato subito dopo.
+- una notifica di risposta su un articolo dove il chiuso aveva commentato **non
+  produce alcun invio**;
+- dopo `reopen()`, pseudonimo e biografia tornano quelli di prima.
 
-Più un test che vale doppio: **una notifica di risposta su un articolo dove
-il ritirato aveva commentato non produce alcun invio**.
+L'ultimo è il test che tiene onesta la promessa di §1: la reversibilità è un
+argomento solo finché qualcuno la verifica.
 
 ---
 
-## 9. Rischi noti
+## 10. Rischi noti
 
-- **Il collaboratore ritirato ha articoli pubblicati.** Restano, a firma
-  «account rimosso». È coerente con quello che `/privacy/` promette, ma va
-  detto nel modulo: chi ha scritto un pezzo non può farlo sparire da qui.
-- **`user_email` unico.** L'indirizzo `@invalid` include l'id proprio per
-  questo; con una riscrittura diversa il secondo ritiro fallirebbe in silenzio.
-- **I 90 giorni di blocco dello pseudonimo** valgono anche per chi volesse
-  tornare con lo stesso nome. È la difesa contro l'impersonificazione e va
-  tenuta, ma è una domanda che arriverà.
+- **Un punto dimenticato in §5 mostra lo pseudonimo vero.** È il rischio
+  principale di questa versione del piano, ed è il motivo per cui le
+  esclusioni vengono prima dell'interfaccia.
+- **Lo pseudonimo resta occupato per sempre**, perché la riga utente resta e
+  `pseudonym_is_free()` interroga gli utenti. Nessuno può prenderselo: è la
+  difesa migliore contro l'impersonificazione, ed è gratis. Ma se un giorno
+  qualcuno vorrà tornare con quel nome, dovrà passare dalla riapertura.
+- **Il collaboratore chiuso ha articoli pubblicati.** Restano, a firma «account
+  rimosso». Va detto nel modulo: chi ha scritto un pezzo non può farlo sparire
+  da qui.
 - **Export.** Non è in questo piano. Finché non c'è, il riquadro «Andarsene»
-  deve smettere di prometterlo insieme alla cancellazione: una delle due
-  arriva ora, l'altra no.
+  deve smettere di prometterlo insieme alla chiusura.
