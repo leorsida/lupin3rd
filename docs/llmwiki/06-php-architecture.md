@@ -127,7 +127,7 @@ private const MODULES = [
 | `Theme` | `inc/class-theme.php` | module registry, boot order |
 | `Setup` | `inc/class-setup.php` | theme supports, menus, image sizes, sidebars |
 | `Assets` | `inc/class-assets.php` | the one stylesheet, the one bundle, the inline theme script |
-| `I18n` | `inc/class-i18n.php` | text domain, date formats, language hooks |
+| `I18n` | `inc/class-i18n.php` | text domain, date formats, `published()` / `language()`, `<html lang>` (D-037) |
 | `Content_Types` | `inc/class-content-types.php` | post types, taxonomies, rewrites |
 | `Meta_Fields` | `inc/class-meta-fields.php` | `register_post_meta`, editor panels |
 | `Blocks` | `inc/class-blocks.php` | `l3/code`, `l3/notice` |

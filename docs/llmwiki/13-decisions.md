@@ -764,3 +764,36 @@ and the seed had to **rename** the existing page rather than create one —
 carry two community pages and the old URL would go on resolving. On a site
 already published this would also need a redirect from `/comunita/`; this one
 is not published yet, which is the whole reason the rename is free.
+
+## D-037 — La lingua la dichiara il tema, non l'impostazione di WordPress
+
+**Decided:** 20.09.2026 · **Status:** accepted · **Phase:** 1
+
+`I18n::published()` elenca le lingue in cui il sito **pubblica davvero** —
+oggi `array( 'it' )`. `I18n::language()` legge `get_locale()` ma accetta solo
+un codice presente in quell'elenco, altrimenti ripiega sul primo. Il filtro
+`lupin3rd_published_languages` è il punto in cui la fase 2 aggiunge `'en'`.
+
+Il difetto che l'ha provocata: l'aggiornamento a WordPress 7.1.1 ha lasciato
+*Impostazioni → Generali → Lingua del sito* su English (United States).
+`get_locale()` ha risposto `en_US`, `language()` si è fidata, e la testata ha
+acceso EN su un sito interamente in italiano, con il link a un `/en/` che
+risponde 404. Nessun errore: ogni pezzo faceva il suo lavoro: `get_locale()`
+risponde per **l'installazione**, non per il contenuto. L'unica domanda che
+nessuno poneva era se quella lingua esistesse qui.
+
+Due conseguenze, entrambe della stessa forma — *una copia di un fatto che
+nessuno tiene allineata*:
+
+- `language-switcher.php` aveva l'elenco `array( 'it', 'en' )` scritto a mano
+  e ne faceva due link veri. Ora quell'array dice **cosa si vede**, mentre
+  `published()` dice **cosa funziona**: una lingua non pubblicata è uno
+  `<span class="is-off">` inerte, non un link verso un 404.
+- `<html lang>` lo componeva il core da `get_locale()`. Il filtro
+  `language_attributes` lo riallinea a `language()`: la dichiarazione della
+  pagina ora descrive la prosa che contiene, che è quello che leggono uno
+  screen reader e un crawler.
+
+Resta vero che l'impostazione va rimessa su Italiano: questa decisione toglie
+al pannello di amministrazione il potere di mentire sul frontend, non lo
+sostituisce.

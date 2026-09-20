@@ -638,6 +638,12 @@ h1 + .kicker, h2 + .kicker, h3 + .kicker {
   color: var(--bg);
 }
 
+/* una lingua che il sito non pubblica ancora: si vede, non si clicca */
+.langswitch .is-off {
+  opacity: 0.45;
+  cursor: default;
+}
+
 /* Below the breakpoint the bar keeps only what has to be one tap away —
  * search, theme, and the button that opens the drawer. The language switch and
  * the account go into the drawer, where there is room to write them out. */

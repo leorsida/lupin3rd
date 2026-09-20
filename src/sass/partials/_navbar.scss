@@ -63,6 +63,8 @@
 }
 .langswitch > a:hover { color: var(--fg); background: var(--fg-soft); }
 .langswitch .is-on { background: var(--fg); color: var(--bg); }
+/* una lingua che il sito non pubblica ancora: si vede, non si clicca */
+.langswitch .is-off { opacity: 0.45; cursor: default; }
 
 /* Below the breakpoint the bar keeps only what has to be one tap away —
  * search, theme, and the button that opens the drawer. The language switch and

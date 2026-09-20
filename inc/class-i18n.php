@@ -25,6 +25,32 @@ final class I18n {
 	 */
 	protected function register_hooks(): void {
 		add_action( 'after_setup_theme', array( $this, 'load_text_domain' ) );
+		add_filter( 'language_attributes', array( $this, 'declare_the_published_language' ) );
+	}
+
+	/**
+	 * Make the `<html>` tag declare the language the page is actually written in.
+	 *
+	 * Core builds this string from `get_locale()`, which answers for the
+	 * WordPress installation. When the two disagree — a site setting changed by
+	 * hand or by an update — the markup tells a reader, a screen reader and a
+	 * crawler that Italian prose is English. Here the content decides.
+	 *
+	 * @param mixed $attributes The attribute string core assembled.
+	 * @return mixed
+	 */
+	public function declare_the_published_language( $attributes ) {
+		if ( ! is_string( $attributes ) || is_admin() ) {
+			return $attributes;
+		}
+
+		$lang = $this->language();
+
+		if ( preg_match( '/lang="[^"]*"/', $attributes ) ) {
+			return preg_replace( '/lang="[^"]*"/', 'lang="' . esc_attr( $lang ) . '"', $attributes );
+		}
+
+		return trim( $attributes . ' lang="' . esc_attr( $lang ) . '"' );
 	}
 
 	/**
@@ -35,18 +61,50 @@ final class I18n {
 	}
 
 	/**
+	 * The languages this site actually publishes in, best first.
+	 *
+	 * Not a list of languages WordPress can be set to: a list of languages that
+	 * have content, URLs and feeds here. Today that is one. Adding `'en'` is
+	 * what turns the second half of the language switch from a link to a 404
+	 * into a link to a site.
+	 *
+	 * @return array<int, string>
+	 */
+	public static function published(): array {
+		/**
+		 * Filters the languages the site publishes in.
+		 *
+		 * @param array<int, string> $codes Two-letter language codes, best first.
+		 */
+		return (array) apply_filters( 'lupin3rd_published_languages', array( 'it' ) );
+	}
+
+	/**
 	 * Return the current language code, two letters, lowercase.
 	 *
-	 * Phase 1 is Italian only. Phase 2 replaces the body of this method with a
-	 * call to the multilingual plugin; nothing else has to change.
+	 * Read from `get_locale()`, but only accepted when the site publishes that
+	 * language. `get_locale()` answers for WordPress, not for the content: it
+	 * follows the site setting, and in the admin it follows the signed-in
+	 * user's own profile language. Trusting it directly meant a setting changed
+	 * by accident — a core update did exactly this on 20.09.2026 — could put
+	 * the public header into a language with nothing behind it, announcing EN
+	 * on an Italian site and linking to an /it/ that does not exist.
+	 *
+	 * So the locale proposes and this list decides. When the English build
+	 * lands, `published()` gains `'en'` and the switch starts working on its
+	 * own.
 	 */
 	public function language(): string {
+		$published = self::published();
+		$locale    = substr( get_locale(), 0, 2 );
+		$code      = in_array( $locale, $published, true ) ? $locale : (string) ( $published[0] ?? 'it' );
+
 		/**
 		 * Filters the current language code.
 		 *
 		 * @param string $code Two-letter language code.
 		 */
-		return (string) apply_filters( 'lupin3rd_current_language', substr( get_locale(), 0, 2 ) );
+		return (string) apply_filters( 'lupin3rd_current_language', $code );
 	}
 
 	/**
