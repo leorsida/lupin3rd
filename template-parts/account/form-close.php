@@ -22,12 +22,10 @@ $l3_on_list   = Newsletter::has_record( (string) $l3_me->user_email );
 	<?php wp_nonce_field( Account::ACTION_CLOSE, '_wpnonce', false ); ?>
 
 	<ul class="plain-list">
-		<li><?php esc_html_e( 'Non potrai più entrare, su nessun dispositivo.', 'lupin3rd' ); ?></li>
-		<li><?php esc_html_e( 'Sparisci dalla comunità, dalla tua scheda pubblica e da ogni elenco.', 'lupin3rd' ); ?></li>
+		<li><?php esc_html_e( 'Non potrai più entrare.', 'lupin3rd' ); ?></li>
+		<li><?php esc_html_e( 'Vieni rimosso dalla nostra community.', 'lupin3rd' ); ?></li>
 		<li><?php esc_html_e( 'Quello che hai scritto resta nelle discussioni, a firma «account rimosso».', 'lupin3rd' ); ?></li>
 		<li><?php esc_html_e( 'Lo pseudonimo resta tuo: nessun altro può prenderlo.', 'lupin3rd' ); ?></li>
-		<li><?php esc_html_e( 'Non cancelliamo i dati dal database: li rendiamo irraggiungibili. Per una cancellazione vera scrivi alla redazione.', 'lupin3rd' ); ?></li>
-		<li><?php esc_html_e( 'Se ci ripensi, si riapre — ma solo chiedendolo alla redazione.', 'lupin3rd' ); ?></li>
 	</ul>
 
 	<div class="field">
@@ -49,7 +47,6 @@ $l3_on_list   = Newsletter::has_record( (string) $l3_me->user_email );
 		<input class="input" type="text" id="x-confirm" name="l3_confirm_pseudonym"
 			autocomplete="off" autocapitalize="none" spellcheck="false" required
 			data-close-confirm="<?php echo esc_attr( $l3_pseudonym ); ?>">
-		<p class="hint"><?php esc_html_e( 'Serve a essere sicuri che non sia un clic andato storto.', 'lupin3rd' ); ?></p>
 	</div>
 
 	<?php if ( $l3_on_list ) : ?>

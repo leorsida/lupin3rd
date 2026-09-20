@@ -36,7 +36,7 @@ $l3_me = wp_get_current_user();
 		<label for="p-pgp"><?php esc_html_e( 'Impronta PGP (facoltativa)', 'lupin3rd' ); ?></label>
 		<input class="input" type="text" id="p-pgp" name="l3_pgp"
 			value="<?php echo esc_attr( Profile_Fields::fingerprint( $l3_me ) ); ?>">
-		<p class="hint"><?php esc_html_e( 'Se cambia, l\'etichetta «chiave verificata» sparisce finché la redazione non controfirma la nuova.', 'lupin3rd' ); ?></p>
+		<p class="hint"><?php esc_html_e( 'Se la cambi, l\'etichetta «chiave verificata» viene rimossa dal tuo profilo finché la redazione non la verifica nuovamente.', 'lupin3rd' ); ?></p>
 	</div>
 
 	<div class="field">
@@ -52,11 +52,10 @@ $l3_me = wp_get_current_user();
 
 	<label class="check">
 		<input type="checkbox" name="l3_notify_replies" value="1" <?php checked( Profile_Fields::wants_replies( $l3_me ) ); ?>>
-		<span><?php esc_html_e( 'Avvisami via email quando qualcuno scrive sotto un articolo in cui ho commentato. Al massimo un messaggio all\'ora per articolo.', 'lupin3rd' ); ?></span>
+		<span><?php esc_html_e( 'Avvisami via email quando qualcuno scrive sotto un articolo in cui ho commentato.', 'lupin3rd' ); ?></span>
 	</label>
 
 	<div class="row-between row-wrap">
-		<span class="meta"><?php esc_html_e( 'Email, paese e ultimo accesso non compaiono mai sul profilo: non esiste un campo che possa contenerli.', 'lupin3rd' ); ?></span>
 		<button class="btn btn-primary" type="submit"><?php esc_html_e( 'Salva', 'lupin3rd' ); ?></button>
 	</div>
 </form>

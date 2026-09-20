@@ -132,7 +132,7 @@ $l3_stats  = Community::profile_stats( $l3_me->ID );
 
 			<div class="mw-46">
 				<p class="kicker"><?php esc_html_e( 'Profilo pubblico', 'lupin3rd' ); ?></p>
-				<h2><?php esc_html_e( 'Quello che si vede di te', 'lupin3rd' ); ?></h2>
+				<h2><?php esc_html_e( 'Il tuo profilo pubblico', 'lupin3rd' ); ?></h2>
 			</div>
 
 			<?php get_template_part( 'template-parts/account/form-profile' ); ?>

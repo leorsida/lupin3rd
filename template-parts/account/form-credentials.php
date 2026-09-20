@@ -44,12 +44,11 @@ $l3_me = wp_get_current_user();
 	<div class="field">
 		<label for="c-current"><?php esc_html_e( 'Password attuale', 'lupin3rd' ); ?></label>
 		<input class="input" type="password" id="c-current" name="l3_current_password" required autocomplete="current-password">
-		<p class="hint"><?php esc_html_e( 'Serve per cambiare l\'indirizzo o la password: una sessione rubata da sola non deve bastare a prendersi l\'account.', 'lupin3rd' ); ?></p>
+		<p class="hint"><?php esc_html_e( 'Serve per cambiare l\'indirizzo o la password.', 'lupin3rd' ); ?></p>
 		<p class="field-error hidden" data-error-for="l3_current_password"><?php esc_html_e( 'Serve la password attuale.', 'lupin3rd' ); ?></p>
 	</div>
 
 	<div class="row-between row-wrap">
-		<span class="meta"><?php esc_html_e( 'Cambiando la password, le altre sessioni si chiudono.', 'lupin3rd' ); ?></span>
 		<button class="btn btn-secondary" type="submit"><?php esc_html_e( 'Aggiorna', 'lupin3rd' ); ?></button>
 	</div>
 </form>
