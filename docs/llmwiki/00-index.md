@@ -3,7 +3,7 @@ id: index
 title: Index
 status: authored
 updated: 2026-09-19
-sources: [`OD/`, `wp/wp-content/themes/lupin3rd/`]
+sources: [`wp/wp-content/themes/lupin3rd/`]
 ---
 
 # Index

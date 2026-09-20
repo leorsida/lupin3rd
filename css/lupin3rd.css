@@ -6,8 +6,8 @@
  * these statements is the order of the output: rearranging them changes which
  * rule wins.
  *
- * Ported from the Open Design prototype (OD/assets/app.css), which stays the
- * visual source of truth. See docs/llmwiki/03-components.md.
+ * Ported from a static prototype that has since been retired. This file and
+ * its partials are the source of truth for the visual system (D-035).
  */
 /* Design tokens. The only place colour and typography are defined. */
 :root {

@@ -3,7 +3,7 @@ id: glossary
 title: Glossary
 status: authored
 updated: 2026-09-12
-sources: [`OD/assets/app.js`, `OD/struttura-wordpress.html`]
+sources: [`src/js/modules/*.js`, `inc/`, historical — the prototype's Italian names]
 ---
 
 # Glossary

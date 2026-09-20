@@ -3,7 +3,7 @@ id: security-and-privacy
 title: Security and privacy
 status: authored
 updated: 2026-09-19
-sources: [`OD/struttura-wordpress.html`, `OD/cassetta-sicura.html`]
+sources: [`inc/class-security.php`, `inc/class-retirement.php`, `inc/class-consent.php`]
 ---
 
 # Security and privacy

@@ -3,7 +3,7 @@ id: content-model
 title: Content model
 status: authored
 updated: 2026-09-12
-sources: [`OD/struttura-wordpress.html`]
+sources: [`inc/class-content-types.php`, `inc/class-meta-fields.php`]
 ---
 
 # Content model

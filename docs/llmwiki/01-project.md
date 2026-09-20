@@ -3,7 +3,7 @@ id: project
 title: The project
 status: authored
 updated: 2026-09-12
-sources: [`OD/chi-siamo.html`, `OD/linee-guida.html`, `OD/struttura-wordpress.html`]
+sources: [`docs/PIANO-DI-SVILUPPO.md`, `style.css`, the site's own pages]
 ---
 
 # The project

@@ -3,7 +3,7 @@ id: template-map
 title: Template map
 status: authored
 updated: 2026-09-12
-sources: [`OD/struttura-wordpress.html`, `OD/*.html`]
+sources: [`*.php`, `page-templates/*.php`, `template-parts/`, `inc/class-setup.php`]
 ---
 
 # Template map

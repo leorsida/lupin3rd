@@ -3,7 +3,7 @@ id: blocks-and-patterns
 title: Blocks and patterns
 status: authored
 updated: 2026-09-12
-sources: [`OD/struttura-wordpress.html`, `OD/articolo.html`]
+sources: [`blocks/`, `inc/class-blocks.php`, `inc/class-patterns.php`]
 ---
 
 # Blocks and patterns

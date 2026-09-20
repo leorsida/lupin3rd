@@ -3,7 +3,7 @@ id: seo-and-geo
 title: SEO and GEO
 status: authored
 updated: 2026-09-12
-sources: [`OD/struttura-wordpress.html`]
+sources: [`inc/class-seo.php`, `inc/class-schema.php`, `inc/class-geo.php`]
 ---
 
 # SEO and GEO
