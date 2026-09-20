@@ -63,15 +63,7 @@ $l3_roles = array(
 		);
 		?>
 
-		<p class="eyebrow">
-			<?php
-			printf(
-				/* translators: %s: number of accounts with at least one published contribution. */
-				esc_html__( 'Comunità · %s account, nessun nome reale', 'lupin3rd' ),
-				esc_html( number_format_i18n( $l3_stats['members'] ) )
-			);
-			?>
-		</p>
+		<p class="eyebrow"><?php esc_html_e( 'Comunity', 'lupin3rd' ); ?></p>
 
 		<h1><?php the_title(); ?></h1>
 

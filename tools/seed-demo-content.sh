@@ -315,9 +315,9 @@ struct_id=$(ensure_post page "struttura" "Struttura del sito" "Come è costruito
 # heading, the standfirst and the closing paragraph are editorial copy the desk
 # has to be able to rewrite. Everything counted on that page comes from the
 # database, not from this content.
-comm_id=$(ensure_post page "comunita" "Chi legge, corregge e alza la mano" \
-  "Un account qui serve a una cosa sola: firmare quello che scrivi sotto gli articoli e risponderne." \
-  "<p>Un account qui serve a una cosa sola: firmare quello che scrivi sotto gli articoli e risponderne. Niente bacheca personale, niente punteggi, niente rete di amicizie. Pseudonimo, chiave PGP se la usi, e la traccia pubblica dei tuoi interventi.</p>")
+comm_id=$(ensure_post page "comunita" "L'accesso e la registrazione al sito è gratuita" \
+  "La registrazione serve solo ad una cosa: firmare o rispondere agli articoli del sito." \
+  "<p>La registrazione serve solo ad una cosa: firmare o rispondere agli articoli del sito. Niente bacheca personale, niente punteggi, niente rete di amicizie.</p>")
 wp post meta update "$comm_id" _wp_page_template "page-templates/template-community.php" >/dev/null
 
 # /accesso/ holds both forms. The copy above them is the desk's; everything
