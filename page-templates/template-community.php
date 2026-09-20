@@ -63,7 +63,7 @@ $l3_roles = array(
 		);
 		?>
 
-		<p class="eyebrow"><?php esc_html_e( 'Comunity', 'lupin3rd' ); ?></p>
+		<p class="eyebrow"><?php esc_html_e( 'Community', 'lupin3rd' ); ?></p>
 
 		<h1><?php the_title(); ?></h1>
 

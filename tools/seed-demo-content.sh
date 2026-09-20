@@ -315,7 +315,7 @@ struct_id=$(ensure_post page "struttura" "Struttura del sito" "Come è costruito
 # heading, the standfirst and the closing paragraph are editorial copy the desk
 # has to be able to rewrite. Everything counted on that page comes from the
 # database, not from this content.
-comm_id=$(ensure_post page "comunita" "L'accesso e la registrazione al sito è gratuita" \
+comm_id=$(ensure_post page "comunita" "L'accesso e la registrazione al sito sono gratuiti" \
   "La registrazione serve solo ad una cosa: firmare o rispondere agli articoli del sito." \
   "<p>La registrazione serve solo ad una cosa: firmare o rispondere agli articoli del sito. Niente bacheca personale, niente punteggi, niente rete di amicizie.</p>")
 wp post meta update "$comm_id" _wp_page_template "page-templates/template-community.php" >/dev/null
