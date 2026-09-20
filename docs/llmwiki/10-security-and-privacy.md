@@ -22,6 +22,7 @@ readers have a reason to care how it behaves.
 | `generator` meta, WLW, RSD, shortlink | removed from `<head>` |
 | Uploads | EXIF and other metadata stripped on `wp_handle_upload`, **before** thumbnails are generated |
 | Gravatar | `pre_get_avatar` filtered; no request ever leaves for gravatar.com |
+| Avatar in the WP admin bar | suppressed: `admin_bar_menu` is bracketed at -100/100 and `pre_get_avatar` returns `''` in between. The pattern says nothing next to the name, and core expects a 26px `<img>` there |
 | Comments | pre-moderation; no external anti-spam service |
 | `comment_author_IP`, `comment_agent` | `pre_comment_user_ip` and `pre_comment_user_agent` filtered to `''`; core would write both and keep them forever |
 | Third-party `<iframe>` in content | replaced server-side with a placeholder naming the host — `Consent`, see `17-privacy.md` |
@@ -142,3 +143,18 @@ Neither was visible in a browser — the headers are invisible by nature, and
 nobody types `/wp-config.php` by hand. The end-to-end tests reported both on
 the first run after the change. This is what they are for.
 
+
+## The admin bar and the sticky header
+
+A signed-in editor gets WordPress's admin bar, which is `position: fixed`, so
+anything this theme pins to the viewport slides under it: the sticky `.topnav`,
+the mobile drawer, its scrim, the search overlay.
+
+All four read `--admin-bar`, defined in `_tokens.scss`. It is `0px` for a
+reader and, under `body.admin-bar`, core's own
+`--wp-admin--admin-bar--height` — which already becomes 46px below 782px, so
+the number is never repeated here. Below 600px core makes the bar
+`position: absolute`: it scrolls away, and the offset goes back to `0px`.
+
+Anything new that is `position: fixed` or `sticky` at the top of the viewport
+belongs in that list.

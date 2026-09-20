@@ -42,7 +42,7 @@ final class Seo {
 
 		if ( is_front_page() ) {
 			$parts['title'] = get_bloginfo( 'name' );
-			$parts['site']  = __( 'news, tutorial e dossier dal margine dell\'informatica', 'lupin3rd' );
+			$parts['site']  = __( 'Hack, inchieste, privacy e crypto', 'lupin3rd' );
 		}
 
 		return $parts;

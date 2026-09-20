@@ -390,7 +390,7 @@ msgstr ""
 #. translators: %s: site name.
 #: footer.php:122
 #, php-format
-msgid "© 2019–%1$s %2$s · testi in CC BY-SA 4.0, codice in MIT"
+msgid "© 1999-%1$s %2$s · testi in CC BY-SA 4.0, codice in MIT"
 msgstr ""
 
 #: footer.php:128
@@ -399,7 +399,7 @@ msgstr ""
 
 #: front-page.php:89
 #: front-page.php:102
-msgid "Hack, inchieste, riservatezza · dal 1999"
+msgid "Hack, inchieste, privacy e crypto"
 msgstr ""
 
 #: front-page.php:103
@@ -833,7 +833,7 @@ msgid "API non disponibile agli utenti non autenticati."
 msgstr ""
 
 #: inc/class-seo.php:45
-msgid "news, tutorial e dossier dal margine dell'informatica"
+msgid "Hack, inchieste, privacy e crypto"
 msgstr ""
 
 #: inc/class-setup.php:100

@@ -86,7 +86,7 @@ $l3_dossiers = new WP_Query(
 <?php if ( $l3_lead->have_posts() ) : ?>
 	<section class="section">
 		<div class="container stack">
-			<p class="eyebrow"><?php esc_html_e( 'Hack, inchieste, riservatezza · dal 1999', 'lupin3rd' ); ?></p>
+			<p class="eyebrow"><?php esc_html_e( 'Hack, inchieste, privacy e crypto', 'lupin3rd' ); ?></p>
 			<?php
 			while ( $l3_lead->have_posts() ) :
 				$l3_lead->the_post();

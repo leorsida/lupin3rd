@@ -78,10 +78,10 @@ final class Consent {
 	 */
 	private function consent_modal(): array {
 		return array(
-			'title'              => __( 'Solo cookie tecnici', 'lupin3rd' ),
-			'description'        => __( 'Questo sito non profila, non misura e non ha terze parti nelle sue pagine. Gli unici dati che restano nel tuo browser servono a farlo funzionare o sono il risultato di qualcosa che hai chiesto tu: entrare, farti ricordare il nome nei commenti, scegliere il tema scuro. Non c\'è niente da accettare e niente da rifiutare — puoi vedere l\'elenco completo, se ti va.', 'lupin3rd' ),
+			'title'              => __( 'Gestione dei cookie', 'lupin3rd' ),
+			'description'        => __( 'Questo sito non fa profilazione, non misura e non ha script di terze parti nelle sue pagine. Gli unici dati che restano nel tuo browser servono a farlo funzionare, farti ricordare il nome nei commenti oppure scegliere il tema scuro. Non c\'è niente da accettare e niente da rifiutare — se vuoi, puoi vedere l\'elenco completo cliccando su approfondisci.', 'lupin3rd' ),
 			'acceptNecessaryBtn' => __( 'Ho capito', 'lupin3rd' ),
-			'showPreferencesBtn' => __( 'Vedi quali', 'lupin3rd' ),
+			'showPreferencesBtn' => __( 'Approfindisci', 'lupin3rd' ),
 			'footer'             => sprintf(
 				'<a href="%s">%s</a>',
 				esc_url( home_url( '/privacy/' ) ),
@@ -107,10 +107,10 @@ final class Consent {
 			'closeIconLabel'     => __( 'Chiudi', 'lupin3rd' ),
 			'sections'           => array(
 				array(
-					'title'       => __( 'In due righe', 'lupin3rd' ),
+					'title'       => __( 'In poche parole', 'lupin3rd' ),
 					'description' => sprintf(
 						/* translators: %s: link to the privacy page. */
-						__( 'Niente analitica, niente pubblicità, nessuno script di terze parti. Non c\'è nessuna casella da spuntare perché non c\'è niente di facoltativo: quello che segue è tutto necessario. Il resto è spiegato per esteso in %s.', 'lupin3rd' ),
+						__( 'Niente analytics, niente pubblicità, nessuno script di terze parti: c\'è solo lo stretto necessario. Per i dettagli, vai in %s.', 'lupin3rd' ),
 						sprintf(
 							'<a href="%s" class="cc__link">%s</a>',
 							esc_url( home_url( '/privacy/' ) ),
@@ -119,14 +119,14 @@ final class Consent {
 					),
 				),
 				array(
-					'title'          => __( 'Strettamente necessari', 'lupin3rd' ),
-					'description'    => __( 'Senza questi il sito non funziona, o dimentica qualcosa che gli hai chiesto di ricordare. Nessuno di loro serve a profilare, e nessuno appartiene a un altro dominio.', 'lupin3rd' ),
+					'title'          => __( 'Cookie strettamente necessari', 'lupin3rd' ),
+					'description'    => __( 'Senza questi il sito non funziona. Nessuno di loro serve a profilare.', 'lupin3rd' ),
 					'linkedCategory' => 'necessary',
 					'cookieTable'    => $this->cookie_table(),
 				),
 				array(
-					'title'       => __( 'I riquadri che stanno altrove', 'lupin3rd' ),
-					'description' => __( 'Quando un articolo incorpora un video o una mappa ospitati da un altro sito, non li carichiamo: al loro posto trovi un segnaposto che dice quale dominio verrebbe contattato. Se vuoi vederlo lo carichi tu, quella volta soltanto. Non c\'è un interruttore perché non c\'è una scelta da ricordare.', 'lupin3rd' ),
+					'title'       => __( 'Inclusione di parti di pagine', 'lupin3rd' ),
+					'description' => __( 'Quando un articolo incorpora un video o una mappa ospitati da un altro sito, non li carichiamo: al loro posto trovi un segnaposto che dice quale dominio verrebbe contattato. Se vuoi vederlo lo carichi tu, quella volta soltanto.', 'lupin3rd' ),
 				),
 			),
 		);

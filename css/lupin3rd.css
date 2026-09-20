@@ -47,8 +47,26 @@
   --gutter: 28px;
   --radius: 0px;
   --radius-lg: 0px;
+  /* How far down the page starts for a signed-in editor. The WordPress admin
+   * bar is `position: fixed`, so a sticky header at `top: 0` slides under it —
+   * and so does anything else this theme pins to the viewport. Core publishes
+   * its own height on <html>, which is better than repeating the number: it
+   * already changes to 46px on narrow screens. Zero for a reader, who has no
+   * bar and whose stylesheet never defines that property. */
+  --admin-bar: 0px;
 }
 
+body.admin-bar {
+  --admin-bar: var(--wp-admin--admin-bar--height, 32px);
+}
+
+/* Below 600px core makes the bar `position: absolute`: it scrolls away with
+ * the page, and there is nothing left to get out of the way of. */
+@media (max-width: 600px) {
+  body.admin-bar {
+    --admin-bar: 0px;
+  }
+}
 :root[data-theme=light] {
   color-scheme: light;
   --bg: oklch(97% 0.004 240);
@@ -449,7 +467,7 @@ h1 + .kicker, h2 + .kicker, h3 + .kicker {
  * wrong. The look is identical. */
 .topnav {
   position: sticky;
-  top: 0;
+  top: var(--admin-bar);
   z-index: 30;
   border-bottom: 1px solid var(--border);
 }
@@ -658,7 +676,7 @@ mark {
   }
   .topnav nav.is-drawer {
     position: fixed;
-    inset: 0 0 0 auto;
+    inset: var(--admin-bar) 0 0 auto;
     z-index: 60;
     width: min(86vw, 360px);
     padding: var(--gap-md) var(--gutter) var(--gap-2xl);
@@ -712,7 +730,7 @@ mark {
 }
 .nav-scrim {
   position: fixed;
-  inset: 0;
+  inset: var(--admin-bar) 0 0 0;
   z-index: 50;
   background: color-mix(in oklch, var(--bg) 72%, transparent);
   opacity: 0;
@@ -1601,7 +1619,7 @@ a.tag:hover {
 /* Search overlay. */
 .overlay {
   position: fixed;
-  inset: 0;
+  inset: var(--admin-bar) 0 0 0;
   z-index: 50;
   display: none;
   background: color-mix(in oklch, var(--bg) 88%, transparent);

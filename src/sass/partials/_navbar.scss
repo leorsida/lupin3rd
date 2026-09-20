@@ -19,7 +19,7 @@
  * descendant — so with it here, the drawer inside this bar would be positioned
  * against the bar and end up 60px tall. Nothing would error; it would simply be
  * wrong. The look is identical. */
-.topnav { position: sticky; top: 0; z-index: 30; border-bottom: 1px solid var(--border); }
+.topnav { position: sticky; top: var(--admin-bar); z-index: 30; border-bottom: 1px solid var(--border); }
 .topnav::before {
   content: ''; position: absolute; inset: 0; z-index: -1;
   background: var(--scrim); backdrop-filter: blur(14px);
@@ -109,7 +109,7 @@ mark { background: var(--accent-soft); color: var(--fg); padding: 0 3px; }
   .topnav nav a { border-bottom: 1px solid var(--border); padding: 14px 0; }
 
   .topnav nav.is-drawer {
-    position: fixed; inset: 0 0 0 auto; z-index: 60;
+    position: fixed; inset: var(--admin-bar) 0 0 auto; z-index: 60;
     width: min(86vw, 360px);
     padding: var(--gap-md) var(--gutter) var(--gap-2xl);
     background: var(--surface); border-left: 1px solid var(--border);
@@ -143,7 +143,7 @@ mark { background: var(--accent-soft); color: var(--fg); padding: 0 3px; }
 }
 
 .nav-scrim {
-  position: fixed; inset: 0; z-index: 50;
+  position: fixed; inset: var(--admin-bar) 0 0 0; z-index: 50;
   background: color-mix(in oklch, var(--bg) 72%, transparent);
   opacity: 0; transition: opacity .24s ease;
 }

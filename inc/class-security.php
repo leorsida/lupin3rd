@@ -50,6 +50,46 @@ final class Security {
 		add_filter( 'pre_get_avatar', array( $this, 'replace_gravatar' ), 10, 3 );
 		add_filter( 'get_avatar_url', array( $this, 'block_gravatar_url' ) );
 		add_filter( 'comment_flood_filter', '__return_false' );
+
+		/*
+		 * Bracket the admin bar's construction: everything core builds between
+		 * these two gets no avatar. Both of the nodes that carry one —
+		 * wp_admin_bar_my_account_menu() at 0 and wp_admin_bar_my_account_item()
+		 * at 7 — are inside the window.
+		 */
+		add_action( 'admin_bar_menu', array( $this, 'start_hiding_avatars' ), -100 );
+		add_action( 'admin_bar_menu', array( $this, 'stop_hiding_avatars' ), 100 );
+	}
+
+	/**
+	 * No face in the admin bar.
+	 *
+	 * This site does not have avatars of people: what `replace_gravatar()`
+	 * draws is a pattern derived from a random seed, which says nothing about
+	 * anybody and is there so that a comment thread is scannable. In the admin
+	 * bar it says nothing at all — the name is right next to it — and it
+	 * arrives as markup that core expects to be a 26px `<img>`, which is why it
+	 * lands where it should not.
+	 *
+	 * Core handles an empty avatar properly: `wp_admin_bar_my_account_item()`
+	 * drops the `with-avatar` class and leaves the greeting alone.
+	 */
+	public function start_hiding_avatars(): void {
+		add_filter( 'pre_get_avatar', array( $this, 'no_avatar' ), 99 );
+	}
+
+	/**
+	 * Put them back for the rest of the request — comment threads need them.
+	 */
+	public function stop_hiding_avatars(): void {
+		remove_filter( 'pre_get_avatar', array( $this, 'no_avatar' ), 99 );
+	}
+
+	/**
+	 * An empty string short-circuits `get_avatar()`; null would let it carry on.
+	 */
+	public function no_avatar(): string {
+		return '';
 	}
 
 	/**

@@ -139,7 +139,7 @@ defined( 'ABSPATH' ) || exit;
 				<?php
 				printf(
 					/* translators: %s: site name. */
-					esc_html__( '© 2019–%1$s %2$s · testi in CC BY-SA 4.0, codice in MIT', 'lupin3rd' ),
+					esc_html__( '© 1999-%1$s %2$s · testi in CC BY-SA 4.0, codice in MIT', 'lupin3rd' ),
 					esc_html( wp_date( 'Y' ) ),
 					esc_html( get_bloginfo( 'name' ) )
 				);
