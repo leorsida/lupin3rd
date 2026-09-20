@@ -81,7 +81,7 @@ final class Consent {
 			'title'              => __( 'Gestione dei cookie', 'lupin3rd' ),
 			'description'        => __( 'Questo sito non fa profilazione, non misura e non ha script di terze parti nelle sue pagine. Gli unici dati che restano nel tuo browser servono a farlo funzionare, farti ricordare il nome nei commenti oppure scegliere il tema scuro. Non c\'è niente da accettare e niente da rifiutare — se vuoi, puoi vedere l\'elenco completo cliccando su approfondisci.', 'lupin3rd' ),
 			'acceptNecessaryBtn' => __( 'Ho capito', 'lupin3rd' ),
-			'showPreferencesBtn' => __( 'Approfindisci', 'lupin3rd' ),
+			'showPreferencesBtn' => __( 'Approfondisci', 'lupin3rd' ),
 			'footer'             => sprintf(
 				'<a href="%s">%s</a>',
 				esc_url( home_url( '/privacy/' ) ),
