@@ -184,10 +184,6 @@ $l3_roles = array(
 			);
 			?>
 		<?php endif; ?>
-
-		<p class="meta">
-			<?php esc_html_e( 'Pubblichiamo pseudonimo, ruolo e data di iscrizione. Mai l\'email, mai il paese, mai l\'ultimo indirizzo usato per entrare.', 'lupin3rd' ); ?>
-		</p>
 	</div>
 </section>
 
@@ -213,9 +209,6 @@ $l3_roles = array(
 						)
 					);
 				}
-				?>
-				<p class="meta"><?php esc_html_e( 'Compaiono solo i commenti già passati dalla moderazione.', 'lupin3rd' ); ?></p>
-				<?php
 			} else {
 				?>
 				<p class="meta"><?php esc_html_e( 'Nessun commento pubblicato, per ora.', 'lupin3rd' ); ?></p>

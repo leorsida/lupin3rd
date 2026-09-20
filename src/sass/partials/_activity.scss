@@ -5,6 +5,11 @@
   gap: 13px; padding: 15px 0; border-bottom: 1px solid var(--border);
 }
 .activity:first-child { padding-top: 0; }
+
+/* The last row in a list has nothing under it to be separated from, and the
+ * rule reads as the start of a row that never arrives. Same reason
+ * `.comment:last-child` drops its own. */
+.activity:last-child { border-bottom: 0; }
 .activity-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 .activity-quote { margin: 7px 0 0; font-size: 13.5px; color: color-mix(in oklch, var(--fg) 86%, var(--bg)); }
 .activity-on { margin: 7px 0 0; font-size: 12px; font-family: var(--font-mono); color: var(--muted); }

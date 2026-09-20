@@ -1,10 +1,10 @@
 /*
  * The community's promises, checked on the rendered page.
  *
- * /comunita/ says it in one sentence: «Pubblichiamo pseudonimo, ruolo e data di
- * iscrizione. Mai l'email, mai il paese, mai l'ultimo indirizzo usato per
- * entrare.» A promise nobody measures is a preference. These are the
- * measurements.
+ * A member profile publishes a pseudonym, a role and a join date, and never an
+ * email, a country or the address last used to sign in. The page used to say
+ * so in a sentence; the sentence is gone and the promise is not, which is the
+ * case for checking it here. A promise nobody measures is a preference.
  */
 
 import test from 'node:test';

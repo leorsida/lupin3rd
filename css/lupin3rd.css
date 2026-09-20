@@ -2133,6 +2133,13 @@ a.member {
   padding-top: 0;
 }
 
+/* The last row in a list has nothing under it to be separated from, and the
+ * rule reads as the start of a row that never arrives. Same reason
+ * `.comment:last-child` drops its own. */
+.activity:last-child {
+  border-bottom: 0;
+}
+
 .activity-head {
   display: flex;
   flex-wrap: wrap;
