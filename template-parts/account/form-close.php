@@ -25,7 +25,7 @@ $l3_on_list   = Newsletter::has_record( (string) $l3_me->user_email );
 		<li><?php esc_html_e( 'Non potrai più entrare.', 'lupin3rd' ); ?></li>
 		<li><?php esc_html_e( 'Vieni rimosso dalla nostra community.', 'lupin3rd' ); ?></li>
 		<li><?php esc_html_e( 'Quello che hai scritto resta nelle discussioni, a firma «account rimosso».', 'lupin3rd' ); ?></li>
-		<li><?php esc_html_e( 'Lo pseudonimo resta tuo: nessun altro può prenderlo.', 'lupin3rd' ); ?></li>
+		<li><?php esc_html_e( 'Lo pseudonimo resta comunque tuo: nessun altro può sceglierlo in fase di registrazione.', 'lupin3rd' ); ?></li>
 	</ul>
 
 	<div class="field">
