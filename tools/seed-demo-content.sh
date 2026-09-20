@@ -386,7 +386,12 @@ if menu_is_empty "$main_menu"; then
   wp menu item add-custom "$main_menu" "Notizie" "/" >/dev/null
   wp menu item add-custom "$main_menu" "Tutorial" "/tutorial/" >/dev/null
   wp menu item add-custom "$main_menu" "Dossier" "/dossier/" >/dev/null
-  wp menu item add-custom "$main_menu" "Archivio" "/archivio/" >/dev/null
+
+  # Two categories in the top navigation, and the archive is not one of them:
+  # the header is where a reader picks a subject, and «tutto, per data» is a
+  # place to end up rather than a place to go. It lives in the footer, which
+  # is where a reader looks once the subjects have not helped.
+  wp menu item add-custom "$main_menu" "Sicurezza" "/categoria/sicurezza/" >/dev/null
   wp menu item add-custom "$main_menu" "Crypto" "/categoria/crypto/" >/dev/null
 fi
 wp menu location assign "$main_menu" primary >/dev/null 2>&1 || true
