@@ -423,12 +423,12 @@ final class Profile_Fields {
 
 		$query = new \WP_User_Query(
 			array(
-				'meta_key'    => self::PSEUDONYM, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
-				'meta_value'  => $pseudonym,      // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
-				'exclude'     => array_filter( array( $for_user ) ),
-				'number'      => 1,
-				'fields'      => 'ID',
-				'count_total' => false,
+				'meta_key'          => self::PSEUDONYM, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+				'meta_value'        => $pseudonym,      // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
+				'exclude'           => array_filter( array( $for_user ) ),
+				'number'            => 1,
+				'fields'            => 'ID',
+				'count_total'       => false,
 
 				/*
 				 * The one query that has to see closed accounts. Their

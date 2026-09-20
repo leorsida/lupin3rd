@@ -44,9 +44,18 @@ final class Security {
 		 * wp_comments and keeps them for as long as the comment exists. The
 		 * colophon says this site does not keep addresses; until these two
 		 * lines it did, for every comment ever left, and nothing said so.
+		 *
+		 * The alternative was to keep the address for the twenty-four hours
+		 * the colophon allows and delete it on a schedule. That needs cron to
+		 * be reliable, and a promise whose keeping depends on whether somebody
+		 * visited the site is not a promise. Not writing it cannot fail.
+		 *
+		 * What is given up is an anti-spam signal. This site moderates the
+		 * first three contributions of every account by hand and has a report
+		 * tool; that is the defence, and it needs nobody's address.
 		 */
-		add_filter( 'pre_comment_user_ip', array( $this, 'forget_address' ) );
-		add_filter( 'pre_comment_user_agent', array( $this, 'forget_agent' ) );
+		add_filter( 'pre_comment_user_ip', '__return_empty_string' );
+		add_filter( 'pre_comment_user_agent', '__return_empty_string' );
 		add_filter( 'pre_get_avatar', array( $this, 'replace_gravatar' ), 10, 3 );
 		add_filter( 'get_avatar_url', array( $this, 'block_gravatar_url' ) );
 		add_filter( 'comment_flood_filter', '__return_false' );
@@ -230,37 +239,6 @@ final class Security {
 		imagedestroy( $image );
 
 		return $file;
-	}
-
-	/**
-	 * Do not write down where a comment came from.
-	 *
-	 * The alternative was to keep the address for the twenty-four hours the
-	 * colophon allows and delete it on a schedule. That needs cron to be
-	 * reliable, and a promise whose keeping depends on whether somebody
-	 * visited the site is not a promise. Not writing it is one line and cannot
-	 * fail.
-	 *
-	 * What is given up is an anti-spam signal. This site moderates the first
-	 * three contributions of every account by hand and has a report tool; that
-	 * is the defence, and it does not need anybody's address.
-	 *
-	 * @param string $ip Address WordPress was about to store.
-	 */
-	public function forget_address( $ip ): string {
-		return '';
-	}
-
-	/**
-	 * Nor which browser it came from.
-	 *
-	 * A user agent string is not an identifier by itself and is a good part of
-	 * one when joined to anything else. It buys the desk nothing here.
-	 *
-	 * @param string $agent Browser string WordPress was about to store.
-	 */
-	public function forget_agent( $agent ): string {
-		return '';
 	}
 
 	/**

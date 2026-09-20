@@ -203,20 +203,23 @@ final class Consent {
 	/**
 	 * Same for anything oEmbed produced on its own.
 	 *
+	 * Declared with one parameter although the filter passes two: the URL is
+	 * already inside the markup, and a parameter a method never reads is a
+	 * promise to the next reader that it matters.
+	 *
 	 * @param string $html The embed markup.
-	 * @param string $url  The URL that was embedded.
 	 */
-	public function gate_oembed( $html, $url ): string {
+	public function gate_oembed( $html ): string {
 		return $this->gate_embeds( (string) $html );
 	}
 
 	/**
 	 * Turn one iframe into a placeholder, unless it points at this site.
 	 *
-	 * @param array<int, string> $match Regular expression match.
+	 * @param array<int, string> $found Regular expression match.
 	 */
-	private function replace_iframe( array $match ): string {
-		$iframe = $match[0];
+	private function replace_iframe( array $found ): string {
+		$iframe = $found[0];
 		$src    = array();
 
 		if ( ! preg_match( '#\ssrc=["\']([^"\']+)["\']#i', $iframe, $src ) ) {
