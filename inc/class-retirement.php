@@ -121,7 +121,12 @@ final class Retirement {
 	 * a closed account's pseudonym would read as free and somebody else could
 	 * take it, which is the one thing this whole mechanism must not allow.
 	 *
-	 * @param \WP_User_Query $query Query about to run.
+	 * Typed `mixed` and then checked, not typed `\WP_User_Query` and trusted:
+	 * what a hook hands a callback is whatever the last filter returned, and a
+	 * docblock that promises otherwise turns the guard below into dead code in
+	 * the analyser's eyes while leaving it very much alive at runtime.
+	 *
+	 * @param mixed $query Query about to run.
 	 */
 	public function skip_closed_accounts( $query ): void {
 		if ( ! $query instanceof \WP_User_Query || is_admin() ) {
@@ -291,7 +296,7 @@ final class Retirement {
 	/**
 	 * Say so at the top of the account's own screen, and offer the way back.
 	 *
-	 * @param \WP_User $user Account being edited.
+	 * @param mixed $user Account being edited, as the hook hands it over.
 	 */
 	public function show_notice( $user ): void {
 		if ( ! $user instanceof \WP_User || ! self::is_closed( $user ) ) {

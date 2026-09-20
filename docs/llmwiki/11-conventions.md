@@ -311,3 +311,27 @@ Checking it locally needs no WPCS:
 ```sh
 php phpcs.phar --standard=Squiz --sniffs=Squiz.PHP.CommentedOutCode inc/
 ```
+
+## A hook hands you `mixed`, and the docblock has to say so
+
+PHPStan's `instanceof.alwaysTrue` on a callback almost always means the same
+mistake, and it is not the `instanceof`:
+
+```php
+/** @param \WP_User_Query $query */          // the lie
+public function skip_closed_accounts( $query ): void {
+    if ( ! $query instanceof \WP_User_Query ) {  // reported as always true
+```
+
+WordPress passes a callback whatever the previous filter returned, so the
+runtime guard is right and the docblock is wrong. Widen it to `mixed` and the
+guard becomes meaningful to the analyser as well as to the reader. Deleting
+the guard — the other way to silence the error — removes a real defence on the
+strength of a comment somebody typed.
+
+The exception is a value that comes from a **core call**, not from a hook:
+there the type is known, and the guard really is dead weight.
+
+The same widening fixes `booleanOr.alwaysFalse` on a two-part guard, and
+`missingType.return` wants `@return mixed` on a callback that passes back
+whatever it could not handle.

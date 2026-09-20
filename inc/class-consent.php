@@ -39,7 +39,7 @@ final class Consent {
 	 */
 	protected function register_hooks(): void {
 		add_filter( 'the_content', array( $this, 'gate_embeds' ), 20 );
-		add_filter( 'embed_oembed_html', array( $this, 'gate_oembed' ), 20, 2 );
+		add_filter( 'embed_oembed_html', array( $this, 'gate_oembed' ), 20 );
 		add_action( 'wp_footer', array( $this, 'print_config' ) );
 	}
 

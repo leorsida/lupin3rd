@@ -297,8 +297,13 @@ final class Security {
 	/**
 	 * Let REST answer with the same author name as every other surface.
 	 *
-	 * @param \WP_REST_Response $response Response so far.
-	 * @param \WP_Comment       $comment  Comment being described.
+	 * Both parameters are `mixed` because that is what a filter can hand over,
+	 * and the return type follows: this passes back whatever it was given when
+	 * it is not the pair it knows how to rewrite.
+	 *
+	 * @param mixed $response Response so far.
+	 * @param mixed $comment  Comment being described.
+	 * @return mixed
 	 */
 	public function name_the_author_in_rest( $response, $comment ) {
 		if ( ! $response instanceof \WP_REST_Response || ! $comment instanceof \WP_Comment ) {
