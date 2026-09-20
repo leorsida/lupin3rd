@@ -2,71 +2,72 @@
 id: components
 title: Component inventory
 status: generated
-updated: 2026-09-13
-sources: [`OD/assets/app.css`]
+updated: 2026-09-20
+sources: [`src/sass/lupin3rd.scss`, `src/sass/partials/*.scss`]
 ---
 
 # Component inventory
 
-Every class the visual system defines, grouped by the section of `app.css` that owns it. A PHP template may only emit classes listed here; a new class must be added to the SCSS partial for its section first, and this page regenerated.
+Every class the visual system defines, grouped by the SCSS partial that owns it. A PHP template may only emit classes listed here; a new class goes into a partial first, and this page is regenerated.
 
 > **Generated file — do not edit by hand.**
-> Regenerate with `python3 docs/llmwiki/tools/sync_from_od.py` after changing the prototype.
+> Regenerate with `python3 docs/llmwiki/tools/sync_from_theme.py` after changing the source it reads.
 
 
-## The prototype also styles in the markup
+## Styling in the markup
 
-`app.css` is not the whole visual system. The prototype carries **618 inline `style` attributes** across its 15 Italian pages (the English tree repeats them): hero padding, the headline measure, stack gaps, small muted notes, ruled lists. None of it is in the stylesheet, so none of it is in the table below.
+Inline `style` attributes in the theme's templates: **none at all**, which is the number to keep. The prototype this theme was ported from carried several hundred — hero padding, headline measures, stack gaps, muted notes — and everything recurring five times or more became a real class in `src/sass/partials/_parity.scss`, which loads last so it can refine the components above it. The rest was rewritten rather than carried over. Each new one is a small argument that a class is missing.
 
-Everything recurring five times or more has been promoted to a real class in `src/sass/partials/_parity.scss`, which loads last so it can refine the components above it. The long tail is genuinely per-instance. When you port a new screen, check its inline styles before assuming a class exists for what you are looking at.
+## Partials, in cascade order
 
-## Sections and their SCSS partials
+The order is the order of `@use` in `src/sass/lupin3rd.scss`, and it is not alphabetical by accident: a partial can only refine the ones above it. Rearranging this table means rearranging the stylesheet.
 
-One prototype section becomes one SCSS partial. Cascade order is the order of this table and must not be rearranged.
-
-| # | Section | SCSS partial | Selectors |
+| # | Partial | Section | Selectors |
 |---|---|---|---|
-| 1 | Preamble | `src/sass/partials/_tokens.scss` | 2 |
-| 2 | Reset and base | `src/sass/partials/_reset.scss` | 19 |
-| 3 | Layout primitives | `src/sass/partials/_layout.scss` | 13 |
-| 4 | Typography | `src/sass/partials/_typography.scss` | 13 |
-| 5 | Status bar and navigation | `src/sass/partials/_navbar.scss` | 37 |
-| 6 | Buttons | `src/sass/partials/_buttons.scss` | 12 |
-| 7 | Cards and surfaces | `src/sass/partials/_cards.scss` | 3 |
-| 8 | Generative marks (used instead of photographs) | `src/sass/partials/_marks.scss` | 10 |
-| 9 | Pills and tags | `src/sass/partials/_tags.scss` | 7 |
-| 10 | Post lists | `src/sass/partials/_post-lists.scss` | 11 |
-| 11 | Taxonomy filters | `src/sass/partials/_filters.scss` | 7 |
-| 12 | Empty states | `src/sass/partials/_empty-state.scss` | 5 |
-| 13 | Widgets and sidebar | `src/sass/partials/_widgets.scss` | 8 |
-| 14 | Forms | `src/sass/partials/_forms.scss` | 11 |
-| 15 | Tables | `src/sass/partials/_tables.scss` | 8 |
-| 16 | Article prose | `src/sass/partials/_prose.scss` | 26 |
-| 17 | Table of contents | `src/sass/partials/_toc.scss` | 8 |
-| 18 | Search overlay | `src/sass/partials/_search.scss` | 10 |
-| 19 | Pagination | `src/sass/partials/_pagination.scss` | 5 |
-| 20 | Breadcrumb | `src/sass/partials/_breadcrumb.scss` | 3 |
-| 21 | Footer | `src/sass/partials/_footer.scss` | 7 |
-| 22 | Utilities | `src/sass/partials/_utilities.scss` | 6 |
-| 23 | Identity: locally generated avatars | `src/sass/partials/_identity.scss` | 15 |
-| 24 | Role badges | `src/sass/partials/_badges.scss` | 4 |
-| 25 | Member rows | `src/sass/partials/_members.scss` | 9 |
-| 26 | Activity feed | `src/sass/partials/_activity.scss` | 7 |
-| 27 | Discussion | `src/sass/partials/_comments.scss` | 10 |
-| 28 | Tabs | `src/sass/partials/_tabs.scss` | 7 |
-| 29 | Counters | `src/sass/partials/_counters.scss` | 4 |
-| 30 | Account menu in the header | `src/sass/partials/_account.scss` | 13 |
-| 31 | Account area: notifications and devices | `src/sass/partials/_account-area.scss` | 7 |
-| 32 | Account forms | `src/sass/partials/_account-forms.scss` | 11 |
-| 33 | Modal dialog | `src/sass/partials/_modal.scss` | 6 |
-| 34 | Market quotes | `src/sass/partials/_market.scss` | 13 |
-| 35 | Inline bar charts | `src/sass/partials/_barlist.scss` | 10 |
+| 1 | `_tokens.scss` | Design tokens | 3 |
+| 2 | `_reset.scss` | Reset and base | 19 |
+| 3 | `_layout.scss` | Layout primitives | 26 |
+| 4 | `_typography.scss` | Typography | 19 |
+| 5 | `_navbar.scss` | Status bar and navigation | 44 |
+| 6 | `_buttons.scss` | Buttons | 15 |
+| 7 | `_cards.scss` | Cards and surfaces | 3 |
+| 8 | `_marks.scss` | Generative marks (used instead of photographs) | 10 |
+| 9 | `_tags.scss` | Pills and tags | 7 |
+| 10 | `_post-lists.scss` | Post lists | 18 |
+| 11 | `_filters.scss` | Taxonomy filters | 7 |
+| 12 | `_empty-state.scss` | Empty states | 5 |
+| 13 | `_widgets.scss` | Widgets and sidebar | 15 |
+| 14 | `_forms.scss` | Forms | 11 |
+| 15 | `_tables.scss` | Tables | 8 |
+| 16 | `_prose.scss` | Article prose | 26 |
+| 17 | `_toc.scss` | Table of contents | 8 |
+| 18 | `_search.scss` | Search overlay | 10 |
+| 19 | `_pagination.scss` | Pagination | 5 |
+| 20 | `_breadcrumb.scss` | Breadcrumb | 3 |
+| 21 | `_footer.scss` | Footer | 8 |
+| 22 | `_utilities.scss` | Utilities | 10 |
+| 23 | `_identity.scss` | Identity: locally generated avatars | 19 |
+| 24 | `_badges.scss` | Role badges | 4 |
+| 25 | `_members.scss` | Member rows | 9 |
+| 26 | `_activity.scss` | Activity feed | 7 |
+| 27 | `_comments.scss` | Discussion | 14 |
+| 28 | `_tabs.scss` | Tabs | 8 |
+| 29 | `_counters.scss` | Counters | 4 |
+| 30 | `_account.scss` | Account menu in the header | 13 |
+| 31 | `_account-area.scss` | Account area: notifications and devices | 7 |
+| 32 | `_account-forms.scss` | Account forms | 11 |
+| 33 | `_modal.scss` | Modal dialog | 6 |
+| 34 | `_market.scss` | Market quotes | 13 |
+| 35 | `_barlist.scss` | Inline bar charts | 10 |
+| 36 | `_parity.scss` | Parity refinements (loads last) | 53 |
+| 37 | `_cookieconsent.scss` | Cookie notice (vendored) | 291 |
 
-## Preamble
+## Design tokens
 
-`src/sass/partials/_tokens.scss` — 2 selectors
+`src/sass/partials/_tokens.scss` — 3 selectors
 
 - `:root`
+- `body.admin-bar`
 - `:root[data-theme="light"]`
 
 ## Reset and base
@@ -95,13 +96,19 @@ One prototype section becomes one SCSS partial. Cascade order is the order of th
 
 ## Layout primitives
 
-`src/sass/partials/_layout.scss` — 13 selectors
+`src/sass/partials/_layout.scss` — 26 selectors
 
 - `.container`
 - `.section`
 - `.section + .section`
+- `.section-tight`
+- `main > .section-tight:last-child`
+- `.section + .section-tight`
+- `.section-tight:has(.statgrid) + .section`
+- `.section:has(.lead-cover) + .section`
 - `.stack`
 - `.row`
+- `.row-tight`
 - `.row-between`
 - `.grid-2`
 - `.grid-3`
@@ -109,11 +116,18 @@ One prototype section becomes one SCSS partial. Cascade order is the order of th
 - `.grid-2-1`
 - `.grid-1-2`
 - `.grid-main-side`
+- `.grid-main-side > aside`
+- `.prose :is(h2`
+- `h3`
+- `h4)[id]`
+- `[id^="comment-"]`
 - `.split-feature`
+- `.grid-main-side > .stack`
+- `.grid-main-side #comments`
 
 ## Typography
 
-`src/sass/partials/_typography.scss` — 13 selectors
+`src/sass/partials/_typography.scss` — 19 selectors
 
 - `.h1`
 - `h1`
@@ -124,6 +138,12 @@ One prototype section becomes one SCSS partial. Cascade order is the order of th
 - `.lead`
 - `.eyebrow`
 - `.kicker`
+- `h1 + .kicker`
+- `h2 + .kicker`
+- `h3 + .kicker`
+- `.stack > h1 + .kicker`
+- `.stack > h2 + .kicker`
+- `.stack > h3 + .kicker`
 - `.meta`
 - `.num`
 - `.rule`
@@ -131,7 +151,7 @@ One prototype section becomes one SCSS partial. Cascade order is the order of th
 
 ## Status bar and navigation
 
-`src/sass/partials/_navbar.scss` — 37 selectors
+`src/sass/partials/_navbar.scss` — 44 selectors
 
 - `.statusbar`
 - `.statusbar .container`
@@ -140,6 +160,7 @@ One prototype section becomes one SCSS partial. Cascade order is the order of th
 - `.caret`
 - `50%`
 - `.topnav`
+- `.topnav::before`
 - `.topnav-inner`
 - `.logo`
 - `.logo .dot`
@@ -160,20 +181,26 @@ One prototype section becomes one SCSS partial. Cascade order is the order of th
 - `.langswitch > *`
 - `.langswitch > a:hover`
 - `.langswitch .is-on`
-- `.nav-lang`
-- `.nav-account`
 - `.nav-tools > .langswitch`
 - `.nav-tools > .account`
-- `.topnav nav.is-open .nav-account`
-- `.topnav nav.is-open .nav-lang`
-- `.topnav nav.is-open .nav-lang a`
 - `mark`
-- `.topnav nav.is-open`
-- `.topnav nav.is-open a`
+- `.nav-extra`
+- `.nav-account`
+- `.topnav nav.is-drawer`
+- `.topnav nav.is-drawer.is-open`
+- `.nav-extra .nav-close`
+- `.nav-account .nav-account-name`
+- `.nav-account a:not(.btn)`
+- `.nav-account a:not(.btn):hover`
+- `.nav-scrim`
+- `.nav-scrim.is-open`
+- `html.nav-locked`
+- `html.nav-locked body`
+- `html.nav-locked .topnav`
 
 ## Buttons
 
-`src/sass/partials/_buttons.scss` — 12 selectors
+`src/sass/partials/_buttons.scss` — 15 selectors
 
 - `.btn`
 - `.btn:active`
@@ -181,6 +208,9 @@ One prototype section becomes one SCSS partial. Cascade order is the order of th
 - `.btn-primary:hover`
 - `.btn-secondary`
 - `.btn-secondary:hover`
+- `.btn-danger`
+- `.btn-danger:hover`
+- `.btn-danger[disabled]`
 - `.btn-ghost`
 - `.btn-ghost:hover`
 - `.btn-arrow::after`
@@ -225,7 +255,7 @@ One prototype section becomes one SCSS partial. Cascade order is the order of th
 
 ## Post lists
 
-`src/sass/partials/_post-lists.scss` — 11 selectors
+`src/sass/partials/_post-lists.scss` — 18 selectors
 
 - `.log-row`
 - `.log-row:hover h3`
@@ -238,6 +268,13 @@ One prototype section becomes one SCSS partial. Cascade order is the order of th
 - `.post p`
 - `.post-meta`
 - `.post.split-feature`
+- `.post.lead-cover`
+- `.post.lead-cover > .mark`
+- `.post.lead-cover > .mark img`
+- `.post.lead-cover::after`
+- `.post.lead-cover > .lead-cover-text`
+- `.post.lead-cover .lead-cover-text h1`
+- `.post.lead-cover .lead-cover-text .lead`
 
 ## Taxonomy filters
 
@@ -263,16 +300,23 @@ One prototype section becomes one SCSS partial. Cascade order is the order of th
 
 ## Widgets and sidebar
 
-`src/sass/partials/_widgets.scss` — 8 selectors
+`src/sass/partials/_widgets.scss` — 15 selectors
 
 - `.widget`
 - `.widget + .widget`
+- `.grid-main-side > aside > .widget:first-child`
+- `.widget:has(.ds-table) + .widget`
+- `.page-template-template-community .grid-main-side > aside > .widget + .widget`
 - `.widget-title`
 - `.widget ul`
 - `.widget li`
+- `.widget li:last-child`
+- `.widget .list-rule > li`
 - `.widget li a`
 - `.widget li a:hover`
 - `.widget li a span`
+- `.widget-note`
+- `.widget .avatar-stack`
 
 ## Forms
 
@@ -338,13 +382,13 @@ One prototype section becomes one SCSS partial. Cascade order is the order of th
 
 `src/sass/partials/_toc.scss` — 8 selectors
 
-- `.toc`
 - `.toc ol`
+- `.toc ul`
 - `.toc li`
-- `.toc a`
-- `.toc a::before`
-- `.toc a:hover`
-- `.toc a.is-active`
+- `.toc li a`
+- `.toc li a::before`
+- `.toc li a:hover`
+- `.toc li a.is-active`
 - `.progress`
 
 ## Search overlay
@@ -382,19 +426,20 @@ One prototype section becomes one SCSS partial. Cascade order is the order of th
 
 ## Footer
 
-`src/sass/partials/_footer.scss` — 7 selectors
+`src/sass/partials/_footer.scss` — 8 selectors
 
 - `.pagefoot`
 - `.pagefoot .foot-grid`
 - `.pagefoot h4`
 - `.pagefoot ul`
+- `.pagefoot ul + ul`
 - `.pagefoot a`
 - `.pagefoot a:hover`
 - `.foot-bottom`
 
 ## Utilities
 
-`src/sass/partials/_utilities.scss` — 6 selectors
+`src/sass/partials/_utilities.scss` — 10 selectors
 
 - `.hidden`
 - `.mw-36`
@@ -402,10 +447,14 @@ One prototype section becomes one SCSS partial. Cascade order is the order of th
 - `.person`
 - `.person .mark`
 - `.mw-46`
+- `.plain-list`
+- `.plain-list li`
+- `.link-quiet`
+- `.link-quiet:hover`
 
 ## Identity: locally generated avatars
 
-`src/sass/partials/_identity.scss` — 15 selectors
+`src/sass/partials/_identity.scss` — 19 selectors
 
 - `.avatar`
 - `.avatar::before`
@@ -422,6 +471,10 @@ One prototype section becomes one SCSS partial. Cascade order is the order of th
 - `.avatar-stack`
 - `.avatar-stack .avatar`
 - `.avatar-stack .avatar:last-child`
+- `.identity`
+- `.identity-name`
+- `.identity-name h1`
+- `.identity-tools`
 
 ## Role badges
 
@@ -460,9 +513,10 @@ One prototype section becomes one SCSS partial. Cascade order is the order of th
 
 ## Discussion
 
-`src/sass/partials/_comments.scss` — 10 selectors
+`src/sass/partials/_comments.scss` — 14 selectors
 
 - `.comment`
+- `.comment:last-child`
 - `.comment-head`
 - `.comment-name`
 - `.comment-name:hover`
@@ -471,11 +525,14 @@ One prototype section becomes one SCSS partial. Cascade order is the order of th
 - `.comment-tools`
 - `.comment-tool`
 - `.comment-tool:hover`
+- `.comment-report`
+- `.comment-tool[disabled]`
+- `span.comment-tool`
 - `.comment-nested`
 
 ## Tabs
 
-`src/sass/partials/_tabs.scss` — 7 selectors
+`src/sass/partials/_tabs.scss` — 8 selectors
 
 - `.tabs`
 - `.tab`
@@ -484,6 +541,7 @@ One prototype section becomes one SCSS partial. Cascade order is the order of th
 - `.tab[aria-selected="true"]:hover`
 - `.tab .num`
 - `.tabpanel[hidden]`
+- `.tabpanel > article:first-of-type`
 
 ## Counters
 
@@ -583,3 +641,67 @@ One prototype section becomes one SCSS partial. Cascade order is the order of th
 - `.grid-side-main`
 - `.grid-side-main > aside`
 - `.grid-side-main > div`
+
+## Parity refinements (loads last)
+
+`src/sass/partials/_parity.scss` — 53 selectors
+
+- `main > .section:first-child`
+- `.section.hero`
+- `.hero h1`
+- `.hero .grid-2-1`
+- `.note`
+- `.note-sm`
+- `.mw-32`
+- `.stack-sm`
+- `.stack-md`
+- `.stack-lg`
+- `.row-wrap`
+- `.list-rule`
+- `.list-rule > li`
+- `.row-between--bottom`
+- `.section--tight`
+- `.diff > span[aria-hidden]`
+- `ol.list-rule > li`
+- `.list-plain`
+- `.pagefoot ul`
+- `.list-plain > li`
+- `.pagefoot ul > li`
+- `.overlay-search`
+- `.overlay-search .input`
+- `.overlay-search .btn`
+- `.overlay-results .r-title`
+- `.overlay-results .meta`
+- `.overlay-hint`
+- `.codeblock-body`
+- `.codeblock-body > pre`
+- `.codeblock-lines`
+- `.comment-body > :first-child`
+- `.comment-body > :last-child`
+- `.comment-body p`
+- `.comment-respond`
+- `.comment-respond .meta`
+- `.comment-form`
+- `.comment-form p`
+- `.comment-respond > h3`
+- `.comment-reply-title`
+- `.comment-reply-title small`
+- `.form-submit`
+- `.authorcard`
+- `.authorcard .avatar`
+- `.authorcard .meta`
+- `.authorcard h3`
+- `.authorcard p:last-child`
+- `.section-cta`
+- `.container-narrow`
+- `.row-center`
+- `.input-inline`
+- `.form-note`
+- `.form-note--error`
+- `.row-center .field-error`
+
+## Cookie notice (vendored)
+
+`src/sass/vendor/_cookieconsent.scss` — 291 selectors, not listed.
+
+Vendored, and scoped to its own root, so nothing here is a class a template may emit. Read the file when you need one.

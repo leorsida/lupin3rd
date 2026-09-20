@@ -33,8 +33,11 @@ Knowledge base for the `lupin3rd` WordPress theme. Read `01-project.md` and
 
 ## Fixed points
 
-- Design source of truth: `OD/` (prototype, 17 pages IT + 17 EN).
-- Architecture source of truth: `OD/struttura-wordpress.html`.
+- **Source of truth: this theme.** There is one, and it is the code — the
+  stylesheet for the visual system, the modules for behaviour, the templates
+  for structure. The three generated pages below are derived from it.
+- The Open Design prototype it was ported from is gone (D-035). Where the
+  decision log says «deviates from `OD/…`», it is describing history.
 - Theme location: `wp/wp-content/themes/lupin3rd/`.
 - The theme is standalone. There is no parent theme and no Bootstrap.
 - One compiled stylesheet, one compiled front-end bundle. No exceptions.

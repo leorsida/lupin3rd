@@ -57,7 +57,7 @@
 Tre pagine sono **derivate meccanicamente** dal prototipo e non si modificano a mano:
 
 ```
-python3 docs/llmwiki/tools/sync_from_od.py
+python3 docs/llmwiki/tools/sync_from_theme.py
 ```
 
 Va rilanciato dopo ogni modifica a `OD/` e il risultato va committato. Le domande aperte di §9 sono la stessa lista di `14-open-questions.md`: quel file è la copia viva, questa è l'istantanea.

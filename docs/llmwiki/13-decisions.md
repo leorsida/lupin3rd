@@ -695,3 +695,50 @@ the mistake from it — which is exactly what `OD/` exists to make easy.
 What is not corrected is anything where the prototype is simply ahead of the
 theme: the second factor, the bookmarks tab, the `.onion` mirror. Those are
 promises the theme has not kept yet, not statements that are false.
+
+## D-035 — One source of truth, and it is the code
+
+**Decided:** 20.09.2026 · **Status:** accepted · **Phase:** privacy
+· **Supersedes:** the «Design source of truth: `OD/`» line in `00-index.md`
+
+The Open Design prototype is retired. The theme is the source of truth for the
+visual system, for behaviour and for structure, and `docs/llmwiki/` is derived
+from it.
+
+The reason is the one D-034 was circling: a second source has to be kept in
+step, and keeping it in step is work nobody schedules. In four days the
+prototype produced four false statements — a city beside a session, drafts held
+for ninety days, an active account defined by a sign-in, an export that does
+not exist — and each was found by accident rather than by looking. A reference
+that has to be audited to be trusted is not a reference.
+
+**What the migration actually required**, because «delete the folder» was not
+it: the three generated pages were derived from `OD/assets/app.css` and
+`app.js`. `sync_from_od.py` is replaced by `sync_from_theme.py`, which reads
+`src/sass/partials/_tokens.scss` for the tokens, the `@use` order in
+`src/sass/lupin3rd.scss` for the component inventory, and `src/js/modules/`
+plus the PHP templates for the `data-*` contract. Same three pages, same
+shape, derived from what they describe.
+
+Two of them got better in the move, which is the argument for doing it this
+way rather than freezing them:
+
+- **The component inventory now follows the cascade.** Its order is the order
+  of `@use` in the entry file, so the table cannot disagree with the
+  stylesheet about which partial refines which.
+- **The JS contract now has two columns**, emitted and read, instead of one
+  occurrence count over prototype HTML. A hook the modules read and no
+  template prints, or the reverse, is now visible on the page. There are none
+  of the first kind today. The page also warns that a zero in the read column
+  is not proof, because a module that builds the name at runtime —
+  `'data-level-' + n` — never spells it out.
+
+**What was given up, knowingly:** the 15 English prototype pages. That copy
+existed nowhere else and the `/en/` build will start from the `.pot` instead.
+Also the visual reference for what is designed and not yet built — the second
+factor, the bookmarks tab, the `.onion` mirror. Those survive as prose in
+`docs/PIANO-*.md` and nowhere as pictures.
+
+The decision log keeps saying «Deviates from `OD/…`» in thirteen places. Those
+lines are history, not directions, and they stay: a decision that was taken
+against something is not clearer for hiding what it was taken against.

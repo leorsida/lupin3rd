@@ -19,7 +19,7 @@ the WordPress core.
 4. **Front matter is mandatory** on every page: `id`, `title`, `status`,
    `updated`, `sources`.
 5. **`status: generated` means do not edit.** Those pages are rebuilt by
-   `tools/sync_from_od.py` and hand edits are lost on the next run.
+   `tools/sync_from_theme.py` and hand edits are lost on the next run.
 6. **A page that contradicts the code is a bug.** Fix the page in the same
    commit that changes the code.
 
@@ -27,17 +27,19 @@ the WordPress core.
 
 | Page | Derived from |
 |---|---|
-| `02-design-tokens.md` | `OD/assets/app.css` |
-| `03-components.md` | `OD/assets/app.css` |
-| `07-js-contract.md` | `OD/assets/app.js`, `OD/*.html` |
+| `02-design-tokens.md` | `src/sass/partials/_tokens.scss` |
+| `03-components.md` | `src/sass/lupin3rd.scss`, `src/sass/partials/*.scss` |
+| `07-js-contract.md` | `src/js/modules/*.js`, the PHP templates |
 
 Regenerate with:
 
 ```
-python3 docs/llmwiki/tools/sync_from_od.py
+python3 docs/llmwiki/tools/sync_from_theme.py
 ```
 
-Run it after every change to the prototype and commit the result.
+Run it after changing a token, a partial or a `data-*` hook, and commit the
+result. It reads the theme, so it cannot disagree with the theme — which is
+the whole reason these three pages are generated rather than written.
 
 ## Reading order for a new contributor or agent
 

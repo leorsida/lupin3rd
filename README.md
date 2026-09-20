@@ -4,8 +4,8 @@ The WordPress theme for [lupin3rd.org](https://lupin3rd.org). Standalone: no
 parent theme, no CSS framework, no web fonts, no third-party request of any
 kind on a public page.
 
-MIT licensed. Built from the Open Design prototype, which stays the visual
-source of truth.
+MIT licensed. Ported from a static prototype that has since been retired: the
+code is the only source of truth, and `docs/llmwiki/` is derived from it.
 
 ## What it is
 

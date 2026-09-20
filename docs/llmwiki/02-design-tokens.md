@@ -2,16 +2,16 @@
 id: design-tokens
 title: Design tokens
 status: generated
-updated: 2026-09-13
-sources: [`OD/assets/app.css`]
+updated: 2026-09-20
+sources: [`src/sass/partials/_tokens.scss`]
 ---
 
 # Design tokens
 
-Every colour, font and measurement used by the theme is declared here and nowhere else. A component that needs a value it cannot find in this table is a design bug, not a licence to hard-code.
+Every colour, font and measurement the theme uses is declared here and nowhere else. A component that needs a value it cannot find in this table is a design bug, not a licence to hard-code.
 
 > **Generated file — do not edit by hand.**
-> Regenerate with `python3 docs/llmwiki/tools/sync_from_od.py` after changing the prototype.
+> Regenerate with `python3 docs/llmwiki/tools/sync_from_theme.py` after changing the source it reads.
 
 
 ## Dark theme (default)
@@ -47,6 +47,17 @@ Every colour, font and measurement used by the theme is declared here and nowher
 | `--gutter` | `28px` | scale |
 | `--radius` | `0px` | scale |
 | `--radius-lg` | `0px` | scale |
+| `--admin-bar` | `0px` | scale |
+| `--z-modal` | `100000` | scale |
+| `--header-height` | `92px` | scale |
+
+## With the WordPress admin bar on the page
+
+`body.admin-bar`
+
+| Token | Value | Group |
+|---|---|---|
+| `--admin-bar` | `var(--wp-admin--admin-bar--height, 32px)` | core |
 
 ## Light theme variant
 
@@ -64,13 +75,6 @@ Every colour, font and measurement used by the theme is declared here and nowher
 | `--on-accent` | `oklch(100% 0 0)` | core |
 | `--dot` | `color-mix(in oklch, var(--fg) 20%, transparent)` | core |
 
-## Light theme variant
-
-`:root[data-theme="light"] .icon-btn .icon-sun`
-
-| Token | Value | Group |
-|---|---|---|
-
 ## Rules
 
 - The six palette slugs (`bg`, `surface`, `fg`, `muted`, `border`, `accent`) are the same six slugs declared in `theme.json`. They must stay in sync.
@@ -78,3 +82,4 @@ Every colour, font and measurement used by the theme is declared here and nowher
 - `--radius` and `--radius-lg` are `0px` by deliberate choice: the direction is brutalist. Rounded corners are a regression, not a refinement.
 - No web fonts. `--font-display` and `--font-body` resolve to fonts already on the reader's machine. Adding `@font-face` breaks both the CSP and the weight budget.
 - The light variant redefines token values only. It never adds or removes a token.
+- A token that is built from another token must be combined **at the point of use**, not declared as a third token here: a custom property is substituted on the element where it is declared, so one written on `:root` captures `:root`'s values and ignores every override below. See `11-conventions.md`.

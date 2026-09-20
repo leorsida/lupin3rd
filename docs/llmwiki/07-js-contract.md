@@ -2,117 +2,114 @@
 id: js-contract
 title: JavaScript contract
 status: generated
-updated: 2026-09-13
-sources: [`OD/assets/app.js`, `OD/*.html`]
+updated: 2026-09-20
+sources: [`src/js/modules/*.js`, `*.php`, `template-parts/**/*.php`]
 ---
 
 # JavaScript contract
 
-Markup and behaviour are bound exclusively through `data-*` attributes. No behaviour may key off a class name, an id or a tag: classes belong to the visual system and must stay free to change. This page is the full list of hooks the prototype defines.
+Markup and behaviour are bound exclusively through `data-*` attributes. No behaviour may key off a class name, an id or a tag: classes belong to the visual system and must stay free to change.
 
 > **Generated file — do not edit by hand.**
-> Regenerate with `python3 docs/llmwiki/tools/sync_from_od.py` after changing the prototype.
+> Regenerate with `python3 docs/llmwiki/tools/sync_from_theme.py` after changing the source it reads.
 
 
-The prototype ships 3 IIFE blocks in a single file. The theme compiles the same behaviour from ES modules under `src/js/modules/` into one bundle. Every module must return early when its hook is absent from the page.
+The bundle is built from 12 ES modules under `src/js/modules/`, compiled into one file. Every module must return early when its hook is absent from the page.
 
-## Attribute inventory
+## The two columns are the contract
 
-| Attribute | Occurrences |
+**Emitted** counts the attribute in the PHP that prints it. **Read** counts it in the modules that act on it. Both numbers matter, and so does each being zero:
+
+- read but never emitted — the module is waiting for markup nobody prints;
+- emitted but never read — either a CSS or server-side hook, which is fine, or a behaviour that was removed and left its handle behind.
+
+**Read `0` is not proof that nothing reads it.** This table counts literal occurrences, and a module that builds the name at runtime — `getAttribute('data-level-' + n)`, or `dataset.copiedLabel` for `data-copied-label` — never spells it out. Check the module before deleting an attribute on the strength of a zero.
+
+| Attribute | Emitted | Read |
+|---|---|---|
+| `data-error-for` | 9 | 1 |
+| `data-when-signed-in` | 6 | 1 |
+| `data-filter-scope` | 4 | 2 |
+| `data-validate` | 5 | 1 |
+| `data-filter-group` | 2 | 3 |
+| `data-tab-heading` | 4 | 1 |
+| `data-when-signed-out` | 4 | 1 |
+| `data-account-name` | 2 | 1 |
+| `data-account-public` | 2 | 1 |
+| `data-account-signout` | 2 | 1 |
+| `data-close-confirm` | 1 | 2 |
+| `data-consent-open` | 2 | 1 |
+| `data-copy` | 2 | 1 |
+| `data-filter-target` | 2 | 1 |
+| `data-nav-close` | 1 | 2 |
+| `data-password-strength` | 2 | 1 |
+| `data-password-strength-echo` | 2 | 1 |
+| `data-post` | 2 | 1 |
+| `data-tabs` | 2 | 1 |
+| `data-theme` | 1 | 2 |
+| `data-theme-toggle` | 1 | 2 |
+| `data-account-chip` | 1 | 1 |
+| `data-account-panel` | 1 | 1 |
+| `data-article` | 2 | 0 |
+| `data-close-account` | 1 | 1 |
+| `data-close-submit` | 1 | 1 |
+| `data-copied-label` | 2 | 0 |
+| `data-embed` | 1 | 1 |
+| `data-embed-gate` | 1 | 1 |
+| `data-embed-show` | 1 | 1 |
+| `data-failed-label` | 2 | 0 |
+| `data-filter-empty` | 1 | 1 |
+| `data-level-0` | 2 | 0 |
+| `data-level-1` | 2 | 0 |
+| `data-level-2` | 2 | 0 |
+| `data-level-3` | 2 | 0 |
+| `data-level-4` | 2 | 0 |
+| `data-live-search` | 1 | 1 |
+| `data-nav-scrim` | 1 | 1 |
+| `data-nav-toggle` | 1 | 1 |
+| `data-progress` | 1 | 1 |
+| `data-reset-filters` | 1 | 1 |
+| `data-search-close` | 1 | 1 |
+| `data-search-empty` | 1 | 1 |
+| `data-search-input` | 1 | 1 |
+| `data-search-open` | 1 | 1 |
+| `data-search-overlay` | 1 | 1 |
+| `data-search-results` | 1 | 1 |
+| `data-toc` | 1 | 1 |
+| `data-value` | 2 | 0 |
+| `data-category` | 1 | 0 |
+| `data-difficulty` | 1 | 0 |
+| `data-embed-host` | 1 | 0 |
+| `data-keywords` | 1 | 0 |
+| `data-role` | 1 | 0 |
+| `data-section` | 1 | 0 |
+| `data-type` | 1 | 0 |
+
+## Modules
+
+| Module | Attributes it reads |
 |---|---|
-| `data-keywords` | 218 |
-| `data-theme` | 215 |
-| `data-filter-group` | 138 |
-| `data-quando-dentro` | 134 |
-| `data-non-letta` | 132 |
-| `data-quando-fuori` | 132 |
-| `data-filter-target` | 107 |
-| `data-post` | 103 |
-| `data-theme-toggle` | 92 |
-| `data-etichetta-letta` | 72 |
-| `data-oltre` | 66 |
-| `data-search-echo` | 66 |
-| `data-esci` | 65 |
-| `data-live-search` | 64 |
-| `data-value` | 64 |
-| `data-account-chip` | 61 |
-| `data-account-panel` | 61 |
-| `data-error-for` | 61 |
-| `data-nav-toggle` | 61 |
-| `data-search-close` | 61 |
-| `data-search-empty` | 61 |
-| `data-search-input` | 61 |
-| `data-search-open` | 61 |
-| `data-search-results` | 61 |
-| `data-inline` | 60 |
-| `data-validate` | 49 |
-| `data-filter-empty` | 47 |
-| `data-form-note` | 47 |
-| `data-reset-filters` | 47 |
-| `data-rispondi-a` | 41 |
-| `data-modale-chiudi` | 39 |
-| `data-segnala` | 39 |
-| `data-categoria` | 38 |
-| `data-hide-when-empty` | 37 |
-| `data-tabs` | 37 |
-| `data-article` | 35 |
-| `data-commenti-per` | 35 |
-| `data-conta-interventi` | 35 |
-| `data-conta-non-lette` | 35 |
-| `data-modale-apri` | 35 |
-| `data-modello-commento` | 35 |
-| `data-progress` | 35 |
-| `data-termina-sessione` | 35 |
-| `data-toc` | 35 |
-| `data-carica-altri` | 33 |
-| `data-conta-dispositivi` | 33 |
-| `data-forza` | 33 |
-| `data-forza-eco` | 33 |
-| `data-segna-lette` | 33 |
-| `data-sessione-aperta` | 33 |
-| `data-uscita` | 33 |
-| `data-entra` | 31 |
-| `data-difficolta` | 18 |
-| `data-formato` | 18 |
-| `data-success-note` | 18 |
-| `data-tipo` | 18 |
-| `data-empty-for` | 16 |
-| `data-ruolo` | 16 |
-| `data-filter-count` | 14 |
-| `data-arch-count` | 8 |
-| `data-apre-sessione` | 4 |
-| `data-conta-iscritti` | 4 |
-| `data-crypto-count` | 4 |
-| `data-fallback` | 4 |
-| `data-iscrizione` | 4 |
-| `data-news-count` | 4 |
-| `data-search-count` | 4 |
-| `data-liv0` | 2 |
-| `data-liv1` | 2 |
-| `data-liv2` | 2 |
-| `data-liv3` | 2 |
-| `data-liv4` | 2 |
-| `data-query` | 2 |
+| `account-close.js` | `data-close-account`, `data-close-confirm`, `data-close-submit` |
+| `code-copy.js` | `data-copy` |
+| `consent.js` | `data-consent-open`, `data-embed`, `data-embed-gate`, `data-embed-show` |
+| `form-validation.js` | `data-error-for`, `data-validate` |
+| `mobile-nav.js` | `data-nav-close`, `data-nav-scrim`, `data-nav-toggle` |
+| `password-strength.js` | `data-password-strength`, `data-password-strength-echo` |
+| `search-overlay.js` | `data-live-search`, `data-search-close`, `data-search-empty`, `data-search-input`, `data-search-open`, `data-search-overlay`, `data-search-results` |
+| `session.js` | `data-account-chip`, `data-account-name`, `data-account-panel`, `data-account-public`, `data-account-signout`, `data-when-signed-in`, `data-when-signed-out` |
+| `table-of-contents.js` | `data-progress`, `data-toc` |
+| `tabs.js` | `data-tab-heading`, `data-tabs` |
+| `taxonomy-filters.js` | `data-filter-empty`, `data-filter-group`, `data-filter-scope`, `data-filter-target`, `data-post`, `data-reset-filters` |
+| `theme-switch.js` | `data-theme`, `data-theme-toggle` |
 
 ## Visibility is the stylesheet's business
 
-A module must toggle the state the design system defines, not invent one. The search overlay is `.overlay` / `.overlay.is-open`; the collapsed navigation is `.topnav nav.is-open`, defined inside a media query. Toggling the `.hidden` utility instead does nothing visible, because it is `display: none !important` and beats the open state — and nothing errors, so the feature simply never works.
+A module must toggle the state the design system defines, not invent one. The search overlay is `.overlay` / `.overlay.is-open`; the drawer is `.topnav nav.is-drawer.is-open`, defined inside a media query. Toggling the `.hidden` utility instead does nothing visible, because it is `display: none !important` and beats the open state — and nothing errors, so the feature simply never works.
 
 The `hidden` attribute is a separate concern and is kept in step: it takes a closed panel's links out of the tab order. Remove it before calling `focus()`, because an unrendered element cannot take focus.
 
-## Controls that need a script ship hidden, panels do not
-
-A tab strip is the clearest case. The server renders **every** panel open, each
-with its own heading, and the strip itself carrying the `hidden` attribute.
-Without the bundle the page is a sequence of labelled lists: everything the
-reader came for is on screen, and there is no control that does nothing. With
-the bundle, `tabs.js` reveals the strip, folds the per-panel headings away with
-`[data-tab-heading]` and leaves one panel showing.
-
-The inverse — shipping panels with `hidden` and revealing them from script — is
-the shape to avoid: it hides content behind a file that may not arrive, and it
-fails silently when it does not.
+Which of the two an element ships with is not a style choice. A **control** that needs a script ships `hidden` and the module reveals it, so it is never an inert button. A **panel** ships visible, so a reader without the bundle still reaches its contents.
 
 ## Naming
 
-The prototype names these attributes in Italian (`data-quando-dentro`, `data-carica-altri`). The theme requires English identifiers throughout. The translation table lives in `12-glossary.md` and is binding: renaming one of these after the templates are written is a breaking change on both sides at once.
+Every attribute here is English, like every other identifier in this theme. Public slugs and URLs stay Italian, because they are content. The prototype this theme was ported from named these attributes in Italian; the translation table in `12-glossary.md` recorded the mapping and is now history rather than a live contract.
