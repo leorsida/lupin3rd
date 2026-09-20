@@ -40,19 +40,11 @@ final class Security {
 		add_filter( 'wp_handle_upload_prefilter', array( $this, 'strip_upload_metadata' ) );
 
 		/*
-		 * WordPress writes the commenter's address and browser string into
-		 * wp_comments and keeps them for as long as the comment exists. The
-		 * colophon says this site does not keep addresses; until these two
-		 * lines it did, for every comment ever left, and nothing said so.
-		 *
-		 * The alternative was to keep the address for the twenty-four hours
-		 * the colophon allows and delete it on a schedule. That needs cron to
-		 * be reliable, and a promise whose keeping depends on whether somebody
-		 * visited the site is not a promise. Not writing it cannot fail.
-		 *
-		 * What is given up is an anti-spam signal. This site moderates the
-		 * first three contributions of every account by hand and has a report
-		 * tool; that is the defence, and it needs nobody's address.
+		 * Core stores the commenter's address and browser string with every
+		 * comment, and keeps both for as long as the comment exists. Writing
+		 * nothing is the only version of that promise with no clock attached,
+		 * and it costs an anti-spam signal this site had already decided not
+		 * to use. The whole argument is in docs/llmwiki/17-privacy.md.
 		 */
 		add_filter( 'pre_comment_user_ip', '__return_empty_string' );
 		add_filter( 'pre_comment_user_agent', '__return_empty_string' );

@@ -287,3 +287,27 @@ top: calc(var(--admin-bar) + var(--header-height));
 This costs a repeated `calc()` at two or three call sites and is worth it: the
 failure mode is a layout that is quietly correct for a signed-out reader and
 quietly wrong for everybody else, which is the hardest kind to notice.
+
+## A long comment can read as commented-out code
+
+`Squiz.PHP.CommentedOutCode` scores a `/* … */` block on how much of it parses
+as PHP and warns past roughly 40%. Prose trips it: the score goes up with
+underscored names (`wp_comments`, `pre_comment_user_ip`), hyphenated words,
+semicolons and parentheses, and it is computed over the **whole block**, so
+three paragraphs that each pass on their own can fail together. Two of the
+paragraphs that produced a 55% here scored 0% when checked alone.
+
+Docblocks (`/** … */`) are exempt, which is the tell: the sniff exists to catch
+code parked in a comment, and code is not usually parked in a docblock.
+
+The fix is not to reword around the sniff. A fifteen-line argument above two
+`add_filter()` calls is a sign the argument belongs in `docs/llmwiki/`, where it
+can be found by somebody who is not already reading that file — leave three
+lines and a path at the call site. That is what happened to the comment above
+`pre_comment_user_ip`, and the wiki already carried the same reasoning twice.
+
+Checking it locally needs no WPCS:
+
+```sh
+php phpcs.phar --standard=Squiz --sniffs=Squiz.PHP.CommentedOutCode inc/
+```
