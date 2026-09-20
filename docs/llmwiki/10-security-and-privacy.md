@@ -22,7 +22,7 @@ readers have a reason to care how it behaves.
 | `generator` meta, WLW, RSD, shortlink | removed from `<head>` |
 | Uploads | EXIF and other metadata stripped on `wp_handle_upload`, **before** thumbnails are generated |
 | Gravatar | `pre_get_avatar` filtered; no request ever leaves for gravatar.com |
-| Avatar in the WP admin bar | suppressed: `admin_bar_menu` is bracketed at -100/100 and `pre_get_avatar` returns `''` in between. The pattern says nothing next to the name, and core expects a 26px `<img>` there |
+| Avatar in the WP admin bar | suppressed: `pre_get_avatar` returns `''` between `admin_bar_menu` (-9999) and `wp_before_admin_bar_render`. Closing on the later *action* rather than on a high priority is deliberate — core builds the greeting's avatar at priority 9991 in WP 7.1, and that number is not a contract |
 | Comments | pre-moderation; no external anti-spam service |
 | `comment_author_IP`, `comment_agent` | `pre_comment_user_ip` and `pre_comment_user_agent` filtered to `''`; core would write both and keep them forever |
 | Third-party `<iframe>` in content | replaced server-side with a placeholder naming the host — `Consent`, see `17-privacy.md` |

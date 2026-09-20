@@ -243,3 +243,23 @@ down why.
 **`wp_setup_nav_menu_item()` decorates a `WP_Post` at runtime**: `url`,
 `target`, `title` are not declared on the class and never will be.
 `universalObjectCratesClasses` is the honest answer; inventing a type is not.
+
+## Core hook priorities are not a contract
+
+Bracketing an action — adding a filter early, removing it late — is a sound
+technique, and it broke the first time it was used here because the closing
+priority was written from memory. `wp_admin_bar_my_account_item()` is hooked at
+**9991** in WordPress 7.1, not at the single-digit priority it once had; a
+bracket that closed at 100 removed the filter before the node that needed it
+had been built. The half of the job that happened at priority 0 worked, which
+is the worst kind of failure: it looks like the mechanism is wrong rather than
+the number.
+
+Two rules follow.
+
+- **Read the priority out of `wp-includes/` before relying on it.** For the
+  admin bar that is `WP_Admin_Bar::add_menus()`.
+- **Prefer a later hook to a larger number.** `wp_before_admin_bar_render` fires
+  once `admin_bar_menu` has finished, whatever priorities core uses inside it.
+  «After that action» is a fact; «priority 100 is late enough» is a guess that
+  a core release can invalidate silently.

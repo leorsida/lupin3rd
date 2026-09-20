@@ -53,12 +53,17 @@ final class Security {
 
 		/*
 		 * Bracket the admin bar's construction: everything core builds between
-		 * these two gets no avatar. Both of the nodes that carry one —
-		 * wp_admin_bar_my_account_menu() at 0 and wp_admin_bar_my_account_item()
-		 * at 7 — are inside the window.
+		 * these two gets no avatar.
+		 *
+		 * The closing hook is `wp_before_admin_bar_render`, which fires once
+		 * `admin_bar_menu` has finished, rather than a high priority on
+		 * `admin_bar_menu` itself. The nodes that carry an avatar sit at 0 and
+		 * 9991 in WordPress 7.1, and there is no reason those numbers cannot
+		 * move: a closing priority is a guess about core's internals, while
+		 * «after that action» is a fact.
 		 */
-		add_action( 'admin_bar_menu', array( $this, 'start_hiding_avatars' ), -100 );
-		add_action( 'admin_bar_menu', array( $this, 'stop_hiding_avatars' ), 100 );
+		add_action( 'admin_bar_menu', array( $this, 'start_hiding_avatars' ), -9999 );
+		add_action( 'wp_before_admin_bar_render', array( $this, 'stop_hiding_avatars' ) );
 	}
 
 	/**
@@ -73,6 +78,10 @@ final class Security {
 	 *
 	 * Core handles an empty avatar properly: `wp_admin_bar_my_account_item()`
 	 * drops the `with-avatar` class and leaves the greeting alone.
+	 *
+	 * It is also the theme's `.avatar` rules that make the thing a bordered
+	 * box in the first place: they apply inside `#wpadminbar` like anywhere
+	 * else, and core sizes that slot for a 28px image.
 	 */
 	public function start_hiding_avatars(): void {
 		add_filter( 'pre_get_avatar', array( $this, 'no_avatar' ), 99 );
