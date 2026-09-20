@@ -229,9 +229,9 @@ $l3_roles = array(
 			<?php endif; ?>
 
 			<div class="widget">
-				<p class="widget-title"><?php esc_html_e( 'Da membro a collaboratore', 'lupin3rd' ); ?></p>
+				<p class="widget-title"><?php esc_html_e( 'Da utente a collaboratore', 'lupin3rd' ); ?></p>
 				<p class="widget-note">
-					<?php esc_html_e( 'Tre contributi accettati — correzioni documentate, traduzioni, writeup — e la redazione propone il passaggio. Da collaboratore si firma in prima pagina e si accede alle bozze prima della pubblicazione.', 'lupin3rd' ); ?>
+					<?php esc_html_e( 'Invia tre contributi, se vengono accettati diventi collaboratore. Come collaboratore puoi firmarti in prima pagina.', 'lupin3rd' ); ?>
 				</p>
 				<p>
 					<a class="btn btn-secondary btn-sm" href="<?php echo esc_url( home_url( '/linee-guida/' ) ); ?>">
