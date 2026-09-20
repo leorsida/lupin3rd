@@ -185,7 +185,7 @@ the_post();
 
 			<div class="widget">
 				<p class="widget-title"><?php esc_html_e( 'Il tuo account', 'lupin3rd' ); ?></p>
-				<p class="widget-note"><?php esc_html_e( 'Da lì cambi quello che di te si vede, scegli se ricevere avvisi e chiedi esportazione o cancellazione.', 'lupin3rd' ); ?></p>
+				<p class="widget-note"><?php esc_html_e( 'Da lì cambi quello che di te si vede, scegli se ricevere avvisi e chiudi l\'account. Per l\'esportazione e per una cancellazione vera, scrivi alla redazione.', 'lupin3rd' ); ?></p>
 				<p>
 					<a class="btn btn-secondary btn-sm" href="<?php echo esc_url( Authentication::account_url() ); ?>">
 						<?php esc_html_e( 'Vai al tuo profilo', 'lupin3rd' ); ?>

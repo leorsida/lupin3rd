@@ -160,7 +160,7 @@ $l3_stats  = Community::profile_stats( $l3_me->ID );
 					if ( Community::is_queued( $l3_me->ID ) ) {
 						printf(
 							/* translators: 1: approved contributions so far, 2: how many are needed. */
-							esc_html__( 'I tuoi commenti vengono letti prima di comparire: %1$d su %2$d.', 'lupin3rd' ),
+							esc_html__( 'I tuoi commenti vengono letti prima di essere pubblicati: %1$d su %2$d.', 'lupin3rd' ),
 							(int) Community::contributions( $l3_me->ID ),
 							(int) Community::MODERATION_THRESHOLD
 						);
@@ -179,13 +179,6 @@ $l3_stats  = Community::profile_stats( $l3_me->ID );
 					<li><?php esc_html_e( 'Commenti pubblicati.', 'lupin3rd' ); ?></li>
 				</ul>
 				<p class="widget-note"><?php esc_html_e( 'Niente cronologia di lettura, niente indirizzi oltre le 24 ore di finestra antispam.', 'lupin3rd' ); ?></p>
-			</div>
-
-			<div class="widget">
-				<p class="widget-title"><?php esc_html_e( 'Esportazione', 'lupin3rd' ); ?></p>
-				<p class="widget-note">
-					<?php esc_html_e( 'Una copia di quello che abbiamo su di te non si scarica ancora da qui: si chiede alla redazione. La chiusura dell\'account invece la fai da solo, qui sotto.', 'lupin3rd' ); ?>
-				</p>
 			</div>
 		</aside>
 	</div>
