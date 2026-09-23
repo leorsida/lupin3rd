@@ -25,6 +25,11 @@ authoritative where the prototype and the code disagree.
 | Dossier | — | `single-dossier.php` | `/dossier/<slug>/` | 1 |
 | Static page | `chi-siamo.html`, `linee-guida.html`, `cassetta-sicura.html` | `page.php` | `/<slug>/` | 1 |
 
+Una pagina statica mostra l'**immagine in evidenza** quando c'è, con lo stesso
+`Marks::render( get_post(), 'wide' )` degli articoli. Quando non c'è, non
+viene generato nessun mark: una pagina non compare in nessun elenco, quindi
+non le serve una figura di riserva.
+
 Una pagina statica con **tre o più `h2`** prende la stessa colonna laterale
 con l'indice degli articoli (`template-parts/single/table-of-contents.php`),
 e sotto quella soglia resta a colonna singola. Gli `id` sugli `h2` vengono

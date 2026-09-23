@@ -2,16 +2,17 @@
 /**
  * A static page.
  *
- * Title, standfirst, body. No sidebar of widgets: these pages are read, not
- * browsed. The one exception is the index — a page with three or more h2
- * headings is a piece with sections, and a reader who has to find «come
- * segnalare un errore» halfway down deserves the same index an article gets.
- * Below that the page stays a single column: an empty aside, or one holding a
- * list of two links, is worse than no aside.
+ * Title, standfirst, optional featured image, body. No sidebar of widgets:
+ * these pages are read, not browsed. The one exception is the index — a page
+ * with three or more h2 headings is a piece with sections, and a reader who
+ * has to find «come segnalare un errore» halfway down deserves the same index
+ * an article gets. Below that the page stays a single column: an empty aside,
+ * or one holding a list of two links, is worse than no aside.
  *
  * @package Lupin3rd
  */
 
+use Lupin3rd\Marks;
 use Lupin3rd\Template_Tags;
 
 defined( 'ABSPATH' ) || exit;
@@ -61,6 +62,20 @@ while ( have_posts() ) :
 					<p class="lead"><?php echo esc_html( wp_strip_all_tags( get_the_excerpt() ) ); ?></p>
 				<?php endif; ?>
 			</header>
+
+			<?php if ( has_post_thumbnail() ) : ?>
+				<?php
+				/*
+				 * Only when the desk actually set one. An article without a
+				 * featured image still gets a mark, because it appears in
+				 * lists and a card needs a picture; a static page appears in
+				 * no list, so here an invented one would be decoration
+				 * standing in for content. Same call as single.php: the image
+				 * is the lead, so it is fetched eagerly and at the large size.
+				 */
+				Marks::render( get_post(), 'wide' );
+				?>
+			<?php endif; ?>
 
 			<div class="<?php echo $l3_index ? 'grid-main-side' : 'stack'; ?>">
 				<div class="stack stack-lg">
