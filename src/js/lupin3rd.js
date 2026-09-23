@@ -11,6 +11,7 @@
  */
 
 import initSession from './modules/session.js';
+import initHeaderHeight from './modules/header-height.js';
 import initThemeSwitch from './modules/theme-switch.js';
 import initMobileNav from './modules/mobile-nav.js';
 import initSearchOverlay from './modules/search-overlay.js';
@@ -26,6 +27,8 @@ import initConsent from './modules/consent.js';
 const start = () => {
 	/* First: it corrects what the server could not know. */
 	initSession();
+	/* Before anything that sticks or scrolls to a position reads the token. */
+	initHeaderHeight();
 	initThemeSwitch();
 	initMobileNav();
 	initSearchOverlay();

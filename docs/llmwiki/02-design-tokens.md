@@ -2,7 +2,7 @@
 id: design-tokens
 title: Design tokens
 status: generated
-updated: 2026-09-20
+updated: 2026-09-23
 sources: [`src/sass/partials/_tokens.scss`]
 ---
 
@@ -49,7 +49,7 @@ Every colour, font and measurement the theme uses is declared here and nowhere e
 | `--radius-lg` | `0px` | scale |
 | `--admin-bar` | `0px` | scale |
 | `--z-modal` | `100000` | scale |
-| `--header-height` | `92px` | scale |
+| `--header-height` | `70px` | scale |
 
 ## With the WordPress admin bar on the page
 

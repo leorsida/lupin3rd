@@ -2,7 +2,7 @@
 id: js-contract
 title: JavaScript contract
 status: generated
-updated: 2026-09-20
+updated: 2026-09-23
 sources: [`src/js/modules/*.js`, `*.php`, `template-parts/**/*.php`]
 ---
 
@@ -14,7 +14,7 @@ Markup and behaviour are bound exclusively through `data-*` attributes. No behav
 > Regenerate with `python3 docs/llmwiki/tools/sync_from_theme.py` after changing the source it reads.
 
 
-The bundle is built from 12 ES modules under `src/js/modules/`, compiled into one file. Every module must return early when its hook is absent from the page.
+The bundle is built from 13 ES modules under `src/js/modules/`, compiled into one file. Every module must return early when its hook is absent from the page.
 
 ## The two columns are the contract
 
@@ -93,6 +93,7 @@ The bundle is built from 12 ES modules under `src/js/modules/`, compiled into on
 | `code-copy.js` | `data-copy` |
 | `consent.js` | `data-consent-open`, `data-embed`, `data-embed-gate`, `data-embed-show` |
 | `form-validation.js` | `data-error-for`, `data-validate` |
+| `header-height.js` | — |
 | `mobile-nav.js` | `data-nav-close`, `data-nav-scrim`, `data-nav-toggle` |
 | `password-strength.js` | `data-password-strength`, `data-password-strength-echo` |
 | `search-overlay.js` | `data-live-search`, `data-search-close`, `data-search-empty`, `data-search-input`, `data-search-open`, `data-search-overlay`, `data-search-results` |

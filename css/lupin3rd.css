@@ -60,7 +60,8 @@
    * `position: absolute`, so where it sits depends on the scroll position and
    * no CSS offset can follow it. */
   --z-modal: 100000;
-  /* The height of .topnav plus room to breathe. Anything that sticks below the
+  /* The measured height of .topnav, and nothing else: room to breathe is added
+   * where it is used, not baked in here. Anything that sticks below the
    * header adds --admin-bar to this AT THE POINT OF USE:
    *
    *   top: calc(var(--admin-bar) + var(--header-height));
@@ -69,8 +70,16 @@
    * another one is substituted on the element where it is declared, so a
    * `--stick-below-header` written on :root would capture the :root value of
    * --admin-bar — 0px — and go on inheriting that zero into `body.admin-bar`,
-   * where the whole point was that it is 32px. */
-  --header-height: 92px;
+   * where the whole point was that it is 32px.
+   *
+   * The value below is the header's measured height on a wide screen, and it
+   * is only the starting point: `header-height.js` overwrites it with the real
+   * measurement on load and on every resize, because the header is as tall as
+   * its content and CSS cannot ask. This number is what a reader without
+   * JavaScript gets, so it has to be close, not decorative. It said 92px for
+   * months while the header measured 70, which is how the index came to
+   * highlight the wrong section. */
+  --header-height: 70px;
 }
 
 body.admin-bar {
@@ -293,21 +302,24 @@ main > .section-tight:last-child {
  * height, which is what sticky needs. */
 .grid-main-side > aside {
   position: sticky;
-  top: calc(var(--admin-bar) + var(--header-height));
-  max-height: calc(100dvh - var(--admin-bar) - var(--header-height) - var(--gap-lg));
+  top: calc(var(--admin-bar) + var(--header-height) + var(--gap-md));
+  max-height: calc(100dvh - var(--admin-bar) - var(--header-height) - var(--gap-md) - var(--gap-lg));
   overflow-y: auto;
   overscroll-behavior: contain;
   scrollbar-width: thin;
 }
 
 /* A heading reached from the index, or from a link somebody sent, must not
- * land under the header that is sitting on top of it. This goes on the target
+ * land under the header that is sitting on top of it. --header-height is now
+ * the header's measured height and nothing more (header-height.js keeps it
+ * true), so the room to breathe is added here, where it can be seen. This
+ * goes on the target
  * rather than on `scroll-padding-top` of the document, because the admin bar's
  * own stylesheet sets that same property on <html> and which of the two wins
  * would depend on enqueue order. */
 .prose :is(h2, h3, h4)[id],
 [id^=comment-] {
-  scroll-margin-top: calc(var(--admin-bar) + var(--header-height));
+  scroll-margin-top: calc(var(--admin-bar) + var(--header-height) + var(--gap-md));
 }
 
 .split-feature {

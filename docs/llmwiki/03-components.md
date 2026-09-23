@@ -2,7 +2,7 @@
 id: components
 title: Component inventory
 status: generated
-updated: 2026-09-20
+updated: 2026-09-23
 sources: [`src/sass/lupin3rd.scss`, `src/sass/partials/*.scss`]
 ---
 
@@ -28,7 +28,7 @@ The order is the order of `@use` in `src/sass/lupin3rd.scss`, and it is not alph
 | 2 | `_reset.scss` | Reset and base | 19 |
 | 3 | `_layout.scss` | Layout primitives | 26 |
 | 4 | `_typography.scss` | Typography | 19 |
-| 5 | `_navbar.scss` | Status bar and navigation | 44 |
+| 5 | `_navbar.scss` | Status bar and navigation | 45 |
 | 6 | `_buttons.scss` | Buttons | 15 |
 | 7 | `_cards.scss` | Cards and surfaces | 3 |
 | 8 | `_marks.scss` | Generative marks (used instead of photographs) | 10 |
@@ -39,7 +39,7 @@ The order is the order of `@use` in `src/sass/lupin3rd.scss`, and it is not alph
 | 13 | `_widgets.scss` | Widgets and sidebar | 15 |
 | 14 | `_forms.scss` | Forms | 11 |
 | 15 | `_tables.scss` | Tables | 8 |
-| 16 | `_prose.scss` | Article prose | 26 |
+| 16 | `_prose.scss` | Article prose | 29 |
 | 17 | `_toc.scss` | Table of contents | 8 |
 | 18 | `_search.scss` | Search overlay | 10 |
 | 19 | `_pagination.scss` | Pagination | 5 |
@@ -48,8 +48,8 @@ The order is the order of `@use` in `src/sass/lupin3rd.scss`, and it is not alph
 | 22 | `_utilities.scss` | Utilities | 10 |
 | 23 | `_identity.scss` | Identity: locally generated avatars | 19 |
 | 24 | `_badges.scss` | Role badges | 4 |
-| 25 | `_members.scss` | Member rows | 9 |
-| 26 | `_activity.scss` | Activity feed | 7 |
+| 25 | `_members.scss` | Member rows | 11 |
+| 26 | `_activity.scss` | Activity feed | 8 |
 | 27 | `_comments.scss` | Discussion | 14 |
 | 28 | `_tabs.scss` | Tabs | 8 |
 | 29 | `_counters.scss` | Counters | 4 |
@@ -151,7 +151,7 @@ The order is the order of `@use` in `src/sass/lupin3rd.scss`, and it is not alph
 
 ## Status bar and navigation
 
-`src/sass/partials/_navbar.scss` — 44 selectors
+`src/sass/partials/_navbar.scss` — 45 selectors
 
 - `.statusbar`
 - `.statusbar .container`
@@ -181,6 +181,7 @@ The order is the order of `@use` in `src/sass/lupin3rd.scss`, and it is not alph
 - `.langswitch > *`
 - `.langswitch > a:hover`
 - `.langswitch .is-on`
+- `.langswitch .is-off`
 - `.nav-tools > .langswitch`
 - `.nav-tools > .account`
 - `mark`
@@ -349,12 +350,14 @@ The order is the order of `@use` in `src/sass/lupin3rd.scss`, and it is not alph
 
 ## Article prose
 
-`src/sass/partials/_prose.scss` — 26 selectors
+`src/sass/partials/_prose.scss` — 29 selectors
 
 - `.prose`
-- `.prose > * + *`
 - `.prose h2`
 - `.prose h3`
+- `.prose :where(p`
+- `ul`
+- `ol)`
 - `.prose p`
 - `.prose a`
 - `.prose a:hover`
@@ -363,6 +366,7 @@ The order is the order of `@use` in `src/sass/lupin3rd.scss`, and it is not alph
 - `.prose li + li`
 - `.prose figcaption`
 - `.prose blockquote`
+- `.prose > * + *`
 - `.callout`
 - `.callout .callout-title`
 - `.callout p`
@@ -487,10 +491,12 @@ The order is the order of `@use` in `src/sass/lupin3rd.scss`, and it is not alph
 
 ## Member rows
 
-`src/sass/partials/_members.scss` — 9 selectors
+`src/sass/partials/_members.scss` — 11 selectors
 
 - `.member`
 - `.member:first-child`
+- `.member:not(:has(~ .member))`
+- `.member:nth-child(odd):not(:has(~ .member ~ .member))`
 - `.member-id`
 - `.member-name`
 - `a.member:hover`
@@ -501,10 +507,11 @@ The order is the order of `@use` in `src/sass/lupin3rd.scss`, and it is not alph
 
 ## Activity feed
 
-`src/sass/partials/_activity.scss` — 7 selectors
+`src/sass/partials/_activity.scss` — 8 selectors
 
 - `.activity`
 - `.activity:first-child`
+- `.activity:last-child`
 - `.activity-head`
 - `.activity-quote`
 - `.activity-on`

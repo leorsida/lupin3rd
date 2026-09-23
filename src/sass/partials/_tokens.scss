@@ -53,7 +53,8 @@
    * no CSS offset can follow it. */
   --z-modal: 100000;
 
-  /* The height of .topnav plus room to breathe. Anything that sticks below the
+  /* The measured height of .topnav, and nothing else: room to breathe is added
+   * where it is used, not baked in here. Anything that sticks below the
    * header adds --admin-bar to this AT THE POINT OF USE:
    *
    *   top: calc(var(--admin-bar) + var(--header-height));
@@ -62,8 +63,16 @@
    * another one is substituted on the element where it is declared, so a
    * `--stick-below-header` written on :root would capture the :root value of
    * --admin-bar — 0px — and go on inheriting that zero into `body.admin-bar`,
-   * where the whole point was that it is 32px. */
-  --header-height: 92px;
+   * where the whole point was that it is 32px.
+   *
+   * The value below is the header's measured height on a wide screen, and it
+   * is only the starting point: `header-height.js` overwrites it with the real
+   * measurement on load and on every resize, because the header is as tall as
+   * its content and CSS cannot ask. This number is what a reader without
+   * JavaScript gets, so it has to be close, not decorative. It said 92px for
+   * months while the header measured 70, which is how the index came to
+   * highlight the wrong section. */
+  --header-height: 70px;
 }
 
 body.admin-bar { --admin-bar: var(--wp-admin--admin-bar--height, 32px); }
