@@ -96,15 +96,23 @@ autoloader.
   loses polish, never function.
 - The editor bundle `js/lupin3rd-editor.js` is separate and is never served to
   a reader.
-- Una misura che il CSS già conosce — l'altezza della testata, quella della
-  barra admin — in JavaScript si **misura**, non si riscrive come costante.
-  `table-of-contents.js` aveva `window.scrollY + 120` al posto del bordo
-  inferiore della testata: da sloggati i 92px della testata ci stavano dentro,
-  da loggati la barra admin portava il totale a 124 e l'indice evidenziava la
-  voce precedente a quella cliccata. Un difetto visibile solo a chi ha una
-  sessione aperta, cioè solo a noi. Ora legge
-  `.topnav.getBoundingClientRect().bottom`, che la barra admin la include già
-  perché la testata è appiccicata sotto di essa.
+- Una misura che il CSS già conosce non si riscrive in JavaScript, e non si
+  ricostruisce nemmeno da pezzi: **si legge dove il CSS la mette**.
+  `table-of-contents.js` confrontava i titoli con `window.scrollY + 120`,
+  costante messa lì al posto dell'ingombro fisso in alto. I numeri in gioco
+  erano tre e nessuno coincideva con gli altri: la costante (120), la regola
+  del CSS che parcheggia il titolo cliccato — `calc(var(--admin-bar) +
+  var(--header-height))`, cioè 92px, 124px da loggati — e l'altezza vera
+  della testata, che dipende dal suo contenuto e misura circa 70px. Risultato:
+  cliccando una voce si accendeva quella sopra, per chiunque.
+  Ora il modulo legge lo `scroll-margin-top` calcolato del titolo stesso: è
+  esattamente la distanza a cui il browser lo ferma, quindi le due cose non
+  possono più divergere.
+- Corollario, imparato a spese di un giro a vuoto: un banco di prova sintetico
+  va costruito **dal CSS vero**, non da quello che si crede dica il CSS. La
+  prima versione di quella correzione era stata verificata su una pagina in cui
+  la testata era alta 92px perché ce li avevo scritti io: il test confermava
+  l'ipotesi invece del sito.
 
 ## Accessibility
 

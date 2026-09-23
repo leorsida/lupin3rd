@@ -24,21 +24,25 @@ export default function initTableOfContents() {
 	let ticking = false;
 
 	/*
-	 * The line a heading has to cross to count as the one being read: the
-	 * bottom edge of whatever is pinned above the page. The header is sticky
-	 * below the admin bar, so its own bottom already includes it — measuring
-	 * it beats repeating here a number that CSS owns.
+	 * The line a heading has to cross to count as the one being read.
 	 *
-	 * It was repeated, as a flat 120. For a signed-out reader that was close
-	 * enough to the header's 92px; for a signed-in one the admin bar pushed
-	 * the real figure to 124, four pixels past the constant, and clicking an
-	 * entry in the index highlighted the entry above it. A bug nobody could
-	 * see unless they were logged in, which is to say: only us.
+	 * It is not the height of the header, and not a constant: it is the exact
+	 * distance at which the browser parks a heading reached from this index,
+	 * which the stylesheet states as `scroll-margin-top` on the heading
+	 * itself. Reading it from the target is the only way the two cannot drift
+	 * apart, and they had: the module compared against a flat 120, the CSS
+	 * parks at `calc(var(--admin-bar) + var(--header-height))` — 92px, 124px
+	 * with the admin bar — and the real header is neither, because its height
+	 * comes from its content and measures about 70. Whichever pair of numbers
+	 * you picked, clicking an entry highlighted the one above it.
+	 *
+	 * Every target carries the same rule, so the first one answers for all.
 	 */
 	const readingLine = () => {
-		const header = document.querySelector('.topnav');
+		const first = targets.find(Boolean);
+		const parked = first ? parseFloat(window.getComputedStyle(first).scrollMarginTop) : 0;
 
-		return (header ? header.getBoundingClientRect().bottom : 0) + 4;
+		return (Number.isFinite(parked) ? parked : 0) + 4;
 	};
 
 	const update = () => {
