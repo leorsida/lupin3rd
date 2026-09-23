@@ -31,7 +31,6 @@ success for a production guarantee.
 | URL | What |
 |---|---|
 | `http://localhost:8080` | the site |
-| `http://localhost:8081` | the Open Design prototype, read-only |
 | `http://localhost:8082` | Adminer |
 | `http://localhost:8025` | Mailpit |
 
