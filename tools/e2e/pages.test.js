@@ -98,6 +98,29 @@ test('the line numbers sit outside <code>, so copying gives code alone', async (
 	assert.doesNotMatch(code, /codeblock-lines/, 'the gutter is inside <code> and would be copied with it');
 });
 
+test('the code block starts at the first column, on the page and on the clipboard', async () => {
+	/*
+	 * Inside <pre> the template's own indentation is content. Written across
+	 * several lines, blocks/code/render.php printed a newline and two tabs
+	 * before the first character: the first line of every block was pushed to
+	 * the right, and the copy button put that whitespace on the clipboard —
+	 * which, for a block whose content is a command to paste into a shell, is
+	 * the part that matters.
+	 */
+	const html = await page(paths.tutorial);
+	const block = element(html, /<div[^>]*class="[^"]*\bcodeblock\b/);
+	const code = block && element(block, /<code\b/);
+
+	if (!code) {
+		return; // No code block in the demo content.
+	}
+
+	const inner = code.replace(/^<code[^>]*>/, '').replace(/<\/code>$/, '');
+
+	assert.doesNotMatch(inner, /^\s/, 'the code block opens on whitespace from the template');
+	assert.doesNotMatch(inner, /\s$/, 'the code block closes on whitespace from the template');
+});
+
 test('a dossier index lists its instalments', async () => {
 	const html = await page(paths.dossier);
 
