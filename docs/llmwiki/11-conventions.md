@@ -96,6 +96,15 @@ autoloader.
   loses polish, never function.
 - The editor bundle `js/lupin3rd-editor.js` is separate and is never served to
   a reader.
+- Una misura che il CSS già conosce — l'altezza della testata, quella della
+  barra admin — in JavaScript si **misura**, non si riscrive come costante.
+  `table-of-contents.js` aveva `window.scrollY + 120` al posto del bordo
+  inferiore della testata: da sloggati i 92px della testata ci stavano dentro,
+  da loggati la barra admin portava il totale a 124 e l'indice evidenziava la
+  voce precedente a quella cliccata. Un difetto visibile solo a chi ha una
+  sessione aperta, cioè solo a noi. Ora legge
+  `.topnav.getBoundingClientRect().bottom`, che la barra admin la include già
+  perché la testata è appiccicata sotto di essa.
 
 ## Accessibility
 
