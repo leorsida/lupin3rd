@@ -170,20 +170,45 @@ final class Seo {
 	 * filler because it is.
 	 */
 	public function description(): string {
-		if ( is_singular() ) {
-			$post = get_post();
+		/*
+		 * The front page first, and before is_singular(). With a static page on
+		 * the front, both are true, and asking the wrong one first is how the
+		 * home page ended up with no description at all: the page carries no
+		 * excerpt, so the singular branch returned an empty string and the
+		 * branch that knows what the site is never ran.
+		 */
+		if ( is_front_page() ) {
+			return Template_Tags::to_plain_text( (string) get_bloginfo( 'description' ) );
+		}
 
-			return $post && has_excerpt( $post )
-				? wp_strip_all_tags( get_the_excerpt( $post ) )
-				: '';
+		if ( is_singular() ) {
+			/*
+			 * The hand-written excerpt when there is one, and the opening of
+			 * the piece when there is not. Summary() is what the cards already
+			 * use, so the description a search engine shows and the one a
+			 * reader sees in a list are the same sentence rather than two
+			 * things to keep in step.
+			 */
+			return Template_Tags::summary( get_post(), 30 );
 		}
 
 		if ( is_category() || is_tag() || is_tax() ) {
-			return wp_strip_all_tags( (string) term_description() );
+			$described = Template_Tags::to_plain_text( (string) term_description() );
+
+			if ( '' !== $described ) {
+				return $described;
+			}
+
+			$term = get_queried_object();
+
+			/* translators: %s: section or tag name. */
+			return $term instanceof \WP_Term ? sprintf( __( 'Tutto quello che abbiamo pubblicato su %s.', 'lupin3rd' ), $term->name ) : '';
 		}
 
-		if ( is_front_page() ) {
-			return (string) get_bloginfo( 'description' );
+		if ( is_post_type_archive() ) {
+			$type = get_post_type_object( (string) get_query_var( 'post_type' ) );
+
+			return $type instanceof \WP_Post_Type ? Template_Tags::to_plain_text( (string) $type->description ) : '';
 		}
 
 		return '';

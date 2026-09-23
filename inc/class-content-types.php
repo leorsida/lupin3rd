@@ -94,6 +94,13 @@ final class Content_Types {
 					'add_new_item'  => __( 'Aggiungi tutorial', 'lupin3rd' ),
 					'edit_item'     => __( 'Modifica tutorial', 'lupin3rd' ),
 				),
+
+				/*
+				 * Not decoration: Seo reads this for the meta description of
+				 * the archive, which otherwise has none — an archive is built
+				 * by a template and has no text of its own to summarise.
+				 */
+				'description'   => __( 'Guide pratiche passo per passo: reverse engineering, hardware, privacy e sicurezza, con i prerequisiti dichiarati e il perimetro legale scritto in chiaro.', 'lupin3rd' ),
 				'public'        => true,
 				'has_archive'   => true,
 				'show_in_rest'  => true,
@@ -125,6 +132,7 @@ final class Content_Types {
 					'add_new_item'  => __( 'Aggiungi dossier', 'lupin3rd' ),
 					'edit_item'     => __( 'Modifica dossier', 'lupin3rd' ),
 				),
+				'description'   => __( 'Inchieste in più puntate: una domanda alla volta, le fonti in fondo a ogni puntata e le correzioni che restano.', 'lupin3rd' ),
 				'public'        => true,
 				'hierarchical'  => true,
 				'has_archive'   => true,

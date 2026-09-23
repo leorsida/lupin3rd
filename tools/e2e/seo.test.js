@@ -21,6 +21,22 @@ test('the head carries canonical, description and Open Graph', async () => {
 	assert.match(html, /<meta property="og:image" content="[^"]+"/, 'no og:image');
 });
 
+test('every kind of page describes itself, the home page included', async () => {
+	/*
+	 * The home page had no description at all. With a static page on the front,
+	 * `is_front_page()` and `is_singular()` are both true, and the singular
+	 * branch was asked first: the page carries no excerpt, so it answered with
+	 * an empty string and the branch that knows what the site is never ran.
+	 * One page, one description — checked on one of each kind.
+	 */
+	for (const path of ['/', article, '/tutorial/', '/dossier/']) {
+		const html = await page(path);
+		const found = /<meta name="description" content="([^"]{20,})"/.exec(html);
+
+		assert.ok(found, `${path} has no description`);
+	}
+});
+
 test('the Open Graph image is a file that exists', async () => {
 	const html = await page(article);
 	const image = /<meta property="og:image" content="([^"]+)"/.exec(html)[1];
