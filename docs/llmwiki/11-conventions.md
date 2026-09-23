@@ -76,6 +76,13 @@ autoloader.
   colour anywhere else is a bug.
 - `--radius: 0` is deliberate. Rounded corners are a regression.
 - No web fonts, no `@font-face`, no icon font.
+- Un reset su un elemento (`p`, `ul`, `ol`) dentro un blocco che ha una regola
+  di ritmo (`> * + *`) va scritto in `:where()`. `.prose p { margin-block: 0 }`
+  vale (0,1,1) e batte `.prose > * + *` che vale (0,1,0): il reset vince
+  sempre, l'ordine non c'entra, e il ritmo muore in silenzio. Con
+  `.prose :where(p, ul, ol)` il reset scende a (0,1,0) e la regola scritta
+  dopo torna a valere. Chi imposta il proprio margine (`h2`, `blockquote`)
+  resta più specifico e se lo tiene.
 
 ## JavaScript
 

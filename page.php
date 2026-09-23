@@ -41,7 +41,7 @@ while ( have_posts() ) :
 				<?php endif; ?>
 			</header>
 
-			<div class="prose mw-46">
+			<div class="prose">
 				<?php the_content(); ?>
 				<?php
 				wp_link_pages(

@@ -1484,10 +1484,6 @@ a.tag:hover {
   line-height: 1.8;
 }
 
-.prose > * + * {
-  margin-top: 1.15em;
-}
-
 .prose h2 {
   font-size: clamp(26px, 3vw, 34px);
   margin-top: 2em;
@@ -1498,8 +1494,17 @@ a.tag:hover {
   margin-top: 1.8em;
 }
 
-.prose p {
+/* The browser's own margins on paragraphs and lists are cleared inside
+ * :where(), which carries no specificity, because the rhythm rule at the
+ * bottom of this block has to win over them. Written as `.prose p` this reset
+ * scored (0,1,1) against the rhythm rule's (0,1,0) and silently killed the
+ * space between every two paragraphs on the site — headings kept theirs only
+ * because they set it themselves. */
+.prose :where(p, ul, ol) {
   margin-block: 0;
+}
+
+.prose p {
   color: color-mix(in oklch, var(--fg) 88%, var(--bg));
 }
 
@@ -1515,7 +1520,6 @@ a.tag:hover {
 }
 
 .prose ul, .prose ol {
-  margin-block: 0;
   padding-left: 1.2em;
   color: color-mix(in oklch, var(--fg) 88%, var(--bg));
 }
@@ -1539,6 +1543,12 @@ a.tag:hover {
   font-family: var(--font-display);
   font-size: 22px;
   line-height: 1.4;
+}
+
+/* Vertical rhythm, last on purpose: every element above that sets its own
+ * spacing is more specific than this and keeps it. */
+.prose > * + * {
+  margin-top: 1.15em;
 }
 
 /* callout — bordo pieno, niente barra colorata + card arrotondata */
