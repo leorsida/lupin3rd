@@ -56,6 +56,7 @@ final class Theme {
 		Template_Tags::class,
 		Archive_Filters::class,
 		Search::class,
+		Markdown::class,
 		Seo::class,
 		Schema::class,
 		Geo::class,

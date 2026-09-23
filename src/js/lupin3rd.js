@@ -17,6 +17,7 @@ import initMobileNav from './modules/mobile-nav.js';
 import initSearchOverlay from './modules/search-overlay.js';
 import initTaxonomyFilters from './modules/taxonomy-filters.js';
 import initCodeCopy from './modules/code-copy.js';
+import initMarkdownCopy from './modules/markdown-copy.js';
 import initTableOfContents from './modules/table-of-contents.js';
 import initFormValidation from './modules/form-validation.js';
 import initTabs from './modules/tabs.js';
@@ -34,6 +35,7 @@ const start = () => {
 	initSearchOverlay();
 	initTaxonomyFilters();
 	initCodeCopy();
+	initMarkdownCopy();
 	initTableOfContents();
 	initFormValidation();
 	initTabs();

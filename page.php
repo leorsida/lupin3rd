@@ -12,6 +12,7 @@
  * @package Lupin3rd
  */
 
+use Lupin3rd\Markdown;
 use Lupin3rd\Marks;
 use Lupin3rd\Template_Tags;
 
@@ -60,6 +61,17 @@ while ( have_posts() ) :
 				<h1><?php the_title(); ?></h1>
 				<?php if ( has_excerpt() ) : ?>
 					<p class="lead"><?php echo esc_html( wp_strip_all_tags( get_the_excerpt() ) ); ?></p>
+				<?php endif; ?>
+
+				<?php
+				/*
+				 * A page has no byline to hang this on, so it gets a line of
+				 * its own — below the title, never inside it: the h1 is
+				 * content, not a place to keep controls.
+				 */
+				?>
+				<?php if ( '' !== Markdown::url() ) : ?>
+					<p class="meta"><?php Template_Tags::markdown_link(); ?></p>
 				<?php endif; ?>
 			</header>
 

@@ -27,6 +27,8 @@ final class Seo {
 		add_filter( 'document_title_parts', array( $this, 'title_parts' ) );
 		add_filter( 'document_title_separator', static fn (): string => '—' );
 		add_action( 'wp_head', array( $this, 'print_meta' ), 2 );
+		add_action( 'wp_head', array( $this, 'offer_the_markdown_twin' ), 3 );
+		add_action( 'template_redirect', array( $this, 'send_the_markdown_link' ), 5 );
 		add_filter( 'wp_robots', array( $this, 'robots' ) );
 		add_filter( 'wp_sitemaps_add_provider', array( $this, 'drop_user_sitemap' ), 10, 2 );
 	}
@@ -46,6 +48,43 @@ final class Seo {
 		}
 
 		return $parts;
+	}
+
+	/**
+	 * Announce the Markdown twin of this page, in the markup.
+	 *
+	 * Declaring is the whole strategy: no request is answered differently
+	 * because of who asked. A reader agent that wants the plain text follows
+	 * this link, or /llms.txt; one that does not, reads the HTML like anybody
+	 * else. Serving different bodies at one address by sniffing the user agent
+	 * — a string the client makes up about itself — would be cloaking, and
+	 * would break the first time a cache sat in front of the site.
+	 */
+	public function offer_the_markdown_twin(): void {
+		$url = is_singular() ? Markdown::url( get_post() ) : '';
+
+		if ( '' === $url ) {
+			return;
+		}
+
+		printf( '<link rel="alternate" type="text/markdown" href="%s">' . "\n", esc_url( $url ) );
+	}
+
+	/**
+	 * The same announcement, for whoever reads only the headers.
+	 */
+	public function send_the_markdown_link(): void {
+		if ( headers_sent() || ! is_singular() ) {
+			return;
+		}
+
+		$url = Markdown::url( get_post() );
+
+		if ( '' === $url ) {
+			return;
+		}
+
+		header( 'Link: <' . esc_url_raw( $url ) . '>; rel="alternate"; type="text/markdown"', false );
 	}
 
 	/**

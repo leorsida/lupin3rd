@@ -797,3 +797,61 @@ nessuno tiene allineata*:
 Resta vero che l'impostazione va rimessa su Italiano: questa decisione toglie
 al pannello di amministrazione il potere di mentire sul frontend, non lo
 sostituisce.
+
+## D-038 — Un gemello in Markdown, dichiarato e mai imposto
+
+**Decided:** 23.09.2026 · **Status:** accepted · **Phase:** 1
+· **Piano:** `claude/lupin3rd-markdown-agenti.md` nel progetto
+
+Ogni contenuto pubblicato risponde anche al proprio indirizzo con `.md` in
+fondo, con un'intestazione YAML che porta titolo, URL canonico, autore e
+**licenza**. Accanto al titolo c'è un link a quel file, che `markdown-copy.js`
+trasforma in un pulsante «copia».
+
+**Il testo si costruisce dai blocchi, non dalla pagina.** `parse_blocks()`
+restituisce la struttura prima che diventi HTML: `l3/code` conserva il
+linguaggio che ha già nell'attributo, `l3/notice` conserva la sua etichetta. Le
+alternative erano una libreria HTML→Markdown — una dipendenza *a runtime* in un
+tema che sul server non carica `vendor/` e che vuole restare generico — o dei
+file statici rigenerati al salvataggio, cioè una seconda copia del contenuto
+che nessuno tiene allineata (D-035).
+
+Due conseguenze arrivano gratis proprio perché si parte dai blocchi: i commenti
+non ci sono perché non sono mai stati nel contenuto, e non c'è nessun iframe da
+trattenere. Gli incorporati diventano l'indirizzo che puntavano — conversione
+fatta in un punto solo, dentro `inline()`, perché un incorporato arriva per tre
+strade diverse (blocco `core/embed`, blocco `core/html`, markup scritto a mano
+in un post classico) e solo la prima porta l'URL in un attributo già letto.
+
+**I crawler si dichiarano, non si dirottano.** Niente riconoscimento dello
+`User-Agent`: è una stringa che il client si attribuisce da solo, funzionerebbe
+con i quattro educati, e in cambio il sito servirebbe corpi diversi allo stesso
+indirizzo a seconda di chi chiede — cloaking, e una cache davanti basterebbe a
+farlo arrivare a un lettore umano. Al suo posto: `rel="alternate"` nel `<head>`
+e come header `Link:`, l'elenco dei `.md` dentro il `/llms.txt` che `Geo` già
+serviva, e `X-Robots-Tag: noindex` sui `.md` perché sono una seconda copia.
+
+**Correzione, il giorno dopo.** La prima versione di questo lavoro aggiungeva un
+modulo `Llms_Txt` che serviva `/llms.txt` da capo, ignorando che `Geo` lo faceva
+già — con la licenza, la politica sui crawler e perfino la riga su
+`redirect_canonical` che quell'indirizzo richiede. Registrandosi su
+`template_redirect` con priorità 0 contro la 1 di `Geo`, il doppione **vinceva
+in silenzio**: nessun errore, e la politica sui crawler spariva dal documento.
+L'ha trovato un test che c'era da prima — `seo.test.js`, «data documents carry
+text, not HTML entities» — perché la copia nuova non decodificava le entità. Il
+modulo è stato cancellato e la sezione è entrata in `Geo`. Stessa lezione di
+D-035, questa volta commessa da noi: prima di scrivere un modulo, cercare
+l'indirizzo che deve servire.
+
+Resta possibile più avanti, senza rifare niente, la negoziazione su `Accept:`
+con `Vary: Accept` — corretta perché è il client a chiederla, e da rivedere il
+giorno che davanti al sito ci sarà una cache.
+
+Due difetti trovati misurando, non ragionando, e per questo vale la pena
+scriverli: la home è una pagina statica, e `rtrim()` sul suo permalink produceva
+`https://lupin3rd.org.md`, un indirizzo su un dominio che non è nostro — ora la
+home non offre alcun gemello, essendo anche l'unica pagina il cui contenuto è il
+template e non il post. E la cache del Markdown ha in chiave il `filemtime()` di
+`class-markdown.php` oltre alla data di modifica del post: senza, una regola
+corretta nel walker resta invisibile finché il transient non scade, che è il
+modo più rapido di passare un pomeriggio a cercare un difetto già risolto.

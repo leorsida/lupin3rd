@@ -286,6 +286,33 @@ final class Template_Tags {
 	}
 
 	/**
+	 * A link to this piece's Markdown twin, which JavaScript turns into a button.
+	 *
+	 * A link first, and a real one: it works with JavaScript off, it is what a
+	 * reading agent follows, and it is what the browser's own «copy link address»
+	 * acts on. `markdown-copy.js` then makes it copy the file instead of opening
+	 * it — an improvement on something that already works, which is the rule
+	 * every behaviour in this theme follows.
+	 *
+	 * @param int|\WP_Post|null $post Post to link.
+	 */
+	public static function markdown_link( $post = null ): void {
+		$url = Markdown::url( $post );
+
+		if ( '' === $url ) {
+			return;
+		}
+
+		printf(
+			'<a class="mdlink" href="%s" rel="alternate" type="text/markdown" data-copy-markdown data-copied-label="%s" data-failed-label="%s">%s</a>',
+			esc_url( $url ),
+			esc_attr__( 'copiato', 'lupin3rd' ),
+			esc_attr__( 'apri il markdown', 'lupin3rd' ),
+			esc_html__( 'Markdown', 'lupin3rd' )
+		);
+	}
+
+	/**
 	 * Render a post's tags as pills.
 	 *
 	 * @param int|\WP_Post|null $post  Post to read.

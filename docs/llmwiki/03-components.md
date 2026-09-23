@@ -33,7 +33,7 @@ The order is the order of `@use` in `src/sass/lupin3rd.scss`, and it is not alph
 | 7 | `_cards.scss` | Cards and surfaces | 3 |
 | 8 | `_marks.scss` | Generative marks (used instead of photographs) | 10 |
 | 9 | `_tags.scss` | Pills and tags | 7 |
-| 10 | `_post-lists.scss` | Post lists | 18 |
+| 10 | `_post-lists.scss` | Post lists | 21 |
 | 11 | `_filters.scss` | Taxonomy filters | 7 |
 | 12 | `_empty-state.scss` | Empty states | 5 |
 | 13 | `_widgets.scss` | Widgets and sidebar | 15 |
@@ -256,7 +256,7 @@ The order is the order of `@use` in `src/sass/lupin3rd.scss`, and it is not alph
 
 ## Post lists
 
-`src/sass/partials/_post-lists.scss` — 18 selectors
+`src/sass/partials/_post-lists.scss` — 21 selectors
 
 - `.log-row`
 - `.log-row:hover h3`
@@ -268,6 +268,9 @@ The order is the order of `@use` in `src/sass/lupin3rd.scss`, and it is not alph
 - `.post:hover h2`
 - `.post p`
 - `.post-meta`
+- `.mdlink`
+- `.mdlink:hover`
+- `p.meta > .mdlink`
 - `.post.split-feature`
 - `.post.lead-cover`
 - `.post.lead-cover > .mark`

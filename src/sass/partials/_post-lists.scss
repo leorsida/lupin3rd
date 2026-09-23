@@ -18,6 +18,18 @@
 .post:hover h2 { text-decoration: underline; text-underline-offset: 4px; }
 .post p { margin: 0; color: var(--muted); font-size: 14px; }
 .post-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+
+/* Il link al gemello in Markdown: presente, mai in competizione con la firma.
+ * `margin-left: auto` lo spinge in fondo alla riga quando c'è spazio, e su una
+ * riga che va a capo si comporta come tutti gli altri. */
+.mdlink {
+  margin-left: auto;
+  padding: 3px 8px; border: 1px solid var(--border-strong);
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--muted);
+}
+.mdlink:hover { color: var(--fg); border-color: var(--fg); background: var(--fg-soft); }
+p.meta > .mdlink { margin-left: 0; }
 /* il blocco in evidenza è una .post impaginata su due colonne: la griglia vince sul flex */
 .post.split-feature { display: grid; gap: 44px; }
 @media (max-width: 920px) { .post.split-feature { gap: 26px; } }

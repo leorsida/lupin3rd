@@ -77,6 +77,8 @@ while ( have_posts() ) :
 							&middot; <a href="<?php echo esc_url( (string) Meta_Fields::get( 'l3_primary_source' ) ); ?>" rel="nofollow noopener"><?php esc_html_e( 'fonte primaria', 'lupin3rd' ); ?></a>
 						<?php endif; ?>
 					</span>
+
+					<?php Template_Tags::markdown_link(); ?>
 				</div>
 			</header>
 

@@ -80,6 +80,8 @@ while ( have_posts() ) :
 							?>
 						<?php endif; ?>
 					</span>
+
+					<?php Template_Tags::markdown_link(); ?>
 				</div>
 			</header>
 

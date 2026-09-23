@@ -14,7 +14,7 @@ Markup and behaviour are bound exclusively through `data-*` attributes. No behav
 > Regenerate with `python3 docs/llmwiki/tools/sync_from_theme.py` after changing the source it reads.
 
 
-The bundle is built from 13 ES modules under `src/js/modules/`, compiled into one file. Every module must return early when its hook is absent from the page.
+The bundle is built from 14 ES modules under `src/js/modules/`, compiled into one file. Every module must return early when its hook is absent from the page.
 
 ## The two columns are the contract
 
@@ -39,7 +39,9 @@ The bundle is built from 13 ES modules under `src/js/modules/`, compiled into on
 | `data-account-signout` | 2 | 1 |
 | `data-close-confirm` | 1 | 2 |
 | `data-consent-open` | 2 | 1 |
+| `data-copied-label` | 3 | 0 |
 | `data-copy` | 2 | 1 |
+| `data-failed-label` | 3 | 0 |
 | `data-filter-target` | 2 | 1 |
 | `data-nav-close` | 1 | 2 |
 | `data-password-strength` | 2 | 1 |
@@ -53,11 +55,10 @@ The bundle is built from 13 ES modules under `src/js/modules/`, compiled into on
 | `data-article` | 2 | 0 |
 | `data-close-account` | 1 | 1 |
 | `data-close-submit` | 1 | 1 |
-| `data-copied-label` | 2 | 0 |
+| `data-copy-markdown` | 1 | 1 |
 | `data-embed` | 1 | 1 |
 | `data-embed-gate` | 1 | 1 |
 | `data-embed-show` | 1 | 1 |
-| `data-failed-label` | 2 | 0 |
 | `data-filter-empty` | 1 | 1 |
 | `data-level-0` | 2 | 0 |
 | `data-level-1` | 2 | 0 |
@@ -94,6 +95,7 @@ The bundle is built from 13 ES modules under `src/js/modules/`, compiled into on
 | `consent.js` | `data-consent-open`, `data-embed`, `data-embed-gate`, `data-embed-show` |
 | `form-validation.js` | `data-error-for`, `data-validate` |
 | `header-height.js` | — |
+| `markdown-copy.js` | `data-copy-markdown` |
 | `mobile-nav.js` | `data-nav-close`, `data-nav-scrim`, `data-nav-toggle` |
 | `password-strength.js` | `data-password-strength`, `data-password-strength-echo` |
 | `search-overlay.js` | `data-live-search`, `data-search-close`, `data-search-empty`, `data-search-input`, `data-search-open`, `data-search-overlay`, `data-search-results` |

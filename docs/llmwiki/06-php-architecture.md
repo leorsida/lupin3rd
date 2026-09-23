@@ -137,6 +137,7 @@ private const MODULES = [
 | `Comment_Walker` | `inc/class-comment-walker.php` | comment markup per the prototype |
 | `Archive_Filters` | `inc/class-archive-filters.php` | taxonomy filters, server fallback |
 | `Search` | `inc/class-search.php` | search query, overlay endpoint |
+| `Markdown` | `inc/class-markdown.php` | `<permalink>.md`: il gemello in Markdown, costruito dai blocchi (D-038) |
 | `Seo` | `inc/class-seo.php` | title, description, canonical, Open Graph, robots |
 | `Schema` | `inc/class-schema.php` | JSON-LD |
 | `Geo` | `inc/class-geo.php` | `llms.txt`, citable summaries, crawler policy |

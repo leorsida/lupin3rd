@@ -8,6 +8,8 @@
  * @var string               $content    Inner blocks, already rendered.
  */
 
+use Lupin3rd\Blocks;
+
 defined( 'ABSPATH' ) || exit;
 
 if ( '' === trim( (string) $content ) ) {
@@ -15,12 +17,6 @@ if ( '' === trim( (string) $content ) ) {
 }
 
 $l3_variant = (string) ( $attributes['variant'] ?? 'method' );
-
-$l3_titles = array(
-	'method'     => __( 'Nota di metodo', 'lupin3rd' ),
-	'legal'      => __( 'Informativa legale', 'lupin3rd' ),
-	'correction' => __( 'Correzione', 'lupin3rd' ),
-);
 
 /*
  * The icons carry no meaning a reader needs: the heading says what the box is.
@@ -32,7 +28,7 @@ $l3_icons = array(
 	'correction' => '<path d="M4 12h16"/><path d="M9 7l-5 5 5 5"/>',
 );
 
-$l3_title = $l3_titles[ $l3_variant ] ?? $l3_titles['method'];
+$l3_title = Blocks::notice_title( $l3_variant );
 $l3_icon  = $l3_icons[ $l3_variant ] ?? $l3_icons['method'];
 $l3_class = 'legal' === $l3_variant ? 'callout callout--legal' : 'callout';
 ?>

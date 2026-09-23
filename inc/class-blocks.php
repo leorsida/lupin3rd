@@ -26,6 +26,26 @@ final class Blocks {
 	public const LEGAL_VARIANT = 'legal';
 
 	/**
+	 * The heading a notice carries, by variant.
+	 *
+	 * It lives here rather than in blocks/notice/render.php because the
+	 * Markdown twin of a page has to print the same words: a notice that reads
+	 * «Informativa legale» on the page and «Avviso» in the file would be two
+	 * descriptions of one thing, kept in step by nobody.
+	 *
+	 * @param string $variant Notice variant.
+	 */
+	public static function notice_title( string $variant ): string {
+		$titles = array(
+			'method'            => __( 'Nota di metodo', 'lupin3rd' ),
+			self::LEGAL_VARIANT => __( 'Informativa legale', 'lupin3rd' ),
+			'correction'        => __( 'Correzione', 'lupin3rd' ),
+		);
+
+		return $titles[ $variant ] ?? $titles['method'];
+	}
+
+	/**
 	 * Attach hooks.
 	 */
 	protected function register_hooks(): void {

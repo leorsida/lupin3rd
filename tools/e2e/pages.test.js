@@ -232,5 +232,26 @@ test('the menu says which section you are in, on a single piece too', async () =
 
 	await check(paths.tutorial, /tutorial/i);
 	await check(paths.dossier, /dossier/i);
-	await check('/archivio/', /archivio/i);
+
+	/*
+	 * A category archive, because a category entry is a custom link too and
+	 * takes a different route through section_paths() than a post type does.
+	 */
+	await check('/categoria/crypto/', /crypto/i);
+});
+
+test('the archive is in the footer, and the menu does not pretend otherwise', async () => {
+	/*
+	 * The archive left the top navigation for the footer. This used to assert
+	 * that /archivio/ lit an entry up there, and kept asserting it after the
+	 * move: the menu was right and the test was describing a site that no
+	 * longer existed. What has to stay true is the pair — nothing marked in a
+	 * menu the page is not in, and a way to reach it from the foot of the page.
+	 */
+	const html = await page('/archivio/');
+	const nav = element(html, /<nav[^>]*id="primary-nav"/);
+	const footer = element(html, /<footer/);
+
+	assert.equal(count(nav, /aria-current="page"/), 0, 'the top navigation marks a section the archive is not in');
+	assert.match(footer, /href="[^"]*\/archivio\/?"/, 'the archive is reachable from nowhere');
 });

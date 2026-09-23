@@ -82,11 +82,86 @@ final class Geo {
 			return;
 		}
 
+		/*
+		 * The key carries this file's modification time: the document is now
+		 * assembled from queries as well as from the prose below, and a cached
+		 * copy that outlives a change to the code producing it is a defect that
+		 * looks like a mystery for an afternoon.
+		 */
+		$key  = 'l3_llms_' . (string) ( filemtime( __FILE__ ) ?: 0 );
+		$body = get_transient( $key );
+
+		if ( ! is_string( $body ) || '' === $body ) {
+			$body = $this->llms_txt();
+			set_transient( $key, $body, HOUR_IN_SECONDS );
+		}
+
 		header( 'Content-Type: text/plain; charset=utf-8' );
 		header( 'X-Robots-Tag: noindex' );
 
-		echo $this->llms_txt(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Plain text document, escaped as it is built.
+		echo $body; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Plain text document, escaped as it is built.
 		exit;
+	}
+
+	/**
+	 * Every published piece, with the address of its Markdown twin.
+	 *
+	 * @return array<int, string>
+	 */
+	private function pieces(): array {
+		$sections = array(
+			__( 'Notizie', 'lupin3rd' )  => 'post',
+			__( 'Tutorial', 'lupin3rd' ) => Content_Types::TUTORIAL,
+			__( 'Dossier', 'lupin3rd' )  => Content_Types::DOSSIER,
+			__( 'Pagine', 'lupin3rd' )   => 'page',
+		);
+
+		$lines = array();
+
+		foreach ( $sections as $heading => $type ) {
+			$query = new \WP_Query(
+				array(
+					'post_type'              => $type,
+					'post_status'            => 'publish',
+					'posts_per_page'         => 200,
+					'orderby'                => 'date',
+					'order'                  => 'DESC',
+					'has_password'           => false,
+					'ignore_sticky_posts'    => true,
+					'no_found_rows'          => true,
+					'update_post_term_cache' => false,
+				)
+			);
+
+			$entries = array();
+
+			foreach ( $query->posts as $post ) {
+				if ( ! $post instanceof \WP_Post ) {
+					continue;
+				}
+
+				$url = Markdown::url( $post );
+
+				if ( '' === $url ) {
+					continue;
+				}
+
+				$title   = Template_Tags::to_plain_text( get_the_title( $post ) );
+				$summary = Template_Tags::to_plain_text( (string) $post->post_excerpt );
+				$entry   = sprintf( '- [%s](%s)', $title, $url );
+
+				$entries[] = '' === $summary ? $entry : $entry . ': ' . $summary;
+			}
+
+			if ( $entries ) {
+				$lines[] = '### ' . $heading;
+				$lines[] = '';
+				$lines   = array_merge( $lines, $entries );
+				$lines[] = '';
+			}
+		}
+
+		return $lines;
 	}
 
 	/**
@@ -136,11 +211,25 @@ final class Geo {
 			'- Chi siamo: ' . $home . 'chi-siamo/',
 			'- Linee guida: ' . $home . 'linee-guida/',
 			'',
+			'## In Markdown',
+			'',
+			'Ogni pezzo pubblicato risponde anche al proprio indirizzo con .md in fondo:',
+			'stesso testo, senza navigazione, con titolo, autore, data, URL canonico e',
+			'licenza in testa al file. L\'elenco che segue punta lì.',
+			'',
+		);
+
+		$lines = array_merge( $lines, $this->pieces() );
+
+		$lines = array_merge(
+			$lines,
+			array(
 			'## Contatti',
 			'',
 			'Materiale sensibile: solo via email cifrata con PGP. Mai dai commenti, mai da',
 			'un modulo di contatto.',
 			'',
+			)
 		);
 
 		return implode( "\n", $lines );
