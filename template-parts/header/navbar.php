@@ -94,7 +94,7 @@ defined( 'ABSPATH' ) || exit;
 			 * with no JavaScript gets, instead of a button that shrugs.
 			 */
 			?>
-			<button class="icon-btn nav-burger" type="button" data-nav-toggle hidden
+			<button class="icon-btn nav-burger" type="button" data-nav-toggle
 				aria-label="<?php esc_attr_e( 'Menu', 'lupin3rd' ); ?>" aria-expanded="false" aria-controls="primary-nav">
 				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
 					<path d="M4 7h16M4 12h16M4 17h16"></path>

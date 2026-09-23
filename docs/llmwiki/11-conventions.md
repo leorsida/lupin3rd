@@ -92,6 +92,11 @@ autoloader.
 - Behaviour binds to `data-*` attributes only, never to a class or an id.
   Classes belong to the visual system and must stay free to change.
 - Every module returns early when its hook is absent from the page.
+- Un modulo cambia **comportamento**, non **geometria**. Una differenza che si
+  vede nel layout la deve esprimere il CSS, a partire da uno stato messo su
+  `<html>` prima del paint — `no-js`, come fa lo snippet nella testa. Un modulo
+  che aggiunge una classe di layout al caricamento, o che toglie un `hidden`,
+  sta disegnando la pagina una seconda volta: vedi D-039.
 - Every feature has a server-side fallback. A page with JavaScript disabled
   loses polish, never function.
 - The editor bundle `js/lupin3rd-editor.js` is separate and is never served to

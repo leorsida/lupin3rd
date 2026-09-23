@@ -3,11 +3,11 @@
  *
  * Two things about the order of events here matter more than the animation.
  *
- * The server renders the menu as a stacked list in normal flow and the button
- * that opens it as `hidden`. This module is what turns the list into a panel
- * (`is-drawer`) and reveals the button. So a reader whose script never arrives
- * gets a long menu under the bar — every link reachable, no control that
- * shrugs — instead of a button that does nothing.
+ * Whether the menu is a panel or a list under the bar is decided by the
+ * stylesheet, from the `no-js` class that the snippet in the head removes
+ * before the first paint — not here. This module used to decide it, and the
+ * page paid for it with a layout shift: painted once as a list, once as a
+ * panel. What is left here is behaviour, which is all a module should carry.
  *
  * And a drawer is a trap for the keyboard if nobody keeps focus inside it: the
  * links behind it are still in the tab order, so Tab walks out of the panel and
@@ -27,8 +27,6 @@ export default function initMobileNav() {
 	}
 
 	/* From here on there is something that can open the panel, so it may close. */
-	nav.classList.add('is-drawer');
-	button.hidden = false;
 	nav.querySelectorAll('[data-nav-close]').forEach((close) => {
 		close.hidden = false;
 	});

@@ -96,21 +96,35 @@ mark { background: var(--accent-soft); color: var(--fg); padding: 0 3px; }
 
 /* The drawer.
  *
- * Two states, and which one applies is decided by the script, not by the width.
- * Until it runs, the menu below the breakpoint is a stacked list in normal flow:
- * every link reachable, nothing behind a button. `is-drawer` is added by the
- * module that can open it, and only then does the panel leave the page. */
+ * Two states, and which one applies is decided by `no-js` on <html> — dropped
+ * by the snippet in the head before the first paint — and not by the script
+ * that opens the panel. The difference is not academic: while the module added
+ * `is-drawer` itself, the page below the breakpoint was painted once with the
+ * menu as a list in normal flow and again without it, and everything under the
+ * header jumped up by the height of that list. It measured as a Cumulative
+ * Layout Shift of 0.4, which is to say: the worst number on the page.
+ *
+ * A reader whose script never arrives still gets the list: every link
+ * reachable, nothing behind a button that would not answer. That promise is
+ * what `no-js` keeps; what it no longer costs is a second layout for everybody
+ * else. */
 @media (max-width: 1080px) {
   .topnav-inner { flex-wrap: wrap; }
-  .nav-burger { display: grid; }
-  .topnav nav {
+  .topnav nav a { border-bottom: 1px solid var(--border); padding: 14px 0; }
+
+  /* No script: the menu is a list under the bar, and the button that would
+   * open a panel is not there to be pressed. */
+  .no-js .nav-burger { display: none; }
+  .no-js .topnav nav {
     order: 3; flex-basis: 100%;
     flex-direction: column; gap: 0;
     padding-bottom: var(--gap-md);
   }
-  .topnav nav a { border-bottom: 1px solid var(--border); padding: 14px 0; }
 
-  .topnav nav.is-drawer {
+  /* Script: the panel is off the page from the first paint. */
+  html:not(.no-js) .nav-burger { display: grid; }
+  html:not(.no-js) .topnav nav {
+    flex-direction: column; gap: 0;
     position: fixed; inset: 0 0 0 auto; z-index: 60;
     width: min(86vw, 360px);
     padding: var(--gap-md) var(--gutter) var(--gap-2xl);
@@ -119,7 +133,7 @@ mark { background: var(--accent-soft); color: var(--fg); padding: 0 3px; }
     transform: translateX(101%);
     transition: transform .24s ease;
   }
-  .topnav nav.is-drawer.is-open { transform: translateX(0); }
+  html:not(.no-js) .topnav nav.is-open { transform: translateX(0); }
 
   .nav-extra {
     order: -1; display: flex; align-items: center; gap: var(--gap-md);
@@ -165,5 +179,5 @@ html.nav-locked, html.nav-locked body { overflow: hidden; }
 html.nav-locked .topnav { z-index: var(--z-modal); }
 
 @media (prefers-reduced-motion: reduce) {
-  .topnav nav.is-drawer, .nav-scrim { transition: none; }
+  html:not(.no-js) .topnav nav, .nav-scrim { transition: none; }
 }

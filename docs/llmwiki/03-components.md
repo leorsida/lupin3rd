@@ -28,7 +28,7 @@ The order is the order of `@use` in `src/sass/lupin3rd.scss`, and it is not alph
 | 2 | `_reset.scss` | Reset and base | 19 |
 | 3 | `_layout.scss` | Layout primitives | 26 |
 | 4 | `_typography.scss` | Typography | 19 |
-| 5 | `_navbar.scss` | Status bar and navigation | 45 |
+| 5 | `_navbar.scss` | Status bar and navigation | 48 |
 | 6 | `_buttons.scss` | Buttons | 15 |
 | 7 | `_cards.scss` | Cards and surfaces | 3 |
 | 8 | `_marks.scss` | Generative marks (used instead of photographs) | 10 |
@@ -151,7 +151,7 @@ The order is the order of `@use` in `src/sass/lupin3rd.scss`, and it is not alph
 
 ## Status bar and navigation
 
-`src/sass/partials/_navbar.scss` — 45 selectors
+`src/sass/partials/_navbar.scss` — 48 selectors
 
 - `.statusbar`
 - `.statusbar .container`
@@ -187,8 +187,11 @@ The order is the order of `@use` in `src/sass/lupin3rd.scss`, and it is not alph
 - `mark`
 - `.nav-extra`
 - `.nav-account`
-- `.topnav nav.is-drawer`
-- `.topnav nav.is-drawer.is-open`
+- `.no-js .nav-burger`
+- `.no-js .topnav nav`
+- `html:not(.no-js) .nav-burger`
+- `html:not(.no-js) .topnav nav`
+- `html:not(.no-js) .topnav nav.is-open`
 - `.nav-extra .nav-close`
 - `.nav-account .nav-account-name`
 - `.nav-account a:not(.btn)`

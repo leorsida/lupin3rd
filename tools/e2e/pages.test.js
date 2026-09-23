@@ -200,17 +200,25 @@ test('the cover behind the lead is fetched at once, not lazily', async () => {
 
 test('the menu is reachable without the script that turns it into a drawer', async () => {
 	/*
-	 * The server renders the menu as a plain list and the button that opens it
-	 * as `hidden`; the module adds `is-drawer` and reveals the button. Shipping
-	 * it the other way round — panel off-screen, revealed by script — hides the
-	 * whole navigation behind a file that may not arrive.
+	 * Which shape the navigation takes is decided by `no-js` on <html>, which
+	 * the snippet in the head removes before the first paint — so a reader with
+	 * a script gets the panel laid out once, and a reader without one gets the
+	 * list. It used to be decided by the module, and the page was laid out
+	 * twice: the list, then the panel, and everything below jumped. That was
+	 * the whole of a Cumulative Layout Shift of 0.4 on a phone.
+	 *
+	 * What must not come back is the other arrangement — panel off-screen in
+	 * the markup, revealed by script — which hides the navigation behind a file
+	 * that may never arrive.
 	 */
 	const html = await page('/');
 	const nav = element(html, /<nav[^>]*id="primary-nav"/);
 
 	assert.ok(nav, 'no primary navigation');
-	assert.doesNotMatch(nav, /class="[^"]*is-drawer/, 'the panel ships off-screen');
-	assert.match(html, /<button[^>]*data-nav-toggle[^>]*\bhidden\b/, 'the burger ships usable but inert');
+	assert.match(html, /<html[^>]*class="[^"]*\bno-js\b/, 'the markup does not ship no-js, so the drawer cannot be styled before paint');
+	assert.match(html, /<script>document\.documentElement\.classList\.remove\("no-js"\)/, 'nothing removes no-js before the first paint');
+	assert.doesNotMatch(html, /is-drawer/, 'the drawer is a class again, which means the layout is decided after paint');
+	assert.doesNotMatch(html, /<button[^>]*data-nav-toggle[^>]*\bhidden\b/, 'the burger ships hidden, which is a second layout waiting to happen');
 	assert.match(html, /<div class="nav-scrim"[^>]*\bhidden\b/, 'the backdrop ships visible');
 });
 

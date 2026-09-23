@@ -24,11 +24,16 @@ final class Assets {
 	 * The inline snippet that applies the stored colour scheme.
 	 *
 	 * It has to run before the first paint, or the page flashes light before
-	 * turning dark. Keep it on one line and free of trailing whitespace: its
-	 * SHA-256 hash is what the Content-Security-Policy allows, and one changed
-	 * byte makes the browser refuse it. Recompute with tools/csp-hash.php.
+	 * turning dark. It also drops `no-js` from <html>, which is what tells the
+	 * stylesheet that the navigation may be a drawer: doing that here rather
+	 * than in the bundle is the difference between laying the page out once and
+	 * laying it out twice, and the second layout is a shift the reader sees.
+	 *
+	 * Keep it on one line and free of trailing whitespace: its SHA-256 hash is
+	 * what the Content-Security-Policy allows, and one changed byte makes the
+	 * browser refuse it. Recompute with tools/csp-hash.php.
 	 */
-	private const THEME_SNIPPET = 'try{var t=localStorage.getItem("l3-theme");if(t==="light"||t==="dark"){document.documentElement.setAttribute("data-theme",t)}}catch(e){}';
+	private const THEME_SNIPPET = 'document.documentElement.classList.remove("no-js");try{var t=localStorage.getItem("l3-theme");if(t==="light"||t==="dark"){document.documentElement.setAttribute("data-theme",t)}}catch(e){}';
 
 	/**
 	 * Attach hooks.

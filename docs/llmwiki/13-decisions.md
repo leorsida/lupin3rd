@@ -855,3 +855,40 @@ template e non il post. E la cache del Markdown ha in chiave il `filemtime()` di
 `class-markdown.php` oltre alla data di modifica del post: senza, una regola
 corretta nel walker resta invisibile finché il transient non scade, che è il
 modo più rapido di passare un pomeriggio a cercare un difetto già risolto.
+
+## D-039 — Il layout lo decide il CSS prima del paint, non un modulo dopo
+
+**Decided:** 23.09.2026 · **Status:** accepted · **Phase:** 1
+
+`<html>` nasce con `class="no-js"`, e lo snippet che `Assets` stampa per primo
+nella testa lo toglie prima del primo paint — lo stesso snippet che applica già
+il tema scuro, per lo stesso motivo. Il foglio di stile decide da lì: con
+JavaScript il menu sotto il breakpoint è un pannello fuori dal flusso fin dal
+primo paint, senza JavaScript resta un elenco sotto la barra.
+
+**Il difetto che l'ha provocata.** `mobile-nav.js` aggiungeva `is-drawer` e
+rivelava il burger *dopo* il caricamento. Su telefono la pagina veniva quindi
+disegnata due volte: prima con duecento pixel di menu nel flusso sopra il
+contenuto, poi senza. PageSpeed lo misurava come **Cumulative Layout Shift
+0.404**, il numero peggiore della pagina. Non era un errore di scrittura: era
+la conseguenza diretta di una scelta giusta — far funzionare il menu anche
+senza script — pagata nel posto sbagliato.
+
+La promessa non cambia: chi non ha JavaScript trova tutti i link, e nessun
+pulsante che non risponde. Cambia chi la paga. Prima la pagavano tutti, con un
+salto; ora la paga il foglio di stile, con un selettore.
+
+**Conseguenze da ricordare:**
+
+- Lo snippet inline è cambiato, quindi **l'hash della CSP va ricalcolato**
+  (`tools/csp-hash.py`) il giorno che la CSP viene accesa.
+- `is-drawer` non esiste più. Il pannello è `html:not(.no-js) .topnav nav`, e
+  `is-open` resta l'unico stato che il modulo tocca.
+- Il burger non nasce più `hidden`: lo nasconde il CSS quando manca lo script.
+  Un attributo `hidden` tolto da JavaScript è, per definizione, un secondo
+  layout in attesa di succedere.
+
+Regola generale che ne discende, ed è quella che vale oltre questo caso: **un
+modulo JavaScript può cambiare comportamento, non geometria.** Se una differenza
+si vede nel layout, deve poterla esprimere il CSS — e lo stato da cui dipende va
+messo su `<html>` prima che il browser disegni.
