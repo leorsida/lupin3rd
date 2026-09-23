@@ -24,6 +24,12 @@ authoritative where the prototype and the code disagree.
 | Tutorial | `articolo.html` | `single-tutorial.php` | `/tutorial/<slug>/` | 1 |
 | Dossier | — | `single-dossier.php` | `/dossier/<slug>/` | 1 |
 | Static page | `chi-siamo.html`, `linee-guida.html`, `cassetta-sicura.html` | `page.php` | `/<slug>/` | 1 |
+
+Una pagina statica con **tre o più `h2`** prende la stessa colonna laterale
+con l'indice degli articoli (`template-parts/single/table-of-contents.php`),
+e sotto quella soglia resta a colonna singola. Gli `id` sugli `h2` vengono
+aggiunti comunque, quindi i link diretti a una sezione funzionano anche senza
+indice.
 | Search results | `risultati-ricerca.html` | `search.php` | `/?s=` | 1 |
 | Not found | `pagina-404.html` | `404.php` | — | 1 |
 | Community | `comunita.html` | `page-templates/template-community.php` | `/community/` | 2 |

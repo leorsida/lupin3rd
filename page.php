@@ -2,7 +2,12 @@
 /**
  * A static page.
  *
- * Title, standfirst, body. No sidebar: these pages are read, not browsed.
+ * Title, standfirst, body. No sidebar of widgets: these pages are read, not
+ * browsed. The one exception is the index — a page with three or more h2
+ * headings is a piece with sections, and a reader who has to find «come
+ * segnalare un errore» halfway down deserves the same index an article gets.
+ * Below that the page stays a single column: an empty aside, or one holding a
+ * list of two links, is worse than no aside.
  *
  * @package Lupin3rd
  */
@@ -15,6 +20,22 @@ get_header();
 
 while ( have_posts() ) :
 	the_post();
+
+	/*
+	 * One pass over the rendered content: it adds the ids to the h2 headings
+	 * and hands back the list the index is built from. The content is then
+	 * printed from here rather than through the_content(), because printing it
+	 * again would run the filters a second time and lose the ids this pass
+	 * added.
+	 */
+	$l3_parsed = Template_Tags::extract_headings( (string) apply_filters( 'the_content', get_the_content() ) );
+
+	/*
+	 * Three sections is where an index starts being worth its column. Below
+	 * that it is a list of one or two links next to a page the reader can see
+	 * the end of, and it costs the full width of the aside to say nothing.
+	 */
+	$l3_index = count( $l3_parsed['headings'] ) >= 3 ? $l3_parsed['headings'] : array();
 	?>
 
 	<article class="section">
@@ -41,16 +62,33 @@ while ( have_posts() ) :
 				<?php endif; ?>
 			</header>
 
-			<div class="prose">
-				<?php the_content(); ?>
-				<?php
-				wp_link_pages(
-					array(
-						'before' => '<nav class="pagination">',
-						'after'  => '</nav>',
-					)
-				);
-				?>
+			<div class="<?php echo $l3_index ? 'grid-main-side' : 'stack'; ?>">
+				<div class="stack stack-lg">
+					<div class="prose">
+						<?php
+						/*
+						 * Printed without kses: this string is already the output of
+						 * the_content filters, and running kses over it would strip
+						 * exactly what the theme's own blocks depend on.
+						 */
+						echo $l3_parsed['content']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+						?>
+						<?php
+						wp_link_pages(
+							array(
+								'before' => '<nav class="pagination">',
+								'after'  => '</nav>',
+							)
+						);
+						?>
+					</div>
+				</div>
+
+				<?php if ( $l3_index ) : ?>
+					<aside>
+						<?php get_template_part( 'template-parts/single/table-of-contents', null, array( 'headings' => $l3_index ) ); ?>
+					</aside>
+				<?php endif; ?>
 			</div>
 		</div>
 	</article>
