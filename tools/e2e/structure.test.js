@@ -142,3 +142,28 @@ test('an empty state spans the whole list it replaces', async () => {
 	assert.ok(grid, 'no members grid on /community/');
 	assert.match(grid, /class="emptystate hidden"/, 'the grid carries no empty state to reveal');
 });
+
+test('the narrow layout cannot be pushed wider than the screen', async () => {
+	/*
+	 * A grid track written `1fr` means `minmax(auto, 1fr)`, and that `auto`
+	 * minimum is the item's min-content: the track cannot become narrower than
+	 * the widest thing inside it. In an article that thing is a line of shell
+	 * in a code block, which has `white-space: pre` and therefore no wrapping
+	 * opportunity at all — so the whole page stopped shrinking and every phone
+	 * scrolled sideways. Measured on the live site: the document refused to go
+	 * below 539px.
+	 *
+	 * The stylesheet is the only place this can be asserted without a browser,
+	 * so it is asserted there: no bare `1fr` in the rules that collapse the
+	 * layout for a narrow screen.
+	 */
+	const css = await page('/wp-content/themes/lupin3rd/css/lupin3rd.css');
+	const narrow = /@media\s*\(max-width:\s*920px\)\s*\{([\s\S]*?)\n\}/.exec(css);
+
+	assert.ok(narrow, 'the narrow-screen media query is gone');
+	assert.doesNotMatch(
+		narrow[1],
+		/grid-template-columns:\s*1fr\s*;/,
+		'a narrow-screen grid track is a bare 1fr, so its minimum is its content'
+	);
+});

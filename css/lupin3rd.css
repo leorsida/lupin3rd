@@ -330,8 +330,22 @@ main > .section-tight:last-child {
 }
 
 @media (max-width: 920px) {
+  /* `minmax(0, 1fr)`, never a bare `1fr`.
+   *
+   * `1fr` is shorthand for `minmax(auto, 1fr)`, and that `auto` minimum is the
+   * item's min-content width: a track written that way cannot become narrower
+   * than the widest thing inside it. On a phone the widest thing in an article
+   * is a line of shell in a code block — `white-space: pre`, so it has no
+   * wrapping opportunity and its min-content is the whole line.
+   *
+   * The wide layout above had this right and the narrow one did not, which is
+   * the wrong way round: measured on /tutorial/autenticazione-ssh…/, the
+   * document refused to go below 539px, so every phone got a page 150px wider
+   * than its screen and scrolled sideways. With the minimum at 0 the track
+   * follows the screen, the `pre` keeps its own `overflow-x: auto`, and the
+   * long line scrolls inside the block where it belongs. */
   .grid-2, .grid-3, .grid-4, .grid-2-1, .grid-1-2, .grid-main-side, .split-feature {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
   .split-feature {
     gap: 26px;
