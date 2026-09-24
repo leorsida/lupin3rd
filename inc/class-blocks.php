@@ -201,7 +201,7 @@ final class Blocks {
 
 		return new \WP_Error(
 			'l3_missing_legal_notice',
-			__( 'Un tutorial non viene pubblicato senza il riquadro con l\'informativa legale. Aggiungi un blocco Avviso con variante «informativa legale» e riprova.', 'lupin3rd' ),
+			__( 'Un tutorial non viene pubblicato senza il riquadro con l\'informativa legale. Se l\'Avviso c\'è già, controlla la variante: la barra laterale del blocco ha «Avviso → Variante», e quella predefinita è «Nota di metodo».', 'lupin3rd' ),
 			array( 'status' => 400 )
 		);
 	}
