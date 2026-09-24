@@ -159,12 +159,32 @@ final class Security {
 	}
 
 	/**
-	 * Remove the user endpoints entirely.
+	 * Remove the user endpoints for everybody who is not the desk.
+	 *
+	 * Core leaves `GET /wp/v2/users` open: read its
+	 * `get_items_permissions_check()` to the end and the last line is
+	 * `return true`. That is the endpoint that hands out the list of people who
+	 * have published here, and this site does not hand that out.
+	 *
+	 * But removing the route outright removed it from wp-admin too, and the
+	 * block editor builds the «Autore» list from exactly this route: the desk
+	 * opened a piece and found the author list empty, including themselves.
+	 * A door locked against the public was locked against the people who live
+	 * here.
+	 *
+	 * So the rule is a capability, not an address. Somebody who can write here
+	 * sees the route; a signed-in member, a closed account and a stranger do
+	 * not — and for a stranger the request never gets this far anyway, because
+	 * anonymous REST is refused above.
 	 *
 	 * @param array<string, mixed> $endpoints REST endpoints.
 	 * @return array<string, mixed>
 	 */
 	public function remove_user_endpoints( array $endpoints ): array {
+		if ( current_user_can( 'edit_posts' ) ) {
+			return $endpoints;
+		}
+
 		unset( $endpoints['/wp/v2/users'], $endpoints['/wp/v2/users/(?P<id>[\d]+)'] );
 
 		return $endpoints;
