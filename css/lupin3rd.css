@@ -687,8 +687,17 @@ h1 + .kicker, h2 + .kicker, h3 + .kicker {
  * worth designing for: wordmark plus three 44px controls plus the gutter still
  * fits on one line. */
 @media (max-width: 640px) {
+  /* Il wordmark segue la larghezza dello schermo invece di fidarsi di una
+   * misura presa su un telefono solo: a 360px vale circa 23px, a 430 torna ai
+   * 27 di prima. Con `clamp()` la riga non può più dipendere da come un
+   * browser rende quel carattere. */
   .logo {
-    font-size: 27px;
+    font-size: clamp(21px, 6.4vw, 27px);
+  }
+  /* Lo spazio fra marchio e controlli era 32px: su una riga da 360 sono il
+   * dieci per cento dello schermo speso in vuoto proprio dove manca. */
+  .topnav-inner {
+    gap: var(--gap-sm);
   }
 }
 @media (max-width: 480px) {
@@ -724,8 +733,17 @@ mark {
  * what `no-js` keeps; what it no longer costs is a second layout for everybody
  * else. */
 @media (max-width: 1080px) {
-  .topnav-inner {
+  /* La riga della testata va a capo solo dove serve davvero: senza script, per
+   * far posto all'elenco dei link sotto la barra. Con lo script il pannello è
+   * fuori dal flusso e in quella riga ci stanno solo marchio e controlli, che
+   * devono restare affiancati — su alcuni telefoni ci stavano per otto pixel,
+   * e otto pixel non sono un progetto: basta un browser che disegni il
+   * wordmark un filo più largo e i controlli finiscono sotto il titolo. */
+  .no-js .topnav-inner {
     flex-wrap: wrap;
+  }
+  html:not(.no-js) .topnav-inner {
+    flex-wrap: nowrap;
   }
   .topnav nav a {
     border-bottom: 1px solid var(--border);
